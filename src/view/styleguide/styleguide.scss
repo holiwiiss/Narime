@@ -1,0 +1,40 @@
+:root {
+    --color-primary:#B0413E;
+    --color-secondary: #548687;
+    --color-white: #FFFFC7;
+    --color-black: #473335;
+}
+
+.display-colores {
+    display: flex;
+    gap: 1rem;
+}
+
+.color {
+    height: 150px;
+    width: 150px;
+    border-radius: 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.color1 {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+.color2 {
+    background-color: var(--color-white);
+}
+
+.color3 {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+}
+.color4 {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
