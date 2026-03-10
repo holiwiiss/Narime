@@ -1,10 +1,10 @@
-import { register } from "../../firebase/services/authService";
+import { register, loginWithGoogle } from "../../firebase/services/authService";
 import { useState } from "react";
 import { sileo } from "sileo";
 
 import "./register.scss"
 
-const Register = () => {
+const RegisterPage = () => {
 
     const [formData, setFormData] = useState({
         userName: '',
@@ -84,6 +84,16 @@ const Register = () => {
         }
     }
 
+    const loginGoogle = async() => {
+        const {user, error} = await loginWithGoogle()
+
+        if(error){
+            console.log('error' + error)
+        }else{
+            console.log('sesion iniciada ' + user)
+        }
+    }
+
     return(
         <>
 
@@ -112,9 +122,10 @@ const Register = () => {
                 <span>{errors.errorTerms}</span>
 
                 <button onClick={validateForm}>Registrarse</button>
+                <button onClick={loginGoogle}>Continua con google</button>
             </div>
         </>
     )
 }
 
-export default Register
+export default RegisterPage

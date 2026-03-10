@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom"
 import StyleGuide from "./view/styleguide/StyleGuide"
-import Login from "./view/login/Login"
-import Register from './view/register/Register'
+import LoginPage from "./view/login/LoginPage"
+import RegisterPage from './view/register/RegisterPage'
 import {Toaster } from "sileo";
 import './App.css'
 
@@ -15,11 +15,11 @@ function App() {
       </Routes>
 
       <Routes>
-        <Route path='/login' element={<Login/>}/>
+        <Route path='/login' element={<LoginPage/>}/>
       </Routes>
 
       <Routes>
-        <Route path='/register' element={<Register/>}/>
+        <Route path='/register' element={<RegisterPage/>}/>
       </Routes>
     </>
   )

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { login } from "../../firebase/services/authService";
+import { login, loginWithGoogle } from "../../firebase/services/authService";
 import "./login.scss"
-const Login = () => {
+const LoginPage = () => {
 
     const [formData, setFormData] = useState({
         userEmail:'',
@@ -54,6 +54,16 @@ const Login = () => {
         }
     }
 
+    const loginGoogle = async() => {
+        const {user, error} = await loginWithGoogle()
+
+        if(error){
+            console.log('error' + error)
+        }else{
+            console.log('sesion iniciada ' + user)
+        }
+    }
+
     return(
         <>
             <div className="colunm">
@@ -66,9 +76,11 @@ const Login = () => {
                 <span>{errors.errorPassword}</span>
 
                 <button onClick={validateForm}>Iniciar sesión</button>
+                <button onClick={loginGoogle}>Inicia sesión con google</button>
+                <span></span>
             </div>
         </>
     )
 }
 
-export default Login
+export default LoginPage
