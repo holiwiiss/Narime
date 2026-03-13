@@ -4,14 +4,15 @@ import LoginPage from "./view/login/LoginPage"
 import RegisterPage from './view/register/RegisterPage'
 import {Toaster } from "sileo";
 import './App.css'
+import DirectoryPage from "./view/directory/DirectoryPage";
 
 function App() {
 
   return (
     <>
-    <Toaster position="top-right" />
+    <Toaster position='top-right' />
       <Routes>
-        <Route path="/style-guide" element={<StyleGuide/>}/>
+        <Route path='/style-guide' element={<StyleGuide/>}/>
       </Routes>
 
       <Routes>
@@ -20,6 +21,10 @@ function App() {
 
       <Routes>
         <Route path='/register' element={<RegisterPage/>}/>
+      </Routes>
+
+      <Routes>
+        <Route path='/directory' element={<DirectoryPage/>}/>
       </Routes>
     </>
   )
