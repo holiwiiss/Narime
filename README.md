@@ -53,6 +53,9 @@ La app se ejecutará en: http://localhost:5173
 
 #### Rutas disponibles
  -http://localhost:5173/login: incio de sesion
+
  -http://localhost:5173/register: Registro de usuario
+
  -http://localhost:5173/directory: pruebas de llamada a la API JIKAN Anime
+ 
  -http://localhost:5173/style-guide: guia de estilos
