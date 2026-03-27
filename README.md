@@ -1,73 +1,58 @@
-# React + TypeScript + Vite
+# 🌸 Narime
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Narime es una plataforma de seguimiento de anime que permite a los usuarios gestionar su progreso, organizar sus listas personales y descubrir nuevo contenido de forma intuitiva.
 
-Currently, two official plugins are available:
+El proyecto está inspirado en **MyAnimeList**, con el objetivo de ofrecer una experiencia más moderna, limpia y centrada en el usuario.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Actualmente el proyecto se encuentra en fase temprana (MVP) con autenticación implementada.
 
-## React Compiler
+## ✨ Estado del proyecto
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Actualmente incluye:
 
-## Expanding the ESLint configuration
+- Registro de usuarios con email y contraseña
+- Login con Google
+- Sistema de rutas base
+- Estructura inicial del directorio
+- Guía de estilos (Style Guide)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🧰 Tecnologías usadas
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Frontend
+- React
+- TypeScript
+- React Router
+- React Hook Form
+- SCSS
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Backend / Servicios
+- Firebase Authentication
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### UI / UX
+- Sileo (notificaciones toast)
+
+## 📦 Instalación
+
+### 1️⃣ Clonar el repositorio
+
+```bash
+git clone https://github.com/holiwiiss/narime.git
+cd narime
+npm install
 ```
+### Variables de entorno
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Este proyecto usa Firebase, por lo que necesitas crear un archivo .env en la raíz del proyecto.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Ejecutar el proyecto
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+La app se ejecutará en: http://localhost:5173
+
+#### Rutas disponibles
+ -http://localhost:5173/login: incio de sesion
+ -http://localhost:5173/register: Registro de usuario
+ -http://localhost:5173/directory: pruebas de llamada a la API JIKAN Anime
+ -http://localhost:5173/style-guide: guia de estilos
