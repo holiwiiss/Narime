@@ -1,86 +1,80 @@
-import { useState } from "react";
-import { loginFirebase, loginWithGoogle } from "../../firebase/services/authService";
-import "./login.scss"
+import { loginFirebase, loginWithGoogle} from "../../firebase/services/authService";
+import{ useForm } from "react-hook-form"
+import type { SubmitHandler } from "react-hook-form"
+import { sileo } from "sileo";
+
+import "./login.scss";
+
+type Inputs = {
+  email: string;
+  password: string;
+};
+
 const LoginPage = () => {
 
-    const [formData, setFormData] = useState({
-        userEmail:'',
-        userPassword:''
-    })
+  const{
+    register,
+    handleSubmit,
+    formState: {errors},
+  } = useForm<Inputs>();
 
-    const [errors, setErrors] = useState({
-        errorEmail:'',
-        errorPassword: '',
-    })
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    await validateFirebase(data.email, data.password)
+  }
 
-    const validateForm = async () => {
-        let isCorrect = true
-        const errorsValidation = { errorEmail:'', errorPassword:''}
+  const validateFirebase = async (email:string, password:string) => {
+    const { user, error } = await loginFirebase(email, password);
+      if(error){
+        sileo.error({ 
+          title: "Ha habido un problema en la creación del usuario", 
+          fill: "#171717" 
+        });
+      }else {
+        console.log("Iniciada sesión en:", user);
+      }
+  }
 
-        if(!formData.userEmail){
-            isCorrect = false
-            errorsValidation.errorEmail = 'Introduce un correo electrónico'
-        }
-
-        if(!formData.userPassword || formData.userPassword.length < 6){
-            isCorrect = false
-            errorsValidation.errorPassword = 'La contraseña no es válida'
-        }
-
-        setErrors(errorsValidation)
-
-        if(isCorrect){
-            validateFirebase()
-        }
+  const loginGoogle = async () => {
+    const { user, error } = await loginWithGoogle();
+    
+    if (error) {
+      console.log("error" + error);
+    } else {
+      console.log("sesion iniciada " + user);
     }
+  };
 
-    const validateFirebase = async () => {
-        const { user, error } = await loginFirebase(formData.userEmail, formData.userPassword);
+  return (
+    <>
+      <div className="colunm">
+        <form onSubmit={handleSubmit(onSubmit)} className="colunm">
+          <label>Email</label>
+          <input
+            type="email"
+            {...register('email', { 
+              required: 'Este campo es obligatorio', 
+            })}
+          ></input>
+          {errors.email && <span>{errors.email.message}</span>}
 
-        if(error){
-            if(error.code ==='auth/invalid-email'){
-                setErrors(prev => ({ ...prev, errorEmail: "Correo electrónico inválido" }));
-            }else if(error.code ==='auth/user-disabled'){
-                setErrors(prev => ({ ...prev, errorEmail: "Usuario deshabilitado" }));
-            }else if(error.code ==='auth/user-not-found'){
-                setErrors(prev => ({ ...prev, errorEmail: "El correo electrónico no existe"}));
-            }else if(error.code ==='auth/wrong-password'){
-                setErrors(prev => ({ ...prev, errorPassword: "La contraseña no coincide"}));
-            }else{
-                setErrors(prev => ({ ...prev, errorPassword: "Ha habido algún error"}));
-            }   
-        }else {
-            console.log("Iniciada sesión en:", user);
-        }
-    }
+          <label>Contraseña</label>
+          <input
+            type='password'
+            {...register('password', { 
+              required: 'Este campo es obligatorio', 
+              minLength: {value: 6, message: 'La contraseña debe tener al  menos 6 carácteres'},
+              pattern: {value: /^(?=.*[A-Z])(?=.*\d).+$/, message: "Debe tener una mayúscula y un número"}
+            })}
+          ></input>
+          {errors.password && <span>{errors.password.message}</span>}
 
-    const loginGoogle = async() => {
-        const {user, error} = await loginWithGoogle()
+          <button type="submit">Iniciar sesión</button>
+        </form>
 
-        if(error){
-            console.log('error' + error)
-        }else{
-            console.log('sesion iniciada ' + user)
-        }
-    }
+        <button onClick={loginGoogle}>Inicia sesión con google</button>
+      </div>
+    </>
+  );
+};
 
-    return(
-        <>
-            <div className="colunm">
-                <label>Email</label>
-                <input type="email" onChange={e => setFormData(prev => ({...prev, userEmail: e.target.value}))}></input>
-                <span>{errors.errorEmail}</span>
-
-                <label>Contraseña</label>
-                <input type="password" onChange={e => setFormData(prev => ({...prev, userPassword: e.target.value}))}></input>
-                <span>{errors.errorPassword}</span>
-
-                <button onClick={validateForm}>Iniciar sesión</button>
-                <button onClick={loginGoogle}>Inicia sesión con google</button>
-                <span></span>
-            </div>
-        </>
-    )
-}
-
-export default LoginPage
+export default LoginPage;

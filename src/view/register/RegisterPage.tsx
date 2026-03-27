@@ -22,6 +22,11 @@ const RegisterPage = () => {
   } = useForm<Inputs>();
 
   const passwordValue = watch("password");
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {   
+    await validateRegister(data.email, data.password)
+  }
+  
   const validateRegister = async (email:string , password:string) => {
 
     const { user, error } = await registerFirebase(email, password);
@@ -34,15 +39,13 @@ const RegisterPage = () => {
     sileo.success({ title: "Usuario creado correctamente", fill: "#171717" });
   }
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {   
-    await validateRegister(data.email, data.password)
-  }
+  
 
   const loginGoogle = async() => {
     const {user, error} = await loginWithGoogle()
 
     if(error){
-       console.log('error' + error)
+      console.log('error' + error)
     }else{
       console.log('sesion iniciada ' + user)
     }
@@ -78,7 +81,7 @@ const RegisterPage = () => {
               required: 'Este campo es obligatorio', 
               minLength: {value: 6, message: 'La contraseña debe tener al  menos 6 carácteres'},
               pattern: {value: /^(?=.*[A-Z])(?=.*\d).+$/, message: "Debe tener una mayúscula y un número"}
-             })}
+            })}
           ></input>
           {errors.password && <span>{errors.password.message}</span>}
 
