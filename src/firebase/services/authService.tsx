@@ -3,7 +3,7 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithP
 
 const provider = new GoogleAuthProvider();
 
-const register = async (email: string, password: string) => {
+const registerFirebase = async (email: string, password: string) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     return { user: userCredential.user, error: null }
@@ -12,7 +12,7 @@ const register = async (email: string, password: string) => {
   }
 };
 
-const login = async (email: string, password: string) => {
+const loginFirebase = async (email: string, password: string) => {
   try{
     const userCredential = await signInWithEmailAndPassword(auth, email, password)
     return { user: userCredential.user, error: null }
@@ -30,4 +30,4 @@ const loginWithGoogle = async () => {
   }
 }
 
-export { register, login, loginWithGoogle };
+export { registerFirebase, loginFirebase, loginWithGoogle };

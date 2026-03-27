@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { login, loginWithGoogle } from "../../firebase/services/authService";
+import { loginFirebase, loginWithGoogle } from "../../firebase/services/authService";
 import "./login.scss"
 const LoginPage = () => {
 
@@ -35,7 +35,7 @@ const LoginPage = () => {
     }
 
     const validateFirebase = async () => {
-        const { user, error } = await login(formData.userEmail, formData.userPassword);
+        const { user, error } = await loginFirebase(formData.userEmail, formData.userPassword);
 
         if(error){
             if(error.code ==='auth/invalid-email'){

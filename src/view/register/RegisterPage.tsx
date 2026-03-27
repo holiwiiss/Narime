@@ -1,131 +1,115 @@
-import { register, loginWithGoogle } from "../../firebase/services/authService";
-import { useState } from "react";
+import { registerFirebase, loginWithGoogle } from "../../firebase/services/authService";
+import { useForm} from "react-hook-form"
+import type { SubmitHandler } from "react-hook-form";
 import { sileo } from "sileo";
 
-import "./register.scss"
+import "./register.scss";
+
+type Inputs = {
+  username: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+  confirmTerms: boolean;
+};
 
 const RegisterPage = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>();
 
-    const [formData, setFormData] = useState({
-        userName: '',
-        userEmail: '',
-        userPassword: '',
-        userPasswordConfirm:'',
-        confirmTerms: false,
-    })
+  const passwordValue = watch("password");
+  const validateRegister = async (email:string , password:string) => {
 
-    const [errors, setErrors] = useState({
-        errorUser: '', 
-        errorEmail: '', 
-        errorPassword: '', 
-        errorPasswordConfirm: '', 
-        errorTerms: ''
-    })
+    const { user, error } = await registerFirebase(email, password);
 
-    const validateForm = async () => {
-        let isCorrect = true
-        const errorsValidation = { errorUser:'', errorEmail:'', errorPassword:'', errorPasswordConfirm:'', errorTerms:'' };
-        
-        //Comprobacion del nombre de usuario
-        if(!formData.userName){
-            isCorrect = false
-            errorsValidation.errorUser = 'El nombre de usuario no puede estar vacío'
-        }else if(!/^[a-zA-Z0-9_-]+$/.test(formData.userName)){
-            isCorrect = false;
-            errorsValidation.errorUser = 'El nombre de usuario solo puede contener letras, números, guiones y guiones bajos'
-        }
-        
-        //Comprobacion del correo electrónico
-        if(!formData.userEmail){
-            isCorrect = false
-            errorsValidation.errorEmail = 'El email no puede estar vacío'
-        }
-
-        //Comprobacion de la contraseña
-        if(!formData.userPassword){
-            isCorrect = false
-            errorsValidation.errorPassword = 'Debes introduccir una contraseña'
-        }else if(formData.userPassword.length<6){
-            isCorrect = false
-            errorsValidation.errorPassword = 'La contraseña debe tener al menos 6 carácteres'
-        }
-
-        if(formData.userPasswordConfirm !== formData.userPassword){
-            isCorrect = false
-            errorsValidation.errorPasswordConfirm = 'Las contraseñas deben coincidir'
-        }
-
-        if(!formData.confirmTerms){
-            isCorrect = false
-            errorsValidation.errorTerms = 'Debe aceptar los terminos y condiciones'
-        }
-
-        setErrors(errorsValidation)
-        if(isCorrect){
-            validateFirebase()
-        }
+    if (error) {
+      sileo.error({ title: "Ha habido un problema en la creación del usuario", fill: "#171717" });
     }
 
-    const validateFirebase = async() => {
-        
-        const { user, error } = await register(formData.userEmail, formData.userPassword);
+    console.log("Usuario registrado:", user);
+    sileo.success({ title: "Usuario creado correctamente", fill: "#171717" });
+  }
 
-        if(error){
-            if (error.code === "auth/email-already-in-use") {
-                setErrors(prev => ({ ...prev, errorEmail: "Este correo ya está registrado" }));
-            } else if (error.code === "auth/invalid-email") {
-                setErrors(prev => ({ ...prev, errorEmail: "Correo electrónico inválido" }));
-            } else {
-                setErrors(prev => ({ ...prev, errorPasswordConfirm: "Ha ocurrido algún error" }));
-            }
-        }else {
-            console.log("Usuario registrado:", user);
-            sileo.success({ title: "Usuario creado correctamente", fill: "#171717" });
-        }
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {   
+    await validateRegister(data.email, data.password)
+  }
+
+  const loginGoogle = async() => {
+    const {user, error} = await loginWithGoogle()
+
+    if(error){
+       console.log('error' + error)
+    }else{
+      console.log('sesion iniciada ' + user)
     }
+  }
 
-    const loginGoogle = async() => {
-        const {user, error} = await loginWithGoogle()
+  return (
+    <>
+      <div className="colunm">
+        <form onSubmit={handleSubmit(onSubmit)} className="colunm">
+          <label>UserName*</label>
+          <input
+            type="text"
+            {...register("username", { 
+                required: 'El nombre de usuario es obligatorio', 
+                maxLength:{value:20, message:'El máximo de carácteres son 20'}
+            })}
+          ></input>
+          {errors.username && <span>{errors.username.message}</span>}
 
-        if(error){
-            console.log('error' + error)
-        }else{
-            console.log('sesion iniciada ' + user)
-        }
-    }
+          <label>Email*</label>
+          <input
+            type='email'
+            {...register('email', { 
+                required: 'Este campo es obligatorio', 
+            })}
+          ></input>
+          {errors.email && <span>{errors.email.message}</span>}
 
-    return(
-        <>
+          <label>Contraseña*</label>
+          <input
+            type='password'
+            {...register('password', { 
+              required: 'Este campo es obligatorio', 
+              minLength: {value: 6, message: 'La contraseña debe tener al  menos 6 carácteres'},
+              pattern: {value: /^(?=.*[A-Z])(?=.*\d).+$/, message: "Debe tener una mayúscula y un número"}
+             })}
+          ></input>
+          {errors.password && <span>{errors.password.message}</span>}
 
-            <div className="colunm">
+          <label>Confirmar contraseña*</label>
+          <input
+            type='password'
+            {...register('passwordConfirm', { 
+                required: 'Este campo es obligatorio', 
+                validate: (value) =>
+                value === passwordValue || 'Las contraseñas no coinciden',
+            })}
+          ></input>
+          {errors.passwordConfirm && (<span>{errors.passwordConfirm.message}</span>)}
 
-                <label>UserName*</label>    
-                <input type="text" onChange={e => setFormData(prev => ({ ...prev, userName: e.target.value }))}></input>
-                <span>{errors.errorUser}</span>
+          <label>
+            <input
+              type="checkbox"
+              {...register("confirmTerms", { required:'Este campo es obligatorio'})}
+            ></input>
+            He leido y acepto los terminos y condiciones de uso
+          </label>
+          {errors.confirmTerms && (<span>{errors.confirmTerms.message}</span>)}
 
-                <label>Email*</label>
-                <input type="email" onChange={e => setFormData(prev => ({ ...prev, userEmail: e.target.value }))}></input>
-                <span>{errors.errorEmail}</span>
+          <button type="submit">Registrarse
+          </button>
+        </form>
 
-                <label>Contraseña</label>
-                <input type="password" onChange={e => setFormData(prev => ({ ...prev, userPassword: e.target.value }))}></input>
-                <span>{errors.errorPassword}</span>
+        <button onClick={loginGoogle}>Continua con google</button>
+      </div>
+    </>
+  );
+};
 
-                <label>Confirmar contraseña</label>
-                <input type="password" onChange={e => setFormData(prev => ({ ...prev, userPasswordConfirm: e.target.value }))}></input>
-                <span>{errors.errorPasswordConfirm}</span>
-                
-                <label>
-                    <input type="checkbox" checked={formData.confirmTerms} onChange={() => setFormData(prev => ({ ...prev, confirmTerms: !prev.confirmTerms}))}></input>
-                    He leido y acepto los terminos y condiciones de uso
-                </label>
-                <span>{errors.errorTerms}</span>
-
-                <button onClick={validateForm}>Registrarse</button>
-                <button onClick={loginGoogle}>Continua con google</button>
-            </div>
-        </>
-    )
-}
-
-export default RegisterPage
+export default RegisterPage;
