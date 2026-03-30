@@ -2,13 +2,9 @@ import { loginFirebase, loginWithGoogle} from "../../firebase/services/authServi
 import{ useForm } from "react-hook-form"
 import type { SubmitHandler } from "react-hook-form"
 import { sileo } from "sileo";
+import type { LoginFormInputs } from "../../types/authTyping";
 
 import "./login.scss";
-
-type Inputs = {
-  email: string;
-  password: string;
-};
 
 const LoginPage = () => {
 
@@ -16,9 +12,9 @@ const LoginPage = () => {
     register,
     handleSubmit,
     formState: {errors},
-  } = useForm<Inputs>();
+  } = useForm<LoginFormInputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     await validateFirebase(data.email, data.password)
   }
 

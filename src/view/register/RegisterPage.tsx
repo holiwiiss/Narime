@@ -1,17 +1,11 @@
 import { registerFirebase, loginWithGoogle } from "../../firebase/services/authService";
 import { useForm} from "react-hook-form"
-import type { SubmitHandler } from "react-hook-form";
 import { sileo } from "sileo";
 
-import "./register.scss";
+import type { SubmitHandler } from "react-hook-form";
+import type { RegisterFormInputs } from "../../types/authTyping";
 
-type Inputs = {
-  username: string;
-  email: string;
-  password: string;
-  passwordConfirm: string;
-  confirmTerms: boolean;
-};
+import "./register.scss";
 
 const RegisterPage = () => {
   const {
@@ -19,14 +13,14 @@ const RegisterPage = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<RegisterFormInputs>();
 
   const passwordValue = watch("password");
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {   
+  const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {   
     await validateRegister(data.email, data.password)
   }
-  
+
   const validateRegister = async (email:string , password:string) => {
 
     const { user, error } = await registerFirebase(email, password);
