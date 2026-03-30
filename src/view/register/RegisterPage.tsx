@@ -33,8 +33,6 @@ const RegisterPage = () => {
     sileo.success({ title: "Usuario creado correctamente", fill: "#171717" });
   }
 
-  
-
   const loginGoogle = async() => {
     const {user, error} = await loginWithGoogle()
 
