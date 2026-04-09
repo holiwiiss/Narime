@@ -1,38 +1,49 @@
+import { mapJikanAnimeList } from "../mappers/animeMapper";
+import type { AnimeType, JikanResponse } from "../types/animeTyping";
+
 const URL__JIKAN= 'https://api.jikan.moe/v4/'
 
-interface AnimeType {
-  id: number;
-  title: string;
-  image: string;
-  score: number;
-  episodes: number;
-  generes: string[];
-} 
+export async function getTopAnime(numPage:number): Promise<AnimeType[]>{
 
-export async function getTopAnime() {
   //JIKAN API está capado por 25 animes por página
-  const request = URL__JIKAN + 'top/anime?page=1&sfw=true';
+  const request = URL__JIKAN + `top/anime?page=${numPage}&sfw=true`;
   console.log(request)
+
+  try {
+    const response = await fetch(request);
+
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const json: JikanResponse = await response.json()
+
+    if (!json.data) return []
+    
+    const finalData = mapJikanAnimeList(json.data)
+    return finalData
+
+  } catch (error:any) {
+    console.error(error.message);
+    return [];
+  }
+}
+
+export async function getSeasonalAnimes(): Promise<AnimeType[]> {
+
+  const request = URL__JIKAN + 'seasons/now?sfw=true';
+  console.log(request)
+
   try {
     const response = await fetch(request);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
 
-    const json = await response.json();
+    const json: JikanResponse = await response.json();
 
     if (!json.data) return [];
 
-    const finalData = json.data.map((anime:any) => ({
-        id: anime.mal_id,
-        title: anime.title,
-        image: anime.images.webp.image_url,
-        score: anime.score,
-        episodes: anime.episodes,
-        //tengo que hacer un bucle aquí también para sacar las cosas
-        genres: anime.genres.name,
-    }));
-    console.log(finalData)
+    const finalData = mapJikanAnimeList(json.data)
     return finalData;
 
   } catch (error:any) {
@@ -41,31 +52,21 @@ export async function getTopAnime() {
   }
 }
 
-
-// para coger los animes de la season
-export async function getSeasonNow() {
-  const request = URL__JIKAN + 'seasons/now?page=1&sfw=true';
+export async function getTrendingAnimes() : Promise <AnimeType[]> {
+  const request = URL__JIKAN + 'top/anime?filter=bypopularity&page=1&sfw=true';
   console.log(request)
+
   try {
     const response = await fetch(request);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
 
-    const json = await response.json();
+    const json: JikanResponse = await response.json();
 
     if (!json.data) return [];
 
-    const finalData = json.data.map((anime:any) => ({
-        id: anime.mal_id,
-        title: anime.title,
-        image: anime.images.webp.image_url,
-        score: anime.score,
-        episodes: anime.episodes,
-        //tengo que hacer un bucle aquí también para sacar las cosas
-        genres: anime.genres.name,
-    }));
-    console.log(finalData)
+    const finalData = mapJikanAnimeList(json.data)
     return finalData;
 
   } catch (error:any) {
@@ -73,6 +74,4 @@ export async function getSeasonNow() {
     return [];
   }
 }
-
-// para obtener todos los generos
 

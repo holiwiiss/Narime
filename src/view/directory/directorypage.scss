@@ -1,6 +1,25 @@
-div{
+.bton__container{
+    width: 100%;
+    display: flex;
+    gap: 2rem;
+}
+
+.bton {
+    height: 50px;
+    padding: 0 2rem;
+
+}
+.cards__container {
+    margin-top: 1rem;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+.anime__card{
     display: flex;
     flex-direction: column;
+    border: 2px solid black;
+    width: 18%;
 }
 
 img{
