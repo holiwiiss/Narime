@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getTopAnime, getSeasonalAnimes, getTrendingAnimes } from "../../api/anime";
+import { getTopAnime, getSeasonalAnimes, getTrendingAnimes } from "../../api/animeList";
 import "./directorypage.scss";
 import type { AnimeResponse, AnimeType } from "../../types/animeListTyping";
 
@@ -12,51 +12,51 @@ const DirectoryPage = () => {
 
   useEffect(() => {
     const fetchAnimes= async () => {
+      try{
+        if(activeCategory === "top"){
+          const JSON: AnimeResponse = await getTopAnime(actualPage);
+          setAnimeList(JSON.animes);
+          setLastPage(JSON.pagination.last_visible_page);
+        }
 
-      if(activeCategory === "top"){
-        const JSON: AnimeResponse = await getTopAnime(actualPage)
-        setAnimeList(JSON.animes);
-        setLastPage(JSON.pagination.last_visible_page)
+        if(activeCategory === "trending"){
+          const JSON: AnimeResponse = await getTrendingAnimes(actualPage);
+          setAnimeList(JSON.animes);
+          setLastPage(JSON.pagination.last_visible_page);
+        }
+
+        if(activeCategory === "seasonal"){
+          const JSON: AnimeResponse = await getSeasonalAnimes(actualPage);
+          setAnimeList(JSON.animes);
+          setLastPage(JSON.pagination.last_visible_page);
+        }
+      }catch(err){
+        console.log('La api no responde')
       }
-
-      if(activeCategory === "trending"){
-        const JSON: AnimeResponse = await getTrendingAnimes(actualPage)
-        setAnimeList(JSON.animes);
-        setLastPage(JSON.pagination.last_visible_page)
-      }
-
-      if(activeCategory === "seasonal"){
-        const JSON: AnimeResponse = await getSeasonalAnimes(actualPage)
-        setAnimeList(JSON.animes);
-        setLastPage(JSON.pagination.last_visible_page)
-      }
-
     };
     fetchAnimes();
   }, [activeCategory, actualPage]);
 
   const activateFilter = (category: "top" | "trending" | "seasonal") => {
-    setActiveCategory(category)
-    setActualPage(1)
+    setActiveCategory(category);
+    setActualPage(1);
   }
 
   const addToMyList = (Animeid:number) => {
     setMyList(prevList => [...prevList, Animeid]);
-    console.log(myList)
+    console.log(myList);
   }
 
   const nextPage = () => {
-
     if(actualPage >= lastPage) {
-      return
+      return;
     }
     setActualPage(prev => prev + 1)
   }
   
   const previousPage = () => {
-
     if(actualPage > 1){
-      setActualPage(prev => prev - 1)
+      setActualPage(prev => prev - 1);
     }
   }
 
