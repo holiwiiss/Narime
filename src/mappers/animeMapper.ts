@@ -1,7 +1,7 @@
-import type { AnimeType,JikanAnimeType } from "../types/animeTyping";
+import type { AnimeType,JikanAnimeType, JikanPaginationType, PaginationType } from "../types/animeListTyping";
 
 export function mapJikanAnimeList(data: JikanAnimeType[]): AnimeType[] {
-  return data.map((anime): AnimeType => ({
+  const dataMapped = data.map((anime): AnimeType => ({
     id: anime.mal_id,
     title: anime.title,
     image: anime.images.webp.image_url,
@@ -9,4 +9,23 @@ export function mapJikanAnimeList(data: JikanAnimeType[]): AnimeType[] {
     episodes: anime.episodes,
     generes: anime.genres.map(g => g.name),
   }));
+
+  const arrayAnimesID: number[]=  []
+
+  return dataMapped.filter((anime) => {
+    if(arrayAnimesID.includes(anime.id)){
+      return false
+    }else{
+      arrayAnimesID.push(anime.id)
+      return true
+    }
+  })
+}
+
+export function mapJikanAnimePagination(pagination: JikanPaginationType) :  PaginationType{
+  return {
+    last_visible_page: pagination.last_visible_page,
+    has_next_page: pagination.has_next_page,
+    current_page: pagination.current_page,
+  }
 }

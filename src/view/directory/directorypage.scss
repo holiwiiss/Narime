@@ -22,7 +22,37 @@
     width: 18%;
 }
 
-img{
-    height: 300px;
-    width: 300px;
+.anime__card h1{
+    font-size: 24px;
+}
+
+.anime__card img {
+    width: 100%;
+}
+.information__container {
+    display: flex;
+    justify-content: space-between;
+}
+.anime__card h2{
+    font-size: 20px;
+}
+.pagination__container {
+    margin: 1rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.pagination__container button{
+    padding: 0 1rem;
+}
+
+.btn__disable{
+    background-color: gray;
+}
+
+.btn__able{
+    background-color: red;
+    color: white;
 }
