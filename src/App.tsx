@@ -1,31 +1,19 @@
-import { Routes, Route } from "react-router-dom"
-import StyleGuide from "./view/styleguide/StyleGuide"
-import LoginPage from "./view/login/LoginPage"
-import RegisterPage from './view/register/RegisterPage'
+import {Link, Outlet } from "react-router-dom"
 import {Toaster } from "sileo";
 import './App.css'
-import DirectoryPage from "./view/directory/DirectoryPage";
 
 function App() {
 
   return (
     <>
     <Toaster position='top-right' />
-      <Routes>
-        <Route path='/style-guide' element={<StyleGuide/>}/>
-      </Routes>
-
-      <Routes>
-        <Route path='/login' element={<LoginPage/>}/>
-      </Routes>
-
-      <Routes>
-        <Route path='/register' element={<RegisterPage/>}/>
-      </Routes>
-
-      <Routes>
-        <Route path='/directory' element={<DirectoryPage/>}/>
-      </Routes>
+      <div className="menu">
+        <Link to='/'>Home</Link>
+        <Link to='/directory'>Directorio</Link>
+        <Link to='/register'>Registro</Link>
+        <Link to='/login'>Login</Link>
+      </div>
+      <Outlet></Outlet>
     </>
   )
 }

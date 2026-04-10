@@ -1,5 +1,5 @@
 import { mapJikanAnimeList, mapJikanAnimePagination } from "../mappers/animeMapper";
-import type { AnimeResponse, AnimeType, JikanResponse } from "../types/animeListTyping";
+import type { AnimeResponse, JikanResponse } from "../types/animeListTyping";
 
 const URL__JIKAN= 'https://api.jikan.moe/v4/'
 
