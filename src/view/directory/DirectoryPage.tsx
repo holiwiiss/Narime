@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getTopAnime, getSeasonalAnimes, getTrendingAnimes } from "../../api/animeList";
 import "./directorypage.scss";
 import type { AnimeResponse, AnimeType } from "../../types/animeListTyping";
+import { useNavigate } from "react-router-dom";
 
 const DirectoryPage = () => {
   const [animeList, setAnimeList] = useState<AnimeType[]>([]);
@@ -9,6 +10,7 @@ const DirectoryPage = () => {
   const [activeCategory, setActiveCategory] = useState <"top" | "trending" | "seasonal">("top")
   const [actualPage, setActualPage] = useState<number>(1)
   const [lastPage, setLastPage] = useState<number>(1)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchAnimes= async () => {
@@ -73,7 +75,7 @@ const DirectoryPage = () => {
         <h1>No se han encontrado animes</h1>
       ) : (
         animeList.map((anime: AnimeType) => (
-          <div className="anime__card">
+          <div className="anime__card" onClick={() => navigate(`/anime/${anime.id}`)}>
             <h1>{anime.title}</h1>
             <img src={anime.image}/>
             <div className="information__container">

@@ -29,7 +29,7 @@ const router = createBrowserRouter([
         element: <LoginPage/>
       },
       {
-        path:'/directory/anime',
+        path:'/anime/:id',
         element: <AnimePage/>
       },
       {
