@@ -50,3 +50,41 @@ export interface AnimeInformationType {
   studios:string[];
   synopsis: string;
 }
+
+export interface JikanResponseAnimeCharacters {
+  data: JikanAnimeCharactersType[];
+}
+
+export interface JikanAnimeCharactersType {
+  character:{
+    name: string;
+    images: {
+      webp: {
+        image_url: string;
+      };
+    };
+  };
+  role: string;
+  voice_actors:{
+    person:{
+      name:string;
+      images:{
+        jpg:{
+          image_url: string;
+        };
+      }
+    }
+  }[],
+}
+
+export interface AnimeCharactersType {
+  character_name: string;
+  character_image: string;
+  role:string;
+  voice_actor_name: string;
+  voice_actor_image:string;
+}
+
+export interface AnimeCharactersResponse {
+  data: AnimeCharactersType[];
+}

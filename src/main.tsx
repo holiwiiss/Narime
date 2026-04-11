@@ -5,6 +5,7 @@ import App from './App.tsx'
 import DirectoryPage from './view/directory/DirectoryPage.tsx'
 import RegisterPage from './view/register/RegisterPage.tsx'
 import LoginPage from './view/login/LoginPage.tsx'
+import AnimePage from './view/animepage/AnimePage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path:'/login',
         element: <LoginPage/>
+      },
+      {
+        path:'/directory/anime',
+        element: <AnimePage/>
       },
       {
         path:'*',

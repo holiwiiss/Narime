@@ -72,8 +72,8 @@ const DirectoryPage = () => {
       {animeList.length === 0 ? (
         <h1>No se han encontrado animes</h1>
       ) : (
-        animeList.map((anime: any) => (
-          <div className="anime__card" id={anime.id}>
+        animeList.map((anime: AnimeType) => (
+          <div className="anime__card">
             <h1>{anime.title}</h1>
             <img src={anime.image}/>
             <div className="information__container">

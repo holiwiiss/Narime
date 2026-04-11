@@ -1,4 +1,4 @@
-import type { JikanAnimeInformationType, AnimeInformationType } from "../types/animeInformationTyping";
+import type { JikanAnimeInformationType, AnimeInformationType, JikanAnimeCharactersType, AnimeCharactersType } from "../types/animeInformationTyping";
 
 
 export function mapJikanAnimeInformation(data: JikanAnimeInformationType): AnimeInformationType {
@@ -19,4 +19,15 @@ export function mapJikanAnimeInformation(data: JikanAnimeInformationType): Anime
     studios: data.studios.map(s => s.name),
     synopsis: data.synopsis,
   }
+}
+
+export function mapJikanAnimeCharacters(data: JikanAnimeCharactersType[]): AnimeCharactersType[]{
+  return data.map((person): AnimeCharactersType => ({
+    character_name: person.character.name,
+    character_image: person.character.images.webp.image_url,
+    role: person.role,
+    //voice_actors[0] para recoger el japones, que es el que me interesa
+    voice_actor_name: person.voice_actors[0]?.person.name,
+    voice_actor_image: person.voice_actors[0]?.person.images.jpg.image_url,
+  }))
 }
