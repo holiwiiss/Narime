@@ -5,11 +5,10 @@ import type { AnimeCharactersType, AnimeInformationType } from "../../types/api/
 import { useParams } from "react-router-dom";
 
 const AnimePage = () => {
- 
   const [animeInfo, setAnimeInfo] = useState<AnimeInformationType>();
   const [animeCharacters, setAnimeCharacters] = useState<AnimeCharactersType[]>([]);
   const { id } = useParams();
-  const animeID = Number(id)
+  const animeID = Number(id);
 
   useEffect(() => {
     const fetchAnimes = async () => {

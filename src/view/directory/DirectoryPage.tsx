@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { getTopAnime, getSeasonalAnimes, getTrendingAnimes } from "../../api/animeList";
 import "./directorypage.scss";
 import type { AnimeListResponse, AnimeListType } from "../../types/api/animeListTyping";
 import { useNavigate } from "react-router-dom";
+import type { AnimeSearchType } from "../../types/api/animeSearchTyping";
+import { searchAnime } from "../../api/animeSearch";
 
 const DirectoryPage = () => {
   const [animeList, setAnimeList] = useState<AnimeListType[]>([]);
@@ -11,6 +13,10 @@ const DirectoryPage = () => {
   const [actualPage, setActualPage] = useState<number>(1)
   const [lastPage, setLastPage] = useState<number>(1)
   const navigate = useNavigate()
+  const [activeSearch, setActiveSearch] = useState<"search" | null>(null)
+  const [animeToSearch, setAnimeToSeach]= useState<string>("")
+  const [searchList, setSearchList] = useState<AnimeSearchType[]>([]);
+  const timeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     const fetchAnimes= async () => {
@@ -35,9 +41,18 @@ const DirectoryPage = () => {
       }catch(err){
         console.log('La api no responde')
       }
+
+      try{
+        if(activeSearch === "search"){
+          const JSON: AnimeSearchType[] = await searchAnime(animeToSearch);
+          setSearchList(JSON);
+        }
+      }catch(err){
+        console.log('La api no responde, ' + err)
+      }
     };
     fetchAnimes();
-  }, [activeCategory, actualPage]);
+  }, [activeCategory, actualPage, activeSearch, animeToSearch]);
 
   const activateFilter = (category: "top" | "trending" | "seasonal") => {
     setActiveCategory(category);
@@ -60,6 +75,24 @@ const DirectoryPage = () => {
     if(actualPage > 1){
       setActualPage(prev => prev - 1);
     }
+  }
+
+  const handleSearch = (text:string) =>{
+    console.log(text)
+
+    if(!text){
+      setActiveSearch(null)
+      return
+    }
+
+    if (timeoutRef.current) {
+    clearTimeout(timeoutRef.current);
+    }
+
+    timeoutRef.current = window.setTimeout(() => {
+    setActiveSearch('search')
+      setAnimeToSeach(text)
+    }, 500);
   }
 
   return (
@@ -93,8 +126,27 @@ const DirectoryPage = () => {
         <p>Página {actualPage} de {lastPage}</p>
         <button className={actualPage === lastPage ? "btn__disable" : "btn__able"} onClick={() => nextPage()}>siguiente</button>
       </div>
-    </>
 
+      <input type="text" className="buscar__anime" onInput={(event: React.InputEvent<HTMLInputElement>) => handleSearch(event.currentTarget.value)} placeholder="Search an anime..." ></input>
+
+      {!activeSearch ? (
+        <p>No se estan buscando animes</p>
+      ):(
+        <div>
+        {searchList.length=== 0  ? (
+          <p>no se ha encontrado ningún anime con ese nombre</p>
+        ) : (
+          searchList.map((anime: AnimeSearchType) => (
+            <div className="anime_search">
+              <img src={anime.image}/>
+              <p>{anime.title}</p>
+              <p>{anime.type}</p>
+            </div>
+          ))
+        )}
+        </div>
+      )}
+    </>
   );
 };
 
