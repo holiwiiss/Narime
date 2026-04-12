@@ -4,7 +4,7 @@ import type { JikanAnimeCharactersType, JikanAnimeInformationType } from "../typ
 
 export function mapJikanAnimeInformation(data: JikanAnimeInformationType): AnimeInformationType {
   return {
-    mal_id: data.mal_id,
+    id: data.mal_id,
     title:data.title,
     title_english: data.title_english,
     type: data.type,

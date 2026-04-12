@@ -1,5 +1,5 @@
 export interface AnimeInformationType {
-  mal_id: number;
+  id: number;
   title:string;
   title_english: string;
   type: string;
