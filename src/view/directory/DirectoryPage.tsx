@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { getTopAnime, getSeasonalAnimes, getTrendingAnimes } from "../../api/animeList";
 import "./directorypage.scss";
-import type { AnimeResponse, AnimeType } from "../../types/animeListTyping";
+import type { AnimeListResponse, AnimeListType } from "../../types/api/animeListTyping";
 import { useNavigate } from "react-router-dom";
 
 const DirectoryPage = () => {
-  const [animeList, setAnimeList] = useState<AnimeType[]>([]);
+  const [animeList, setAnimeList] = useState<AnimeListType[]>([]);
   const [myList, setMyList] = useState<number[]>([])
   const [activeCategory, setActiveCategory] = useState <"top" | "trending" | "seasonal">("top")
   const [actualPage, setActualPage] = useState<number>(1)
@@ -16,19 +16,19 @@ const DirectoryPage = () => {
     const fetchAnimes= async () => {
       try{
         if(activeCategory === "top"){
-          const JSON: AnimeResponse = await getTopAnime(actualPage);
+          const JSON: AnimeListResponse = await getTopAnime(actualPage);
           setAnimeList(JSON.animes);
           setLastPage(JSON.pagination.last_visible_page);
         }
 
         if(activeCategory === "trending"){
-          const JSON: AnimeResponse = await getTrendingAnimes(actualPage);
+          const JSON: AnimeListResponse = await getTrendingAnimes(actualPage);
           setAnimeList(JSON.animes);
           setLastPage(JSON.pagination.last_visible_page);
         }
 
         if(activeCategory === "seasonal"){
-          const JSON: AnimeResponse = await getSeasonalAnimes(actualPage);
+          const JSON: AnimeListResponse = await getSeasonalAnimes(actualPage);
           setAnimeList(JSON.animes);
           setLastPage(JSON.pagination.last_visible_page);
         }
@@ -74,7 +74,7 @@ const DirectoryPage = () => {
       {animeList.length === 0 ? (
         <h1>No se han encontrado animes</h1>
       ) : (
-        animeList.map((anime: AnimeType) => (
+        animeList.map((anime: AnimeListType) => (
           <div className="anime__card" onClick={() => navigate(`/anime/${anime.id}`)}>
             <h1>{anime.title}</h1>
             <img src={anime.image}/>

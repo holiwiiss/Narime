@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./animepage.scss";
 import { getAnimeCharacters, getAnimeInformation } from "../../api/animeInformation";
-import type { AnimeCharactersResponse, AnimeCharactersType, AnimeInformationType } from "../../types/animeInformationTyping";
+import type { AnimeCharactersType, AnimeInformationType } from "../../types/api/animeInformationTyping";
 import { useParams } from "react-router-dom";
 
 const AnimePage = () => {
@@ -17,9 +17,8 @@ const AnimePage = () => {
         const JSON: AnimeInformationType = await getAnimeInformation(animeID);
         setAnimeInfo(JSON);
 
-        const JSONCharacters: AnimeCharactersResponse =
-          await getAnimeCharacters(animeID);
-        setAnimeCharacters(JSONCharacters.data);
+        const JSONCharacters: AnimeCharactersType[] = await getAnimeCharacters(animeID);
+        setAnimeCharacters(JSONCharacters);
       } catch (err) {
         console.log("La api no responde");
         console.log(err);

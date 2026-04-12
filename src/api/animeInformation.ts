@@ -1,9 +1,11 @@
 import { mapJikanAnimeCharacters, mapJikanAnimeInformation } from "../mappers/animeInformationMapper";
-import type { AnimeCharactersResponse, AnimeCharactersType, AnimeInformationType, JikanResponseAnimeCharacters, JikanResponseAnimeInformation } from "../types/animeInformationTyping";
+import type { AnimeCharactersType, AnimeInformationType } from "../types/api/animeInformationTyping";
+import type { JikanResponseAnimeCharacters, JikanResponseAnimeInformation } from "../types/api/JikanAPITyping";
 
 const URL__JIKAN= 'https://api.jikan.moe/v4/'
 
-// tengo que hacer otra llamada para coger los personajes
+
+
 
 export async function getAnimeInformation(animeID:number): Promise<AnimeInformationType>{
   const request = URL__JIKAN + `anime/${animeID}`;
@@ -20,7 +22,7 @@ export async function getAnimeInformation(animeID:number): Promise<AnimeInformat
   return animeInfo
 }
 
-export async function getAnimeCharacters(animeID:number): Promise <AnimeCharactersResponse> {
+export async function getAnimeCharacters(animeID:number): Promise <AnimeCharactersType[]> {
   const request = URL__JIKAN + `anime/${animeID}/characters`;
   const response = await fetch(request);
 
@@ -30,9 +32,5 @@ export async function getAnimeCharacters(animeID:number): Promise <AnimeCharacte
 
   const json: JikanResponseAnimeCharacters = await response.json()
 
-  const characters = mapJikanAnimeCharacters(json.data)
-
-  return {
-    data: characters,
-  }
+  return mapJikanAnimeCharacters(json.data)
 }

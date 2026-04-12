@@ -1,4 +1,5 @@
-import type { JikanAnimeInformationType, AnimeInformationType, JikanAnimeCharactersType, AnimeCharactersType } from "../types/animeInformationTyping";
+import type { AnimeInformationType,AnimeCharactersType } from "../types/api/animeInformationTyping";
+import type { JikanAnimeCharactersType, JikanAnimeInformationType } from "../types/api/JikanAPITyping";
 
 
 export function mapJikanAnimeInformation(data: JikanAnimeInformationType): AnimeInformationType {

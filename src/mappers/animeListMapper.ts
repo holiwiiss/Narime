@@ -1,7 +1,8 @@
-import type { AnimeType,JikanAnimeType, JikanPaginationType, PaginationType } from "../types/animeListTyping";
+import type { AnimeListType, PaginationType } from "../types/api/animeListTyping";
+import type { JikanAnimeListType, JikanPaginationType } from "../types/api/JikanAPITyping";
 
-export function mapJikanAnimeList(data: JikanAnimeType[]): AnimeType[] {
-  const dataMapped = data.map((anime): AnimeType => ({
+export function mapJikanAnimeList(data: JikanAnimeListType[]): AnimeListType[] {
+  const dataMapped = data.map((anime): AnimeListType => ({
     id: anime.mal_id,
     title: anime.title,
     image: anime.images.webp.image_url,
