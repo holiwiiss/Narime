@@ -1,4 +1,5 @@
-import { mapJikanAnimeList, mapJikanAnimePagination } from "../mappers/animeListMapper";
+import { mapJikanAnimeList } from "../mappers/animeListMapper";
+import { mapJikanAnimePagination } from "../mappers/animePaginationMapper";
 import type { AnimeListResponse } from "../types/api/animeListTyping";
 import type { JikanResponseAnimeList } from "../types/api/JikanAPITyping";
 
@@ -10,7 +11,7 @@ const URL__JIKAN= 'https://api.jikan.moe/v4/'
  *  Obtiene los animes mejor valorados ordenados de mayor a menor
  *
  * @param numPage - número de página a consultar
- * @returns objeto AnimeListResponsecon:
+ * @returns objeto AnimeListResponse con:
  *  - animes: lista de animes mapeados
  *  - pagination: objeto de información de paginación
  *
@@ -20,7 +21,7 @@ const URL__JIKAN= 'https://api.jikan.moe/v4/'
  *   animes: [
  *     {id:123, title:'nombre anime', image:'url', score:10, episodes:24, generes:['aventura', 'fantasia']}
  *   ],
- *   pagination: {last_visible_page: 33, has_next_page:true , current_page:24}
+ *   pagination: {last_visible_page: 33, has_next_page:true , current_page:24, total_items: 300}
  * 
  * }
  *    

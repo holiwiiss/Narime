@@ -1,3 +1,5 @@
+import type { PaginationType } from "./animePaginationTyping";
+
 export interface AnimeListType {
   id: number;
   title: string;
@@ -5,12 +7,6 @@ export interface AnimeListType {
   score: number | null;
   episodes: number | null;
   generes: string[];
-}
-
-export interface PaginationType {
-  last_visible_page: number;
-  has_next_page: boolean;
-  current_page: number;
 }
 
 export interface AnimeListResponse {

@@ -3,7 +3,7 @@ import { getTopAnime, getSeasonalAnimes, getTrendingAnimes } from "../../api/ani
 import "./directorypage.scss";
 import type { AnimeListResponse, AnimeListType } from "../../types/api/animeListTyping";
 import { useNavigate } from "react-router-dom";
-import type { AnimeSearchType } from "../../types/api/animeSearchTyping";
+import type { AnimeSearchResponse, AnimeSearchType } from "../../types/api/animeSearchTyping";
 import { searchAnime } from "../../api/animeSearch";
 
 const DirectoryPage = () => {
@@ -17,6 +17,7 @@ const DirectoryPage = () => {
   const [animeToSearch, setAnimeToSeach]= useState<string>("")
   const [searchList, setSearchList] = useState<AnimeSearchType[]>([]);
   const timeoutRef = useRef<number | null>(null);
+  const [totalItems, setTotalItems] = useState<number>(0);
 
   useEffect(() => {
     const fetchAnimes= async () => {
@@ -44,8 +45,9 @@ const DirectoryPage = () => {
 
       try{
         if(activeSearch === "search"){
-          const JSON: AnimeSearchType[] = await searchAnime(animeToSearch);
-          setSearchList(JSON);
+          const JSON: AnimeSearchResponse = await searchAnime(animeToSearch);
+          setSearchList(JSON.animes);
+          setTotalItems(JSON.pagination.total_items)
         }
       }catch(err){
         console.log('La api no responde, ' + err)
@@ -82,6 +84,7 @@ const DirectoryPage = () => {
 
     if(!text){
       setActiveSearch(null)
+      setSearchList([])
       return
     }
 
@@ -90,8 +93,9 @@ const DirectoryPage = () => {
     }
 
     timeoutRef.current = window.setTimeout(() => {
-    setActiveSearch('search')
-      setAnimeToSeach(text)
+      setActiveSearch('search')
+      const encodedQuery = encodeURIComponent(text)
+      setAnimeToSeach(encodedQuery)
     }, 500);
   }
 
@@ -143,7 +147,9 @@ const DirectoryPage = () => {
               <p>{anime.type}</p>
             </div>
           ))
+          
         )}
+          <button>View More ({totalItems})</button>
         </div>
       )}
     </>
