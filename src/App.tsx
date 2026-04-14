@@ -1,6 +1,7 @@
 import {Link, Outlet } from "react-router-dom"
 import {Toaster } from "sileo";
 import './App.css'
+import SearchAnimeComponent from "./components/search-anime/SearchAnimeComponent";
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
         <Link to='/directory'>Directorio</Link>
         <Link to='/register'>Registro</Link>
         <Link to='/login'>Login</Link>
+        <SearchAnimeComponent></SearchAnimeComponent>
       </div>
       <Outlet></Outlet>
     </>

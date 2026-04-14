@@ -1,0 +1,25 @@
+.search__wrapper {
+  position: relative;
+  width: 300px;
+}
+
+.buscar__anime  {
+    border: 2px solid red;
+    width: 300px;
+}
+
+.all_busquedas__container {
+    background-color: white;
+    border: 2px solid red;
+    position: absolute;
+    inset: 100% 0 auto 0;
+    height: auto;
+}
+.anime_search {
+    display: flex;
+    align-items: center;
+}
+.anime_search img {
+    height: 75px;
+    width: 50px;
+}

@@ -14,12 +14,7 @@ const DirectoryPage = () => {
   const [actualPage, setActualPage] = useState<number>(1)
   const [lastPage, setLastPage] = useState<number>(1)
   const navigate = useNavigate()
-  const [activeSearch, setActiveSearch] = useState<"search" | null>(null)
-  const [animeToSearch, setAnimeToSeach]= useState<string>("")
-  const [searchList, setSearchList] = useState<AnimeSearchType[]>([]);
-  const timeoutRef = useRef<number | null>(null);
-  const [totalItems, setTotalItems] = useState<number>(0);
-
+ 
   useEffect(() => {
     const fetchAnimes= async () => {
       try{
@@ -44,18 +39,9 @@ const DirectoryPage = () => {
         console.log('La api no responde')
       }
 
-      try{
-        if(activeSearch === "search"){
-          const JSON: AnimeSearchResponse = await searchAnime(animeToSearch);
-          setSearchList(JSON.animes);
-          setTotalItems(JSON.pagination.total_items)
-        }
-      }catch(err){
-        console.log('La api no responde, ' + err)
-      }
     };
     fetchAnimes();
-  }, [activeCategory, actualPage, activeSearch, animeToSearch]);
+  }, [activeCategory, actualPage]);
 
   const activateFilter = (category: "top" | "trending" | "seasonal") => {
     setActiveCategory(category);
@@ -78,26 +64,6 @@ const DirectoryPage = () => {
     if(actualPage > 1){
       setActualPage(prev => prev - 1);
     }
-  }
-
-  const handleSearch = (text:string) =>{
-    console.log(text)
-
-    if(!text){
-      setActiveSearch(null)
-      setSearchList([])
-      return
-    }
-
-    if (timeoutRef.current) {
-    clearTimeout(timeoutRef.current);
-    }
-
-    timeoutRef.current = window.setTimeout(() => {
-      setActiveSearch('search')
-      const encodedQuery = encodeURIComponent(text)
-      setAnimeToSeach(encodedQuery)
-    }, 500);
   }
 
   return (
@@ -132,30 +98,8 @@ const DirectoryPage = () => {
         <button className={actualPage === lastPage ? "btn__disable" : "btn__able"} onClick={() => nextPage()}>siguiente</button>
       </div>
 
-      <input type="text" className="buscar__anime" onInput={(event: React.InputEvent<HTMLInputElement>) => handleSearch(event.currentTarget.value)} placeholder="Search an anime..." ></input>
-
-      {!activeSearch ? (
-        <p>No se estan buscando animes</p>
-      ):(
-        <div>
-        {searchList.length=== 0  ? (
-          <p>no se ha encontrado ningún anime con ese nombre</p>
-        ) : (
-          searchList.map((anime: AnimeSearchType) => (
-            <div className="anime_search">
-              <img src={anime.image}/>
-              <p>{anime.title}</p>
-              <p>{anime.type}</p>
-            </div>
-          ))
-          
-        )}
-          <button>View More ({totalItems})</button>
-        </div>
-      )}
     </>
   );
 };
-
 
 export default DirectoryPage;
