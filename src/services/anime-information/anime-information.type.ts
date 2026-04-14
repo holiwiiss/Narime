@@ -1,7 +1,7 @@
 export interface AnimeInformationType {
   id: number;
   title:string;
-  title_english: string;
+  titleEnglish: string;
   type: string;
   images: string;
   aired: string[];
@@ -17,10 +17,10 @@ export interface AnimeInformationType {
 }
 
 export interface AnimeCharactersType {
-  character_name: string;
-  character_image: string;
+  characterName: string;
+  characterImage: string;
   role:string;
-  voice_actor_name: string;
-  voice_actor_image:string;
+  voiceActorName: string;
+  voiceActorImage:string;
 }
 

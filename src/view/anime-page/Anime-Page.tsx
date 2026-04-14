@@ -33,7 +33,7 @@ const AnimePage = () => {
       ) : (
         <>
           <h1>{animeInfo.title}</h1>
-          <h2>{animeInfo.title_english}</h2>
+          <h2>{animeInfo.titleEnglish}</h2>
           <p>{animeInfo.type}</p>
           <img src={animeInfo.images}></img>
           <p>
@@ -51,11 +51,11 @@ const AnimePage = () => {
 
           {animeCharacters.map((person: AnimeCharactersType) => (
             <div className="container__character">
-              <p>{person.character_name}</p>
-              <img src={person.character_image} />
+              <p>{person.characterName}</p>
+              <img src={person.characterImage} />
               <p>{person.role}</p>
-              <p>{person.voice_actor_name}</p>
-              <img src={person.voice_actor_image} />
+              <p>{person.voiceActorName}</p>
+              <img src={person.voiceActorImage} />
             </div>
           ))}
         </>
