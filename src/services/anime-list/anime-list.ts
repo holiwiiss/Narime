@@ -122,3 +122,23 @@ export async function getTrendingAnimes(numPage:number): Promise<AnimeListRespon
     pagination: pagination
   };
 }
+
+export async function getAnimesFiltered(genre:string, year:number, type:string, numPage:number):Promise<AnimeListResponse> {
+  
+  const request = URL__JIKAN + `anime?page=${numPage}&${genre}&${year}&${type}&sfw=true`;
+  const response = await fetch(request);
+
+  if (!response.ok) {
+    throw new Error(`Response status: ${response.status}`);
+  }
+  
+  const json: JikanResponseAnimeList = await response.json();
+
+  const animes = mapJikanAnimeList(json.data);
+  const pagination = mapJikanAnimePagination(json.pagination);
+
+  return{
+    animes: animes,
+    pagination: pagination
+  };
+}

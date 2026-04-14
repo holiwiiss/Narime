@@ -91,3 +91,13 @@ export interface JikanAnimeCharactersType {
     }
   }[],
 }
+
+export interface JikanAnimeGenresType {
+  mal_id: number,
+  name: string,
+  count: number,
+}
+
+export interface JikanResponseAnimeGenres {
+  data: JikanAnimeGenresType[]
+}

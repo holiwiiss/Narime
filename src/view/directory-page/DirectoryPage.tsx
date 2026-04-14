@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./directorypage.scss";
 import type { AnimeListResponse, AnimeListType } from "../../services/anime-list/anime-list.type";
-import type { AnimeSearchResponse, AnimeSearchType } from "../../services/anime-search/anime-search.type";
 import { getSeasonalAnimes, getTopAnime, getTrendingAnimes } from "../../services/anime-list/anime-list";
-import { searchAnime } from "../../services/anime-search/anime-search";
 
 const DirectoryPage = () => {
   const [animeList, setAnimeList] = useState<AnimeListType[]>([]);
@@ -14,7 +12,7 @@ const DirectoryPage = () => {
   const [actualPage, setActualPage] = useState<number>(1)
   const [lastPage, setLastPage] = useState<number>(1)
   const navigate = useNavigate()
- 
+
   useEffect(() => {
     const fetchAnimes= async () => {
       try{
