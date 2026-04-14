@@ -1,4 +1,4 @@
-import type { PaginationType } from "./animePaginationTyping";
+import type { PaginationType } from "../anime-pagination.type";
 
 export interface AnimeListType {
   id: number;

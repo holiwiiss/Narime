@@ -1,7 +1,8 @@
-import { mapJikanAnimePagination } from "../mappers/animePaginationMapper";
-import { mapJikanAnimeSearch } from "../mappers/animeSearchMapper";
-import type { AnimeSearchResponse, AnimeSearchType } from "../types/api/animeSearchTyping";
-import type { JikanResponseAnimeList } from "../types/api/JikanAPITyping";
+import { mapJikanAnimePagination } from "../anime-pagination.mapper";
+import type { JikanResponseAnimeList } from "../jikan-API.type";
+import { mapJikanAnimeSearch } from "./anime-search.mapper";
+import type { AnimeSearchResponse } from "./anime-search.type";
+
 
 const URL__JIKAN= 'https://api.jikan.moe/v4/'
 

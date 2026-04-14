@@ -1,5 +1,5 @@
-import type { AnimeListType } from "../types/api/animeListTyping";
-import type { JikanAnimeListType } from "../types/api/JikanAPITyping";
+import type { JikanAnimeListType } from "../jikan-API.type";
+import type { AnimeListType } from "./anime-list.type";
 
 export function mapJikanAnimeList(data: JikanAnimeListType[]): AnimeListType[] {
   const dataMapped = data.map((anime): AnimeListType => ({

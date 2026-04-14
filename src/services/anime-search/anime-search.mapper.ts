@@ -1,5 +1,5 @@
-import type { AnimeSearchType } from "../types/api/animeSearchTyping";
-import type { JikanAnimeListType } from "../types/api/JikanAPITyping";
+import type { JikanAnimeListType } from "../jikan-API.type";
+import type { AnimeSearchType } from "./anime-search.type";
 
 export function mapJikanAnimeSearch(data: JikanAnimeListType[]) : AnimeSearchType[] {
   return data.map((anime): AnimeSearchType => ({

@@ -1,5 +1,5 @@
-import type { PaginationType } from "../types/api/animePaginationTyping";
-import type { JikanPaginationType } from "../types/api/JikanAPITyping";
+import type { PaginationType } from "./anime-pagination.type";
+import type { JikanPaginationType } from "./jikan-API.type";
 
 export function mapJikanAnimePagination(pagination: JikanPaginationType) :  PaginationType{
   return {

@@ -1,7 +1,8 @@
-import { mapJikanAnimeList } from "../mappers/animeListMapper";
-import { mapJikanAnimePagination } from "../mappers/animePaginationMapper";
-import type { AnimeListResponse } from "../types/api/animeListTyping";
-import type { JikanResponseAnimeList } from "../types/api/JikanAPITyping";
+import { mapJikanAnimePagination } from "../anime-pagination.mapper";
+import type { JikanResponseAnimeList } from "../jikan-API.type";
+import { mapJikanAnimeList } from "./anime-list.mapper";
+import type { AnimeListResponse } from "./anime-list.type";
+
 
 const URL__JIKAN= 'https://api.jikan.moe/v4/'
 
@@ -65,7 +66,7 @@ export async function getTopAnime(numPage:number): Promise<AnimeListResponse>{
  * }
  *    
  */
-export async function getSeasonalAnimes(numPage:Number): Promise<AnimeListResponse> {
+export async function getSeasonalAnimes(numPage:number): Promise<AnimeListResponse> {
   const request = URL__JIKAN + `seasons/now?page=${numPage}&sfw=true`;
   const response = await fetch(request);
 
@@ -103,7 +104,7 @@ export async function getSeasonalAnimes(numPage:Number): Promise<AnimeListRespon
  * }
  *    
  */
-export async function getTrendingAnimes(numPage:Number): Promise<AnimeListResponse> {
+export async function getTrendingAnimes(numPage:number): Promise<AnimeListResponse> {
   const request = URL__JIKAN + `top/anime?filter=bypopularity&page=${numPage}&sfw=true`;
   const response = await fetch(request);
 

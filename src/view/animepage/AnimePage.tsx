@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./animepage.scss";
-import { getAnimeCharacters, getAnimeInformation } from "../../api/animeInformation";
-import type { AnimeCharactersType, AnimeInformationType } from "../../types/api/animeInformationTyping";
+import { getAnimeCharacters, getAnimeInformation } from "../../services/animeInformation";
+import type { AnimeCharactersType, AnimeInformationType } from "../../services/anime-information/anime-information.type";
 import { useParams } from "react-router-dom";
 
 const AnimePage = () => {
