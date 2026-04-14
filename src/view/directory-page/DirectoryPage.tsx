@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import { getTopAnime, getSeasonalAnimes, getTrendingAnimes } from "../../services/animeList";
-import "./directorypage.scss";
-import type { AnimeListResponse, AnimeListType } from "../../types/api/animeListTyping";
 import { useNavigate } from "react-router-dom";
-import type { AnimeSearchResponse, AnimeSearchType } from "../../types/api/animeSearchTyping";
-import { searchAnime } from "../../services/animeSearch";
+
+import "./directorypage.scss";
+import type { AnimeListResponse, AnimeListType } from "../../services/anime-list/anime-list.type";
+import type { AnimeSearchResponse, AnimeSearchType } from "../../services/anime-search/anime-search.type";
+import { getSeasonalAnimes, getTopAnime, getTrendingAnimes } from "../../services/anime-list/anime-list";
+import { searchAnime } from "../../services/anime-search/anime-search";
 
 const DirectoryPage = () => {
   const [animeList, setAnimeList] = useState<AnimeListType[]>([]);

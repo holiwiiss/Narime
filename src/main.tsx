@@ -2,10 +2,10 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import App from './App.tsx'
-import DirectoryPage from './view/directory/DirectoryPage.tsx'
+import DirectoryPage from './view/directory-page/DirectoryPage.tsx'
 import RegisterPage from './view/register/RegisterPage.tsx'
 import LoginPage from './view/login/LoginPage.tsx'
-import AnimePage from './view/animepage/AnimePage.tsx'
+import AnimePage from './view/anime-page/Anime-Page.tsx'
 
 const router = createBrowserRouter([
   {

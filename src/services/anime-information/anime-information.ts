@@ -1,6 +1,7 @@
-import { mapJikanAnimeCharacters, mapJikanAnimeInformation } from "../mappers/animeInformationMapper";
-import type { AnimeCharactersType, AnimeInformationType } from "../types/api/animeInformationTyping";
-import type { JikanResponseAnimeCharacters, JikanResponseAnimeInformation } from "../types/api/JikanAPITyping";
+import type { JikanResponseAnimeCharacters, JikanResponseAnimeInformation } from "../jikan-API.type";
+import { mapJikanAnimeCharacters, mapJikanAnimeInformation } from "./anime-information.mapper";
+import type { AnimeCharactersType, AnimeInformationType } from "./anime-information.type";
+
 
 const URL__JIKAN= 'https://api.jikan.moe/v4/'
 
