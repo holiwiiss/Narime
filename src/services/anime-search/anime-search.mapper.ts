@@ -7,5 +7,7 @@ export function mapJikanAnimeSearch(data: JikanAnimeListType[]) : AnimeSearchTyp
     title: anime.title,
     image: anime.images.webp.image_url,
     type: anime.type,
+    score: anime.score,
+    episodes: anime.episodes,
   }));
 }

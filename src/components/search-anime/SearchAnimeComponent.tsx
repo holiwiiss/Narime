@@ -5,8 +5,12 @@ import type {
   AnimeSearchType,
 } from "../../services/anime-search/anime-search.type";
 import { searchAnime } from "../../services/anime-search/anime-search";
+import { useNavigate } from "react-router-dom";
 
 const SearchAnimeComponent = () => {
+
+  const navigate = useNavigate()
+
   const [activeSearch, setActiveSearch] = useState<boolean>(false);
   const [animeToSearch, setAnimeToSeach] = useState<string>("");
   const [searchList, setSearchList] = useState<AnimeSearchType[]>([]);
@@ -17,7 +21,7 @@ const SearchAnimeComponent = () => {
     const fetchAnimes = async () => {
       try {
         if (activeSearch) {
-          const JSON: AnimeSearchResponse = await searchAnime(animeToSearch);
+          const JSON: AnimeSearchResponse = await searchAnime(animeToSearch, 5);
           setSearchList(JSON.animes);
           setTotalItems(JSON.pagination.total_items);
         }
@@ -59,7 +63,9 @@ const SearchAnimeComponent = () => {
         }
         onFocus={(event: React.FocusEvent<HTMLInputElement>) =>
           handleSearch(event.currentTarget.value)}
-        onBlur={() => setActiveSearch(false)}
+        onBlur={() => {
+          setTimeout(() => setActiveSearch(false), 200);
+        }}
         placeholder="Search an anime..."
       ></input>
 
@@ -69,14 +75,14 @@ const SearchAnimeComponent = () => {
             <p>no se ha encontrado ningún anime con ese nombre</p>
           ) : (
             searchList.map((anime: AnimeSearchType) => (
-              <div className="anime_search">
+              <div className="anime_search" onClick={() => navigate(`/anime/${anime.id}`)}>
                 <img src={anime.image} />
                 <p>{anime.title}</p>
                 <p>{anime.type}</p>
               </div>
             ))
           )}
-          <button> View More ({totalItems})</button>
+          <button onClick={() => navigate(`/search/anime?q=${animeToSearch}`)}> View More ({totalItems})</button>
         </div>
       )}
       </div>

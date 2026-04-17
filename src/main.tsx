@@ -6,6 +6,8 @@ import DirectoryPage from './view/directory-page/DirectoryPage.tsx'
 import RegisterPage from './view/register/RegisterPage.tsx'
 import LoginPage from './view/login/LoginPage.tsx'
 import AnimePage from './view/anime-page/Anime-Page.tsx'
+import SearchResultsPage from './view/search-results-page/search-results-page.tsx'
+
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,10 @@ const router = createBrowserRouter([
       {
         path:'/anime/:id',
         element: <AnimePage/>
+      },
+      {
+        path:'/search/anime',
+        element: <SearchResultsPage/>
       },
       {
         path:'*',

@@ -25,8 +25,8 @@ const URL__JIKAN= 'https://api.jikan.moe/v4/'
  * 
  */
 
-export async function searchAnime(animeName:string): Promise<AnimeSearchResponse> {
-  const request = URL__JIKAN + `anime?q=${animeName}&order_by=popularity&limit=5&sfw=true`;
+export async function searchAnime(animeName:string, animeLimit: number): Promise<AnimeSearchResponse> {
+  const request = URL__JIKAN + `anime?q=${animeName}&order_by=popularity&limit=${animeLimit}&sfw=true`;
   const response = await fetch(request);
 
   if (!response.ok) {

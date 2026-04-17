@@ -5,6 +5,8 @@ export interface AnimeSearchType {
     title: string,
     image: string,
     type: string,
+    score: number | null,
+    episodes: number | null,
 }
 
 export interface AnimeSearchResponse {
