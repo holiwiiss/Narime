@@ -5,17 +5,18 @@
     --border-radius-s: 0.5rem;   /* 8px */
     --border-radius-m: 1rem;     /* 16px */
     --border-radius-l: 1.5rem;   /* 24px */
+    --border-radius-xl: 2rem;   /* 32px */
     
     /*      FONT SIZE: SCALE        */
-    --font-size-1: 0.75rem;
-    --font-size-2: 0.875rem;
-    --font-size-3: 1rem;
-    --font-size-4: 1.125rem;
-    --font-size-5: 1.25rem;
-    --font-size-6: 1.5rem;
-    --font-size-7: 2rem;
-    --font-size-8: 2.5rem;
-    --font-size-9: 3rem;
+   --font-size-1: 0.75rem;   /* 12px */
+    --font-size-2: 0.875rem;  /* 14px */
+    --font-size-3: 1rem;      /* 16px */
+    --font-size-4: 1.125rem;  /* 18px */
+    --font-size-5: 1.25rem;   /* 20px */
+    --font-size-6: 1.5rem;    /* 24px */
+    --font-size-7: 2rem;      /* 32px */
+    --font-size-8: 2.5rem;    /* 40px */
+    --font-size-9: 3rem;      /* 48px */
 
     /*      FONT SIZE: WEIGHT        */
     --font-light: 300;
@@ -36,6 +37,7 @@
     --space-l: 1.5rem;    /* 24px */
     --space-xl: 2rem;     /* 32px */
     --space-xxl: 3rem;    /* 48px */
+    --space-xxxl: 6rem;    /* 96px */
 
     /*      ELEMENTS        */
     --h1-size: var(--font-size-9);
