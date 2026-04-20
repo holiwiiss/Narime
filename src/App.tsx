@@ -1,6 +1,6 @@
 import {Link, Outlet } from "react-router-dom"
 import {Toaster } from "sileo";
-import './App.css'
+import './App.scss'
 import SearchAnimeComponent from "./components/search-anime/SearchAnimeComponent";
 
 function App() {

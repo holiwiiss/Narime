@@ -1,0 +1,58 @@
+:root {
+
+    /*      BORDER RADIUS       */
+    --border-radius-xs: 0.25rem; /* 4px */
+    --border-radius-s: 0.5rem;   /* 8px */
+    --border-radius-m: 1rem;     /* 16px */
+    --border-radius-l: 1.5rem;   /* 24px */
+    
+    /*      FONT SIZE: SCALE        */
+    --font-size-1: 0.75rem;
+    --font-size-2: 0.875rem;
+    --font-size-3: 1rem;
+    --font-size-4: 1.125rem;
+    --font-size-5: 1.25rem;
+    --font-size-6: 1.5rem;
+    --font-size-7: 2rem;
+    --font-size-8: 2.5rem;
+    --font-size-9: 3rem;
+
+    /*      FONT SIZE: WEIGHT        */
+    --font-light: 300;
+    --font-regular: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+
+    /*      FONT TYPOGRAFY      */
+    --font-primary: "Bebas Neue", sans-serif;
+    --font-secondary: "Inter", sans-serif;
+
+    /* SPACING SCALE */
+    --space-xxs: 0.25rem; /* 4px */
+    --space-xs: 0.5rem;   /* 8px */
+    --space-s: 0.75rem;   /* 12px */
+    --space-m: 1rem;      /* 16px */
+    --space-l: 1.5rem;    /* 24px */
+    --space-xl: 2rem;     /* 32px */
+    --space-xxl: 3rem;    /* 48px */
+
+    /*      ELEMENTS        */
+    --h1-size: var(--font-size-9);
+    --h2-size: var(--font-size-8);
+    --h3-size: var(--font-size-7);
+    --h4-size: var(--font-size-6);
+    --h5-size: var(--font-size-5);
+    --h6-size: var(--font-size-4);
+
+    --p-size: var(--font-size-3);
+    --span-size: var(--font-size-2);
+    --caption-size: var(--font-size-1);
+
+    --btn-primary-txt-size: var(--font-size-3);
+    --btn-secondary-txt-size: var(--font-size-2);
+
+    --label-size: var(--font-size-2);
+    --input-txt-size: var(--font-size-3);
+
+}
