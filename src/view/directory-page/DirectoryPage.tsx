@@ -6,6 +6,7 @@ import type { AnimeListResponse, AnimeListType } from "../../services/anime-list
 import { getSeasonalAnimes, getTopAnime, getTrendingAnimes } from "../../services/anime-list/anime-list";
 import type { AnimeGenresType } from "../../services/anime-genres/anime-genres.type";
 import { getAnimeGenres } from "../../services/anime-genres/anime-genres";
+import Pagination from "../../components/pagination/Pagination";
 
 const DirectoryPage = () => {
   const [animeList, setAnimeList] = useState<AnimeListType[]>([]);
@@ -46,7 +47,9 @@ const DirectoryPage = () => {
 
     };
     fetchAnimes();
+  }, [activeCategory, actualPage]);
 
+  useEffect(() => {
     const loadGenres = async () => {
       try{
         const JSONGenres : AnimeGenresType[] = await getAnimeGenres()
@@ -56,7 +59,7 @@ const DirectoryPage = () => {
       }
     }
     loadGenres()
-  }, [activeCategory, actualPage]);
+  },[])
 
   const activateFilter = (category: "top" | "trending" | "seasonal") => {
     setActiveCategory(category);
@@ -141,12 +144,7 @@ const DirectoryPage = () => {
       )}
       </div>
 
-      <div className="pagination__container">
-        <button  className={actualPage === 1 ? "btn__disable" : "btn__able"} onClick={() => previousPage()}>atras</button>
-        <p>Página {actualPage} de {lastPage}</p>
-        <button className={actualPage === lastPage ? "btn__disable" : "btn__able"} onClick={() => nextPage()}>siguiente</button>
-      </div>
-
+      <Pagination actualPage={actualPage} lastPage={lastPage} onNextPage={nextPage} onPreviousPage={previousPage}></Pagination>
     </>
   );
 };

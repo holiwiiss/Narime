@@ -1,0 +1,16 @@
+.pagination__container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-l);
+    padding: var(--space-l) 0;
+
+    &-pages {
+        font-size: var(--caption-size);
+    }
+
+    &-btn {
+        padding: var(--space-xs) var(--space-m);
+    }
+}

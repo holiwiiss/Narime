@@ -100,7 +100,7 @@ const LoginPage = () => {
 
         <div className="login-page__form-separation">
           <div className="login-page__form-separation-line"></div>
-          <p className="login-page__form-separation-text">O</p>
+          <p className="login-page__form-separation-text">o</p>
           <div className="login-page__form-separation-line"></div>
         </div>
 

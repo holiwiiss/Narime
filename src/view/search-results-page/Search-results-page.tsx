@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import type { AnimeSearchType, AnimeSearchResponse } from "../../services/anime-search/anime-search.type";
 import { searchAnime } from "../../services/anime-search/anime-search";
+import Pagination from "../../components/pagination/Pagination";
 
 const SearchResultsPage = () => {
 
@@ -32,7 +33,7 @@ const SearchResultsPage = () => {
         return <h1>No hay resultados que coincidan con esta búsqueda</h1>
       }
       try{
-        const JSON: AnimeSearchResponse = await searchAnime(query, 25)
+        const JSON: AnimeSearchResponse = await searchAnime(query,actualPage, 25)
         setSearchList(JSON.animes);
         setLastPage(JSON.pagination.last_visible_page)
       }catch(err){
@@ -64,12 +65,8 @@ const SearchResultsPage = () => {
             )
         }
       </div>
-
-      <div className="pagination__container">
-        <button  className={actualPage === 1 ? "btn__disable" : "btn__able"} onClick={() => previousPage()}>atras</button>
-        <p>Página {actualPage} de {lastPage}</p>
-        <button className={actualPage === lastPage ? "btn__disable" : "btn__able"} onClick={() => nextPage()}>siguiente</button>
-      </div>
+      
+      <Pagination actualPage={actualPage} lastPage={lastPage} onNextPage={nextPage} onPreviousPage={previousPage}></Pagination>
     </>
   );
 };

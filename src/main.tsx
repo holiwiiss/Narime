@@ -6,8 +6,7 @@ import DirectoryPage from './view/directory-page/DirectoryPage.tsx'
 import RegisterPage from './view/register/RegisterPage.tsx'
 import LoginPage from './view/login/LoginPage.tsx'
 import AnimePage from './view/anime-page/Anime-Page.tsx'
-import SearchResultsPage from './view/search-results-page/search-results-page.tsx'
-
+import SearchResultsPage from './view/search-results-page/Search-results-page.tsx'
 
 const router = createBrowserRouter([
   {

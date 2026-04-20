@@ -21,7 +21,7 @@ const SearchAnimeComponent = () => {
     const fetchAnimes = async () => {
       try {
         if (activeSearch) {
-          const JSON: AnimeSearchResponse = await searchAnime(animeToSearch, 5);
+          const JSON: AnimeSearchResponse = await searchAnime(animeToSearch, 1, 5);
           setSearchList(JSON.animes);
           setTotalItems(JSON.pagination.total_items);
         }
