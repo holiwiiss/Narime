@@ -95,3 +95,12 @@ body {
     background-attachment: fixed;
     
 }
+
+select {
+    border:2px solid var(--color-white-50);
+    color: var(--color-white);
+    font-family: var(--font-secondary);
+    padding: var(--space-xxs) var(--space-m);
+    border-radius: var(--border-radius-m);
+    font-size: var(--p-size);
+}

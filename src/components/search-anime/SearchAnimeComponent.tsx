@@ -19,15 +19,15 @@ const SearchAnimeComponent = () => {
   const timeoutRef = useRef<number | null>(null);
   const [totalItems, setTotalItems] = useState<number>(0);
 
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isError, setIsError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchAnimes = async () => {
-      setIsLoading(true)
       setIsError(null)
       try {
         if (activeSearch) {
+          setIsLoading(true)
           const JSON: AnimeSearchResponse = await searchAnime(animeToSearch, 1, 5);
           setSearchList(JSON.animes);
           setTotalItems(JSON.pagination.total_items);
@@ -36,7 +36,7 @@ const SearchAnimeComponent = () => {
         console.log("La api no responde, " + e);
         setIsError('Ha habido un error con la carga de la API');
       }finally{
-        setIsLoading(true)
+        setIsLoading(false)
       }
     };
     fetchAnimes();

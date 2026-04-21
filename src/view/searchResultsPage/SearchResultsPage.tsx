@@ -35,7 +35,7 @@ const SearchResultsPage = () => {
         setIsError('Ha habido un error con la carga de la API')
       }
       finally{
-        setIsLoading(true)
+        setIsLoading(false)
       }
     }
     fetchAnimes();

@@ -57,6 +57,7 @@ const DirectoryPage = () => {
   const activateFilter = (category: "top" | "trending" | "seasonal") => {
     setActiveCategory(category);
     setActualPage(1);
+    console.log('aa')
   }
 
   const addToMyList = (Animeid:number) => {
@@ -90,7 +91,7 @@ const DirectoryPage = () => {
         <h1>No se han encontrado animes</h1>
       ) : (
         animeList.map((anime: AnimeListType) => (
-          <div className="anime__card" onClick={() => navigate(`/anime/${anime.id}`)}>
+          <div key={anime.id} className="anime__card" onClick={() => navigate(`/anime/${anime.id}`)}>
             <h1>{anime.title}</h1>
             <img src={anime.image}/>
             <div className="information__container">
