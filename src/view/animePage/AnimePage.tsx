@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import "./anime-page.scss";
+import "./animepage.scss";
 import type { AnimeCharactersType, AnimeInformationType } from "../../services/anime-information/anime-information.type";
 import { useParams } from "react-router-dom";
 import { getAnimeCharacters, getAnimeInformation } from "../../services/anime-information/anime-information";
+import ErrorComponent from "../../components/error/ErrorComponent";
+import LoadingComponent from "../../components/loading/LoadingComponent";
 
 const AnimePage = () => {
   const [animeInfo, setAnimeInfo] = useState<AnimeInformationType>();
@@ -10,21 +12,31 @@ const AnimePage = () => {
   const { id } = useParams();
   const animeID = Number(id);
 
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isError, setIsError] = useState<string | null>(null)
+
   useEffect(() => {
     const fetchAnimes = async () => {
+      setIsLoading(true)
+      setIsError(null)
       try {
         const JSON: AnimeInformationType = await getAnimeInformation(animeID);
         setAnimeInfo(JSON);
 
         const JSONCharacters: AnimeCharactersType[] = await getAnimeCharacters(animeID);
         setAnimeCharacters(JSONCharacters);
-      } catch (err) {
-        console.log("La api no responde");
-        console.log(err);
+      } catch (e) {
+        console.log("La api no responde " + e);
+        setIsError('Ha habido un error con la carga de la API')
+      }finally{
+        setIsLoading(false)
       }
     };
     fetchAnimes();
   }, [animeID]);
+
+  if (isLoading) return <LoadingComponent text="Cargando datos del anime..." />
+  if (isError) return <ErrorComponent text={isError} />
 
   return (
     <>

@@ -6,6 +6,8 @@ import type {
 } from "../../services/anime-search/anime-search.type";
 import { searchAnime } from "../../services/anime-search/anime-search";
 import { useNavigate } from "react-router-dom";
+import ErrorComponent from "../error/ErrorComponent";
+import LoadingComponent from "../loading/LoadingComponent";
 
 const SearchAnimeComponent = () => {
 
@@ -17,20 +19,31 @@ const SearchAnimeComponent = () => {
   const timeoutRef = useRef<number | null>(null);
   const [totalItems, setTotalItems] = useState<number>(0);
 
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isError, setIsError] = useState<string | null>(null)
+
   useEffect(() => {
     const fetchAnimes = async () => {
+      setIsLoading(true)
+      setIsError(null)
       try {
         if (activeSearch) {
           const JSON: AnimeSearchResponse = await searchAnime(animeToSearch, 1, 5);
           setSearchList(JSON.animes);
           setTotalItems(JSON.pagination.total_items);
         }
-      } catch (err) {
-        console.log("La api no responde, " + err);
+      } catch (e) {
+        console.log("La api no responde, " + e);
+        setIsError('Ha habido un error con la carga de la API');
+      }finally{
+        setIsLoading(true)
       }
     };
     fetchAnimes();
   }, [activeSearch, animeToSearch]);
+
+  if (isLoading) return <LoadingComponent text="Cargando datos del anime..." />
+  if (isError) return <ErrorComponent text={isError} />
 
   const handleSearch = (text: string) => {
     console.log(text);

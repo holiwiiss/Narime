@@ -3,6 +3,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import type { AnimeSearchType, AnimeSearchResponse } from "../../services/anime-search/anime-search.type";
 import { searchAnime } from "../../services/anime-search/anime-search";
 import Pagination from "../../components/pagination/Pagination";
+import LoadingComponent from "../../components/loading/LoadingComponent";
+import ErrorComponent from "../../components/error/ErrorComponent";
 
 const SearchResultsPage = () => {
 
@@ -13,6 +15,34 @@ const SearchResultsPage = () => {
   const [searchList, setSearchList] = useState<AnimeSearchType[]>([]);
   const [actualPage, setActualPage] = useState<number>(1)
   const [lastPage, setLastPage] = useState<number>(1)
+
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isError, setIsError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const fetchAnimes = async () => {
+      setIsLoading(true)
+      setIsError(null)
+      if(!query){
+        return setIsError('No hay ninguna búsqueda con coincida con el resultado')
+      }
+      try{
+        const JSON: AnimeSearchResponse = await searchAnime(query,actualPage, 25)
+        setSearchList(JSON.animes);
+        setLastPage(JSON.pagination.last_visible_page)
+      }catch(e){
+        console.log("La api no responde, " + e);
+        setIsError('Ha habido un error con la carga de la API')
+      }
+      finally{
+        setIsLoading(true)
+      }
+    }
+    fetchAnimes();
+  })
+
+  if (isLoading) return <LoadingComponent text="Cargando datos del anime..." />
+  if (isError) return <ErrorComponent text={isError} />
 
   const nextPage = () => {
     if(actualPage >= lastPage) {
@@ -27,21 +57,6 @@ const SearchResultsPage = () => {
     }
   }
 
-  useEffect(() => {
-    const fetchAnimes = async () => {
-      if(!query){
-        return <h1>No hay resultados que coincidan con esta búsqueda</h1>
-      }
-      try{
-        const JSON: AnimeSearchResponse = await searchAnime(query,actualPage, 25)
-        setSearchList(JSON.animes);
-        setLastPage(JSON.pagination.last_visible_page)
-      }catch(err){
-        console.log("La api no responde, " + err);
-      }
-    }
-    fetchAnimes();
-  })
 
   return (
     <>
