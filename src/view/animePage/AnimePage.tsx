@@ -95,7 +95,7 @@ const AnimePage = () => {
                   </div>
 
                   <div className="anime-page__content-stat">
-                    <p className="anime-page__content-stat-number">{animeInfo.rank}</p>
+                    <p className="anime-page__content-stat-number"># {animeInfo.rank}</p>
                     <p>Ranked</p>
                   </div>
 

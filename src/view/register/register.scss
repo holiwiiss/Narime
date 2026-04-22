@@ -1,10 +1,48 @@
-.colunm {
-    width: 50%;
+.register-page {
+    height: calc(100vh - 50px);
+    width: 100vw;
     display: flex;
-    flex-direction: column;
-
+    justify-content: center;
+    padding: var(--space-l);
+    background-image: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.7),
+            rgba(0, 0, 0, 0)
+        ), url(../../assets/images/fondo_singUp.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-* {
-    box-sizing: border-box;
+.register-page__form-section {
+
+    width: 50%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 0 var(--space-xxxl);
+    background-color: var(--color-black-75);
+    border-radius: var(--border-radius-xl);
+    gap: var(--space-l);
+}
+
+.register-page__tittle {
+    font-size: var(--font-size-6);
+}
+
+.register-page__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+}
+
+.register-page__form-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.register-page__button {
+    height: 40px;
 }
