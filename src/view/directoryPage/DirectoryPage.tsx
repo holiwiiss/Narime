@@ -8,6 +8,12 @@ import LoadingComponent from "../../components/loading/LoadingComponent";
 import ErrorComponent from "../../components/error/ErrorComponent";
 import { useAddAnimeList } from "../../context/MyListContext";
 
+const functionMap = {
+  top: getTopAnime,
+  trending: getTrendingAnimes,
+  seasonal: getSeasonalAnimes,
+}
+
 const DirectoryPage = () => {
 
   const navigate = useNavigate()
@@ -27,23 +33,11 @@ const DirectoryPage = () => {
       setIsLoading(true)
       setIsError(false)
       try{
-        if(activeCategory === "top"){
-          const JSON: AnimeListResponse = await getTopAnime(actualPage);
-          setAnimeList(JSON.animes);
-          setLastPage(JSON.pagination.last_visible_page);
-        }
-
-        if(activeCategory === "trending"){
-          const JSON: AnimeListResponse = await getTrendingAnimes(actualPage);
-          setAnimeList(JSON.animes);
-          setLastPage(JSON.pagination.last_visible_page);
-        }
-
-        if(activeCategory === "seasonal"){
-          const JSON: AnimeListResponse = await getSeasonalAnimes(actualPage);
-          setAnimeList(JSON.animes);
-          setLastPage(JSON.pagination.last_visible_page);
-        }
+        const searchFunction = functionMap[activeCategory]
+        const data: AnimeListResponse = await searchFunction(actualPage)
+        
+        setAnimeList(data.animes);
+        setLastPage(data.pagination.last_visible_page);
       }catch(e){
         console.log('La api no responde, ' + e)
         setIsError(true)
@@ -60,7 +54,6 @@ const DirectoryPage = () => {
   const activateFilter = (category: "top" | "trending" | "seasonal") => {
     setActiveCategory(category);
     setActualPage(1);
-    console.log('aa')
   }
 
   const addAnime = (e: React.MouseEvent<HTMLButtonElement>, animeId:number) => {

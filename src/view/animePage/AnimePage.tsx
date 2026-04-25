@@ -27,11 +27,13 @@ const AnimePage = () => {
       setIsLoading(true)
       setIsError(null)
       try {
-        const JSON: AnimeInformationType = await getAnimeInformation(animeID);
-        setAnimeInfo(JSON);
+        const [info, characters] = await Promise.all([
+          getAnimeInformation(animeID),
+          getAnimeCharacters(animeID)
+        ]);
 
-        const JSONCharacters: AnimeCharactersType[] = await getAnimeCharacters(animeID);
-        setAnimeCharacters(JSONCharacters);
+        setAnimeInfo(info);
+        setAnimeCharacters(characters);
       } catch (e) {
         console.log("La api no responde " + e);
         setIsError('Ha habido un error con la carga de la API')
