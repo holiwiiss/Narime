@@ -1,20 +1,23 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import "./directorypage.scss";
 import type { AnimeListResponse, AnimeListType } from "../../services/anime-list/anime-list.type";
 import { getSeasonalAnimes, getTopAnime, getTrendingAnimes } from "../../services/anime-list/anime-list";
 import Pagination from "../../components/pagination/Pagination";
 import LoadingComponent from "../../components/loading/LoadingComponent";
 import ErrorComponent from "../../components/error/ErrorComponent";
+import { useAddAnimeList } from "../../context/MyListContext";
 
 const DirectoryPage = () => {
+
+  const navigate = useNavigate()
+  const { addAnimeToMyList } = useAddAnimeList()
+
   const [animeList, setAnimeList] = useState<AnimeListType[]>([]);
-  const [myList, setMyList] = useState<number[]>([])
+
   const [activeCategory, setActiveCategory] = useState <"top" | "trending" | "seasonal">("top")
   const [actualPage, setActualPage] = useState<number>(1)
   const [lastPage, setLastPage] = useState<number>(1)
-  const navigate = useNavigate()
 
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isError, setIsError] = useState<boolean>(false)
@@ -60,9 +63,9 @@ const DirectoryPage = () => {
     console.log('aa')
   }
 
-  const addToMyList = (Animeid:number) => {
-    setMyList(prevList => [...prevList, Animeid]);
-    console.log(myList);
+  const addAnime = (e: React.MouseEvent<HTMLButtonElement>, animeId:number) => {
+    e.stopPropagation();
+    addAnimeToMyList(animeId)
   }
 
   const nextPage = () => {
@@ -98,7 +101,7 @@ const DirectoryPage = () => {
               <h2>Score: {anime.score}</h2>
               <h2>Episodes: {anime.episodes}</h2>
             </div>
-            <button onClick={() => addToMyList(anime.id)}> Add to list</button>
+            <button onClick={(e) => addAnime(e, anime.id)}> Add to list</button>
           </div>
         ))
       )}

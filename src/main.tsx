@@ -7,6 +7,8 @@ import RegisterPage from './view/register/RegisterPage.tsx'
 import LoginPage from './view/login/LoginPage.tsx'
 import AnimePage from './view/animePage/AnimePage.tsx'
 import SearchResultsPage from './view/searchResultsPage/SearchResultsPage.tsx'
+import { MyListProvider } from './context/MyListContext.tsx'
+import MyListPage from './view/myListPage/MyListPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,10 @@ const router = createBrowserRouter([
       {
         path:'/directory',
         element: <DirectoryPage/>
+      },
+      {
+        path:'/my-list',
+        element: <MyListPage/>
       },
       {
         path:'/register',
@@ -45,4 +51,8 @@ const router = createBrowserRouter([
   }
 ])
 
-createRoot(document.getElementById('root')!).render(<RouterProvider router={router} />)
+createRoot(document.getElementById('root')!).render(
+  <MyListProvider>
+    <RouterProvider router={router} />
+  </MyListProvider>
+)
