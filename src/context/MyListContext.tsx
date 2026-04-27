@@ -31,7 +31,7 @@ export function MyListProvider({children}: ProviderProps) {
 export function useAddAnimeList() {
     const context = useContext(MyListContext);
     if(!context){
-        throw new Error("useAddAnimeList must be used inside MyListProvider");
+        throw new Error("Algo estas haciendo mal");
     }
     return context
 }
