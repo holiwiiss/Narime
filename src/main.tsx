@@ -9,6 +9,7 @@ import AnimePage from './view/animePage/AnimePage.tsx'
 import SearchResultsPage from './view/searchResultsPage/SearchResultsPage.tsx'
 import { MyListProvider } from './context/MyListContext.tsx'
 import MyListPage from './view/myListPage/MyListPage.tsx'
+import { AuthProvider } from './context/AuthContext.tsx'
 
 const router = createBrowserRouter([
   {
@@ -52,7 +53,9 @@ const router = createBrowserRouter([
 ])
 
 createRoot(document.getElementById('root')!).render(
-  <MyListProvider>
-    <RouterProvider router={router} />
-  </MyListProvider>
+  <AuthProvider>
+    <MyListProvider>
+      <RouterProvider router={router} />
+    </MyListProvider>
+  </AuthProvider>
 )

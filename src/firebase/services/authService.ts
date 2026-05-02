@@ -1,9 +1,9 @@
 import { auth } from "../firebase";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 
 const provider = new GoogleAuthProvider();
 
-const registerFirebase = async (email: string, password: string) => {
+export const registerFirebase = async (email: string, password: string) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     return { user: userCredential.user, error: null }
@@ -12,7 +12,7 @@ const registerFirebase = async (email: string, password: string) => {
   }
 };
 
-const loginFirebase = async (email: string, password: string) => {
+export const loginFirebase = async (email: string, password: string) => {
   try{
     const userCredential = await signInWithEmailAndPassword(auth, email, password)
     return { user: userCredential.user, error: null }
@@ -21,7 +21,7 @@ const loginFirebase = async (email: string, password: string) => {
   }
 }
 
-const loginWithGoogle = async () => {
+export const loginWithGoogle = async () => {
   try{
     const userCredential = await signInWithPopup(auth, provider)
     return {user: userCredential.user, error: null}
@@ -30,4 +30,6 @@ const loginWithGoogle = async () => {
   }
 }
 
-export { registerFirebase, loginFirebase, loginWithGoogle };
+export const logOutFirebase = async() => {
+  await signOut(auth)
+}
