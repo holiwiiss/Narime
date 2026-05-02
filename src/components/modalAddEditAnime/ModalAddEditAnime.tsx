@@ -1,25 +1,30 @@
 import { useState } from "react";
+import { useAddAnimeList } from "../../context/MyListContext";
 
-const ModalAddEditAnime = (action: string) => {
-  const [headerText, setHeaderText] = useState<string>("");
+type PropsModalAdd = {
+  animeId: number;
+  action: "add" | "edit";
+  onClose: () => void;
+}
+
+const ModalAddEditAnime = ({animeId, action, onClose} :PropsModalAdd) => {
+  const { addAnimeToMyList } = useAddAnimeList()
+
+  const headerText = action === "add" ? "Add to my list" : "Edit anime";
+
   const [selectedStatus, setSelectedStatus] = useState<string>("");
   const statusList = ["Watching", "Completed", "Dropped", "Plan To Watch"];
 
   const [selectedScore, setSelectedScore] = useState<number | null>(null);
   const [selectedEpisodes, setSelectedEpisodes] = useState<number>(0);
 
-  if (action === "add") {
-    setHeaderText("Add to my list");
-  } else if (action === "edit") {
-    setHeaderText("Edit anime");
-  }
-
-  const sendAction = (status: string, score: number | null, episodes: number) => {
+  const sendAction = (id:number, status: string, score: number | null, episodes: number) => {
     if(action==="add"){
-        
+      addAnimeToMyList(id, status, score, episodes)
     }else if(action === "edit"){
 
     }
+    onClose();
   }
 
   return (
@@ -53,7 +58,8 @@ const ModalAddEditAnime = (action: string) => {
           }
         ></input>
 
-        <button onClick={() =>sendAction(selectedStatus, selectedScore, selectedEpisodes)}></button>
+        <button type="button" onClick={() =>sendAction(animeId, selectedStatus, selectedScore, selectedEpisodes)}>Añadir</button>
+        <button type="button" onClick={onClose}>Cerrar</button>
       </form>
     </div>
   );

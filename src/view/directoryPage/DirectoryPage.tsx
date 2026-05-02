@@ -6,7 +6,7 @@ import { getSeasonalAnimes, getTopAnime, getTrendingAnimes } from "../../service
 import Pagination from "../../components/pagination/Pagination";
 import LoadingComponent from "../../components/loading/LoadingComponent";
 import ErrorComponent from "../../components/error/ErrorComponent";
-import { useAddAnimeList } from "../../context/MyListContext";
+import ModalAddEditAnime from "../../components/modalAddEditAnime/ModalAddEditAnime";
 
 const functionMap = {
   top: getTopAnime,
@@ -17,7 +17,10 @@ const functionMap = {
 const DirectoryPage = () => {
 
   const navigate = useNavigate()
-  const { addAnimeToMyList } = useAddAnimeList()
+  
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedAnimeId, setSelectedAnimeId] = useState <number | null> (null)
+  const [selectedAction, setSelectedAction] = useState<"add" | "edit"> ("add")
 
   const [animeList, setAnimeList] = useState<AnimeListType[]>([]);
 
@@ -56,9 +59,11 @@ const DirectoryPage = () => {
     setActualPage(1);
   }
 
-  const addAnime = (e: React.MouseEvent<HTMLButtonElement>, animeId:number) => {
+  const openAddModal = (e: React.MouseEvent<HTMLButtonElement>, animeId:number, action:string) => {
     e.stopPropagation();
-    addAnimeToMyList(animeId)
+    setSelectedAnimeId(animeId)
+    setIsModalOpen(true)
+    setSelectedAction("add")
   }
 
   const nextPage = () => {
@@ -94,13 +99,20 @@ const DirectoryPage = () => {
               <h2>Score: {anime.score}</h2>
               <h2>Episodes: {anime.episodes}</h2>
             </div>
-            <button onClick={(e) => addAnime(e, anime.id)}> Add to list</button>
+            <button onClick={(e) => openAddModal(e, anime.id, "add")}> Add to list</button>
           </div>
         ))
       )}
       </div>
 
       <Pagination actualPage={actualPage} lastPage={lastPage} onNextPage={nextPage} onPreviousPage={previousPage}></Pagination>
+      {isModalOpen && selectedAnimeId && (
+        <ModalAddEditAnime
+        animeId={selectedAnimeId}
+        action={selectedAction}
+        onClose={() => setIsModalOpen(false)}
+        />
+      )}
     </>
   );
 };
