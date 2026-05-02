@@ -1,10 +1,9 @@
 import { onAuthStateChanged, type User } from "firebase/auth"
-import { logOutFirebase } from "../firebase/services/authService";
 import { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "../firebase/firebase";
 
 type AuthContextType = {
-    user: User |null;
+    user: User | null;
     loading: boolean;
 }
 
