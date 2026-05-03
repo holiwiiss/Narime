@@ -7,6 +7,9 @@ import Pagination from "../../components/pagination/Pagination";
 import LoadingComponent from "../../components/loading/LoadingComponent";
 import ErrorComponent from "../../components/error/ErrorComponent";
 import ModalAddEditAnime from "../../components/modalAddEditAnime/ModalAddEditAnime";
+import { useAuth } from "../../context/AuthContext";
+import { getAllAnimesFirebase } from "../../firebase/services/firestoreService";
+import type { UserAnimeListFirestoreType } from "../../firebase/services/firestoreService.type";
 
 const functionMap = {
   top: getTopAnime,
@@ -17,12 +20,14 @@ const functionMap = {
 const DirectoryPage = () => {
 
   const navigate = useNavigate()
+  const { user } = useAuth()
   
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedAnimeId, setSelectedAnimeId] = useState <number | null> (null)
   const [selectedAction, setSelectedAction] = useState<"add" | "edit"> ("add")
 
   const [animeList, setAnimeList] = useState<AnimeListType[]>([]);
+  const [animesWatched, setAnimesWatched] = useState <UserAnimeListFirestoreType[]>([]);
 
   const [activeCategory, setActiveCategory] = useState <"top" | "trending" | "seasonal">("top")
   const [actualPage, setActualPage] = useState<number>(1)
@@ -36,9 +41,13 @@ const DirectoryPage = () => {
       setIsLoading(true)
       setIsError(false)
       try{
+
+        if(user){
+          setAnimesWatched(await getAllAnimesFirebase(user?.uid))
+        }
+        
         const searchFunction = functionMap[activeCategory]
         const data: AnimeListResponse = await searchFunction(actualPage)
-        
         setAnimeList(data.animes);
         setLastPage(data.pagination.last_visible_page);
       }catch(e){
@@ -59,11 +68,11 @@ const DirectoryPage = () => {
     setActualPage(1);
   }
 
-  const openAddModal = (e: React.MouseEvent<HTMLButtonElement>, animeId:number, action:string) => {
+  const openAddModal = (e: React.MouseEvent<HTMLButtonElement>, animeId:number, action:"add" | "edit") => {
     e.stopPropagation();
     setSelectedAnimeId(animeId)
     setIsModalOpen(true)
-    setSelectedAction("add")
+    setSelectedAction(action)
   }
 
   const nextPage = () => {
@@ -79,6 +88,10 @@ const DirectoryPage = () => {
     }
   }
 
+  const getAnimeUserInformation = (jikanAnimeID: number) => {
+    return animesWatched.find( (anime: UserAnimeListFirestoreType) => anime.animeId === jikanAnimeID);
+  }
+
   return (
     <>
     <div className="bton__container">
@@ -91,17 +104,26 @@ const DirectoryPage = () => {
       {animeList.length === 0 ? (
         <h1>No se han encontrado animes</h1>
       ) : (
-        animeList.map((anime: AnimeListType) => (
-          <div key={anime.id} className="anime__card" onClick={() => navigate(`/anime/${anime.id}`)}>
-            <h1>{anime.title}</h1>
-            <img src={anime.image}/>
-            <div className="information__container">
-              <h2>Score: {anime.score}</h2>
-              <h2>Episodes: {anime.episodes}</h2>
+        animeList.map((anime: AnimeListType) => {
+          const userData = getAnimeUserInformation(anime.id)
+          return (
+            <div key={anime.id} className="anime__card" onClick={() => navigate(`/anime/${anime.id}`)}>
+              <h1>{anime.title}</h1>
+              <img src={anime.image}/>
+              <div className="information__container">
+                <h2>Score: {anime.score}</h2>
+                <h2>Episodes: {anime.episodes}</h2>
+              </div>
+              {userData && (
+                <div className="mylist__info">
+                  <p>My status: {userData.statusPersonal}</p>
+                  <p>My score: {userData.scorePersonal}</p>
+                  <p>episodes Watched: {userData.episodesWatched}</p>
+                </div>
+              )}
+              <button onClick={(e) => openAddModal(e, anime.id, "add")}>{userData ? "Edit" : "Add to list"}</button>
             </div>
-            <button onClick={(e) => openAddModal(e, anime.id, "add")}> Add to list</button>
-          </div>
-        ))
+          )})
       )}
       </div>
 
