@@ -9,12 +9,19 @@ import ErrorComponent from "../../components/error/ErrorComponent";
 import ModalAddEditAnime from "../../components/modalAddEditAnime/ModalAddEditAnime";
 import { useAuth } from "../../context/AuthContext";
 import { getAllAnimesFirebase } from "../../firebase/services/firestoreService";
-import type { UserAnimeListFirestoreType } from "../../firebase/services/firestoreService.type";
+import type { AnimePersonalStatusType, UserAnimeListFirestoreType } from "../../firebase/services/firestoreService.type";
 
 const functionMap = {
   top: getTopAnime,
   trending: getTrendingAnimes,
   seasonal: getSeasonalAnimes,
+}
+
+type UserAnimeEditData = {
+  id: string
+  status: AnimePersonalStatusType
+  score: number | null
+  episodes: number
 }
 
 const DirectoryPage = () => {
@@ -24,7 +31,8 @@ const DirectoryPage = () => {
   
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedAnimeId, setSelectedAnimeId] = useState <number | null> (null)
-  const [selectedAction, setSelectedAction] = useState<"add" | "edit"> ("add")
+  const [selectedAction, setSelectedAction] = useState<"add" | "edit">("add")
+  const [selectedIdFromUser, setSelectedIdFromUser] = useState<UserAnimeEditData | null> (null)
 
   const [animeList, setAnimeList] = useState<AnimeListType[]>([]);
   const [animesWatched, setAnimesWatched] = useState <UserAnimeListFirestoreType[]>([]);
@@ -68,11 +76,22 @@ const DirectoryPage = () => {
     setActualPage(1);
   }
 
-  const openAddModal = (e: React.MouseEvent<HTMLButtonElement>, animeId:number, action:"add" | "edit") => {
+  const openAddEditModal = (e: React.MouseEvent<HTMLButtonElement>, animeId:number) => {
     e.stopPropagation();
     setSelectedAnimeId(animeId)
     setIsModalOpen(true)
-    setSelectedAction(action)
+    const userData = getAnimeUserInformation(animeId)
+    if(!userData) {
+      setSelectedAction("add")
+    }else{
+      setSelectedAction("edit")
+      setSelectedIdFromUser({
+        id: userData.id,
+        status: userData.statusPersonal,
+        score: userData.scorePersonal,
+        episodes: userData.episodesWatched
+      })
+    }
   }
 
   const nextPage = () => {
@@ -89,7 +108,7 @@ const DirectoryPage = () => {
   }
 
   const getAnimeUserInformation = (jikanAnimeID: number) => {
-    return animesWatched.find( (anime: UserAnimeListFirestoreType) => anime.animeId === jikanAnimeID);
+    return animesWatched.find((anime: UserAnimeListFirestoreType) => anime.animeId === jikanAnimeID);
   }
 
   return (
@@ -121,17 +140,19 @@ const DirectoryPage = () => {
                   <p>episodes Watched: {userData.episodesWatched}</p>
                 </div>
               )}
-              <button onClick={(e) => openAddModal(e, anime.id, "add")}>{userData ? "Edit" : "Add to list"}</button>
+              <button onClick={(e) => openAddEditModal(e, anime.id)}>{userData ? "Edit" : "Add to list"}</button>
             </div>
           )})
       )}
       </div>
 
       <Pagination actualPage={actualPage} lastPage={lastPage} onNextPage={nextPage} onPreviousPage={previousPage}></Pagination>
+      
       {isModalOpen && selectedAnimeId && (
         <ModalAddEditAnime
         animeId={selectedAnimeId}
         action={selectedAction}
+        idUserList = {selectedIdFromUser}
         onClose={() => setIsModalOpen(false)}
         />
       )}

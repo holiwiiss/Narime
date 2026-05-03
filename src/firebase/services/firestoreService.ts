@@ -1,5 +1,5 @@
 import { db } from "../firebase";
-import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
+import { collection, addDoc, query, where, getDocs, doc, updateDoc } from "firebase/firestore";
 import type { UserAnimeListFirestoreType } from "./firestoreService.type";
 
 /**
@@ -103,5 +103,19 @@ export async function getAllAnimesFirebase(userId: string): Promise<UserAnimeLis
   } catch (e) {
     console.log(e);
     return []
+  }
+}
+
+export async function updateAnimeInformationFirebase(docId:string, status: string, score: number | null, episodes: number): Promise <void> {
+  try{
+    const docRef = doc(db, "userAnimeList", docId)
+    await updateDoc(docRef,{
+      statusPersonal: status,
+      scorePersonal: score,
+      episodesWatched: episodes,
+      updateAt: new Date(),
+    })
+  }catch(e){
+    console.log(e)
   }
 }

@@ -1,10 +1,17 @@
 import { createContext, useContext, type ReactNode } from "react";
 import { useAuth } from "./AuthContext";
-import { addAnimeToFirebase, isInList } from "../firebase/services/firestoreService";
+import { addAnimeToFirebase, isInList, updateAnimeInformationFirebase } from "../firebase/services/firestoreService";
 
 type MyListContextType = {
   addAnimeToMyList: (
     id: number,
+    status: string,
+    score: number | null,
+    episodes: number,
+  ) => void;
+
+  editAnimeToMyList: (
+    id: string,
     status: string,
     score: number | null,
     episodes: number,
@@ -30,8 +37,13 @@ export function MyListProvider({ children }: ProviderProps) {
     addAnimeToFirebase(AnimeId, status, score, episodes, user.uid)
   };
 
+  const editAnimeToMyList = async (docId: string, status: string, score: number | null, episodes: number) => {
+    if(!user) return
+    updateAnimeInformationFirebase(docId,status, score, episodes)
+  }
+
   return (
-    <MyListContext.Provider value={{addAnimeToMyList }}>
+    <MyListContext.Provider value={{addAnimeToMyList, editAnimeToMyList }}>
       {children}
     </MyListContext.Provider>
   );
