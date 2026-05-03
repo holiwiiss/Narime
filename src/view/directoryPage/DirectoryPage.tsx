@@ -58,7 +58,7 @@ const DirectoryPage = () => {
       }
     };
     fetchAnimes();
-  }, [activeCategory, actualPage]);
+  }, [activeCategory, actualPage, user]);
 
   if (isLoading) return <LoadingComponent text="Cargando animes..." />
   if (isError) return <ErrorComponent text="Ha habido un error con la API" />

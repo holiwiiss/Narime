@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAddAnimeList } from "../../context/MyListContext";
+import type { AnimePersonalStatusType } from "../../firebase/services/firestoreService.type";
 
 type PropsModalAdd = {
   animeId: number;
@@ -12,13 +13,13 @@ const ModalAddEditAnime = ({animeId, action, onClose} :PropsModalAdd) => {
 
   const headerText = action === "add" ? "Add to my list" : "Edit anime";
 
-  const [selectedStatus, setSelectedStatus] = useState<string>("");
-  const statusList = ["Watching", "Completed", "Dropped", "Plan To Watch"];
+  const [selectedStatus, setSelectedStatus] = useState<AnimePersonalStatusType>("watching");
+  const statusList = ["watching", "completed", "dropped", "planToWatch"];
 
   const [selectedScore, setSelectedScore] = useState<number | null>(null);
   const [selectedEpisodes, setSelectedEpisodes] = useState<number>(0);
 
-  const sendAction = (id:number, status: string, score: number | null, episodes: number) => {
+  const sendAction = (id:number, status: AnimePersonalStatusType, score: number | null, episodes: number) => {
     if(action==="add"){
       addAnimeToMyList(id, status, score, episodes)
     }else if(action === "edit"){
@@ -34,7 +35,7 @@ const ModalAddEditAnime = ({animeId, action, onClose} :PropsModalAdd) => {
         <label>Status</label>
         <select
           value={selectedStatus}
-          onChange={(e) => setSelectedStatus(e.target.value)}
+          onChange={(e) => setSelectedStatus(e.target.value as AnimePersonalStatusType)}
         >
           <option value="">Status</option>
           {statusList.map((status) => (
