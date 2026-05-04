@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useMemo } from "react";
 import "./directorypage.scss";
 import type { AnimeListResponse, AnimeListType } from "../../services/anime-list/anime-list.type";
 import { getSeasonalAnimes, getTopAnime, getTrendingAnimes } from "../../services/anime-list/anime-list";
@@ -7,8 +6,10 @@ import Pagination from "../../components/pagination/Pagination";
 import LoadingComponent from "../../components/loading/LoadingComponent";
 import ErrorComponent from "../../components/error/ErrorComponent";
 import ModalAddEditAnime from "../../components/modalAddEditAnime/ModalAddEditAnime";
-import type { AnimePersonalStatusType, UserAnimeListFirestoreType } from "../../firebase/services/firestoreService.type";
+import type { UserAnimeListFirestoreType } from "../../firebase/services/firestoreService.type";
 import { useMyAnimeList } from "../../context/MyListContext";
+import AnimeCard from "../../components/animeCard/AnimeCard";
+import { useAnimeModal } from "../../hooks/useAnimeModal";
 
 const functionMap = {
   top: getTopAnime,
@@ -16,22 +17,10 @@ const functionMap = {
   seasonal: getSeasonalAnimes,
 }
 
-type UserAnimeEditData = {
-  id: string
-  status: AnimePersonalStatusType
-  score: number | null
-  episodes: number
-}
-
 const DirectoryPage = () => {
 
-  const navigate = useNavigate()
   const  { myList } = useMyAnimeList()
-  
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [selectedAnimeId, setSelectedAnimeId] = useState <number | null> (null)
-  const [selectedAction, setSelectedAction] = useState<"add" | "edit">("add")
-  const [selectedIdFromUser, setSelectedIdFromUser] = useState<UserAnimeEditData | null> (null)
+  const modalAddEdit = useAnimeModal();
 
   const [animeList, setAnimeList] = useState<AnimeListType[]>([]);
 
@@ -61,47 +50,29 @@ const DirectoryPage = () => {
     fetchAnimes();
   }, [activeCategory, actualPage]);
 
-  
-
   const activateFilter = (category: "top" | "trending" | "seasonal") => {
     setActiveCategory(category);
     setActualPage(1);
   }
 
-  const openAddEditModal = (e: React.MouseEvent<HTMLButtonElement>, animeId:number) => {
-    e.stopPropagation();
-    setSelectedAnimeId(animeId)
-    setIsModalOpen(true)
+  const getUserData = (animeId: number) => myListMap.get(animeId)
 
-    const userData = myListMap.get(animeId)
-    if(!userData) {
-      setSelectedAction("add")
-      setSelectedIdFromUser(null)
-      return
-    }
-    
-    setSelectedAction("edit")
-    setSelectedIdFromUser({
-      id: userData.id,
-      status: userData.statusPersonal,
-      score: userData.scorePersonal,
-      episodes: userData.episodesWatched
-    })
-  }
+  const openAddEditModal = (animeId: number) => {
+    const userData = myListMap.get(animeId);
+    modalAddEdit.openModal(animeId, userData);
+  };
 
   const nextPage = () => {
-    if(actualPage >= lastPage) {
-      return;
-    }
+    if(actualPage >= lastPage) return;
     setActualPage(prev => prev + 1)
   }
   
   const previousPage = () => {
-    if(actualPage > 1){
-      setActualPage(prev => prev - 1);
-    }
+    if(actualPage > 1) setActualPage(prev => prev - 1);
   }
-
+  
+  // antes recorria muchas veces el array por render, ahora busco la clave que es el id del
+  // anime, y una vez obtenida obtengo los datos.
   const myListMap = useMemo(() => {
     const map = new Map<number, UserAnimeListFirestoreType>()
 
@@ -128,36 +99,26 @@ const DirectoryPage = () => {
         <h1>No se han encontrado animes</h1>
       ) : (
         animeList.map((anime: AnimeListType) => {
-          const userData = myListMap.get(anime.id)
           return (
-            <div key={anime.id} className="anime__card" onClick={() => navigate(`/anime/${anime.id}`)}>
-              <h1>{anime.title}</h1>
-              <img src={anime.image}/>
-              <div className="information__container">
-                <h2>Score: {anime.score}</h2>
-                <h2>Episodes: {anime.episodes}</h2>
-              </div>
-              {userData && (
-                <div className="mylist__info">
-                  <p>My status: {userData.statusPersonal}</p>
-                  <p>My score: {userData.scorePersonal}</p>
-                  <p>episodes Watched: {userData.episodesWatched}</p>
-                </div>
-              )}
-              <button onClick={(e) => openAddEditModal(e, anime.id)}>{userData ? "Edit" : "Add to list"}</button>
-            </div>
+            <AnimeCard
+              key={anime.id}
+              anime={anime}
+              userData={getUserData(anime.id)}
+              onOpenModal={openAddEditModal}
+            >
+            </AnimeCard>
           )})
       )}
       </div>
 
       <Pagination actualPage={actualPage} lastPage={lastPage} onNextPage={nextPage} onPreviousPage={previousPage}></Pagination>
       
-      {isModalOpen && selectedAnimeId && (
+      {modalAddEdit.isOpen && modalAddEdit.selectedAnimeId &&(
         <ModalAddEditAnime
-        animeId={selectedAnimeId}
-        action={selectedAction}
-        idUserList = {selectedIdFromUser}
-        onClose={() => setIsModalOpen(false)}
+        animeId={modalAddEdit.selectedAnimeId}
+        action={modalAddEdit.selectedAction}
+        infoDocIdUserAnime = {modalAddEdit.infoDocIdFromUser}
+        onClose={modalAddEdit.closeModal}
         />
       )}
     </>

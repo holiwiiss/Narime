@@ -87,7 +87,7 @@ export async function isInList(animeId: number, userId: string): Promise<boolean
  * Ejemplo de respuesta:
  *
  * animes = [
- *   { id: xyash23m, animeId: 5114, statusPersonal: "watching", scorePersonal: 9, episodesWatched: 12, userId: "uid123", updateAt: Date, createdAt: Date },
+ *   { docId: xyash23m, animeId: 5114, statusPersonal: "watching", scorePersonal: 9, episodesWatched: 12, userId: "uid123", updateAt: Date, createdAt: Date },
  *   { id: xyash23mz, animeId: 21, statusPersonal: "completed", scorePersonal: 10, episodesWatched: 24, userId: "uid123", updateAt: Date, createdAt: Date }
  * ]
  *
@@ -98,7 +98,7 @@ export async function getAllAnimesFirebase(userId: string): Promise<UserAnimeLis
     const q = query(collection(db, "userAnimeList"), where("userId", "==", userId));
     const querySnapshot = await getDocs(q);
     const animes = querySnapshot.docs.map(doc => ({
-      id: doc.id,
+      docId: doc.id,
       ...doc.data()
     })) as UserAnimeListFirestoreType[]
     console.log(animes)

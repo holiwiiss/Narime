@@ -3,7 +3,7 @@ import type { Timestamp } from "firebase/firestore";
 export type AnimePersonalStatusType = "watching" | "completed" | "dropped" | "planToWatch";
 
 export type UserAnimeListFirestoreType = {
-    id: string
+    docId: string
     animeId: number,
     statusPersonal: AnimePersonalStatusType,
     scorePersonal: number | null,
@@ -12,3 +12,10 @@ export type UserAnimeListFirestoreType = {
     updateAt: Timestamp, 
     createdAt: Timestamp, 
 }
+
+export type UserAnimeEditDataType = {
+  docId: string;
+  status: AnimePersonalStatusType;
+  score: number | null;
+  episodes: number;
+};

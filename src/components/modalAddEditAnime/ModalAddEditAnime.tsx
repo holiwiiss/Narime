@@ -1,57 +1,44 @@
 import { useEffect, useState } from "react";
 import { useMyAnimeList } from "../../context/MyListContext";
-import type { AnimePersonalStatusType } from "../../firebase/services/firestoreService.type";
+import type { AnimePersonalStatusType, UserAnimeEditDataType } from "../../firebase/services/firestoreService.type";
 
-type UserAnimeEditData = {
-  id: string
-  status: AnimePersonalStatusType
-  score: number | null
-  episodes: number
-}
-
-type PropsModalAdd = {
+type PropsModal = {
   animeId: number;
   action: "add" | "edit";
-  idUserList: UserAnimeEditData | null;
+  infoDocIdUserAnime: UserAnimeEditDataType | null;
   onClose: () => void;
 }
 
-const ModalAddEditAnime = ({animeId, action, idUserList, onClose} :PropsModalAdd) => {
+const ModalAddEditAnime = ({animeId, action, infoDocIdUserAnime, onClose} :PropsModal) => {
   
   const { addAnimeToMyList, editAnimeToMyList } = useMyAnimeList()
 
-  const headerText = action === "add" ? "Add to my list" : "Edit anime";
-
-  const [selectedStatus, setSelectedStatus] = useState<AnimePersonalStatusType>("watching");
   const statusList = ["watching", "completed", "dropped", "planToWatch"];
-
+  const [selectedStatus, setSelectedStatus] = useState<AnimePersonalStatusType>("watching");
   const [selectedScore, setSelectedScore] = useState<number | null>(null);
   const [selectedEpisodes, setSelectedEpisodes] = useState<number>(0);
 
   useEffect(() => {
-
-    if(!idUserList) return
-
-    if (action === "edit" && idUserList) {
-      setSelectedStatus(idUserList.status)
-      setSelectedScore(idUserList.score)
-      setSelectedEpisodes(idUserList.episodes)
+    if (action === "edit" && infoDocIdUserAnime) {
+      setSelectedStatus(infoDocIdUserAnime.status)
+      setSelectedScore(infoDocIdUserAnime.score)
+      setSelectedEpisodes(infoDocIdUserAnime.episodes)
     }
-  }, [action, idUserList])
+  }, [action, infoDocIdUserAnime])
 
-  const sendAction = (id:number, status: AnimePersonalStatusType, score: number | null, episodes: number) => {
+  const sendAction = (animeId:number, status: AnimePersonalStatusType, score: number | null, episodes: number) => {
     if(action==="add"){
-      addAnimeToMyList(id, status, score, episodes)
+      addAnimeToMyList(animeId, status, score, episodes)
     }else if(action === "edit"){
-      if(!idUserList) return
-      editAnimeToMyList(idUserList?.id, selectedStatus, selectedScore, selectedEpisodes)
+      if(!infoDocIdUserAnime) return
+      editAnimeToMyList(infoDocIdUserAnime?.docId, status, score, episodes)
     }
     onClose();
   }
 
   return (
     <div>
-      <h1>{headerText}</h1>
+      <h1>{action === "add" ? "Add to my list" : "Edit anime"}</h1>
       <form>
         <label>Status</label>
         <select
@@ -81,7 +68,7 @@ const ModalAddEditAnime = ({animeId, action, idUserList, onClose} :PropsModalAdd
           placeholder={selectedEpisodes.toString()}
         ></input>
 
-        <button type="button" onClick={() =>sendAction(animeId, selectedStatus, selectedScore, selectedEpisodes)}>{headerText}</button>
+        <button type="button" onClick={() =>sendAction(animeId, selectedStatus, selectedScore, selectedEpisodes)}>{action === "add" ? "Add" : "Edit"}</button>
         <button type="button" onClick={onClose}>Cerrar</button>
       </form>
     </div>
