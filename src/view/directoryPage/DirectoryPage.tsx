@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import "./directorypage.scss";
 import type { AnimeListResponse, AnimeListType } from "../../services/anime-list/anime-list.type";
@@ -7,7 +7,6 @@ import Pagination from "../../components/pagination/Pagination";
 import LoadingComponent from "../../components/loading/LoadingComponent";
 import ErrorComponent from "../../components/error/ErrorComponent";
 import ModalAddEditAnime from "../../components/modalAddEditAnime/ModalAddEditAnime";
-import { useAuth } from "../../context/AuthContext";
 import type { AnimePersonalStatusType, UserAnimeListFirestoreType } from "../../firebase/services/firestoreService.type";
 import { useMyAnimeList } from "../../context/MyListContext";
 
@@ -27,7 +26,6 @@ type UserAnimeEditData = {
 const DirectoryPage = () => {
 
   const navigate = useNavigate()
-  const { user } = useAuth()
   const  { myList } = useMyAnimeList()
   
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -61,10 +59,9 @@ const DirectoryPage = () => {
       }
     };
     fetchAnimes();
-  }, [activeCategory, actualPage, user]);
+  }, [activeCategory, actualPage]);
 
-  if (isLoading) return <LoadingComponent text="Cargando animes..." />
-  if (isError) return <ErrorComponent text="Ha habido un error con la API" />
+  
 
   const activateFilter = (category: "top" | "trending" | "seasonal") => {
     setActiveCategory(category);
@@ -75,18 +72,21 @@ const DirectoryPage = () => {
     e.stopPropagation();
     setSelectedAnimeId(animeId)
     setIsModalOpen(true)
-    const userData = getAnimeUserInformation(animeId)
+
+    const userData = myListMap.get(animeId)
     if(!userData) {
       setSelectedAction("add")
-    }else{
-      setSelectedAction("edit")
-      setSelectedIdFromUser({
-        id: userData.id,
-        status: userData.statusPersonal,
-        score: userData.scorePersonal,
-        episodes: userData.episodesWatched
-      })
+      setSelectedIdFromUser(null)
+      return
     }
+    
+    setSelectedAction("edit")
+    setSelectedIdFromUser({
+      id: userData.id,
+      status: userData.statusPersonal,
+      score: userData.scorePersonal,
+      episodes: userData.episodesWatched
+    })
   }
 
   const nextPage = () => {
@@ -102,9 +102,18 @@ const DirectoryPage = () => {
     }
   }
 
-  const getAnimeUserInformation = (jikanAnimeID: number) => {
-    return myList.find((anime: UserAnimeListFirestoreType) => anime.animeId === jikanAnimeID);
-  }
+  const myListMap = useMemo(() => {
+    const map = new Map<number, UserAnimeListFirestoreType>()
+
+    myList.forEach(anime => {
+      map.set(anime.animeId, anime)
+    })
+
+    return map
+  }, [myList])
+
+  if (isLoading) return <LoadingComponent text="Cargando animes..." />
+  if (isError) return <ErrorComponent text="Ha habido un error con la API" />
 
   return (
     <>
@@ -119,7 +128,7 @@ const DirectoryPage = () => {
         <h1>No se han encontrado animes</h1>
       ) : (
         animeList.map((anime: AnimeListType) => {
-          const userData = getAnimeUserInformation(anime.id)
+          const userData = myListMap.get(anime.id)
           return (
             <div key={anime.id} className="anime__card" onClick={() => navigate(`/anime/${anime.id}`)}>
               <h1>{anime.title}</h1>

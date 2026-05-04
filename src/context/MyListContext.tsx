@@ -65,11 +65,13 @@ export function MyListProvider({ children }: ProviderProps) {
   const editAnimeToMyList = async (docId: string, status: string, score: number | null, episodes: number) => {
     if(!user) return
     await updateAnimeInformationFirebase(docId,status, score, episodes)
+    await refetchMyList()
   }
 
   const deleteAnimeToMyList = async (docId: string) => {
     if(!user) return 
     await deleteAnimeInformationFirebase(docId)
+    await refetchMyList()
   }
 
   return (
