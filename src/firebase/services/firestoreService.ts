@@ -1,5 +1,5 @@
 import { db } from "../firebase";
-import { collection, addDoc, query, where, getDocs, doc, updateDoc } from "firebase/firestore";
+import { collection, addDoc, query, where, getDocs, doc, updateDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
 import type { UserAnimeListFirestoreType } from "./firestoreService.type";
 
 /**
@@ -29,14 +29,17 @@ import type { UserAnimeListFirestoreType } from "./firestoreService.type";
 
 export async function addAnimeToFirebase(animeId: number, status: string, score: number | null, episodes: number, userId: string): Promise<void> {
   try {
+
+    if(await isInList(animeId, userId)) return
+
     await addDoc(collection(db, "userAnimeList"), {
       animeId,
       statusPersonal: status,
       scorePersonal: score,
       episodesWatched: episodes,
       userId,
-      updateAt: new Date(),
-      createdAt: new Date(),
+      updateAt: serverTimestamp(),
+      createdAt: serverTimestamp(),
     });
   } catch (e) {
     console.log(e);
@@ -113,8 +116,16 @@ export async function updateAnimeInformationFirebase(docId:string, status: strin
       statusPersonal: status,
       scorePersonal: score,
       episodesWatched: episodes,
-      updateAt: new Date(),
+      updateAt: serverTimestamp(),
     })
+  }catch(e){
+    console.log(e)
+  }
+}
+
+export async function deleteAnimeInformationFirebase(docId:string) : Promise <void> {
+  try{
+    await deleteDoc(doc(db, "userAnimeList", docId))
   }catch(e){
     console.log(e)
   }

@@ -1,8 +1,12 @@
-import { createContext, useContext, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { useAuth } from "./AuthContext";
-import { addAnimeToFirebase, isInList, updateAnimeInformationFirebase } from "../firebase/services/firestoreService";
+import { addAnimeToFirebase, deleteAnimeInformationFirebase, getAllAnimesFirebase, updateAnimeInformationFirebase } from "../firebase/services/firestoreService";
+import type { UserAnimeListFirestoreType } from "../firebase/services/firestoreService.type";
 
 type MyListContextType = {
+  myList: UserAnimeListFirestoreType[];
+  isLoading: boolean;
+
   addAnimeToMyList: (
     id: number,
     status: string,
@@ -11,10 +15,14 @@ type MyListContextType = {
   ) => void;
 
   editAnimeToMyList: (
-    id: string,
+    docId: string,
     status: string,
     score: number | null,
     episodes: number,
+  ) => void;
+
+  deleteAnimeToMyList: (
+    docId: string,
   ) => void;
 };
 
@@ -27,29 +35,51 @@ const MyListContext = createContext<MyListContextType | undefined>(undefined);
 export function MyListProvider({ children }: ProviderProps) {
 
   const { user } = useAuth()
+  const [myList, setMyList] = useState<UserAnimeListFirestoreType[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+
+    if(user){
+      refetchMyList()
+    }else{
+      setMyList([])
+    }
+  }, [user])
+
+  const refetchMyList = async () =>{
+    if (!user) return;
+    setIsLoading(true);
+    const data = await getAllAnimesFirebase(user.uid);
+    setMyList(data);
+    setIsLoading(false);
+  }
 
   const addAnimeToMyList = async (AnimeId: number, status: string, score: number | null, episodes: number) => {
     
     if(!user) return
-    
-    if(await isInList(AnimeId, user.uid)) return
-    
-    addAnimeToFirebase(AnimeId, status, score, episodes, user.uid)
+    await addAnimeToFirebase(AnimeId, status, score, episodes, user.uid)
+    await refetchMyList()
   };
 
   const editAnimeToMyList = async (docId: string, status: string, score: number | null, episodes: number) => {
     if(!user) return
-    updateAnimeInformationFirebase(docId,status, score, episodes)
+    await updateAnimeInformationFirebase(docId,status, score, episodes)
+  }
+
+  const deleteAnimeToMyList = async (docId: string) => {
+    if(!user) return 
+    await deleteAnimeInformationFirebase(docId)
   }
 
   return (
-    <MyListContext.Provider value={{addAnimeToMyList, editAnimeToMyList }}>
+    <MyListContext.Provider value={{myList, isLoading, addAnimeToMyList, editAnimeToMyList, deleteAnimeToMyList }}>
       {children}
     </MyListContext.Provider>
   );
 }
 
-export function useAddAnimeList() {
+export function useMyAnimeList() {
   const context = useContext(MyListContext);
   if (!context) {
     throw new Error("Algo estas haciendo mal");

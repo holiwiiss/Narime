@@ -8,8 +8,8 @@ import LoadingComponent from "../../components/loading/LoadingComponent";
 import ErrorComponent from "../../components/error/ErrorComponent";
 import ModalAddEditAnime from "../../components/modalAddEditAnime/ModalAddEditAnime";
 import { useAuth } from "../../context/AuthContext";
-import { getAllAnimesFirebase } from "../../firebase/services/firestoreService";
 import type { AnimePersonalStatusType, UserAnimeListFirestoreType } from "../../firebase/services/firestoreService.type";
+import { useMyAnimeList } from "../../context/MyListContext";
 
 const functionMap = {
   top: getTopAnime,
@@ -28,6 +28,7 @@ const DirectoryPage = () => {
 
   const navigate = useNavigate()
   const { user } = useAuth()
+  const  { myList } = useMyAnimeList()
   
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedAnimeId, setSelectedAnimeId] = useState <number | null> (null)
@@ -35,7 +36,6 @@ const DirectoryPage = () => {
   const [selectedIdFromUser, setSelectedIdFromUser] = useState<UserAnimeEditData | null> (null)
 
   const [animeList, setAnimeList] = useState<AnimeListType[]>([]);
-  const [animesWatched, setAnimesWatched] = useState <UserAnimeListFirestoreType[]>([]);
 
   const [activeCategory, setActiveCategory] = useState <"top" | "trending" | "seasonal">("top")
   const [actualPage, setActualPage] = useState<number>(1)
@@ -49,11 +49,6 @@ const DirectoryPage = () => {
       setIsLoading(true)
       setIsError(false)
       try{
-
-        if(user){
-          setAnimesWatched(await getAllAnimesFirebase(user?.uid))
-        }
-        
         const searchFunction = functionMap[activeCategory]
         const data: AnimeListResponse = await searchFunction(actualPage)
         setAnimeList(data.animes);
@@ -108,7 +103,7 @@ const DirectoryPage = () => {
   }
 
   const getAnimeUserInformation = (jikanAnimeID: number) => {
-    return animesWatched.find((anime: UserAnimeListFirestoreType) => anime.animeId === jikanAnimeID);
+    return myList.find((anime: UserAnimeListFirestoreType) => anime.animeId === jikanAnimeID);
   }
 
   return (

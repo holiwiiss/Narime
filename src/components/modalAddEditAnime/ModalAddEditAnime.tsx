@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAddAnimeList } from "../../context/MyListContext";
+import { useMyAnimeList } from "../../context/MyListContext";
 import type { AnimePersonalStatusType } from "../../firebase/services/firestoreService.type";
 
 type UserAnimeEditData = {
@@ -17,7 +17,8 @@ type PropsModalAdd = {
 }
 
 const ModalAddEditAnime = ({animeId, action, idUserList, onClose} :PropsModalAdd) => {
-  const { addAnimeToMyList, editAnimeToMyList } = useAddAnimeList()
+  
+  const { addAnimeToMyList, editAnimeToMyList } = useMyAnimeList()
 
   const headerText = action === "add" ? "Add to my list" : "Edit anime";
 
