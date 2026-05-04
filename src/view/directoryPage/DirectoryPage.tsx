@@ -70,7 +70,7 @@ const DirectoryPage = () => {
   const previousPage = () => {
     if(actualPage > 1) setActualPage(prev => prev - 1);
   }
-  
+
   // antes recorria muchas veces el array por render, ahora busco la clave que es el id del
   // anime, y una vez obtenida obtengo los datos.
   const myListMap = useMemo(() => {
@@ -113,10 +113,10 @@ const DirectoryPage = () => {
 
       <Pagination actualPage={actualPage} lastPage={lastPage} onNextPage={nextPage} onPreviousPage={previousPage}></Pagination>
       
-      {modalAddEdit.isOpen && modalAddEdit.selectedAnimeId &&(
+      {modalAddEdit.isOpen && modalAddEdit.animeId &&(
         <ModalAddEditAnime
-        animeId={modalAddEdit.selectedAnimeId}
-        action={modalAddEdit.selectedAction}
+        animeId={modalAddEdit.animeId}
+        action={modalAddEdit.action}
         infoDocIdUserAnime = {modalAddEdit.infoDocIdFromUser}
         onClose={modalAddEdit.closeModal}
         />

@@ -5,31 +5,28 @@ import { useNavigate } from "react-router-dom";
 import { getAllAnimesFirebase } from "../../firebase/services/firestoreService";
 import { useAuth } from "../../context/AuthContext";
 import type { AnimePersonalStatusType, UserAnimeListFirestoreType } from "../../firebase/services/firestoreService.type";
-
-type MyListAnime = {
-  api: AnimeInformationType;
-  user: UserAnimeListFirestoreType;
-}
+import { useAnimeModal } from "../../hooks/useAnimeModal";
+import ModalAddEditAnime from "../../components/modalAddEditAnime/ModalAddEditAnime";
+import { useMyAnimeList } from "../../context/MyListContext";
 
 const MyListPage = () =>{
+
   const navigate = useNavigate()
-  const {user} = useAuth ()
+  const { user } = useAuth ()
+  const { myList } = useMyAnimeList()
+  const modalAddEdit= useAnimeModal()
+
   const [animeList, setAnimeList] = useState<MyListAnime[]>([]);
   const [activeCategory, setActiveCategory] = useState <"all" | AnimePersonalStatusType>("all")
 
   useEffect(() => {
     const fetchAnimes = async () => {
-      if (!user) return;
       try {
-        const animes = await getAllAnimesFirebase(user.uid);
-        if(!animes) return 
+        if(!myList) return 
         const JSON: MyListAnime[] = await Promise.all(
-            animes.map( async (anime: UserAnimeListFirestoreType) => {
+            myList.map( async (anime: UserAnimeListFirestoreType) => {
               const apiData = await getAnimeInformation(anime.animeId);
-              return {
-                api: apiData,
-                user: anime,
-              };
+              return  apiData
             })
         );
         setAnimeList(JSON)
@@ -41,17 +38,21 @@ const MyListPage = () =>{
   }, [user]);
 
   const countersList = {
-    all: animeList.length,
-    watching: animeList.filter( anime => anime.user.statusPersonal === "watching").length,
-    completed: animeList.filter( anime => anime.user.statusPersonal === "completed").length,
-    dropped: animeList.filter( anime => anime.user.statusPersonal === "dropped").length,
-    planToWatch: animeList.filter( anime => anime.user.statusPersonal === "planToWatch").length
+    all: myList.length,
+    watching: myList.filter( anime => anime.statusPersonal === "watching").length,
+    completed: myList.filter( anime => anime.statusPersonal === "completed").length,
+    dropped: myList.filter( anime => anime.statusPersonal === "dropped").length,
+    planToWatch: myList.filter( anime => anime.statusPersonal === "planToWatch").length
   }
 
   const listToShow = useMemo(() => {
     if (activeCategory === "all") return animeList;
     return animeList.filter( anime => anime.user.statusPersonal === activeCategory);
   }, [animeList, activeCategory]);
+
+  const openAddEditModal = () =>{
+
+  }
 
 return(
   <>
@@ -78,8 +79,18 @@ return(
                   <h3>My Score: {anime.user.scorePersonal}</h3>
                   <h3>Watched: {anime.user.episodesWatched}</h3>
                 </div>
+                <button onClick={openAddEditModal}></button>
               </div>
             ))
+          )}
+
+          {modalAddEdit.isOpen && modalAddEdit.animeId &&(
+            <ModalAddEditAnime
+            animeId={modalAddEdit.animeId}
+            action={modalAddEdit.action}
+            infoDocIdUserAnime = {modalAddEdit.infoDocIdFromUser}
+            onClose={modalAddEdit.closeModal}
+            />
           )}
     </div>
   </>

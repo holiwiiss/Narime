@@ -4,8 +4,8 @@ import type { UserAnimeEditDataType, UserAnimeListFirestoreType } from "../fireb
 export function useAnimeModal() {
   
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedAnimeId, setSelectedAnimeId] = useState<number | null>(null);
-  const [selectedAction, setSelectedAction] = useState<"add" | "edit">("add");
+  const [animeId, setAnimeId] = useState<number | null>(null);
+  const [action, setAction] = useState<"add" | "edit">("add");
   const [infoDocIdFromUser, setInfoDocIdFromUser] = useState<UserAnimeEditDataType | null> (null)
 
   const openModal = (animeId:number, userData?: UserAnimeListFirestoreType) =>{
@@ -13,13 +13,14 @@ export function useAnimeModal() {
     setIsOpen(true);
 
     if (!userData) {
-      setSelectedAction("add");
-      setSelectedAnimeId(animeId);
+      setAction("add");
+      setAnimeId(animeId);
       setInfoDocIdFromUser(null);
       return;
     }
 
-    setSelectedAction("edit");
+    setAction("edit");
+    setAnimeId(animeId);
     setInfoDocIdFromUser({
       docId: userData.docId,
       status: userData.statusPersonal,
@@ -30,14 +31,14 @@ export function useAnimeModal() {
 
   const closeModal = () => {
     setIsOpen(false);
-    setSelectedAnimeId(null);
+    setAnimeId(null);
     setInfoDocIdFromUser(null);
   };
 
   return {
     isOpen,
-    selectedAnimeId,
-    selectedAction,
+    animeId,
+    action,
     infoDocIdFromUser,
     openModal,
     closeModal,
