@@ -15,7 +15,8 @@ const MyListPage = () =>{
   const modalAddEdit= useAnimeModal()
 
   const [animeList, setAnimeList] = useState<AnimeListType[]>([]);
-  const [activeCategory, setActiveCategory] = useState <"all" | AnimePersonalStatusType>("all")
+  const [activeCategory, setActiveCategory] = useState <"all" | AnimePersonalStatusType>("all");
+  const [searchAnime, setSearchAnime] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchAnimes = async () => {
@@ -44,16 +45,30 @@ const MyListPage = () =>{
   }
 
   const listToShow = useMemo(() => {
-    if (activeCategory === "all") return animeList;
+    let definitiveList: AnimeListType[] = []
+
+    if (activeCategory === "all"){
+      definitiveList = animeList
+    } 
     
-    return animeList.filter( anime => {
-      const userData = getUserListData(anime.id)
-      if(userData?.statusPersonal === activeCategory) return true
-    })
+    if(activeCategory !== "all"){
+      definitiveList = animeList.filter( anime => {
+        const userData = getUserListData(anime.id)
+        if(userData?.statusPersonal === activeCategory) return true
+      })
+    }
+    
+    if(searchAnime) {
+      return definitiveList.filter( anime =>{
+        const title = anime.title.toLowerCase()
+        const search = searchAnime.toLowerCase()
+        if(title.startsWith(search)) return true
+      })
+    }
+    return definitiveList
+  }, [animeList, activeCategory, myListMap, searchAnime]);
 
-  }, [animeList, activeCategory, myListMap]);
-
-  const openAddEditModal = (animeId: number) =>{
+  const openAddEditModal = (animeId: number) => {
     const userData = myListMap.get(animeId);
     modalAddEdit.openModal(animeId, userData);
   }
@@ -66,6 +81,7 @@ return(
       <button className={activeCategory === 'completed' ? "bton btn__able" : " bton btn__disable"} onClick={() => setActiveCategory("completed")}>Completed ({countersList.completed})</button>
       <button className={activeCategory === 'dropped' ? "bton btn__able" : " bton btn__disable"} onClick={() => setActiveCategory("dropped")}>Dropped ({countersList.dropped})</button>
       <button className={activeCategory === 'planToWatch' ? "bton btn__able" : " bton btn__disable"} onClick={() => setActiveCategory("planToWatch")}>Plan to watch ({countersList.planToWatch})</button>
+      <input type="text"  onInput={(event: React.InputEvent<HTMLInputElement>) => setSearchAnime(event.currentTarget.value)}></input>
     </div>
 
     <div className="cards__container">
