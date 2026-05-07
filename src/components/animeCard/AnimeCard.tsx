@@ -37,6 +37,7 @@ const AnimeCard = ({anime, userData, onOpenModal}: PropsAnimeCard) => {
     </div>
   )
 };
+
 // hace que no se vuelva a renderizar la carta si sus propiedades no han cambiado
 //cuando aplicamos filtros
 export default React.memo(AnimeCard)

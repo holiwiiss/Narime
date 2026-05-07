@@ -1,21 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
-import type { AnimeInformationType } from "../../services/anime-information/anime-information.type";
-import { getAnimeInformation, getAnimeInformationTypeList } from "../../services/anime-information/anime-information";
-import { useNavigate } from "react-router-dom";
-import { getAllAnimesFirebase } from "../../firebase/services/firestoreService";
-import { useAuth } from "../../context/AuthContext";
+import { getAnimeInformationTypeList } from "../../services/anime-information/anime-information";
 import type { AnimePersonalStatusType, UserAnimeListFirestoreType } from "../../firebase/services/firestoreService.type";
 import { useAnimeModal } from "../../hooks/useAnimeModal";
 import ModalAddEditAnime from "../../components/modalAddEditAnime/ModalAddEditAnime";
 import { useMyAnimeList } from "../../context/MyListContext";
 import type { AnimeListType } from "../../services/anime-list/anime-list.type";
 import AnimeCard from "../../components/animeCard/AnimeCard";
+import { useMyListMap } from "../../hooks/useMyListMap";
 
 const MyListPage = () =>{
 
-  const navigate = useNavigate()
-  const { user } = useAuth ()
   const { myList } = useMyAnimeList()
+  const  { myListMap, getUserListData } = useMyListMap()
   const modalAddEdit= useAnimeModal()
 
   const [animeList, setAnimeList] = useState<AnimeListType[]>([]);
@@ -47,23 +43,11 @@ const MyListPage = () =>{
     planToWatch: myList.filter( anime => anime.statusPersonal === "planToWatch").length
   }
 
-  const getUserData = (animeId: number) => myListMap.get(animeId)
-
-  const myListMap = useMemo(() => {
-    const map = new Map<number, UserAnimeListFirestoreType>()
-
-    myList.forEach(anime => {
-      map.set(anime.animeId, anime)
-    })
-
-    return map
-  }, [myList])
-
   const listToShow = useMemo(() => {
     if (activeCategory === "all") return animeList;
     
     return animeList.filter( anime => {
-      const userData = getUserData(anime.id)
+      const userData = getUserListData(anime.id)
       if(userData?.statusPersonal === activeCategory) return true
     })
 
@@ -85,7 +69,7 @@ return(
     </div>
 
     <div className="cards__container">
-          {animeList.length === 0 ? (
+          {listToShow.length === 0 ? (
             <h1>No se han encontrado animes</h1>
           ) : (
             listToShow.map((anime: AnimeListType) => {
@@ -93,7 +77,7 @@ return(
                         <AnimeCard
                           key={anime.id}
                           anime={anime}
-                          userData={getUserData(anime.id)}
+                          userData={getUserListData(anime.id)}
                           onOpenModal={openAddEditModal}
                         >
                         </AnimeCard>
