@@ -45,7 +45,7 @@ const ModalAddEditAnime = ({animeId, action, infoDocIdUserAnime, onClose} :Props
   }
 
   return (
-    <div className="background__popUp" onClick={() => {onClose()}}>
+    <div className="background__popUp">
       <div className="popup_container">
         <h1>{action === "add" ? "Add to my list" : "Edit anime"}</h1>
         <form className="popUp_container_form">

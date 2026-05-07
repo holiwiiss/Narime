@@ -1,3 +1,4 @@
+import type { AnimeListType } from "../anime-list/anime-list.type"
 import type { JikanAnimeCharactersType, JikanAnimeInformationType } from "../jikan-API.type"
 import type { AnimeCharactersType, AnimeInformationType } from "./anime-information.type"
 
@@ -30,4 +31,15 @@ export function mapJikanAnimeCharacters(data: JikanAnimeCharactersType[]): Anime
     voiceActorName: person.voice_actors[0]?.person.name,
     voiceActorImage: person.voice_actors[0]?.person.images.jpg.image_url,
   }))
+}
+
+export function mapJikanAnimeInformationToJikanAnimeList ( data : JikanAnimeInformationType): AnimeListType {
+  return{
+    id: data.mal_id,
+    title:data.title,
+    image: data.images.webp.image_url,
+    score: data.score,
+    episodes: data.episodes, 
+    generes: data.genres.map(g => g.name),
+  }
 }

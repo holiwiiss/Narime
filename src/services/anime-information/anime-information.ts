@@ -1,5 +1,6 @@
+import type { AnimeListType } from "../anime-list/anime-list.type";
 import type { JikanResponseAnimeCharacters, JikanResponseAnimeInformation } from "../jikan-API.type";
-import { mapJikanAnimeCharacters, mapJikanAnimeInformation } from "./anime-information.mapper";
+import { mapJikanAnimeCharacters, mapJikanAnimeInformation, mapJikanAnimeInformationToJikanAnimeList } from "./anime-information.mapper";
 import type { AnimeCharactersType, AnimeInformationType } from "./anime-information.type";
 
 
@@ -63,4 +64,19 @@ export async function getAnimeCharacters(animeID:number): Promise <AnimeCharacte
   const json: JikanResponseAnimeCharacters = await response.json()
 
   return mapJikanAnimeCharacters(json.data)
+}
+
+export async function getAnimeInformationTypeList (animeID: number): Promise <AnimeListType> {
+  const request = URL__JIKAN + `anime/${animeID}`;
+  const response = await fetch(request);
+
+  if(!response.ok) {
+    throw new Error(`Error al llamar a la API: ${response.status}`);
+  }
+
+  const json: JikanResponseAnimeInformation = await response.json()
+
+  const animeInfo = mapJikanAnimeInformationToJikanAnimeList(json.data)
+
+  return animeInfo
 }
