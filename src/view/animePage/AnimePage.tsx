@@ -5,15 +5,19 @@ import { useParams } from "react-router-dom";
 import { getAnimeCharacters, getAnimeInformation } from "../../services/anime-information/anime-information";
 import ErrorComponent from "../../components/error/ErrorComponent";
 import LoadingComponent from "../../components/loading/LoadingComponent";
+import { useMyListMap } from "../../hooks/useMyListMap";
+import type { UserAnimeListFirestoreType } from "../../firebase/services/firestoreService.type";
 
 const AnimePage = () => {
   const [animeInfo, setAnimeInfo] = useState<AnimeInformationType | null>(null);
   const [animeCharacters, setAnimeCharacters] = useState<AnimeCharactersType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isError, setIsError] = useState<string | null>(null)
+  const [userData, setUserData] = useState<UserAnimeListFirestoreType | undefined>(undefined)
   
   const { id } = useParams();
   const animeID = Number(id);
+  const { getUserListData } = useMyListMap()
 
   useEffect(() => {
 
@@ -22,6 +26,8 @@ const AnimePage = () => {
       setIsLoading(false)
       return
     }
+    
+    setUserData(getUserListData(animeID))
 
     const fetchAnimes = async () => {
       setIsLoading(true)
@@ -58,7 +64,9 @@ const AnimePage = () => {
 
             <header className="anime-page__header">
               <img src={animeInfo.images} className="anime-page__header-img" alt={animeInfo.title}></img>
-              <form className="anime-page__header-form">
+              
+              {userData && (
+                <form className="anime-page__header-form">
 
                 <div className="anime-page__header-form-group">
                   <label>Status</label>
@@ -82,6 +90,7 @@ const AnimePage = () => {
                 </div>
 
               </form>
+              )}
             </header>
 
             <section className="anime-page__content">
@@ -95,6 +104,13 @@ const AnimePage = () => {
                     <p className="anime-page__content-stat-number">{animeInfo.score}</p>
                     <p>Global Score</p>
                   </div>
+
+                  {userData && (
+                    <div className="anime-page__content-stat">
+                      <p className="anime-page__content-stat-number">{userData.scorePersonal}</p>
+                      <p>Your Score</p>
+                    </div>
+                  )}
 
                   <div className="anime-page__content-stat">
                     <p className="anime-page__content-stat-number"># {animeInfo.rank}</p>

@@ -18,7 +18,8 @@ export function useMyListMap() {
     return map;
   }, [myList]);
 
-  const getUserListData = (animeId: number) => myListMap.get(animeId)
+  const getUserListData = (animeId: number): UserAnimeListFirestoreType | undefined =>
+  myListMap.get(animeId)
   
-  return { myListMap, getUserListData,}
+  return { myListMap, getUserListData}
 }
