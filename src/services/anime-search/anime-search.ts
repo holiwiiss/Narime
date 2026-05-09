@@ -1,3 +1,4 @@
+import type { AnimeListResponse } from "../anime-list/anime-list.type";
 import { mapJikanAnimePagination } from "../anime-pagination.mapper";
 import type { JikanResponseAnimeList } from "../jikan-API.type";
 import { mapJikanAnimeSearch } from "./anime-search.mapper";
@@ -25,7 +26,7 @@ const URL__JIKAN= 'https://api.jikan.moe/v4/'
  * 
  */
 
-export async function searchAnime(animeName:string, page:number, animeLimit: number): Promise<AnimeSearchResponse> {
+export async function searchAnime(animeName:string, page:number, animeLimit: number): Promise<AnimeListResponse> {
   const request = URL__JIKAN + `anime?q=${animeName}&page=${page}&order_by=popularity&limit=${animeLimit}&sfw=true`;
   const response = await fetch(request);
 

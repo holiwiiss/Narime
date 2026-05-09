@@ -16,6 +16,8 @@ export interface AnimeInformationType {
   synopsis: string;
 }
 
+export type AnimeResume = Pick<AnimeInformationType, "id" | "title" | "images" | "score" | "episodes" | "genres" >
+
 export interface AnimeCharactersType {
   characterName: string;
   characterImage: string;

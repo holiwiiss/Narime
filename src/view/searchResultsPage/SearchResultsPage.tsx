@@ -1,48 +1,44 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import type { AnimeSearchType, AnimeSearchResponse } from "../../services/anime-search/anime-search.type";
+import { useSearchParams } from "react-router-dom";
 import { searchAnime } from "../../services/anime-search/anime-search";
 import Pagination from "../../components/pagination/Pagination";
-import LoadingComponent from "../../components/loading/LoadingComponent";
-import ErrorComponent from "../../components/error/ErrorComponent";
+import { useMyListMap } from "../../hooks/useMyListMap";
+import AnimeCard from "../../components/animeCard/AnimeCard";
+import type { AnimeListResponse, AnimeListType } from "../../services/anime-list/anime-list.type";
+import ModalAddEditAnime from "../../components/modalAddEditAnime/ModalAddEditAnime";
+import { useAnimeModal } from "../../hooks/useAnimeModal";
 
 const SearchResultsPage = () => {
 
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
-  const navigate = useNavigate()
+  
+  const modalAddEdit = useAnimeModal();
+  const  { getUserListData } = useMyListMap()
 
-  const [searchList, setSearchList] = useState<AnimeSearchType[]>([]);
+  const [searchList, setSearchList] = useState<AnimeListType[]>([]);
   const [actualPage, setActualPage] = useState<number>(1)
   const [lastPage, setLastPage] = useState<number>(1)
 
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [isError, setIsError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchAnimes = async () => {
-      setIsLoading(true)
-      setIsError(null)
       if(!query){
-        return setIsError('No hay ninguna búsqueda con coincida con el resultado')
+        return console.log('No hay ninguna búsqueda con coincida con el resultado')
       }
       try{
-        const JSON: AnimeSearchResponse = await searchAnime(query,actualPage, 25)
+        const JSON: AnimeListResponse = await searchAnime(query,actualPage, 25)
         setSearchList(JSON.animes);
         setLastPage(JSON.pagination.last_visible_page)
       }catch(e){
         console.log("La api no responde, " + e);
-        setIsError('Ha habido un error con la carga de la API')
+        console.log('Ha habido un error con la carga de la API')
       }
       finally{
-        setIsLoading(false)
       }
     }
     fetchAnimes();
   })
-
-  if (isLoading) return <LoadingComponent text="Cargando datos del anime..." />
-  if (isError) return <ErrorComponent text={isError} />
 
   const nextPage = () => {
     if(actualPage >= lastPage) {
@@ -57,6 +53,11 @@ const SearchResultsPage = () => {
     }
   }
 
+  const openAddEditModal = (animeId: number) => {
+    const userData = getUserListData(animeId);
+    modalAddEdit.openModal(animeId, userData);
+  };
+
 
   return (
     <>
@@ -66,22 +67,32 @@ const SearchResultsPage = () => {
         {searchList.length === 0 ? (
               <p>no se ha encontrado ningún anime con ese nombre</p>
             ) : (
-              searchList.map((anime: AnimeSearchType) => (
-                <div className="anime__card" onClick={() => navigate(`/anime/${anime.id}`)}>
-                  <h1>{anime.title}</h1>
-                  <img src={anime.image}/>
-                  <div className="information__container">
-                  <h2>Score: {anime.score}</h2>
-                  <h2>Episodes: {anime.episodes}</h2>
-                </div>
-              <button> Add to list</button>
-            </div>
-              ))
+              searchList.map((anime: AnimeListType) => {
+                return (
+                  <AnimeCard
+                    key={anime.id}
+                    anime={anime}
+                    userData={getUserListData(anime.id)}
+                    onOpenModal={openAddEditModal}
+                  >
+                  </AnimeCard>
+                )
+              })
             )
         }
       </div>
       
       <Pagination actualPage={actualPage} lastPage={lastPage} onNextPage={nextPage} onPreviousPage={previousPage}></Pagination>
+
+      {modalAddEdit.isOpen && modalAddEdit.animeId &&(
+        <ModalAddEditAnime
+        animeId={modalAddEdit.animeId}
+        action={modalAddEdit.action}
+        infoDocIdUserAnime = {modalAddEdit.infoDocIdFromUser}
+        onClose={modalAddEdit.closeModal}
+        />
+      )}
+
     </>
   );
 };
