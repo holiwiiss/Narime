@@ -7,8 +7,8 @@ export interface JikanAnimeListType {
   mal_id: number;
   title:string;
   images: {
-    webp: {
-      image_url: string;
+    jpg: {
+      large_image_url: string;
     };
   };
   score: number | null;
@@ -41,8 +41,8 @@ export interface JikanAnimeInformationType {
   title_english: string;
   type: string;
   images: {
-    webp: {
-      image_url: string;
+    jpg: {
+      large_image_url: string;
     };
   };
   aired: {

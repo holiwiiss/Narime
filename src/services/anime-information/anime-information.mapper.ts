@@ -8,7 +8,7 @@ export function mapJikanAnimeInformation(data: JikanAnimeInformationType): Anime
     title:data.title,
     titleEnglish: data.title_english,
     type: data.type,
-    images: data.images.webp.image_url,
+    images: data.images.jpg.large_image_url,
     aired: [ data.aired.from, data.aired.to],
     score: data.score,
     rank: data.rank,
@@ -37,7 +37,7 @@ export function mapJikanAnimeInformationToJikanAnimeList ( data : JikanAnimeInfo
   return{
     id: data.mal_id,
     title:data.title,
-    image: data.images.webp.image_url,
+    image: data.images.jpg.large_image_url,
     score: data.score,
     episodes: data.episodes, 
     generes: data.genres.map(g => g.name),
