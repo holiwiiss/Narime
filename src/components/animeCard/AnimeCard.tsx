@@ -24,7 +24,7 @@ const AnimeCard = ({anime, userData, onOpenModal}: PropsAnimeCard) => {
       {userData && (
         <div className="mylist__info">
           <p>My status: {userData.statusPersonal}</p>
-          <p>My score: {userData.scorePersonal}</p>
+          <p>My score: {userData.scorePersonal ?? "N/A"}</p>
           <p>episodes Watched: {userData.episodesWatched}</p>
         </div>
       )}

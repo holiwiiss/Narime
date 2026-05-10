@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { getAnimeInformationTypeList } from "../../services/anime-information/anime-information";
-import type { AnimePersonalStatusType, UserAnimeListFirestoreType } from "../../firebase/services/firestoreService.type";
+import type { AnimePersonalStatusType } from "../../firebase/services/firestoreService.type";
 import { useAnimeModal } from "../../hooks/useAnimeModal";
 import ModalAddEditAnime from "../../components/modalAddEditAnime/ModalAddEditAnime";
 import { useMyAnimeList } from "../../context/MyListContext";
 import type { AnimeListType } from "../../services/anime-list/anime-list.type";
 import AnimeCard from "../../components/animeCard/AnimeCard";
 import { useMyListMap } from "../../hooks/useMyListMap";
+import { Link } from "react-router-dom";
 
 const MyListPage = () =>{
 
@@ -22,12 +23,12 @@ const MyListPage = () =>{
     const fetchAnimes = async () => {
       try {
         if(!myList) return 
-        const JSON: AnimeListType[] = await Promise.all(
-            myList.map( async (anime: UserAnimeListFirestoreType) => {
-              const apiData = await getAnimeInformationTypeList(anime.animeId);
-              return  apiData
-            })
-        );
+        const JSON: AnimeListType[] = []
+        myList.forEach(async anime => {
+          const data = await getAnimeInformationTypeList(anime.animeId);
+          JSON.push(data);
+          await delay(400); 
+        });
         setAnimeList(JSON)
       } catch (e) {
         console.log("La api no responde " + e);
@@ -35,6 +36,9 @@ const MyListPage = () =>{
     };
     fetchAnimes();
   }, [myList]);
+
+  const delay = (ms: number) =>
+    new Promise(resolve => setTimeout(resolve, ms));
 
   const countersList = {
     all: myList.length,
@@ -68,9 +72,9 @@ const MyListPage = () =>{
     return definitiveList
   }, [animeList, activeCategory, myListMap, searchAnime]);
 
-  const openAddEditModal = (animeId: number) => {
-    const userData = myListMap.get(animeId);
-    modalAddEdit.openModal(animeId, userData);
+  const openAddEditModal = (anime: AnimeListType) => {
+    const userData = myListMap.get(anime.id);
+    modalAddEdit.openModal(anime.id, anime.episodes, userData);
   }
 
 return(
@@ -86,7 +90,11 @@ return(
 
     <div className="cards__container">
           {listToShow.length === 0 ? (
-            <h1>No se han encontrado animes</h1>
+            <>
+              <h1>(⁠╥⁠﹏⁠╥⁠)</h1>
+              <h2>No hay animes todavia</h2>
+              <Link to={"/directory"} className="btn-primary"> Add animes to your list</Link>
+            </>
           ) : (
             listToShow.map((anime: AnimeListType) => {
                       return (
@@ -94,7 +102,7 @@ return(
                           key={anime.id}
                           anime={anime}
                           userData={getUserListData(anime.id)}
-                          onOpenModal={openAddEditModal}
+                          onOpenModal={() => openAddEditModal(anime)}
                         >
                         </AnimeCard>
                       )})
@@ -103,6 +111,7 @@ return(
           {modalAddEdit.isOpen && modalAddEdit.animeId &&(
             <ModalAddEditAnime
             animeId={modalAddEdit.animeId}
+            totalEpisodes = {modalAddEdit.animeEpisodes}
             action={modalAddEdit.action}
             infoDocIdUserAnime = {modalAddEdit.infoDocIdFromUser}
             onClose={modalAddEdit.closeModal}
