@@ -1,11 +1,7 @@
 import type { AnimeListResponse } from "../anime-list/anime-list.type";
 import { mapJikanAnimePagination } from "../anime-pagination.mapper";
-import type { JikanResponseAnimeList } from "../jikan-API.type";
+import { jikanApiUrl } from "../apiAxios";
 import { mapJikanAnimeSearch } from "./anime-search.mapper";
-import type { AnimeSearchResponse } from "./anime-search.type";
-
-
-const URL__JIKAN= 'https://api.jikan.moe/v4/'
 
 /**
  *  Busca animes por nombre usando Jikan API
@@ -27,20 +23,19 @@ const URL__JIKAN= 'https://api.jikan.moe/v4/'
  */
 
 export async function searchAnime(animeName:string, page:number, animeLimit: number): Promise<AnimeListResponse> {
-  const request = URL__JIKAN + `anime?q=${animeName}&page=${page}&order_by=popularity&limit=${animeLimit}&sfw=true`;
-  const response = await fetch(request);
-
-  if (!response.ok) {
-    throw new Error(`Error al llamar a la API: ${response.status}`);
-  }
   
-  const json: JikanResponseAnimeList = await response.json();
-
-  const animes = mapJikanAnimeSearch(json.data)
-  const pagination = mapJikanAnimePagination(json.pagination)
+  const {data} = await jikanApiUrl.get('/anime', {
+    params:{
+      q:animeName,
+      page: page,
+      order_by: "popularity",
+      limit: animeLimit,
+      sfw: true,
+    }
+  })
 
   return{
-    animes: animes,
-    pagination: pagination
-  };
+    animes: mapJikanAnimeSearch(data.data),
+    pagination: mapJikanAnimePagination(data.pagination)
+  }
 }

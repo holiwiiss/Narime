@@ -5,17 +5,19 @@ import type {
   AnimeSearchType,
 } from "../../services/anime-search/anime-search.type";
 import { searchAnime } from "../../services/anime-search/anime-search";
-import { useNavigate } from "react-router-dom";
+import { data, useNavigate } from "react-router-dom";
 import ErrorComponent from "../error/ErrorComponent";
 import LoadingComponent from "../loading/LoadingComponent";
+import type { AnimeListResponse, AnimeListType } from "../../services/anime-list/anime-list.type";
 
 const SearchAnimeComponent = () => {
 
   const navigate = useNavigate()
 
   const [activeSearch, setActiveSearch] = useState<boolean>(false);
-  const [animeToSearch, setAnimeToSeach] = useState<string>("");
-  const [searchList, setSearchList] = useState<AnimeSearchType[]>([]);
+  const [inputValue, setInputValue] = useState("");
+  const [animeToSearch, setAnimeToSearch] = useState<string>("");
+  const [searchList, setSearchList] = useState<AnimeListType[]>([]);
   const timeoutRef = useRef<number | null>(null);
   const [totalItems, setTotalItems] = useState<number>(0);
 
@@ -23,12 +25,28 @@ const SearchAnimeComponent = () => {
   const [isError, setIsError] = useState<string | null>(null)
 
   useEffect(() => {
+    if (!inputValue.trim()) {
+      setActiveSearch(false);
+      setSearchList([]);
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setActiveSearch(true);
+      setAnimeToSearch(encodeURIComponent(inputValue));
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, [inputValue]);
+
+  useEffect(() => {
     const fetchAnimes = async () => {
+      if(!activeSearch || !animeToSearch) return
+      setIsLoading(true)
       setIsError(null)
       try {
         if (activeSearch) {
-          setIsLoading(true)
-          const JSON: AnimeSearchResponse = await searchAnime(animeToSearch, 1, 5);
+          const JSON: AnimeListResponse = await searchAnime(animeToSearch, 1, 5);
           setSearchList(JSON.animes);
           setTotalItems(JSON.pagination.total_items);
         }
@@ -45,26 +63,6 @@ const SearchAnimeComponent = () => {
   if (isLoading) return <LoadingComponent text="Cargando datos del anime..." />
   if (isError) return <ErrorComponent text={isError} />
 
-  const handleSearch = (text: string) => {
-    console.log(text);
-
-    if (!text || text==="") {
-      setActiveSearch(false);
-      setSearchList([]);
-      return;
-    }
-
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-
-    timeoutRef.current = window.setTimeout(() => {
-      setActiveSearch(true);
-      const encodedQuery = encodeURIComponent(text);
-      setAnimeToSeach(encodedQuery);
-    }, 500);
-  };
-
   return (
     <>
     <div className="search__wrapper">
@@ -72,10 +70,10 @@ const SearchAnimeComponent = () => {
         type="text"
         className="buscar__anime"
         onInput={(event: React.InputEvent<HTMLInputElement>) =>
-          handleSearch(event.currentTarget.value)
+          setInputValue(event.currentTarget.value)
         }
         onFocus={(event: React.FocusEvent<HTMLInputElement>) =>
-          handleSearch(event.currentTarget.value)}
+          setActiveSearch(true)}
         onBlur={() => {
           setTimeout(() => setActiveSearch(false), 200);
         }}
@@ -87,11 +85,10 @@ const SearchAnimeComponent = () => {
           {searchList.length === 0 ? (
             <p>no se ha encontrado ningún anime con ese nombre</p>
           ) : (
-            searchList.map((anime: AnimeSearchType) => (
-              <div className="anime_search" onClick={() => navigate(`/anime/${anime.id}`)}>
+            searchList.map((anime: AnimeListType) => (
+              <div key={anime.id} className="anime_search" onClick={() => navigate(`/anime/${anime.id}`)}>
                 <img src={anime.image} />
                 <p>{anime.title}</p>
-                <p>{anime.type}</p>
               </div>
             ))
           )}

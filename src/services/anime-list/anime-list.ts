@@ -1,12 +1,7 @@
 import { mapJikanAnimePagination } from "../anime-pagination.mapper";
-import type { JikanResponseAnimeList } from "../jikan-API.type";
+import { jikanApiUrl } from "../apiAxios";
 import { mapJikanAnimeList } from "./anime-list.mapper";
 import type { AnimeListResponse } from "./anime-list.type";
-
-
-const URL__JIKAN= 'https://api.jikan.moe/v4/'
-
-//JIKAN API está capado por 25 animes por página
 
 /**
  *  Obtiene los animes mejor valorados ordenados de mayor a menor
@@ -29,21 +24,19 @@ const URL__JIKAN= 'https://api.jikan.moe/v4/'
  */
 
 export async function getTopAnime(numPage:number): Promise<AnimeListResponse>{
-  const request = URL__JIKAN + `top/anime?page=${numPage}&sfw=true`;
-  const response = await fetch(request);
+  const {data} = await jikanApiUrl.get('/top/anime', {
+    params:{
+      page:numPage,
+      sfw:true
+    },
+  })
 
-    if (!response.ok) {
-      throw new Error(`Error al llamar a la API: ${response.status}`);
-    }
-
-    const json: JikanResponseAnimeList = await response.json();
-
-    const animes = mapJikanAnimeList(json.data);
-    const pagination = mapJikanAnimePagination(json.pagination);
-
-  return{
-    animes: animes,
-    pagination: pagination
+  const animes = mapJikanAnimeList(data.data);
+  const pagination = mapJikanAnimePagination(data.pagination);
+  
+  return {
+    animes,
+    pagination,
   };
 }
 
@@ -67,22 +60,19 @@ export async function getTopAnime(numPage:number): Promise<AnimeListResponse>{
  *    
  */
 export async function getSeasonalAnimes(numPage:number): Promise<AnimeListResponse> {
-  const request = URL__JIKAN + `seasons/now?page=${numPage}&sfw=true`;
-  const response = await fetch(request);
+  
+  const { data } = await jikanApiUrl.get("/seasons/now", {
+    params: {
+      page: numPage,
+      sfw: true,
+    },
+  });
 
-  if (!response.ok) {
-    throw new Error(`Response status: ${response.status}`);
-  }
-
-  const json: JikanResponseAnimeList = await response.json();
-
-  const animes = mapJikanAnimeList(json.data);
-  const pagination = mapJikanAnimePagination(json.pagination);
-
-  return{
-    animes: animes,
-    pagination: pagination
+  return {
+    animes: mapJikanAnimeList(data.data),
+    pagination: mapJikanAnimePagination(data.pagination),
   };
+
 }
 
 /**
@@ -105,24 +95,21 @@ export async function getSeasonalAnimes(numPage:number): Promise<AnimeListRespon
  *    
  */
 export async function getTrendingAnimes(numPage:number): Promise<AnimeListResponse> {
-  const request = URL__JIKAN + `top/anime?filter=bypopularity&page=${numPage}&sfw=true`;
-  const response = await fetch(request);
+  const { data } = await jikanApiUrl.get("/top/anime", {
+    params: {
+      filter: "bypopularity",
+      page: numPage,
+      sfw: true,
+    },
+  });
 
-  if (!response.ok) {
-    throw new Error(`Response status: ${response.status}`);
-  }
-  
-  const json: JikanResponseAnimeList = await response.json();
-
-  const animes = mapJikanAnimeList(json.data);
-  const pagination = mapJikanAnimePagination(json.pagination);
-
-  return{
-    animes: animes,
-    pagination: pagination
+  return {
+    animes: mapJikanAnimeList(data.data),
+    pagination: mapJikanAnimePagination(data.pagination),
   };
 }
 
+/*
 export async function getAnimesFiltered(genre:string, year:number, type:string, numPage:number):Promise<AnimeListResponse> {
   
   const request = URL__JIKAN + `anime?page=${numPage}&${genre}&${year}&${type}&sfw=true`;
@@ -141,4 +128,4 @@ export async function getAnimesFiltered(genre:string, year:number, type:string, 
     animes: animes,
     pagination: pagination
   };
-}
+}*/
