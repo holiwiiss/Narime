@@ -1,41 +1,23 @@
-.bton__container{
-    width: 100%;
-    display: flex;
-    gap: 2rem;
-}
-
-.bton {
-    height: 50px;
-    padding: 0 2rem;
-
-}
-.cards__container {
-    margin-top: 1rem;
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-}
-.anime__card{
-    display: flex;
-    flex-direction: column;
-    border: 2px solid black;
-    width: 18%;
-}
-
-.anime__card h1{
-    font-size: 24px;
-}
-
-.anime__card img {
-    width: 100%;
-}
-.information__container {
+.directory__options {
     display: flex;
     justify-content: space-between;
+    padding: var(--space-xl) var(--space-xxl);
+    border-bottom: 1px solid var(--color-white-50);
 }
-.anime__card h2{
-    font-size: 20px;
+
+.directory__options-buttons {
+    display: flex;
+    gap: var(--space-xxl);
 }
+
+.anime-cards__container {
+    padding: var(--space-xl) var(--space-xxl);
+    width: 100%;
+    display: flex;
+    gap: var(--space-xxl);
+    flex-wrap: wrap;
+}
+
 
 .btn__disable{
     background-color: gray;

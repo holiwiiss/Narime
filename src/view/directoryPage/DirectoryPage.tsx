@@ -73,13 +73,15 @@ const DirectoryPage = () => {
 
   return (
     <>
-    <div className="bton__container">
-      <button className={activeCategory === 'trending' ? "bton btn__able" : " bton btn__disable "} onClick={() => activateFilter("trending")}>Trending</button>
-      <button className={activeCategory === 'top' ? "bton btn__able" : " bton btn__disable"} onClick={() => activateFilter("top")}>Top 100</button>
-      <button className={activeCategory === 'seasonal' ? "bton btn__able" : " bton btn__disable"} onClick={() => activateFilter("seasonal")}>Seasonal</button>
+    <div className="directory__options">
+      <div className="directory__options-buttons">
+        <button className={`btn ${activeCategory === 'top' ? "" : "btn--disable"}`}  onClick={() => activateFilter("top")}>TOP ANIMES</button>
+        <button className={`btn ${activeCategory === 'trending' ? "" : "btn--disable"}`} onClick={() => activateFilter("trending")}>TRENDING</button>
+        <button className={`btn ${activeCategory === 'seasonal' ? "" : "btn--disable"}`} onClick={() => activateFilter("seasonal")}>SEASONAL</button>
+      </div>
     </div>
 
-    <div className="cards__container">
+    <div className="anime-cards__container">
       {animeList.length === 0 ? (
         <h1>(⁠╥⁠﹏⁠╥⁠)</h1>
       ) : (

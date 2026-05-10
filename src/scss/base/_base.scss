@@ -24,6 +24,10 @@ input {
     gap: var(--space-xxs);
 }
 
+.btn--disable {
+    background-color: transparent;
+}
+
 .btn--secondary{
     background-color: transparent;
     border:2px solid var(--color-white);

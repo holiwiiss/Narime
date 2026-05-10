@@ -34,7 +34,7 @@ const AnimeCard = ({anime, userData, onOpenModal}: PropsAnimeCard) => {
         <footer className="anime-card__footer">
           <div className="anime-card__options">
             <div className="anime-card__info">
-              <p className="anime-card__episodes"> {userData ? `${userData.episodesWatched} of ${anime.episodes} episodes` : `${anime.episodes} episodes`}</p>
+              <p className="anime-card__episodes"> {userData ? `${userData.episodesWatched} / ${anime.episodes} episodes` : `${anime.episodes} episodes`}</p>
               <h2 className="anime-card__title">{anime.title}</h2>
             </div>
 

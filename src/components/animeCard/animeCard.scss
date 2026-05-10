@@ -1,5 +1,7 @@
 .anime-card-wrapper {
-    width: 325px;
+    // Quiero 5 tarjetas por fila, pues 100%/ 5 = 20% - 192 ya que el gap es de 48px,
+    // 48x 4 = 192, cuatro espacios  intermedios entre tarjetas /5 tarjetas a las que dividir el espacio
+    width:calc((100% - 192px) / 5);
     height: 485px;
     display: flex;
     flex-direction: column;
