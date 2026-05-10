@@ -49,6 +49,17 @@ const AnimePage = () => {
     };
     fetchAnimes();
   }, [animeID]);
+  
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString("es-ES");
+  };
+
+  const formatNumber = (num: number) => {
+    return new Intl.NumberFormat("es-ES", {
+      notation: "compact",
+      maximumFractionDigits: 1,
+    }).format(num);
+  };
 
   if (isLoading) return <LoadingComponent text="Cargando datos del anime..." />
   if (isError) return <ErrorComponent text={isError} />
@@ -97,7 +108,7 @@ const AnimePage = () => {
               <div className="anime-page__content-info">
                 <h1>{animeInfo.title}</h1>
                 <h2 className="anime-page__content-info-tittle-english"><i>{animeInfo.titleEnglish}</i></h2>
-                <p className="anime-page__content-info-date"><i>{animeInfo.aired[0]} - {animeInfo.aired[1]}</i></p>
+                <p className="anime-page__content-info-date"><i>{formatDate(animeInfo.aired[0])} - {formatDate(animeInfo.aired[1])}</i></p>
 
                 <div className="anime-page__content-stats">
                   <div className="anime-page__content-stat">
@@ -118,7 +129,7 @@ const AnimePage = () => {
                   </div>
 
                   <div className="anime-page__content-stat">
-                    <p className="anime-page__content-stat-number">{animeInfo.members}</p>
+                    <p className="anime-page__content-stat-number">{formatNumber(animeInfo.members)}</p>
                     <p>Watching</p>
                   </div>  
                 </div>

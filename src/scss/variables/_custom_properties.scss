@@ -3,12 +3,12 @@
     /*      BORDER RADIUS       */
     --border-radius-xs: 0.25rem; /* 4px */
     --border-radius-s: 0.5rem;   /* 8px */
-    --border-radius-m: 1rem;     /* 16px */
+    --border-radius-m: 0.75rem;     /* 12px */
     --border-radius-l: 1.5rem;   /* 24px */
     --border-radius-xl: 2rem;   /* 32px */
     
     /*      FONT SIZE: SCALE        */
-   --font-size-1: 0.75rem;   /* 12px */
+    --font-size-1: 0.75rem;   /* 12px */
     --font-size-2: 0.875rem;  /* 14px */
     --font-size-3: 1rem;      /* 16px */
     --font-size-4: 1.125rem;  /* 18px */
@@ -56,5 +56,24 @@
 
     --label-size: var(--font-size-2);
     --input-txt-size: var(--font-size-3);
+}
 
+@font-face {
+  font-family: "Inter";
+  src: 
+    url("../../assets/fonts/Inter.woff2") format("woff2"),
+    url("../../assets/fonts/Inter.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bebas Neue";
+  src: 
+    url("../../assets/fonts/BebasNeue.woff2") format("woff2"),
+    url("../../assets/fonts/BebasNeue.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }

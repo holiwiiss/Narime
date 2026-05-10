@@ -6,7 +6,7 @@ export interface AnimeSearchType {
     image: string,
     type: string,
     score: number | null,
-    episodes: number | null,
+    episodes: number,
 }
 
 export interface AnimeSearchResponse {

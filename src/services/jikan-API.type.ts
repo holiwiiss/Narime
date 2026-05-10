@@ -12,7 +12,7 @@ export interface JikanAnimeListType {
     };
   };
   score: number | null;
-  episodes: number | null;
+  episodes: number;
   type: string;
   genres: {
     mal_id: number;

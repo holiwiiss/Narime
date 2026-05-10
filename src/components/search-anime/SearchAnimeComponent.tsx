@@ -1,11 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./search-anime.scss"
-import type {
-  AnimeSearchResponse,
-  AnimeSearchType,
-} from "../../services/anime-search/anime-search.type";
 import { searchAnime } from "../../services/anime-search/anime-search";
-import { data, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ErrorComponent from "../error/ErrorComponent";
 import LoadingComponent from "../loading/LoadingComponent";
 import type { AnimeListResponse, AnimeListType } from "../../services/anime-list/anime-list.type";
@@ -13,37 +9,43 @@ import type { AnimeListResponse, AnimeListType } from "../../services/anime-list
 const SearchAnimeComponent = () => {
 
   const navigate = useNavigate()
+  const wrapperRef = useRef<HTMLDivElement | null >(null)
 
   const [activeSearch, setActiveSearch] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState("");
   const [animeToSearch, setAnimeToSearch] = useState<string>("");
   const [searchList, setSearchList] = useState<AnimeListType[]>([]);
-  const timeoutRef = useRef<number | null>(null);
+  
   const [totalItems, setTotalItems] = useState<number>(0);
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isError, setIsError] = useState<string | null>(null)
 
   useEffect(() => {
-    if (!inputValue.trim()) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+        setActiveSearch(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    if (!inputValue) {
       setActiveSearch(false);
       setSearchList([]);
       return;
     }
 
-    const timeout = setTimeout(() => {
+    const timeout = setTimeout(async () => {
       setActiveSearch(true);
-      setAnimeToSearch(encodeURIComponent(inputValue));
-    }, 500);
+      const query = encodeURIComponent(inputValue);
+      setAnimeToSearch(query);
+      setIsLoading(true);
+      setIsError(null);
 
-    return () => clearTimeout(timeout);
-  }, [inputValue]);
-
-  useEffect(() => {
-    const fetchAnimes = async () => {
-      if(!activeSearch || !animeToSearch) return
-      setIsLoading(true)
-      setIsError(null)
       try {
         if (activeSearch) {
           const JSON: AnimeListResponse = await searchAnime(animeToSearch, 1, 5);
@@ -56,33 +58,33 @@ const SearchAnimeComponent = () => {
       }finally{
         setIsLoading(false)
       }
-    };
-    fetchAnimes();
-  }, [activeSearch, animeToSearch]);
 
-  if (isLoading) return <LoadingComponent text="Cargando datos del anime..." />
-  if (isError) return <ErrorComponent text={isError} />
+    }, 300);
+
+    return () =>{clearTimeout(timeout);} 
+  }, [inputValue]);
 
   return (
     <>
-    <div className="search__wrapper">
+    <div className="search__wrapper" ref={wrapperRef}>
       <input
         type="text"
         className="buscar__anime"
+        value={inputValue}
         onInput={(event: React.InputEvent<HTMLInputElement>) =>
           setInputValue(event.currentTarget.value)
         }
-        onFocus={(event: React.FocusEvent<HTMLInputElement>) =>
-          setActiveSearch(true)}
-        onBlur={() => {
-          setTimeout(() => setActiveSearch(false), 200);
-        }}
+        onFocus={() => inputValue && setActiveSearch(true)}
         placeholder="Search an anime..."
       ></input>
 
       {activeSearch && (
         <div className="all_busquedas__container">
-          {searchList.length === 0 ? (
+          {isLoading ? (
+            <LoadingComponent text="Charging anime data..." />
+          ) : isError ? (
+            <ErrorComponent text={isError} />
+          ): searchList.length === 0 ? (
             <p>no se ha encontrado ningún anime con ese nombre</p>
           ) : (
             searchList.map((anime: AnimeListType) => (

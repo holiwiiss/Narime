@@ -53,9 +53,9 @@ const SearchResultsPage = () => {
     }
   }
 
-  const openAddEditModal = (animeId: number) => {
-    const userData = getUserListData(animeId);
-    modalAddEdit.openModal(animeId, userData);
+  const openAddEditModal = (anime: AnimeListType) => {
+    const userData = getUserListData(anime.id);
+    modalAddEdit.openModal(anime.id, anime.episodes, userData);
   };
 
 
@@ -73,7 +73,7 @@ const SearchResultsPage = () => {
                     key={anime.id}
                     anime={anime}
                     userData={getUserListData(anime.id)}
-                    onOpenModal={openAddEditModal}
+                    onOpenModal={() => openAddEditModal(anime)}
                   >
                   </AnimeCard>
                 )
@@ -87,6 +87,7 @@ const SearchResultsPage = () => {
       {modalAddEdit.isOpen && modalAddEdit.animeId &&(
         <ModalAddEditAnime
         animeId={modalAddEdit.animeId}
+        totalEpisodes = {modalAddEdit.animeEpisodes}
         action={modalAddEdit.action}
         infoDocIdUserAnime = {modalAddEdit.infoDocIdFromUser}
         onClose={modalAddEdit.closeModal}
