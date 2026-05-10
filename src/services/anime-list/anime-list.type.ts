@@ -5,7 +5,7 @@ export interface AnimeListType {
   title: string;
   image: string;
   score: number | null;
-  episodes: number | null;
+  episodes: number;
   generes: string[];
 }
 

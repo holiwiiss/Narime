@@ -5,22 +5,23 @@ export function useAnimeModal() {
   
   const [isOpen, setIsOpen] = useState(false);
   const [animeId, setAnimeId] = useState<number | null>(null);
+  const [animeEpisodes, setAnimeEpisodes] = useState<number>(1)
   const [action, setAction] = useState<"add" | "edit">("add");
   const [infoDocIdFromUser, setInfoDocIdFromUser] = useState<UserAnimeEditDataType | null> (null)
 
-  const openModal = (animeId:number, userData?: UserAnimeListFirestoreType) =>{
+  const openModal = (animeId:number, animeEpisodes:number, userData?: UserAnimeListFirestoreType) =>{
     
     setIsOpen(true);
+    setAnimeId(animeId);
+    setAnimeEpisodes(animeEpisodes)
 
     if (!userData) {
       setAction("add");
-      setAnimeId(animeId);
       setInfoDocIdFromUser(null);
       return;
     }
 
     setAction("edit");
-    setAnimeId(animeId);
     setInfoDocIdFromUser({
       docId: userData.docId,
       status: userData.statusPersonal,
@@ -38,6 +39,7 @@ export function useAnimeModal() {
   return {
     isOpen,
     animeId,
+    animeEpisodes,
     action,
     infoDocIdFromUser,
     openModal,

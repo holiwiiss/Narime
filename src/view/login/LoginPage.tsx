@@ -4,8 +4,11 @@ import type { SubmitHandler } from "react-hook-form"
 import { sileo } from "sileo";
 import type { LoginFormInputs } from "../../types/authTyping";
 import  "./login-page.scss";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+
+  const navigate = useNavigate();
 
   const{
     register,
@@ -26,6 +29,7 @@ const LoginPage = () => {
         });
       }else {
         console.log("Iniciada sesión en:", user);
+        navigate("/directory")
       }
   }
 
@@ -35,6 +39,7 @@ const LoginPage = () => {
     if (error) {
       console.log("error" + error);
     } else {
+      navigate("/directory")
       console.log("sesion iniciada " + user);
     }
   };
@@ -106,7 +111,7 @@ const LoginPage = () => {
 
         <button className="btn-secondary login-page__button" onClick={loginGoogle}>Inicia sesión con google</button>
         
-        <p className="login-page__form-sing-up">You don't have account? Register here</p>
+        <Link to="/register"> <p className="login-page__form-sing-up">You don't have account? Register here</p> </Link>
       </section>
     </main>
     </>

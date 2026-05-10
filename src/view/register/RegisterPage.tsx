@@ -6,8 +6,11 @@ import type { SubmitHandler } from "react-hook-form";
 import type { RegisterFormInputs } from "../../types/authTyping";
 
 import "./register.scss";
+import { Link, useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -16,6 +19,7 @@ const RegisterPage = () => {
   } = useForm<RegisterFormInputs>();
 
   const passwordValue = watch("password");
+
 
   const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {   
     await validateRegister(data.email, data.password)
@@ -31,6 +35,7 @@ const RegisterPage = () => {
 
     console.log("Usuario registrado:", user);
     sileo.success({ title: "Usuario creado correctamente", fill: "#171717" });
+    navigate("/login");
   }
 
   const loginGoogle = async() => {
@@ -40,6 +45,7 @@ const RegisterPage = () => {
       console.log('error' + error)
     }else{
       console.log('sesion iniciada ' + user)
+      navigate("/directory");
     }
   }
 
@@ -122,8 +128,7 @@ const RegisterPage = () => {
         </div>
 
         <button className=" register-page__button btn-secondary"  onClick={loginGoogle}>Continua con google</button>
-
-        <p className="login-page__form-sing-up">Do you have account? Sign In here</p>
+        <Link to="/login"><p className="login-page__form-sing-up">Do you have account? Sign In here</p></Link>
       </section>
     </main>
     </>

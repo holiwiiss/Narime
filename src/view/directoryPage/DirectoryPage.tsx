@@ -54,9 +54,9 @@ const DirectoryPage = () => {
     setActualPage(1);
   }
 
-  const openAddEditModal = (animeId: number) => {
-    const userData = getUserListData(animeId);
-    modalAddEdit.openModal(animeId, userData);
+  const openAddEditModal = (anime: AnimeListType) => {
+    const userData = getUserListData(anime.id);
+    modalAddEdit.openModal(anime.id, anime.episodes, userData);
   };
 
   const nextPage = () => {
@@ -81,7 +81,7 @@ const DirectoryPage = () => {
 
     <div className="cards__container">
       {animeList.length === 0 ? (
-        <h1>No se han encontrado animes</h1>
+        <h1>(⁠╥⁠﹏⁠╥⁠)</h1>
       ) : (
         animeList.map((anime: AnimeListType) => {
           return (
@@ -89,7 +89,7 @@ const DirectoryPage = () => {
               key={anime.id}
               anime={anime}
               userData={getUserListData(anime.id)}
-              onOpenModal={openAddEditModal}
+              onOpenModal={() => openAddEditModal(anime)}
             >
             </AnimeCard>
           )})
@@ -101,6 +101,7 @@ const DirectoryPage = () => {
       {modalAddEdit.isOpen && modalAddEdit.animeId &&(
         <ModalAddEditAnime
         animeId={modalAddEdit.animeId}
+        totalEpisodes = {modalAddEdit.animeEpisodes}
         action={modalAddEdit.action}
         infoDocIdUserAnime = {modalAddEdit.infoDocIdFromUser}
         onClose={modalAddEdit.closeModal}
