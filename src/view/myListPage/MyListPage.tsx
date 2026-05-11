@@ -9,6 +9,8 @@ import AnimeCard from "../../components/animeCard/AnimeCard";
 import { useMyListMap } from "../../hooks/useMyListMap";
 import { Link } from "react-router-dom";
 import "./myListPage.scss"
+import LoadingComponent from "../../components/loading/LoadingComponent";
+import ErrorComponent from "../../components/error/ErrorComponent";
 
 const MyListPage = () =>{
 
@@ -20,8 +22,13 @@ const MyListPage = () =>{
   const [activeCategory, setActiveCategory] = useState <"all" | AnimePersonalStatusType>("all");
   const [searchAnime, setSearchAnime] = useState<string | null>(null)
 
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isError, setIsError] = useState<boolean>(false)
+
   useEffect(() => {
     const fetchAnimes = async () => {
+      setIsLoading(true)
+      setIsError(false)
       try {
         if(!myList) return 
         const JSON: AnimeListType[] = []
@@ -33,6 +40,9 @@ const MyListPage = () =>{
         setAnimeList(JSON)
       } catch (e) {
         console.log("La api no responde " + e);
+        setIsError(true)
+      }finally{
+        setIsLoading(false)
       }
     };
     fetchAnimes();
@@ -96,28 +106,35 @@ return(
       </div>
     </div>
 
-    <div className="cards__container">
-          {listToShow.length === 0 ? (
-            <>
-              <h1>(⁠╥⁠﹏⁠╥⁠)</h1>
-              <h2>No hay animes todavia</h2>
-              <Link to={"/directory"} className="btn-primary"> Add animes to your list</Link>
-            </>
-          ) : (
-            <div className="anime-cards__container">
-              {listToShow.map((anime: AnimeListType) => {
-                      return (
-                        <AnimeCard
-                          key={anime.id}
-                          anime={anime}
-                          userData={getUserListData(anime.id)}
-                          onOpenModal={() => openAddEditModal(anime)}
-                        >
-                        </AnimeCard>
-                      )})}
+    {isLoading ? (
+      <LoadingComponent text="Chargin animes..." />
+    ) : isError ? (
+      <ErrorComponent text="Ha habido un error con la API" />
+    ) : listToShow.length === 0 && searchAnime ?(
+      <div>
+        <h1>(⁠╥⁠﹏⁠╥⁠)</h1>
+        <h2>No hay ningun anime llamado asi</h2>
+      </div>
+    ) : listToShow.length === 0 ? (
+      <>
+        <h1>(⁠╥⁠﹏⁠╥⁠)</h1>
+        <h2>No hay animes todavia</h2>
+        <Link to={"/directory"} className="btn-primary"> Add animes to your list</Link>
+      </>
+    )  : (
+          <div className="anime-cards__container">
+              {listToShow.map((anime: AnimeListType) =>(
+                <AnimeCard
+                  key={anime.id}
+                  anime={anime}
+                  userData={getUserListData(anime.id)}
+                  onOpenModal={() => openAddEditModal(anime)}
+                >
+                </AnimeCard>
+              ))}
             </div>
           )}
-
+  
           {modalAddEdit.isOpen && modalAddEdit.animeId &&(
             <ModalAddEditAnime
             animeId={modalAddEdit.animeId}
@@ -127,7 +144,6 @@ return(
             onClose={modalAddEdit.closeModal}
             />
           )}
-    </div>
   </>
 )
 }

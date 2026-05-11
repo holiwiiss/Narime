@@ -78,9 +78,9 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, action, infoDocIdUserAnime, 
   }
 
   return (
-    <div className="background__popUp">
-      <div className="popup_container">
-        <h1>{action === "add" ? "Add to my list" : "Edit anime"}</h1>
+    <div className="bg-popup">
+      <div className="popup__container">
+        <h3>{action === "add" ? "Add to my list" : "Edit anime"}</h3>
         <form onSubmit={handleSubmit(onSubmit)} className="popUp_container_form">
           
           <label>Status</label>
@@ -114,11 +114,11 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, action, infoDocIdUserAnime, 
           )}
           
           {action==="edit" && (
-            <a href="#" onClick={deleteAnime}> delete anime to the list</a>
+            <a href="#" onClick={deleteAnime} className="popup__delete-anime"> delete anime to the list</a>
           )}
 
-          <button type="submit" className="btn-primary">{action === "add" ? "Add" : "Edit"}</button>
-          <button type="button" className="btn-secondary" onClick={onClose}>Cerrar</button>
+          <button type="submit" className="btn">{action === "add" ? "Add" : "Edit"}</button>
+          <button type="button" className="btn btn--secondary" onClick={onClose}>Cerrar</button>
         </form>
       </div>
     </div>
