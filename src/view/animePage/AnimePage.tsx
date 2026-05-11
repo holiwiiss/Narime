@@ -13,7 +13,8 @@ const AnimePage = () => {
   const [animeCharacters, setAnimeCharacters] = useState<AnimeCharactersType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isError, setIsError] = useState<string | null>(null)
-  const [userData, setUserData] = useState<UserAnimeListFirestoreType | undefined>(undefined)
+  const [userData, setUserData] = useState<UserAnimeListFirestoreType | undefined>(undefined);
+  const [activeCategory, setActiveCategory] = useState <"sinopsis" | "actors">("sinopsis")
   
   const { id } = useParams();
   const animeID = Number(id);
@@ -148,23 +149,37 @@ const AnimePage = () => {
                   ))}
                 </div>
               </div>
-              
-              <div className="anime-page__content-synopsis">
-                  <p>{animeInfo.synopsis}</p>
-              </div>
+              <footer className="anime-page__end-section">
+                <div className="tab__container">
+                  <div className="my-list__buttons">
+                    <button className={`tab-option ${activeCategory === 'sinopsis' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("sinopsis")}>Sinopsis</button>
+                    <button className={`tab-option ${activeCategory === 'actors' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("actors")}>Voice actors and characters</button>
+                  </div>
+                </div>
+                <div className="anime-page__content-synopsis">
+                  {activeCategory === "sinopsis" ? ( 
+                    <p>{animeInfo.synopsis}</p>
+                  ):(
+                    <div className="anime-page__container--character">
+                      {animeCharacters.map((person: AnimeCharactersType) => (
+                      <div className="character-card">
+                        <div className="character-card__anime--img" style={{ backgroundImage: `url(${person.characterImage})` }}>
+                          <p className="character-card__role">{person.role}</p>
+                          <p className="character-card__anime-name">{person.characterName}</p>
+                        </div>
+                        <div className="character-card__actor--img" style={{ backgroundImage: `url(${person.voiceActorImage})` }}>
+                          <p className="character-card__actor-name">{person.voiceActorName}</p>
+                        </div>
+                      </div>
+                      ))}
+                    </div>
+                  )}
+                    
+                </div>
+              </footer>
             </section>
             </div>
           </main>
-          
-          {animeCharacters.map((person: AnimeCharactersType) => (
-                    <div className="container__character">
-                      <p>{person.characterName}</p>
-                      <img src={person.characterImage} />
-                      <p>{person.role}</p>
-                      <p>{person.voiceActorName}</p>
-                      <img src={person.voiceActorImage} />
-                    </div>
-                  ))}
         </>
       )}
     </>
