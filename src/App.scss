@@ -1,5 +1,7 @@
 @use "./scss/base";
 @use "./scss/variables";
+@use "./scss/components";
+
 .menu{
     position: fixed;
     inset: 0 0 auto 0;

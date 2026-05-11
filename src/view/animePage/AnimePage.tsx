@@ -151,13 +151,13 @@ const AnimePage = () => {
               </div>
               <footer className="anime-page__end-section">
                 <div className="tab__container">
-                  <div className="my-list__buttons">
+                  <div className="tab__buttons">
                     <button className={`tab-option ${activeCategory === 'sinopsis' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("sinopsis")}>Sinopsis</button>
                     <button className={`tab-option ${activeCategory === 'actors' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("actors")}>Voice actors and characters</button>
                   </div>
                 </div>
                 <div className="anime-page__content-synopsis">
-                  {activeCategory === "sinopsis" ? ( 
+                  {activeCategory === "sinopsis" ? (
                     <p>{animeInfo.synopsis}</p>
                   ):(
                     <div className="anime-page__container--character">

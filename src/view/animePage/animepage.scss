@@ -17,21 +17,24 @@
         flex-direction: column;
         width: calc(25% - 12px );
         height: 100%;
+        
         &-img {
             height: 70%;
             flex:1;
+            border-radius: var(--border-radius-s);
         }
+        
         &-form  {
             display: flex;
             flex-direction: column;
             gap: var(--space-s);
             margin-top: var(--space-s);
+            
             &-group {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
             }
-            
         }
     }
 
@@ -84,6 +87,7 @@
 
 .anime-page__content-synopsis {
     max-width: 100%;
+    margin-top: var(--space-s);
 }
 .anime-page__container--character{
     display: flex;
