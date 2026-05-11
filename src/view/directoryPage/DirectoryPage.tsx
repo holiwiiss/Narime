@@ -68,9 +68,6 @@ const DirectoryPage = () => {
     if(actualPage > 1) setActualPage(prev => prev - 1);
   }
 
-  if (isLoading) return <LoadingComponent text="Cargando animes..." />
-  if (isError) return <ErrorComponent text="Ha habido un error con la API" />
-
   return (
     <>
     <div className="directory__options">
@@ -80,26 +77,27 @@ const DirectoryPage = () => {
         <button className={`btn ${activeCategory === 'seasonal' ? "" : "btn--disable"}`} onClick={() => activateFilter("seasonal")}>SEASONAL</button>
       </div>
     </div>
-
-    <div className="anime-cards__container">
-      {animeList.length === 0 ? (
-        <h1>(⁠╥⁠﹏⁠╥⁠)</h1>
-      ) : (
-        animeList.map((anime: AnimeListType) => {
-          return (
-            <AnimeCard
-              key={anime.id}
-              anime={anime}
-              userData={getUserListData(anime.id)}
-              onOpenModal={() => openAddEditModal(anime)}
-            >
-            </AnimeCard>
-          )})
-      )}
+    { isLoading ? (
+      <LoadingComponent text="Cargando animes..." />
+    ): isError ? (
+      <ErrorComponent text="Ha habido un error con la API" />
+    ) : animeList.length === 0 ? (
+      <h1>(⁠╥⁠﹏⁠╥⁠)</h1>
+    ) : (
+      <>
+      <div className="anime-cards__container">
+        {animeList.map((anime: AnimeListType) => (
+          <AnimeCard
+            key={anime.id}
+            anime={anime}
+            userData={getUserListData(anime.id)}
+            onOpenModal={() => openAddEditModal(anime)}
+          />
+        ))}
       </div>
-
       <Pagination actualPage={actualPage} lastPage={lastPage} onNextPage={nextPage} onPreviousPage={previousPage}></Pagination>
-      
+      </>
+    )}
       {modalAddEdit.isOpen && modalAddEdit.animeId &&(
         <ModalAddEditAnime
         animeId={modalAddEdit.animeId}

@@ -1,3 +1,4 @@
+import "./loadingComponent.scss"
 
 type LoadingProp = {
   text: string;
@@ -6,12 +7,11 @@ type LoadingProp = {
 const LoadingComponent = ({text}:LoadingProp) => {
     return(
         <>
-        <div>
-            <img src="#"></img>
-            <div>
-                <h1>༼ つ ◕_◕ ༽つ</h1>
-                <h1>{text}</h1>
-            </div>
+        <div className="loading-component__container">
+            <div className="loading-component__spinner"></div>
+
+            <h1 className="loading-component__face">༼ つ ◕_◕ ༽つ</h1>
+            <h2 className="loading-component__text">{text}</h2>
         </div>
         </>
     )

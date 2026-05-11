@@ -1,0 +1,16 @@
+.error-component__container {
+    width: 100%;
+    //lo que mide la barra superior
+    height: calc(100vh - 151px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-s);
+}
+
+.error-component__sad-face {
+    font-size: var(--font-size-10);
+    font-family: var(--font-secondary);
+}
+

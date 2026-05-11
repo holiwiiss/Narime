@@ -1,3 +1,5 @@
+import "./errorComponent.scss"
+
 type ErrorProp = {
   text: string;
 };
@@ -8,13 +10,10 @@ const ErrorComponent = ({text}:ErrorProp) => {
     };
     return(
         <>
-        <div>
-            <img src="#"></img>
-            <div>
-                <h1>(⁠╥⁠﹏⁠╥⁠)</h1>
-                <h2>{text}</h2>
-                <button className="btn-primary" onClick={reloadPage}>Reintentar</button>
-            </div>
+        <div className="error-component__container">
+            <h1 className="error-component__sad-face">(⁠╥⁠﹏⁠╥⁠)</h1>
+            <h2 className="error-component__text">{text}</h2>
+            <button className="btn" onClick={reloadPage}>Reintentar</button>
         </div>
         </>
     )

@@ -36,7 +36,7 @@
     rgba(0, 0, 0, 0) 30%,
     rgba(102, 102, 102, 0) 100%
   );
-
+    border-radius: var(--border-radius-m);
   z-index: 0;
 }
 
@@ -124,6 +124,7 @@
     gap: var(--space-xs);
     align-items: center;
 }
+
 .anime-card__button-img {
     height: var(--space-m);
     width: var(--space-m);

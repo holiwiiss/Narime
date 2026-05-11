@@ -8,6 +8,7 @@ import type { AnimeListType } from "../../services/anime-list/anime-list.type";
 import AnimeCard from "../../components/animeCard/AnimeCard";
 import { useMyListMap } from "../../hooks/useMyListMap";
 import { Link } from "react-router-dom";
+import "./myListPage.scss"
 
 const MyListPage = () =>{
 
@@ -79,13 +80,20 @@ const MyListPage = () =>{
 
 return(
   <>
-    <div className="bton__container">
-      <button className={activeCategory === 'all' ? "bton btn__able" : " bton btn__disable "} onClick={() => setActiveCategory("all")}>All ({countersList.all})</button>
-      <button className={activeCategory === 'watching' ? "bton btn__able" : " bton btn__disable"} onClick={() => setActiveCategory("watching")}>Watching ({countersList.watching})</button>
-      <button className={activeCategory === 'completed' ? "bton btn__able" : " bton btn__disable"} onClick={() => setActiveCategory("completed")}>Completed ({countersList.completed})</button>
-      <button className={activeCategory === 'dropped' ? "bton btn__able" : " bton btn__disable"} onClick={() => setActiveCategory("dropped")}>Dropped ({countersList.dropped})</button>
-      <button className={activeCategory === 'planToWatch' ? "bton btn__able" : " bton btn__disable"} onClick={() => setActiveCategory("planToWatch")}>Plan to watch ({countersList.planToWatch})</button>
-      <input type="text"  onInput={(event: React.InputEvent<HTMLInputElement>) => setSearchAnime(event.currentTarget.value)}></input>
+    <div className="my-list__options tab__container">
+      <div className="my-list__buttons">
+        <button className={`tab-option ${activeCategory === 'all' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("all")}>All <span className="tab-option__count">({countersList.all})</span></button>
+        <button className={`tab-option ${activeCategory === 'watching' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("watching")}>Watching <span className="tab-option__count">({countersList.watching})</span></button>
+        <button className={`tab-option ${activeCategory === 'completed' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("completed")}>Completed <span className="tab-option__count">({countersList.completed})</span></button>
+        <button className={`tab-option ${activeCategory === 'dropped' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("dropped")}>Dropped <span className="tab-option__count">({countersList.dropped})</span></button>
+        <button className={`tab-option ${activeCategory === 'planToWatch' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("planToWatch")}>Plan to watch <span className="tab-option__count">({countersList.planToWatch})</span></button>
+      </div>
+      <div className="my-list__filters">
+        <div className="my-list__search">
+          <img className="my-list__search--img"></img>
+          <input type="text" className="my-list__input" onInput={(event: React.InputEvent<HTMLInputElement>) => setSearchAnime(event.currentTarget.value)} placeholder="Search anime..."></input>
+        </div>
+      </div>
     </div>
 
     <div className="cards__container">
@@ -96,7 +104,8 @@ return(
               <Link to={"/directory"} className="btn-primary"> Add animes to your list</Link>
             </>
           ) : (
-            listToShow.map((anime: AnimeListType) => {
+            <div className="anime-cards__container">
+              {listToShow.map((anime: AnimeListType) => {
                       return (
                         <AnimeCard
                           key={anime.id}
@@ -105,7 +114,8 @@ return(
                           onOpenModal={() => openAddEditModal(anime)}
                         >
                         </AnimeCard>
-                      )})
+                      )})}
+            </div>
           )}
 
           {modalAddEdit.isOpen && modalAddEdit.animeId &&(
