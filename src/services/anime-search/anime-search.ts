@@ -1,6 +1,7 @@
 import type { AnimeListResponse } from "../anime-list/anime-list.type";
 import { mapJikanAnimePagination } from "../anime-pagination.mapper";
 import { jikanApiUrl } from "../apiAxios";
+import type { JikanAnimeListType, JikanPaginationType } from "../jikan-API.type";
 import { mapJikanAnimeSearch } from "./anime-search.mapper";
 
 /**
@@ -24,7 +25,7 @@ import { mapJikanAnimeSearch } from "./anime-search.mapper";
 
 export async function searchAnime(animeName:string, page:number, animeLimit: number): Promise<AnimeListResponse> {
   
-  const {data} = await jikanApiUrl.get('/anime', {
+  const {data} = await jikanApiUrl.get<{ data: JikanAnimeListType[], pagination: JikanPaginationType}>('/anime', {
     params:{
       q:animeName,
       page: page,

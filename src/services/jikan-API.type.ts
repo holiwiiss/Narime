@@ -5,19 +5,16 @@ export interface JikanResponseAnimeList {
 
 export interface JikanAnimeListType {
   mal_id: number;
-  title:string;
+  title: string;
   images: {
     jpg: {
       large_image_url: string;
     };
   };
   score: number | null;
-  episodes: number;
+  episodes: number | null;
   type: string;
-  genres: {
-    mal_id: number;
-    name: string;
-  }[];
+  year: number | null;
 }
 
 export interface JikanPaginationType {
@@ -54,7 +51,7 @@ export interface JikanAnimeInformationType {
   members: number;
   episodes: number | null;
   season: string;
-  year: string;
+  year: number | null;
   genres: {
     mal_id: number;
     name: string;

@@ -1,14 +1,15 @@
 import type { JikanAnimeListType } from "../jikan-API.type";
-import type { AnimeListType } from "./anime-list.type";
+import type { AnimeCardType } from "./anime-list.type";
 
-export function mapJikanAnimeList(data: JikanAnimeListType[]): AnimeListType[] {
-  const dataMapped = data.map((anime): AnimeListType => ({
+export function mapJikanAnimeList(data: JikanAnimeListType[]): AnimeCardType[] {
+  const dataMapped = data.map((anime): AnimeCardType => ({
     id: anime.mal_id,
     title: anime.title,
     image: anime.images.jpg.large_image_url,
-    score: anime.score,
-    episodes: anime.episodes,
-    generes: anime.genres.map(g => g.name),
+    score: anime.score ?? null,
+    episodes: anime.episodes ?? 1,
+    year: anime.year ?? null,
+    type:anime.type
   }));
 
   const arrayAnimesID: number[]=  []

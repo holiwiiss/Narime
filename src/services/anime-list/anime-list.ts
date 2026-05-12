@@ -1,5 +1,6 @@
 import { mapJikanAnimePagination } from "../anime-pagination.mapper";
 import { jikanApiUrl } from "../apiAxios";
+import type { JikanAnimeListType, JikanPaginationType } from "../jikan-API.type";
 import { mapJikanAnimeList } from "./anime-list.mapper";
 import type { AnimeListResponse } from "./anime-list.type";
 
@@ -24,7 +25,7 @@ import type { AnimeListResponse } from "./anime-list.type";
  */
 
 export async function getTopAnime(numPage:number): Promise<AnimeListResponse>{
-  const {data} = await jikanApiUrl.get('/top/anime', {
+  const {data} = await jikanApiUrl.get<{ data: JikanAnimeListType[], pagination: JikanPaginationType}>('/top/anime', {
     params:{
       page:numPage,
       sfw:true
@@ -61,7 +62,7 @@ export async function getTopAnime(numPage:number): Promise<AnimeListResponse>{
  */
 export async function getSeasonalAnimes(numPage:number): Promise<AnimeListResponse> {
   
-  const { data } = await jikanApiUrl.get("/seasons/now", {
+  const { data } = await jikanApiUrl.get<{ data: JikanAnimeListType[], pagination: JikanPaginationType}>("/seasons/now", {
     params: {
       page: numPage,
       sfw: true,
@@ -95,7 +96,7 @@ export async function getSeasonalAnimes(numPage:number): Promise<AnimeListRespon
  *    
  */
 export async function getTrendingAnimes(numPage:number): Promise<AnimeListResponse> {
-  const { data } = await jikanApiUrl.get("/top/anime", {
+  const { data } = await jikanApiUrl.get<{ data: JikanAnimeListType[], pagination: JikanPaginationType}>("/top/anime", {
     params: {
       filter: "bypopularity",
       page: numPage,

@@ -4,7 +4,7 @@ import { searchAnime } from "../../services/anime-search/anime-search";
 import Pagination from "../../components/pagination/Pagination";
 import { useMyListMap } from "../../hooks/useMyListMap";
 import AnimeCard from "../../components/animeCard/AnimeCard";
-import type { AnimeListResponse, AnimeListType } from "../../services/anime-list/anime-list.type";
+import type { AnimeListResponse, AnimeCardType } from "../../services/anime-list/anime-list.type";
 import ModalAddEditAnime from "../../components/modalAddEditAnime/ModalAddEditAnime";
 import { useAnimeModal } from "../../hooks/useAnimeModal";
 
@@ -16,7 +16,7 @@ const SearchResultsPage = () => {
   const modalAddEdit = useAnimeModal();
   const  { getUserListData } = useMyListMap()
 
-  const [searchList, setSearchList] = useState<AnimeListType[]>([]);
+  const [searchList, setSearchList] = useState<AnimeCardType[]>([]);
   const [actualPage, setActualPage] = useState<number>(1)
   const [lastPage, setLastPage] = useState<number>(1)
 
@@ -29,7 +29,7 @@ const SearchResultsPage = () => {
       try{
         const JSON: AnimeListResponse = await searchAnime(query,actualPage, 25)
         setSearchList(JSON.animes);
-        setLastPage(JSON.pagination.last_visible_page)
+        setLastPage(JSON.pagination.lastVisiblePage)
       }catch(e){
         console.log("La api no responde, " + e);
         console.log('Ha habido un error con la carga de la API')
@@ -53,7 +53,7 @@ const SearchResultsPage = () => {
     }
   }
 
-  const openAddEditModal = (anime: AnimeListType) => {
+  const openAddEditModal = (anime: AnimeCardType) => {
     const userData = getUserListData(anime.id);
     modalAddEdit.openModal(anime.id, anime.episodes, userData);
   };
@@ -67,7 +67,7 @@ const SearchResultsPage = () => {
         {searchList.length === 0 ? (
               <p>no se ha encontrado ningún anime con ese nombre</p>
             ) : (
-              searchList.map((anime: AnimeListType) => {
+              searchList.map((anime: AnimeCardType) => {
                 return (
                   <AnimeCard
                     key={anime.id}

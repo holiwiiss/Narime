@@ -1,4 +1,4 @@
-import type { AnimeListType } from "../anime-list/anime-list.type"
+import type { AnimeCardType } from "../anime-list/anime-list.type"
 import type { JikanAnimeCharactersType, JikanAnimeInformationType } from "../jikan-API.type"
 import type { AnimeCharactersType, AnimeInformationType } from "./anime-information.type"
 
@@ -8,14 +8,14 @@ export function mapJikanAnimeInformation(data: JikanAnimeInformationType): Anime
     title:data.title,
     titleEnglish: data.title_english,
     type: data.type,
-    images: data.images.jpg.large_image_url,
-    aired: [ data.aired.from, data.aired.to],
-    score: data.score,
-    rank: data.rank,
+    image: data.images.jpg.large_image_url,
+    aired: [ data.aired.from ?? data.year, data.aired.to ?? data.year],
+    score: data.score ?? null,
+    rank: data.rank ?? null,
     members: data.members,
-    episodes: data.episodes, 
+    episodes: data.episodes ?? 1, 
     season: data.season,
-    year: data.year,
+    year: data.year ?? null,
     genres: data.genres.map(g => g.name),
     studios: data.studios.map(s => s.name),
     synopsis: data.synopsis,
@@ -33,13 +33,14 @@ export function mapJikanAnimeCharacters(data: JikanAnimeCharactersType[]): Anime
   }))
 }
 
-export function mapJikanAnimeInformationToJikanAnimeList ( data : JikanAnimeInformationType): AnimeListType {
+export function mapJikanAnimeInformationToJikanAnimeList ( data : JikanAnimeInformationType): AnimeCardType {
   return{
     id: data.mal_id,
     title:data.title,
     image: data.images.jpg.large_image_url,
-    score: data.score,
-    episodes: data.episodes, 
-    generes: data.genres.map(g => g.name),
+    score: data.score ?? null,
+    episodes: data.episodes ?? 1, 
+    year: data.year,
+    type: data.type,
   }
 }

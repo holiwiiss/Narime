@@ -1,15 +1,11 @@
+import type { AnimeInformationType } from "../anime-information/anime-information.type";
 import type { PaginationType } from "../anime-pagination.type";
 
-export interface AnimeListType {
-  id: number;
-  title: string;
-  image: string;
-  score: number | null;
-  episodes: number;
-  generes: string[];
-}
+export type AnimeCardType = Pick<
+AnimeInformationType, 
+"id" | "title" | "image" | "score" | "episodes"  | "year" | "type"> 
 
 export interface AnimeListResponse {
-  animes: AnimeListType[];
+  animes: AnimeCardType[];
   pagination: PaginationType;
 }

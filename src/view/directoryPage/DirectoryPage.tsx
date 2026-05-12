@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./directorypage.scss";
-import type { AnimeListResponse, AnimeListType } from "../../services/anime-list/anime-list.type";
+import type { AnimeListResponse, AnimeCardType } from "../../services/anime-list/anime-list.type";
 import { getSeasonalAnimes, getTopAnime, getTrendingAnimes } from "../../services/anime-list/anime-list";
 import Pagination from "../../components/pagination/Pagination";
 import LoadingComponent from "../../components/loading/LoadingComponent";
@@ -21,7 +21,7 @@ const DirectoryPage = () => {
   const  { getUserListData } = useMyListMap()
   const modalAddEdit = useAnimeModal();
 
-  const [animeList, setAnimeList] = useState<AnimeListType[]>([]);
+  const [animeList, setAnimeList] = useState<AnimeCardType[]>([]);
 
   const [activeCategory, setActiveCategory] = useState <"top" | "trending" | "seasonal">("top")
   const [actualPage, setActualPage] = useState<number>(1)
@@ -38,7 +38,7 @@ const DirectoryPage = () => {
         const searchFunction = functionMap[activeCategory]
         const data: AnimeListResponse = await searchFunction(actualPage)
         setAnimeList(data.animes);
-        setLastPage(data.pagination.last_visible_page);
+        setLastPage(data.pagination.lastVisiblePage);
       }catch(e){
         console.log('La api no responde, ' + e)
         setIsError(true)
@@ -54,7 +54,7 @@ const DirectoryPage = () => {
     setActualPage(1);
   }
 
-  const openAddEditModal = (anime: AnimeListType) => {
+  const openAddEditModal = (anime: AnimeCardType) => {
     const userData = getUserListData(anime.id);
     modalAddEdit.openModal(anime.id, anime.episodes, userData);
   };
@@ -86,7 +86,7 @@ const DirectoryPage = () => {
     ) : (
       <>
       <div className="anime-cards__container">
-        {animeList.map((anime: AnimeListType) => (
+        {animeList.map((anime: AnimeCardType) => (
           <AnimeCard
             key={anime.id}
             anime={anime}

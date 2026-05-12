@@ -3,20 +3,18 @@ export interface AnimeInformationType {
   title:string;
   titleEnglish: string;
   type: string;
-  images: string;
+  image: string;
   aired: string[];
   score: number | null;
   rank: number |null;
   members: number;
-  episodes: number | null;
+  episodes: number;
   season: string;
-  year: string;
+  year: number | null;
   genres: string[];
   studios:string[];
   synopsis: string;
 }
-
-export type AnimeResume = Pick<AnimeInformationType, "id" | "title" | "images" | "score" | "episodes" | "genres" >
 
 export interface AnimeCharactersType {
   characterName: string;

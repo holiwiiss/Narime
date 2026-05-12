@@ -1,11 +1,11 @@
 import React from "react";
 import type { UserAnimeListFirestoreType } from "../../firebase/services/firestoreService.type";
-import type { AnimeListType } from "../../services/anime-list/anime-list.type";
+import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
 import { useNavigate } from "react-router-dom";
 import "./animeCard.scss"
 
 type PropsAnimeCard = {
-  anime: AnimeListType;
+  anime: AnimeCardType;
   userData?: UserAnimeListFirestoreType;
   onOpenModal: (animeId: number) => void;
 }
@@ -25,7 +25,7 @@ const AnimeCard = ({anime, userData, onOpenModal}: PropsAnimeCard) => {
         <header className="anime-card__header">
           <div className="anime-card__score">
             <img className="anime-card__score-icon" src="#" />
-            <p className="anime-card__score-text">{anime.score}</p>
+            <p className="anime-card__score-text">{anime.score ?? "N/A"}</p>
           </div>
 
           {userData && (<span className="anime-card__user-status" data-status={userData.statusPersonal}>{userData.statusPersonal}</span>)}
@@ -55,7 +55,7 @@ const AnimeCard = ({anime, userData, onOpenModal}: PropsAnimeCard) => {
           </div>
         </footer>
       </article>
-      <p className="anime-card__meta">Tv | Fantasy</p>
+      <p className="anime-card__meta">{anime.type} | {anime.year ?? "N/A"}</p>
     </div>
   )
 };

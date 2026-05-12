@@ -75,7 +75,7 @@ const AnimePage = () => {
           <div className="anime-page__container">
 
             <header className="anime-page__header">
-              <img src={animeInfo.images} className="anime-page__header-img" alt={animeInfo.title}></img>
+              <img src={animeInfo.image} className="anime-page__header-img" alt={animeInfo.title}></img>
               
               {userData && (
                 <form className="anime-page__header-form">
@@ -113,7 +113,7 @@ const AnimePage = () => {
 
                 <div className="anime-page__content-stats">
                   <div className="anime-page__content-stat">
-                    <p className="anime-page__content-stat-number">{animeInfo.score}</p>
+                    <p className="anime-page__content-stat-number">{animeInfo.score ?? "N/A"}</p>
                     <p>Global Score</p>
                   </div>
 
@@ -125,7 +125,7 @@ const AnimePage = () => {
                   )}
 
                   <div className="anime-page__content-stat">
-                    <p className="anime-page__content-stat-number"># {animeInfo.rank}</p>
+                    <p className="anime-page__content-stat-number"># {animeInfo.rank ?? "N/A"}</p>
                     <p>Ranked</p>
                   </div>
 
@@ -140,7 +140,7 @@ const AnimePage = () => {
                 <h2>Hastags</h2>
                 <div className="anime-page__content-all-tags">
                   <div className="anime-page__content-tag"><p># {animeInfo.type}</p></div>
-                  <div className="anime-page__content-tag"><p># {animeInfo.season} {animeInfo.year}</p></div>
+                  <div className="anime-page__content-tag"><p># {animeInfo.season} {animeInfo.year ?? "N/A"}</p></div>
                   {animeInfo.genres.map((g)=> (
                     <div className="anime-page__content-tag"><p># {g}</p></div>
                   ))}

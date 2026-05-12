@@ -1,6 +1,6 @@
-import type { AnimeListType } from "../anime-list/anime-list.type";
+import type { AnimeCardType } from "../anime-list/anime-list.type";
 import { jikanApiUrl } from "../apiAxios";
-import type { JikanAnimeInformationType } from "../jikan-API.type";
+import type { JikanAnimeCharactersType, JikanAnimeInformationType } from "../jikan-API.type";
 import { mapJikanAnimeCharacters, mapJikanAnimeInformation, mapJikanAnimeInformationToJikanAnimeList } from "./anime-information.mapper";
 import type { AnimeCharactersType, AnimeInformationType } from "./anime-information.type";
 
@@ -24,7 +24,7 @@ import type { AnimeCharactersType, AnimeInformationType } from "./anime-informat
 
 export async function getAnimeInformation(animeID:number): Promise<AnimeInformationType>{
   
-  const {data} = await jikanApiUrl.get(`/anime/${animeID}`)
+  const {data} = await jikanApiUrl.get<{ data: JikanAnimeInformationType }>(`/anime/${animeID}`);
   
   return mapJikanAnimeInformation(data.data)
 }
@@ -44,13 +44,28 @@ export async function getAnimeInformation(animeID:number): Promise<AnimeInformat
  */
 
 export async function getAnimeCharacters(animeID:number): Promise <AnimeCharactersType[]> {
-  const {data} = await jikanApiUrl.get(`/anime/${animeID}/characters`)
+  const {data} = await jikanApiUrl.get<{ data: JikanAnimeCharactersType []}>(`/anime/${animeID}/characters`)
 
   return mapJikanAnimeCharacters(data.data)
 }
 
-export async function getAnimeInformationTypeList (animeID: number): Promise <AnimeListType> {
-  const {data} = await jikanApiUrl.get(`/anime/${animeID}`)
-
+/**
+ *  Obtiene la información detallada de un anime por su ID en mappeado en formato lista para las cards
+ *
+ * @param animeID - ID del anime en MyAnimeList
+ * @returns objeto AnimeListType
+ * 
+ * Ejemplo de respuesta:
+ * 
+ * animeInfo = {
+ *   id: 1,
+ *   title: "Naruto",
+ *   type: "TV",
+ *   ...
+ * }
+ *    
+ */
+export async function getAnimeInformationTypeList (animeID: number): Promise <AnimeCardType> {
+  const {data} = await jikanApiUrl.get<{ data: JikanAnimeInformationType}>(`/anime/${animeID}`)
   return mapJikanAnimeInformationToJikanAnimeList(data.data)
 }
