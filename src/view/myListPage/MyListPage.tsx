@@ -4,7 +4,7 @@ import type { AnimePersonalStatusType } from "../../firebase/services/firestoreS
 import { useAnimeModal } from "../../hooks/useAnimeModal";
 import ModalAddEditAnime from "../../components/modalAddEditAnime/ModalAddEditAnime";
 import { useMyAnimeList } from "../../context/MyListContext";
-import type { AnimeListType } from "../../services/anime-list/anime-list.type";
+import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
 import AnimeCard from "../../components/animeCard/AnimeCard";
 import { useMyListMap } from "../../hooks/useMyListMap";
 import { Link } from "react-router-dom";
@@ -18,7 +18,7 @@ const MyListPage = () =>{
   const  { myListMap, getUserListData } = useMyListMap()
   const modalAddEdit= useAnimeModal()
 
-  const [animeList, setAnimeList] = useState<AnimeListType[]>([]);
+  const [animeList, setAnimeList] = useState<AnimeCardType[]>([]);
   const [activeCategory, setActiveCategory] = useState <"all" | AnimePersonalStatusType>("all");
   const [searchAnime, setSearchAnime] = useState<string | null>(null)
 
@@ -31,7 +31,7 @@ const MyListPage = () =>{
       setIsError(false)
       try {
         if(!myList) return 
-        const JSON: AnimeListType[] = []
+        const JSON: AnimeCardType[] = []
         myList.forEach(async anime => {
           const data = await getAnimeInformationTypeList(anime.animeId);
           JSON.push(data);
@@ -60,7 +60,7 @@ const MyListPage = () =>{
   }
 
   const listToShow = useMemo(() => {
-    let definitiveList: AnimeListType[] = []
+    let definitiveList: AnimeCardType[] = []
 
     if (activeCategory === "all"){
       definitiveList = animeList
@@ -83,7 +83,7 @@ const MyListPage = () =>{
     return definitiveList
   }, [animeList, activeCategory, myListMap, searchAnime]);
 
-  const openAddEditModal = (anime: AnimeListType) => {
+  const openAddEditModal = (anime: AnimeCardType) => {
     const userData = myListMap.get(anime.id);
     modalAddEdit.openModal(anime.id, anime.episodes, userData);
   }
@@ -123,7 +123,7 @@ return(
       </>
     )  : (
           <div className="anime-cards__container">
-              {listToShow.map((anime: AnimeListType) =>(
+              {listToShow.map((anime: AnimeCardType) =>(
                 <AnimeCard
                   key={anime.id}
                   anime={anime}
