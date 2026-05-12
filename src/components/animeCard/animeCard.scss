@@ -2,7 +2,7 @@
     // Quiero 5 tarjetas por fila, pues 100%/ 5 = 20% - 192 ya que el gap es de 48px,
     // 48x 4 = 192, cuatro espacios  intermedios entre tarjetas /5 tarjetas a las que dividir el espacio
     width:calc((100% - 192px) / 5);
-    height: 485px;
+    height: 400px;
     display: flex;
     flex-direction: column;
     gap: var(--space-s);
@@ -14,6 +14,7 @@
     flex: 1;
     border-radius: var(--border-radius-m);
     background-size: cover;
+    background-position: center;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
