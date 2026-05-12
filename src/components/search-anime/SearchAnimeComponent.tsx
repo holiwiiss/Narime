@@ -4,7 +4,7 @@ import { searchAnime } from "../../services/anime-search/anime-search";
 import { useNavigate } from "react-router-dom";
 import ErrorComponent from "../error/ErrorComponent";
 import LoadingComponent from "../loading/LoadingComponent";
-import type { AnimeListResponse, AnimeListType } from "../../services/anime-list/anime-list.type";
+import type { AnimeListResponse, AnimeCardType } from "../../services/anime-list/anime-list.type";
 
 const SearchAnimeComponent = () => {
 
@@ -14,7 +14,7 @@ const SearchAnimeComponent = () => {
   const [activeSearch, setActiveSearch] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState("");
   const [animeToSearch, setAnimeToSearch] = useState<string>("");
-  const [searchList, setSearchList] = useState<AnimeListType[]>([]);
+  const [searchList, setSearchList] = useState<AnimeCardType[]>([]);
   
   const [totalItems, setTotalItems] = useState<number>(0);
 
@@ -50,7 +50,7 @@ const SearchAnimeComponent = () => {
         if (activeSearch) {
           const JSON: AnimeListResponse = await searchAnime(animeToSearch, 1, 5);
           setSearchList(JSON.animes);
-          setTotalItems(JSON.pagination.total_items);
+          setTotalItems(JSON.pagination.totalItems);
         }
       } catch (e) {
         console.log("La api no responde, " + e);
@@ -87,7 +87,7 @@ const SearchAnimeComponent = () => {
           ): searchList.length === 0 ? (
             <p>no se ha encontrado ningún anime con ese nombre</p>
           ) : (
-            searchList.map((anime: AnimeListType) => (
+            searchList.map((anime: AnimeCardType) => (
               <div key={anime.id} className="anime_search" onClick={() => navigate(`/anime/${anime.id}`)}>
                 <img src={anime.image} />
                 <p>{anime.title}</p>
