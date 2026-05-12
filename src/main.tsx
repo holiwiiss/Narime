@@ -10,6 +10,7 @@ import SearchResultsPage from './view/searchResultsPage/SearchResultsPage.tsx'
 import { MyListProvider } from './context/MyListContext.tsx'
 import MyListPage from './view/myListPage/MyListPage.tsx'
 import { AuthProvider } from './context/AuthContext.tsx'
+import ProtectedRoute from './router/ProtectedRoute.tsx'
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,10 @@ const router = createBrowserRouter([
       },
       {
         path:'/my-list',
-        element: <MyListPage/>
+        element:  
+        <ProtectedRoute>
+          <MyListPage/>
+        </ProtectedRoute>
       },
       {
         path:'/register',

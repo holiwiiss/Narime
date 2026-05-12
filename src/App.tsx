@@ -13,7 +13,7 @@ function App() {
       <div className="menu">
         <Link to='/'>Home</Link>
         <Link to='/directory'>Directorio</Link>
-        <Link to='/my-list'>My List</Link>
+        {user && <Link to='/my-list'>My List</Link>}
         <Link to='/register'>Registro</Link>
         <Link to='/login'>Login</Link>
         <SearchAnimeComponent></SearchAnimeComponent>
