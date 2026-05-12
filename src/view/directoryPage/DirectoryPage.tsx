@@ -16,7 +16,7 @@ const functionMap = {
   trending: getTrendingAnimes,
   seasonal: getSeasonalAnimes,
 }
-type CategoryType = "top" | "trending" | "seasonal";
+/*type CategoryType = "top" | "trending" | "seasonal";*/
 
 const DirectoryPage = () => {
 
@@ -38,6 +38,7 @@ const DirectoryPage = () => {
     const fetchAnimes= async () => {
       setIsLoading(true)
       setIsError(false)
+      console.log(searchParams)
       try{
         setSearchParams({category: activeCategory, page: String(actualPage)})
         const searchFunction = functionMap[activeCategory]
