@@ -18,13 +18,11 @@
     flex-wrap: wrap;
 }
 
-
-.btn__disable{
-    background-color: gray;
-}
-
-.btn__able{
-    background-color: red;
-    color: white;
+.directory--btn__container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: var(--space-xxl);
 }
 

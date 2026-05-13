@@ -87,7 +87,11 @@ const DirectoryPage = () => {
           />
         ))}
       </div>
-      {actualPage < lastPage && (<button className="btn" onClick={() => setActualPage(actualPage +1)}>Cargar más animes</button>)}
+      {actualPage < lastPage && (
+        <div className="directory--btn__container">
+          <button className="btn" onClick={() => setActualPage(actualPage +1)}>Cargar más animes</button>
+        </div>
+        )}
       </>
     ): isLoading ? (
       <LoadingComponent text="Cargando animes..." />
