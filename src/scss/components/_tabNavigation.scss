@@ -17,6 +17,9 @@
     color: var(--color-white);
     position: relative;
 }
+.tab-option--small{
+    padding: var(--space-m) var(--space-s);
+}
 
 .tab-option::after {
     content: "";
@@ -38,7 +41,9 @@
 
 .tab-option__selected {
     padding-bottom: calc(var(--space-xl) - 5px);
-
+}
+.tab-option__selected--small {
+    padding-bottom: var(--space-m);
 }
 .tab-option__selected .tab-option__count {
     color: var(--color-red-primary);
@@ -49,6 +54,10 @@
     right: 0;
 }
 .tab-option__selected::after {
+    left: 0;
+    right: 0;
+}
+.tab-option__selected--small::after {
     left: 0;
     right: 0;
 }

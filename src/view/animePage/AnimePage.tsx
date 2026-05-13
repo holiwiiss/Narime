@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./animepage.scss";
 import type { AnimeCharactersType, AnimeInformationType } from "../../services/anime-information/anime-information.type";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getAnimeCharacters, getAnimeInformation } from "../../services/anime-information/anime-information";
 import ErrorComponent from "../../components/error/ErrorComponent";
 import LoadingComponent from "../../components/loading/LoadingComponent";
@@ -72,52 +72,36 @@ const AnimePage = () => {
       ) : (
         <>
         <main className="anime-page">
-          <div className="anime-page__container">
 
+          <div className="breadcrumbs__container">
+            <Link to="/directory" className="breadcrumbs__container-text breadcrumbs__unselected">Directory</Link>
+            <img src="#" alt="" className="breadcrumbs__container-img"></img>
+            <p className="breadcrumbs__container-text">{animeInfo.title}</p>
+          </div>
+
+          <div className="anime-page__container">
             <header className="anime-page__header">
               <img src={animeInfo.image} className="anime-page__header-img" alt={animeInfo.title}></img>
-              
-              {userData && (
-                <form className="anime-page__header-form">
-
-                <div className="anime-page__header-form-group">
-                  <label>Status</label>
-                  <select defaultValue="Watching">
-                    <option>Watching</option>
-                    <option>Completed</option>
-                    <option>Plan to watch</option>
-                    <option>Dropped</option>
-                  </select>
-                </div>
-
-                <div className="anime-page__header-form-group">
-                  <label>Score</label>
-                  <select defaultValue="10">
-                    <option>Score</option>
-                  </select>
-                </div>
-
-                <div className="anime-page__header-form-group">
-                  <p>Episodes watched</p>
-                </div>
-
-              </form>
-              )}
+              <div className="anime-page__header-information">
+                <p>{animeInfo.year ?? "N/A"} | {animeInfo.type}</p>
+                <p>{animeInfo.episodes} episodes</p>
+              </div>
             </header>
 
             <section className="anime-page__content">
               <div className="anime-page__content-info">
                 <h1>{animeInfo.title}</h1>
                 <h2 className="anime-page__content-info-tittle-english"><i>{animeInfo.titleEnglish}</i></h2>
-                <p className="anime-page__content-info-date"><i>{formatDate(animeInfo.aired[0])} - {formatDate(animeInfo.aired[1])}</i></p>
+                <p className="anime-page__content-info-date">{formatDate(animeInfo.aired[0])} - {formatDate(animeInfo.aired[1])}</p>
 
                 <div className="anime-page__content-stats">
+                  
                   <div className="anime-page__content-stat">
                     <p className="anime-page__content-stat-number">{animeInfo.score ?? "N/A"}</p>
                     <p>Global Score</p>
                   </div>
 
-                  {userData && (
+                  {userData && userData.scorePersonal && (
                     <div className="anime-page__content-stat">
                       <p className="anime-page__content-stat-number">{userData.scorePersonal}</p>
                       <p>Your Score</p>
@@ -139,7 +123,6 @@ const AnimePage = () => {
               <div className="anime-page__content-tags">
                 <h2>Hastags</h2>
                 <div className="anime-page__content-all-tags">
-                  <div className="anime-page__content-tag"><p># {animeInfo.type}</p></div>
                   <div className="anime-page__content-tag"><p># {animeInfo.season} {animeInfo.year ?? "N/A"}</p></div>
                   {animeInfo.genres.map((g)=> (
                     <div className="anime-page__content-tag"><p># {g}</p></div>
@@ -149,25 +132,26 @@ const AnimePage = () => {
                   ))}
                 </div>
               </div>
+
               <footer className="anime-page__end-section">
                 <div className="tab__container">
                   <div className="tab__buttons">
-                    <button className={`tab-option ${activeCategory === 'sinopsis' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("sinopsis")}>Sinopsis</button>
-                    <button className={`tab-option ${activeCategory === 'actors' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("actors")}>Voice actors and characters</button>
+                    <button className={`tab-option tab-option--small ${activeCategory === 'sinopsis' ? "tab-option__selected--small" : "tab-option__unselected"}`} onClick={() => setActiveCategory("sinopsis")}>Sinopsis</button>
+                    <button className={`tab-option tab-option--small ${activeCategory === 'actors' ? "tab-option__selected--small" : "tab-option__unselected"}`} onClick={() => setActiveCategory("actors")}>Voice actors and characters</button>
                   </div>
                 </div>
                 <div className="anime-page__content-synopsis">
                   {activeCategory === "sinopsis" ? (
                     <p>{animeInfo.synopsis}</p>
                   ):(
-                    <div className="anime-page__container--character">
+                    <div className="anime-page__content--character">
                       {animeCharacters.map((person: AnimeCharactersType) => (
                       <div className="character-card">
-                        <div className="character-card__anime--img" style={{ backgroundImage: `url(${person.characterImage})` }}>
+                        <div className="character-card__img character-card__anime--img" style={{ backgroundImage: `url(${person.characterImage})` }}>
                           <p className="character-card__role">{person.role}</p>
                           <p className="character-card__anime-name">{person.characterName}</p>
                         </div>
-                        <div className="character-card__actor--img" style={{ backgroundImage: `url(${person.voiceActorImage})` }}>
+                        <div className="character-card__img character-card__actor--img" style={{ backgroundImage: `url(${person.voiceActorImage})` }}>
                           <p className="character-card__actor-name">{person.voiceActorName}</p>
                         </div>
                       </div>
@@ -178,7 +162,8 @@ const AnimePage = () => {
                 </div>
               </footer>
             </section>
-            </div>
+          </div>
+        
           </main>
         </>
       )}

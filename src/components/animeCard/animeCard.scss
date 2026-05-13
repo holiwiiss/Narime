@@ -1,7 +1,7 @@
 .anime-card-wrapper {
     // Quiero 5 tarjetas por fila, pues 100%/ 5 = 20% - 192 ya que el gap es de 48px,
     // 48x 4 = 192, cuatro espacios  intermedios entre tarjetas /5 tarjetas a las que dividir el espacio
-    width:calc((100% - 192px) / 5);
+    width:calc((100% - 128px) / 5);
     height: 400px;
     display: flex;
     flex-direction: column;
@@ -33,8 +33,8 @@
   background: linear-gradient(
     to top,
     rgba(0, 0, 0, 0.868) 0%,
-    rgba(0, 0, 0, 0.423) 16%,
-    rgba(0, 0, 0, 0) 30%,
+    rgba(0, 0, 0, 0.423) 20%,
+    rgba(0, 0, 0, 0) 27%,
     rgba(102, 102, 102, 0) 100%
   );
     border-radius: var(--border-radius-m);
@@ -63,8 +63,8 @@
     border: solid 1px red;
 }
 
-.anime-card__score-text {
-    font-size: var(--font-size-2);
+.anime-card__score-text, .anime-card__user-status, .anime-card__meta {
+    font-size: var(--font-size-1);
 }
 
 .anime-card__user-status {
@@ -110,6 +110,7 @@
     flex-direction: column;
     justify-content: flex-end;
     flex: 1;
+    gap: var(--space-xxs)
 }
 
 .anime-card__episodes {
@@ -118,12 +119,15 @@
 
 .anime-card__title {
     font-size: var(--font-size-5);
+    font-weight: var(--font-regular);
+    line-height: 20px;
 }
 .anime-card__button {
     height: fit-content;
     display: flex;
     gap: var(--space-xs);
     align-items: center;
+    font-size: var(--font-size-1);
 }
 
 .anime-card__button-img {

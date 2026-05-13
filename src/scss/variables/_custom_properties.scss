@@ -6,25 +6,6 @@
     --border-radius-m: 0.75rem;     /* 12px */
     --border-radius-l: 1.5rem;   /* 24px */
     --border-radius-xl: 2rem;   /* 32px */
-    
-    /*      FONT SIZE: SCALE        */
-    --font-size-1: 0.75rem;   /* 12px */
-    --font-size-2: 0.875rem;  /* 14px */
-    --font-size-3: 1rem;      /* 16px */
-    --font-size-4: 1.125rem;  /* 18px */
-    --font-size-5: 1.25rem;   /* 20px */
-    --font-size-6: 1.5rem;    /* 24px */
-    --font-size-7: 2rem;      /* 32px */
-    --font-size-8: 2.5rem;    /* 40px */
-    --font-size-9: 3rem;      /* 48px */
-    --font-size-10: 4rem;
-
-    /*      FONT SIZE: WEIGHT        */
-    --font-light: 300;
-    --font-regular: 400;
-    --font-medium: 500;
-    --font-semibold: 600;
-    --font-bold: 700;
 
     /*      FONT TYPOGRAFY      */
     --font-primary: "Bebas Neue", sans-serif;
@@ -38,17 +19,37 @@
     --space-l: 1.5rem;    /* 24px */
     --space-xl: 2rem;     /* 32px */
     --space-xxl: 3rem;    /* 48px */
-    --space-xxxl: 6rem;    /* 96px */
+    --space-xxxl: 4rem;    /* 48px */
+    --space-4xl: 6rem;    /* 96px */
 
+    /*      FONT SIZE: SCALE        */
+    --font-size-1: 0.75rem;   /* 12px */
+    --font-size-2: 0.875rem;  /* 14px */
+    --font-size-3: 1rem;      /* 16px */
+    --font-size-4: 1.125rem;  /* 18px */
+    --font-size-5: 1.25rem;   /* 20px */
+    --font-size-6: 1.5rem;    /* 24px */
+    --font-size-7: 2rem;      /* 32px */
+    --font-size-8: 2.5rem;    /* 40px */
+    --font-size-9: 3rem;      /* 48px */
+    --font-size-10: 4rem;     /* 64px */
+
+    /*      FONT SIZE: WEIGHT        */
+    --font-light: 300;
+    --font-regular: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+    
     /*      ELEMENTS        */
-    --h1-size: var(--font-size-9);
-    --h2-size: var(--font-size-8);
+    --h1-size: var(--font-size-7);
+    --h2-size: var(--font-size-6);
     --h3-size: var(--font-size-7);
     --h4-size: var(--font-size-6);
     --h5-size: var(--font-size-5);
     --h6-size: var(--font-size-4);
 
-    --p-size: var(--font-size-3);
+    --p-size: var(--font-size-2);
     --span-size: var(--font-size-2);
     --caption-size: var(--font-size-1);
 

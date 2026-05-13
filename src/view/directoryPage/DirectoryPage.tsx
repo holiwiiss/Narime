@@ -9,7 +9,6 @@ import AnimeCard from "../../components/animeCard/AnimeCard";
 import { useAnimeModal } from "../../hooks/useAnimeModal";
 import { useMyListMap } from "../../hooks/useMyListMap";
 import { useSearchParams } from "react-router-dom";
-import Pagination from "../../components/pagination/Pagination";
 
 const functionMap = {
   top: getTopAnime,
@@ -66,15 +65,6 @@ const DirectoryPage = () => {
     modalAddEdit.openModal(anime.id, anime.episodes, userData);
   };
 
-  const nextPage = () => {
-    if(actualPage >= lastPage) return;
-    setActualPage(prev => prev + 1)
-  }
-  
-  const previousPage = () => {
-    if(actualPage > 1) setActualPage(prev => prev - 1);
-  }
-
   return (
     <>
     <div className="directory__options">
@@ -97,14 +87,13 @@ const DirectoryPage = () => {
           />
         ))}
       </div>
-      <button className="btn" onClick={() => setActualPage(actualPage +1)}>Cargar más usuarios</button>
-      /*<Pagination actualPage={actualPage} lastPage={lastPage} onNextPage={nextPage} onPreviousPage={previousPage}></Pagination>*/
+      {actualPage < lastPage && (<button className="btn" onClick={() => setActualPage(actualPage +1)}>Cargar más animes</button>)}
       </>
     ): isLoading ? (
       <LoadingComponent text="Cargando animes..." />
-    ): isError ? (
+    ): !isLoading && isError ? (
       <ErrorComponent text="Ha habido un error con la API" />
-    ) : animeList.length === 0 ? (
+    ) : !isLoading && animeList.length === 0 ? (
       <h1>(⁠╥⁠﹏⁠╥⁠)</h1>
     ) : (
       <h1>hola</h1>
