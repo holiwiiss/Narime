@@ -79,7 +79,7 @@ const SearchAnimeComponent = () => {
       ></input>
 
       {activeSearch && (
-        <div className="all_busquedas__container">
+        <div className="all-search__content">
           {isLoading ? (
             <LoadingComponent text="Charging anime data..." />
           ) : isError ? (
@@ -88,13 +88,13 @@ const SearchAnimeComponent = () => {
             <p>no se ha encontrado ningún anime con ese nombre</p>
           ) : (
             searchList.map((anime: AnimeCardType) => (
-              <div key={anime.id} className="anime_search" onClick={() => navigate(`/anime/${anime.id}`)}>
-                <img src={anime.image} />
+              <div key={anime.id} className="anime-search__card" onClick={() => navigate(`/anime/${anime.id}`)}>
+                <img className="anime-search__card-img" src={anime.image} />
                 <p>{anime.title}</p>
               </div>
             ))
           )}
-          <button onClick={() => navigate(`/search/anime?q=${animeToSearch}`)}> View More ({totalItems})</button>
+          <button className="btn btn--small btn-search-more" onClick={() => navigate(`/search/anime?q=${animeToSearch}`)}> View More ({totalItems})</button>
         </div>
       )}
       </div>

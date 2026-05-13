@@ -15,7 +15,7 @@ const functionMap = {
   trending: getTrendingAnimes,
   seasonal: getSeasonalAnimes,
 }
-/*type CategoryType = "top" | "trending" | "seasonal";*/
+type CategoryType = "top" | "trending" | "seasonal";
 
 const DirectoryPage = () => {
 
@@ -26,7 +26,7 @@ const DirectoryPage = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [activeCategory, setActiveCategory] = useState <"top" | "trending" | "seasonal">("top")
+  const [activeCategory, setActiveCategory] = useState <CategoryType>("top")
   const [actualPage, setActualPage] = useState<number>(1)
   const [lastPage, setLastPage] = useState<number>(1)
 
@@ -54,7 +54,7 @@ const DirectoryPage = () => {
     fetchAnimes();
   }, [activeCategory, actualPage]);
 
-  const activateFilter = (category: "top" | "trending" | "seasonal") => {
+  const activateFilter = (category: CategoryType) => {
     setActiveCategory(category);
     setActualPage(1);
     setAnimeList([])

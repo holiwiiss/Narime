@@ -7,6 +7,8 @@ import ErrorComponent from "../../components/error/ErrorComponent";
 import LoadingComponent from "../../components/loading/LoadingComponent";
 import { useMyListMap } from "../../hooks/useMyListMap";
 import type { UserAnimeListFirestoreType } from "../../firebase/services/firestoreService.type";
+import ModalAddEditAnime from "../../components/modalAddEditAnime/ModalAddEditAnime";
+import { useAnimeModal } from "../../hooks/useAnimeModal";
 
 const AnimePage = () => {
   const [animeInfo, setAnimeInfo] = useState<AnimeInformationType | null>(null);
@@ -16,6 +18,7 @@ const AnimePage = () => {
   const [userData, setUserData] = useState<UserAnimeListFirestoreType | undefined>(undefined);
   const [activeCategory, setActiveCategory] = useState <"sinopsis" | "actors">("sinopsis")
   
+  const modalAddEdit = useAnimeModal()
   const { id } = useParams();
   const animeID = Number(id);
   const { getUserListData } = useMyListMap()
@@ -62,6 +65,11 @@ const AnimePage = () => {
     }).format(num);
   };
 
+  const openAddEditModal = (anime: any) => {
+      const userData = getUserListData(anime.id);
+      modalAddEdit.openModal(anime.id, anime.episodes, userData);
+  };
+
   if (isLoading) return <LoadingComponent text="Cargando datos del anime..." />
   if (isError) return <ErrorComponent text={isError} />
 
@@ -82,10 +90,13 @@ const AnimePage = () => {
           <div className="anime-page__container">
             <header className="anime-page__header">
               <img src={animeInfo.image} className="anime-page__header-img" alt={animeInfo.title}></img>
+              
               <div className="anime-page__header-information">
                 <p>{animeInfo.year ?? "N/A"} | {animeInfo.type}</p>
                 <p>{animeInfo.episodes} episodes</p>
               </div>
+              
+              <button className={`btn btn--small ${userData ? "btn--secondary" : ""}`} onClick={()  => openAddEditModal(animeInfo)}>{userData ? "Edit anime" : "Add to my list"}</button>
             </header>
 
             <section className="anime-page__content">
@@ -165,6 +176,16 @@ const AnimePage = () => {
           </div>
         
           </main>
+
+          {modalAddEdit.isOpen && modalAddEdit.animeId &&(
+            <ModalAddEditAnime
+            animeId={modalAddEdit.animeId}
+            totalEpisodes = {modalAddEdit.animeEpisodes}
+            action={modalAddEdit.action}
+            infoDocIdUserAnime = {modalAddEdit.infoDocIdFromUser}
+            onClose={modalAddEdit.closeModal}
+            />
+          )}
         </>
       )}
     </>
