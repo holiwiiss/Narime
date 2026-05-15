@@ -11,6 +11,7 @@ import { MyListProvider } from './context/MyListContext.tsx'
 import MyListPage from './view/myListPage/MyListPage.tsx'
 import { AuthProvider } from './context/AuthContext.tsx'
 import ProtectedRoute from './router/ProtectedRoute.tsx'
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 
 const router = createBrowserRouter([
   {
@@ -56,10 +57,14 @@ const router = createBrowserRouter([
   }
 ])
 
+const queryClient = new QueryClient()
+
 createRoot(document.getElementById('root')!).render(
-  <AuthProvider>
-    <MyListProvider>
-      <RouterProvider router={router} />
-    </MyListProvider>
-  </AuthProvider>
+  <QueryClientProvider client={queryClient}>
+    <AuthProvider>
+      <MyListProvider>
+        <RouterProvider router={router} />
+      </MyListProvider>
+    </AuthProvider>
+  </QueryClientProvider>
 )

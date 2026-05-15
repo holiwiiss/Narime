@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./directorypage.scss";
 import type { AnimeListResponse, AnimeCardType } from "../../services/anime-list/anime-list.type";
 import { getSeasonalAnimes, getTopAnime, getTrendingAnimes } from "../../services/anime-list/anime-list";
@@ -9,6 +9,7 @@ import AnimeCard from "../../components/animeCard/AnimeCard";
 import { useAnimeModal } from "../../hooks/useAnimeModal";
 import { useMyListMap } from "../../hooks/useMyListMap";
 import { useSearchParams } from "react-router-dom";
+import { useInfiniteQuery, type QueryFunctionContext } from "@tanstack/react-query";
 
 const functionMap = {
   top: getTopAnime,
@@ -17,47 +18,44 @@ const functionMap = {
 }
 type CategoryType = "top" | "trending" | "seasonal";
 
+const reFecthAnimes = async ({pageParam= 1, queryKey}: QueryFunctionContext<[string, CategoryType]>) => {
+  const [, categoryParam] = queryKey
+  const searchFunction = functionMap[categoryParam]
+  const data: AnimeListResponse = await searchFunction(pageParam)
+  const currentPage = data.pagination.currentPage
+  const nextPage = currentPage >= data.pagination.lastVisiblePage ? undefined : currentPage + 1
+  return {
+    animes: data.animes,
+    nextPage: nextPage,
+  }
+}
+
 const DirectoryPage = () => {
+
+  const [activeCategory, setActiveCategory] = useState<CategoryType>('top')
+
+  const {isLoading, isError, data, refetch, fetchNextPage, hasNextPage } = useInfiniteQuery< // Los genericos de React Query son: <TQueryFnData, TError, TData, TQueryKey>
+    { animes: AnimeCardType[]; nextPage?: number }, // lo que devuelve queryFn
+    Error,                                          // error
+    { animes: AnimeCardType[]; nextPage?: number }, // data transformada (igual)
+    [string, CategoryType]                          // queryKey
+  >(
+    ['animeList', activeCategory], 
+    reFecthAnimes,
+    {
+      getNextPageParam:(lastPage) => lastPage.nextPage
+    }
+  )
+
+  const animeList:AnimeCardType[] = data?.pages?.flatMap(page => page.animes) ?? []
 
   const  { getUserListData } = useMyListMap()
   const modalAddEdit = useAnimeModal();
 
-  const [animeList, setAnimeList] = useState<AnimeCardType[]>([]);
-
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const [activeCategory, setActiveCategory] = useState <CategoryType>("top")
-  const [actualPage, setActualPage] = useState<number>(1)
-  const [lastPage, setLastPage] = useState<number>(1)
-
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [isError, setIsError] = useState<boolean>(false)
-
-  useEffect(() => {
-    const fetchAnimes= async () => {
-      setIsLoading(true)
-      setIsError(false)
-      console.log(searchParams)
-      try{
-        setSearchParams({category: activeCategory, page: String(actualPage)})
-        const searchFunction = functionMap[activeCategory]
-        const data: AnimeListResponse = await searchFunction(actualPage)
-        setAnimeList((prevAnimes) => prevAnimes.concat(data.animes))
-        setLastPage(data.pagination.lastVisiblePage);
-      }catch(e){
-        console.log('La api no responde, ' + e)
-        setIsError(true)
-      }finally {
-        setIsLoading(false)
-      }
-    };
-    fetchAnimes();
-  }, [activeCategory, actualPage]);
-
   const activateFilter = (category: CategoryType) => {
     setActiveCategory(category);
-    setActualPage(1);
-    setAnimeList([])
+    //setActualPage(1);
+    //setAnimeList([])
   }
 
   const openAddEditModal = (anime: AnimeCardType) => {
@@ -87,9 +85,9 @@ const DirectoryPage = () => {
           />
         ))}
       </div>
-      {actualPage < lastPage && (
+      {hasNextPage && (
         <div className="directory--btn__container">
-          <button className="btn" onClick={() => setActualPage(actualPage +1)}>Cargar más animes</button>
+          <button className="btn" onClick={() => fetchNextPage()}>Cargar más animes</button>
         </div>
         )}
       </>
@@ -114,5 +112,6 @@ const DirectoryPage = () => {
     </>
   );
 };
+
 
 export default DirectoryPage;
