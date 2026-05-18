@@ -7,8 +7,11 @@
     border:2px solid red;
     display: flex;
     align-items: center;
+    gap: var(--space-m);
 }
-
+.my-list__selector {
+    padding: var(--space-xs) var(--space-xs);
+}
 .my-list__search{
     display: flex;
     align-items: center;

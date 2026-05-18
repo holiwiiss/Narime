@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { getAnimeInformationTypeList } from "../../services/anime-information/anime-information";
-import type { AnimePersonalStatusType } from "../../firebase/services/firestoreService.type";
+import type { AnimePersonalStatusType, UserAnimeListFirestoreType } from "../../firebase/services/firestoreService.type";
 import { useAnimeModal } from "../../hooks/useAnimeModal";
 import ModalAddEditAnime from "../../components/modalAddEditAnime/ModalAddEditAnime";
 import { useMyAnimeList } from "../../context/MyListContext";
@@ -11,6 +11,20 @@ import { Link } from "react-router-dom";
 import "./myListPage.scss"
 import LoadingComponent from "../../components/loading/LoadingComponent";
 import ErrorComponent from "../../components/error/ErrorComponent";
+import { useQuery } from "@tanstack/react-query";
+import { delay } from "../../utils/delay";
+
+const fetchMyList = async (myList: UserAnimeListFirestoreType[]) => {
+  const results: AnimeCardType[] = [];
+  
+  for (const anime of myList) {
+    const data = await getAnimeInformationTypeList(anime.animeId);
+    results.push(data);
+    await delay(400); 
+  }
+  
+  return results;
+}
 
 const MyListPage = () =>{
 
@@ -18,38 +32,18 @@ const MyListPage = () =>{
   const  { myListMap, getUserListData } = useMyListMap()
   const modalAddEdit= useAnimeModal()
 
-  const [animeList, setAnimeList] = useState<AnimeCardType[]>([]);
+  const OrderList = ["Status", "Alphabetical", "Score", "Watched Episodes", "Last Updated"]
   const [activeCategory, setActiveCategory] = useState <"all" | AnimePersonalStatusType>("all");
   const [searchAnime, setSearchAnime] = useState<string | null>(null)
+  const [selectedFilter, setSelectedFilter] = useState("");
 
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [isError, setIsError] = useState<boolean>(false)
+  const {isLoading, isError, data} = useQuery({
+    queryKey:["myAnimeList", myList.map(a => a.animeId)], // useQuery compara el key para saber si relanzar la query
+    queryFn: () => fetchMyList(myList),
+    enabled: myList.length > 0,
+  })
 
-  useEffect(() => {
-    const fetchAnimes = async () => {
-      setIsLoading(true)
-      setIsError(false)
-      try {
-        if(!myList) return 
-        const JSON: AnimeCardType[] = []
-        myList.forEach(async anime => {
-          const data = await getAnimeInformationTypeList(anime.animeId);
-          JSON.push(data);
-          await delay(400); 
-        });
-        setAnimeList(JSON)
-      } catch (e) {
-        console.log("La api no responde " + e);
-        setIsError(true)
-      }finally{
-        setIsLoading(false)
-      }
-    };
-    fetchAnimes();
-  }, [myList]);
-
-  const delay = (ms: number) =>
-    new Promise(resolve => setTimeout(resolve, ms));
+  const myAnimeList: AnimeCardType[] = data ?? []
 
   const countersList = {
     all: myList.length,
@@ -59,15 +53,91 @@ const MyListPage = () =>{
     planToWatch: myList.filter( anime => anime.statusPersonal === "planToWatch").length
   }
 
+  const orderByStatus = () => {
+    const watchingList = myAnimeList.filter( anime => {
+        const userData = getUserListData(anime.id)
+        if(userData?.statusPersonal === "watching") return true
+      })
+
+      const completedList = myAnimeList.filter( anime => {
+        const userData = getUserListData(anime.id)
+        if(userData?.statusPersonal === "completed") return true
+      })
+
+      const droppedList = myAnimeList.filter( anime => {
+        const userData = getUserListData(anime.id)
+        if(userData?.statusPersonal === "dropped") return true
+      })
+
+      const planList =  myAnimeList.filter( anime => {
+        const userData = getUserListData(anime.id)
+        if(userData?.statusPersonal === "planToWatch") return true
+      })
+
+      const finalList = [...watchingList, ...completedList, ...droppedList, ...planList]
+      return finalList
+  }
+
+  const orderByAlphabetical = () => {
+    const FinalList = myAnimeList.sort(function (a, b){
+      if(a.title > b.title){
+        return 1;
+      }
+      if(a.title < b.title){
+        return -1
+      }
+      return 0
+    })
+    return FinalList
+  }
+
+  const orderByScore = () => {
+    const FinalList = myAnimeList.sort(function (a , b){
+      const userDataA = getUserListData(a.id)?.scorePersonal ?? 0
+      const userDataB = getUserListData(b.id)?.scorePersonal ?? 0
+      
+      if(userDataA > userDataB){
+        return 1;
+      }
+
+      if(userDataA < userDataB){
+        return -1
+      }
+      return 0
+    })
+    return FinalList
+  }
+
+  const orderByEpisodesWatched = () => {
+    const FinalList = myAnimeList.sort(function (a , b){
+      const userDataA = getUserListData(a.id)?.episodesWatched ?? 0
+      const userDataB = getUserListData(b.id)?.episodesWatched ?? 0
+      
+      if(userDataA < userDataB){
+        return 1;
+      }
+      if(userDataA > userDataB){
+        return -1
+      }
+      return 0
+    })
+    return FinalList
+  }
+
   const listToShow = useMemo(() => {
     let definitiveList: AnimeCardType[] = []
 
     if (activeCategory === "all"){
-      definitiveList = animeList
+      definitiveList = orderByStatus()
     } 
+
+    if(selectedFilter === "Status") definitiveList = orderByStatus()
+    if(selectedFilter === "Alphabetical") definitiveList = orderByAlphabetical()
+    if(selectedFilter === "Score") definitiveList = orderByScore()
+    if(selectedFilter === "Watched Episodes") definitiveList = orderByEpisodesWatched()
     
     if(activeCategory !== "all"){
-      definitiveList = animeList.filter( anime => {
+      definitiveList = myAnimeList.filter( anime => {
         const userData = getUserListData(anime.id)
         if(userData?.statusPersonal === activeCategory) return true
       })
@@ -81,7 +151,7 @@ const MyListPage = () =>{
       })
     }
     return definitiveList
-  }, [animeList, activeCategory, myListMap, searchAnime]);
+  }, [myAnimeList, activeCategory, myListMap, searchAnime, selectedFilter]);
 
   const openAddEditModal = (anime: AnimeCardType) => {
     const userData = myListMap.get(anime.id);
@@ -99,6 +169,13 @@ return(
         <button className={`tab-option ${activeCategory === 'planToWatch' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("planToWatch")}>Plan to watch <span className="tab-option__count">({countersList.planToWatch})</span></button>
       </div>
       <div className="my-list__filters">
+
+        <select className="my-list__selector" onChange={(e) => setSelectedFilter(e.target.value)}>
+                {OrderList.map(status => (
+                  <option key={status} value={status}>{status}</option>
+                ))}
+        </select>
+
         <div className="my-list__search">
           <img className="my-list__search--img"></img>
           <input type="text" className="my-list__input" onInput={(event: React.InputEvent<HTMLInputElement>) => setSearchAnime(event.currentTarget.value)} placeholder="Search anime..."></input>
