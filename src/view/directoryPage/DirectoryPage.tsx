@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./directorypage.scss";
 import type { AnimeListResponse, AnimeCardType } from "../../services/anime-list/anime-list.type";
 import { getSeasonalAnimes, getTopAnime, getTrendingAnimes } from "../../services/anime-list/anime-list";
@@ -9,7 +8,7 @@ import AnimeCard from "../../components/animeCard/AnimeCard";
 import { useAnimeModal } from "../../hooks/useAnimeModal";
 import { useMyListMap } from "../../hooks/useMyListMap";
 import { useSearchParams } from "react-router-dom";
-import { useInfiniteQuery, type QueryFunctionContext } from "@tanstack/react-query";
+import { useInfiniteQuery, type QueryFunctionContext, type InfiniteData} from "@tanstack/react-query";
 
 const functionMap = {
   top: getTopAnime,
@@ -18,12 +17,16 @@ const functionMap = {
 }
 type CategoryType = "top" | "trending" | "seasonal";
 
-const reFecthAnimes = async ({pageParam= 1, queryKey}: QueryFunctionContext<[string, CategoryType]>) => {
+const fecthAnimes = async ({pageParam, queryKey}: QueryFunctionContext<[string, CategoryType], number>) => {
+  //['animeList', categoryParam]
   const [, categoryParam] = queryKey
+  
   const searchFunction = functionMap[categoryParam]
   const data: AnimeListResponse = await searchFunction(pageParam)
+
   const currentPage = data.pagination.currentPage
   const nextPage = currentPage >= data.pagination.lastVisiblePage ? undefined : currentPage + 1
+
   return {
     animes: data.animes,
     nextPage: nextPage,
@@ -31,31 +34,29 @@ const reFecthAnimes = async ({pageParam= 1, queryKey}: QueryFunctionContext<[str
 }
 
 const DirectoryPage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const category = (searchParams.get("category") as CategoryType) ?? "top";
 
-  const [activeCategory, setActiveCategory] = useState<CategoryType>('top')
-
-  const {isLoading, isError, data, refetch, fetchNextPage, hasNextPage } = useInfiniteQuery< // Los genericos de React Query son: <TQueryFnData, TError, TData, TQueryKey>
-    { animes: AnimeCardType[]; nextPage?: number }, // lo que devuelve queryFn
-    Error,                                          // error
-    { animes: AnimeCardType[]; nextPage?: number }, // data transformada (igual)
-    [string, CategoryType]                          // queryKey
-  >(
-    ['animeList', activeCategory], 
-    reFecthAnimes,
-    {
-      getNextPageParam:(lastPage) => lastPage.nextPage
-    }
-  )
-
+  const {isLoading, isError, data, fetchNextPage, hasNextPage } = useInfiniteQuery< // Los genericos de React Query son: <TQueryFnData, TError, TData, TQueryKey>
+    { animes: AnimeCardType[]; nextPage?: number },                                 // lo que devuelve queryFn
+    Error,                                                                          // tipo de error
+    InfiniteData<{ animes: AnimeCardType[]; nextPage?: number }>,                   // data transformada (igual)
+    [string, CategoryType],                                                          // forma del queryKey
+    number               
+  >({
+    queryKey: ['animeList', category], 
+    queryFn: fecthAnimes,
+    getNextPageParam: (lastPage) => lastPage.nextPage,
+    initialPageParam: 1,
+  })
+  
   const animeList:AnimeCardType[] = data?.pages?.flatMap(page => page.animes) ?? []
 
   const  { getUserListData } = useMyListMap()
   const modalAddEdit = useAnimeModal();
 
   const activateFilter = (category: CategoryType) => {
-    setActiveCategory(category);
-    //setActualPage(1);
-    //setAnimeList([])
+    setSearchParams({category});
   }
 
   const openAddEditModal = (anime: AnimeCardType) => {
@@ -67,9 +68,9 @@ const DirectoryPage = () => {
     <>
     <div className="directory__options">
       <div className="directory__options-buttons">
-        <button className={`btn ${activeCategory === 'top' ? "" : "btn--disable"}`}  onClick={() => activateFilter("top")}>TOP ANIMES</button>
-        <button className={`btn ${activeCategory === 'trending' ? "" : "btn--disable"}`} onClick={() => activateFilter("trending")}>TRENDING</button>
-        <button className={`btn ${activeCategory === 'seasonal' ? "" : "btn--disable"}`} onClick={() => activateFilter("seasonal")}>SEASONAL</button>
+        <button className={`btn ${category === 'top' ? "" : "btn--disable"}`}  onClick={() => activateFilter("top")}>TOP ANIMES</button>
+        <button className={`btn ${category === 'trending' ? "" : "btn--disable"}`} onClick={() => activateFilter("trending")}>TRENDING</button>
+        <button className={`btn ${category === 'seasonal' ? "" : "btn--disable"}`} onClick={() => activateFilter("seasonal")}>SEASONAL</button>
       </div>
     </div>
 
@@ -87,7 +88,7 @@ const DirectoryPage = () => {
       </div>
       {hasNextPage && (
         <div className="directory--btn__container">
-          <button className="btn" onClick={() => fetchNextPage()}>Cargar más animes</button>
+          <button className="btn" onClick={() => fetchNextPage ()}>Cargar más animes</button>
         </div>
         )}
       </>
@@ -112,6 +113,5 @@ const DirectoryPage = () => {
     </>
   );
 };
-
 
 export default DirectoryPage;

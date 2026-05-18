@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom'
 import './index.css'
 import App from './App.tsx'
 import DirectoryPage from './view/directoryPage/DirectoryPage.tsx'
@@ -24,6 +24,13 @@ const router = createBrowserRouter([
       },
       {
         path:'/directory',
+        loader: ({ request }) => {
+          const url = new URL(request.url);
+          if (!url.searchParams.get("category")) {
+            return redirect("/directory?category=top");
+          }
+          return null;
+        },
         element: <DirectoryPage/>
       },
       {
