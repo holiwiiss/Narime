@@ -1,7 +1,7 @@
 import type { QueryFunctionContext } from "@tanstack/react-query"
 import type { AnimeListResponse } from "../services/anime-list/anime-list.type"
-import type { CategoryType } from "../view/directoryPage/DirectoryPage"
 import { getSeasonalAnimes, getTopAnime, getTrendingAnimes } from "../services/anime-list/anime-list"
+import type { CategoryType } from "./directory.type"
 
 const functionMap = {
   top: getTopAnime,

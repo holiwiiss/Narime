@@ -1,0 +1,1 @@
+export type CategoryType = "top" | "trending" | "seasonal";

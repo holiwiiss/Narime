@@ -1,7 +1,7 @@
 import { useInfiniteQuery, type InfiniteData } from "@tanstack/react-query";
 import type { AnimeCardType } from "../services/anime-list/anime-list.type";
-import { fecthAnimesDirectory } from "../queries/anime-list.queries";
-import type { CategoryType } from "../view/directoryPage/DirectoryPage";
+import { fecthAnimesDirectory } from "../queries/directory.queries";
+import type { CategoryType } from "../queries/directory.type";
 
 export const useDirectoryAnimes = (category: CategoryType) => {
   const { isLoading, isError, data, fetchNextPage, hasNextPage } =

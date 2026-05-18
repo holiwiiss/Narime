@@ -8,8 +8,9 @@ import { useSearchParams } from "react-router-dom";
 import { useDirectoryAnimes } from "../../hooks/useDirectoryAnime";
 import { useMyListMap } from "../../hooks/useMyListMap";
 import { useAnimeModal } from "../../hooks/useAnimeModal";
+import type { CategoryType } from "../../queries/directory.type";
 
-export type CategoryType = "top" | "trending" | "seasonal";
+
 
 const DirectoryPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
