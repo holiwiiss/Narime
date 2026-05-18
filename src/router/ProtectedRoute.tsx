@@ -8,7 +8,6 @@ type Props = {
 const ProtectedRoute = ({ children }: Props) => {
   const { user, loading } = useAuth();
 
-  // opcional si tienes estado loading en tu auth context
   if (loading) return <p>Loading...</p>;
 
   if (!user) {

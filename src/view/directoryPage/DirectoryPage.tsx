@@ -10,8 +10,6 @@ import { useMyListMap } from "../../hooks/useMyListMap";
 import { useAnimeModal } from "../../hooks/useAnimeModal";
 import type { CategoryType } from "../../queries/directory.type";
 
-
-
 const DirectoryPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const category = (searchParams.get("category") as CategoryType) ?? "top";
@@ -67,13 +65,13 @@ const DirectoryPage = () => {
       <h1>hola</h1>
     )}
       {modalAddEdit.isOpen && modalAddEdit.animeId &&(
-        <ModalAddEditAnime
-        animeId={modalAddEdit.animeId}
-        totalEpisodes = {modalAddEdit.animeEpisodes}
-        action={modalAddEdit.action}
-        infoDocIdUserAnime = {modalAddEdit.infoDocIdFromUser}
-        onClose={modalAddEdit.closeModal}
-        />
+          <ModalAddEditAnime
+          animeId={modalAddEdit.animeId}
+          totalEpisodes = {modalAddEdit.animeEpisodes}
+          action={modalAddEdit.action}
+          infoDocIdUserAnime = {modalAddEdit.infoDocIdFromUser}
+          onClose={modalAddEdit.closeModal}
+          />
       )}
     </>
   );
