@@ -12,6 +12,7 @@ import MyListPage from './view/myListPage/MyListPage.tsx'
 import { AuthProvider } from './context/AuthContext.tsx'
 import ProtectedRoute from './router/ProtectedRoute.tsx'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
+import UserPage from './view/userPage/UserPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path:'/search/anime',
         element: <SearchResultsPage/>
+      },
+      {
+        path:'/user-page',
+        element: <UserPage/>
       },
       {
         path:'*',

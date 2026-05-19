@@ -1,6 +1,6 @@
 import { db } from "../firebase";
-import { collection, addDoc, query, where, getDocs, doc, updateDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
-import type { UserAnimeListFirestoreType } from "./firestoreService.type";
+import { collection, addDoc, query, where, getDocs, doc, updateDoc, deleteDoc, serverTimestamp,} from "firebase/firestore";
+import type { AnimePersonalStatusType, UserAnimeListFirestoreType,} from "./firestoreService.type";
 
 /**
  * Añade un anime a la lista personal del usuario en Firestore
@@ -27,9 +27,7 @@ import type { UserAnimeListFirestoreType } from "./firestoreService.type";
  *
  */
 
-export async function addAnimeToFirebase(animeId: number, status: string, score: number | null, episodes: number, userId: string): Promise<void> {
-  try {
-
+export async function addAnimeToFirebase(animeId: number, status: AnimePersonalStatusType, score: number | null, episodes: number, userId: string): Promise<void> {
     if(await isInList(animeId, userId)) return
 
     await addDoc(collection(db, "userAnimeList"), {
@@ -41,9 +39,6 @@ export async function addAnimeToFirebase(animeId: number, status: string, score:
       updateAt: serverTimestamp(),
       createdAt: serverTimestamp(),
     });
-  } catch (e) {
-    console.log(e);
-  }
 }
 
 /**
@@ -63,14 +58,9 @@ export async function addAnimeToFirebase(animeId: number, status: string, score:
  */
 
 export async function isInList(animeId: number, userId: string): Promise<boolean> {
-  try {
     const q = query( collection(db, "userAnimeList"), where("animeId", "==", animeId), where("userId", "==", userId));
     const querySnapshot = await getDocs(q);
     return !querySnapshot.empty;
-  } catch (error) {
-    console.error(error);
-    return false;
-  }
 }
 
 /**
@@ -94,23 +84,17 @@ export async function isInList(animeId: number, userId: string): Promise<boolean
  */
 
 export async function getAllAnimesFirebase(userId: string): Promise<UserAnimeListFirestoreType[]> {
-  try {
     const q = query(collection(db, "userAnimeList"), where("userId", "==", userId));
     const querySnapshot = await getDocs(q);
     const animes = querySnapshot.docs.map(doc => ({
       docId: doc.id,
       ...doc.data()
     })) as UserAnimeListFirestoreType[]
-    console.log(animes)
+    
     return animes;
-  } catch (e) {
-    console.log(e);
-    return []
-  }
 }
 
-export async function updateAnimeInformationFirebase(docId:string, status: string, score: number | null, episodes: number): Promise <void> {
-  try{
+export async function updateAnimeInformationFirebase(docId:string, status: AnimePersonalStatusType, score: number | null, episodes: number): Promise <void> {
     const docRef = doc(db, "userAnimeList", docId)
     await updateDoc(docRef,{
       statusPersonal: status,
@@ -118,15 +102,8 @@ export async function updateAnimeInformationFirebase(docId:string, status: strin
       episodesWatched: episodes,
       updateAt: serverTimestamp(),
     })
-  }catch(e){
-    console.log(e)
-  }
 }
 
 export async function deleteAnimeInformationFirebase(docId:string) : Promise <void> {
-  try{
     await deleteDoc(doc(db, "userAnimeList", docId))
-  }catch(e){
-    console.log(e)
-  }
 }

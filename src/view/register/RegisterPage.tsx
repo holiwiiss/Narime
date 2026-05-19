@@ -1,15 +1,13 @@
-import { registerFirebase, loginWithGoogle } from "../../firebase/services/authService";
 import { useForm} from "react-hook-form"
-import { sileo } from "sileo";
-
 import type { SubmitHandler } from "react-hook-form";
 import type { RegisterFormInputs } from "../../types/authTyping";
-
 import "./register.scss";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
+import { useRegister } from "../../hooks/useRegister";
 
 const RegisterPage = () => {
-  const navigate = useNavigate();
+  
+  const { registerWithEmail, registerWithGoogle, isLoading, isError } = useRegister()
 
   const {
     register,
@@ -20,33 +18,8 @@ const RegisterPage = () => {
 
   const passwordValue = watch("password");
 
-
   const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {   
-    await validateRegister(data.email, data.password)
-  }
-
-  const validateRegister = async (email:string , password:string) => {
-
-    const { user, error } = await registerFirebase(email, password);
-
-    if (error) {
-      sileo.error({ title: "Ha habido un problema en la creación del usuario", fill: "#171717" });
-    }
-
-    console.log("Usuario registrado:", user);
-    sileo.success({ title: "Usuario creado correctamente", fill: "#171717" });
-    navigate("/login");
-  }
-
-  const loginGoogle = async() => {
-    const {user, error} = await loginWithGoogle()
-
-    if(error){
-      console.log('error' + error)
-    }else{
-      console.log('sesion iniciada ' + user)
-      navigate("/directory");
-    }
+    registerWithEmail(data.email, data.password, data.username)
   }
 
   return (
@@ -65,7 +38,8 @@ const RegisterPage = () => {
               type="text"
               {...register("username", { 
                   required: 'El nombre de usuario es obligatorio', 
-                  maxLength:{value:20, message:'El máximo de carácteres son 20'}
+                  maxLength:{value:20, message:'El máximo de carácteres son 20'},
+                  minLength:{value:3, message:'El mínimo de carácteres son 3'}
               })}
             ></input>
             {errors.username && <span>{errors.username.message}</span>}
@@ -118,7 +92,9 @@ const RegisterPage = () => {
             </label>
             {errors.confirmTerms && (<span>{errors.confirmTerms.message}</span>)}  
           </div>
-          <button className="btn-primary register-page__button" type="submit">Registrarse</button>
+          {isError && (<span>Ha ocurrido un error creando al usuario</span>)}
+          {isLoading && (<p>Creando el usuario...</p>)}
+          <button disabled={isLoading} className="btn-primary register-page__button" type="submit">Registrarse</button>
         </form>
         
         <div className="login-page__form-separation">
@@ -127,7 +103,7 @@ const RegisterPage = () => {
           <div className="login-page__form-separation-line"></div>
         </div>
 
-        <button className=" register-page__button btn-secondary"  onClick={loginGoogle}>Continua con google</button>
+        <button disabled={isLoading} className=" register-page__button btn-secondary"  onClick={registerWithGoogle}>Continua con google</button>
         <Link to="/login"><p className="login-page__form-sing-up">Do you have account? Sign In here</p></Link>
       </section>
     </main>

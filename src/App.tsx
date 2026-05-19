@@ -18,11 +18,11 @@ function App() {
         <Link to='/login'>Login</Link>
         <SearchAnimeComponent></SearchAnimeComponent>
         {user && (
-          <>
-          <p>{user.email}</p>
-          <button type="button" onClick={() => logOutFirebase()}>Cerrar sesion</button>
-          </>
-        )
+            <>
+            <Link to="/user-page">{user.email}</Link>
+            <button type="button" onClick={() => logOutFirebase()}>Cerrar sesion</button>
+            </>
+          )
         }
 
       </div>

@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { useAuth } from "./AuthContext";
-import { addAnimeToFirebase, deleteAnimeInformationFirebase, getAllAnimesFirebase, updateAnimeInformationFirebase } from "../firebase/services/firestoreService";
-import type { UserAnimeListFirestoreType } from "../firebase/services/firestoreService.type";
+
+import type { AnimePersonalStatusType, UserAnimeListFirestoreType } from "../firebase/services/firestoreService.type";
+import { addAnimeToFirebase, deleteAnimeInformationFirebase, getAllAnimesFirebase, updateAnimeInformationFirebase } from "../firebase/services/list-methods.firebase";
 
 type MyListContextType = {
   myList: UserAnimeListFirestoreType[];
@@ -9,14 +10,14 @@ type MyListContextType = {
 
   addAnimeToMyList: (
     id: number,
-    status: string,
+    status: AnimePersonalStatusType,
     score: number | null,
     episodes: number,
   ) => void;
 
   editAnimeToMyList: (
     docId: string,
-    status: string,
+    status: AnimePersonalStatusType,
     score: number | null,
     episodes: number,
   ) => void;
@@ -55,16 +56,16 @@ export function MyListProvider({ children }: ProviderProps) {
     setIsLoading(false);
   }
 
-  const addAnimeToMyList = async (AnimeId: number, status: string, score: number | null, episodes: number) => {
+  const addAnimeToMyList = async (AnimeId: number, status: AnimePersonalStatusType, score: number | null, episodes: number) => {
     
     if(!user) return
     await addAnimeToFirebase(AnimeId, status, score, episodes, user.uid)
     await refetchMyList()
   };
 
-  const editAnimeToMyList = async (docId: string, status: string, score: number | null, episodes: number) => {
+  const editAnimeToMyList = async (docId: string, status: AnimePersonalStatusType, score: number | null, episodes: number) => {
     if(!user) return
-    await updateAnimeInformationFirebase(docId,status, score, episodes)
+    await updateAnimeInformationFirebase(docId, status, score, episodes)
     await refetchMyList()
   }
 

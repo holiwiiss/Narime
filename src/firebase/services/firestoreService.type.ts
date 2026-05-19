@@ -19,3 +19,14 @@ export type UserAnimeEditDataType = {
   score: number | null;
   episodes: number;
 };
+
+export type UserInformationFirestoreType = {
+  userID:string;
+  avatar: string,
+  description: string,
+  email: string, 
+  followersCount: number,
+  followingCount: number,
+  username: string,
+  animeFavs: number[],
+}

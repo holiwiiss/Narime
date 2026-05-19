@@ -5,6 +5,7 @@ import { sileo } from "sileo";
 import type { LoginFormInputs } from "../../types/authTyping";
 import  "./login-page.scss";
 import { Link, useNavigate } from "react-router-dom";
+import { addUserToFirestore } from "../../firebase/services/user-information.firebase";
 
 const LoginPage = () => {
 
@@ -39,8 +40,9 @@ const LoginPage = () => {
     if (error) {
       console.log("error" + error);
     } else {
-      navigate("/directory")
       console.log("sesion iniciada " + user);
+      if(user) await addUserToFirestore(user.uid, user.email ?? "", "randomName")
+      navigate("/directory")
     }
   };
 
