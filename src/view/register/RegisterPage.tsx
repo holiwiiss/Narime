@@ -3,11 +3,11 @@ import type { SubmitHandler } from "react-hook-form";
 import type { RegisterFormInputs } from "../../types/authTyping";
 import "./register.scss";
 import { Link} from "react-router-dom";
-import { useRegister } from "../../hooks/useRegister";
+import { useAuthForms } from "../../hooks/useAuthForms";
 
 const RegisterPage = () => {
   
-  const { registerWithEmail, registerWithGoogle, isLoading, isError } = useRegister()
+  const { registerWithEmail, registerWithGoogle, isLoading, isError } = useAuthForms()
 
   const {
     register,

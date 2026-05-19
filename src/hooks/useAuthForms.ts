@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { deleteUserFromFirebase, loginWithGoogle, registerFirebase } from "../firebase/services/authService";
+import { deleteUserFromFirebase, loginFirebase, loginWithGoogle, registerFirebase } from "../firebase/services/authService";
 import { addUserToFirestore } from "../firebase/services/user-information.firebase";
 import { useState } from "react";
 import type { User } from "firebase/auth";
 
-export const useRegister = () => {
+export const useAuthForms = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isError, setIsError] = useState<boolean>(false)
@@ -48,7 +48,21 @@ export const useRegister = () => {
     }finally{
       setIsLoading(false)
     }
-
   }
-  return { registerWithEmail, registerWithGoogle, isLoading, isError };
+
+  const logInWithEmail = async (email: string, password: string) => {
+    setIsLoading(true)
+    setIsError(false)
+    try{
+      const user = await loginFirebase(email, password)
+      console.log("Sesión iniciada en: " + user)
+      navigate("/directory")
+    }catch{
+      setIsError(true)
+    }finally{
+      setIsLoading(false)
+    }
+  }
+
+  return { registerWithEmail, registerWithGoogle, logInWithEmail, isLoading, isError };
 };

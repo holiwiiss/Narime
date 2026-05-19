@@ -9,12 +9,8 @@ export const registerFirebase = async (email: string, password: string) => {
 };
 
 export const loginFirebase = async (email: string, password: string) => {
-  try{
-    const userCredential = await signInWithEmailAndPassword(auth, email, password)
-    return { user: userCredential.user, error: null }
-  } catch(error:any){
-    return { user: null, error }
-  }
+  const userCredential = await signInWithEmailAndPassword(auth, email, password)
+  return userCredential.user
 }
 
 export const loginWithGoogle = async () => {

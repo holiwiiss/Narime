@@ -1,16 +1,14 @@
-import { loginFirebase, loginWithGoogle} from "../../firebase/services/authService";
 import{ useForm } from "react-hook-form"
 import type { SubmitHandler } from "react-hook-form"
-import { sileo } from "sileo";
 import type { LoginFormInputs } from "../../types/authTyping";
 import  "./login-page.scss";
-import { Link, useNavigate } from "react-router-dom";
-import { addUserToFirestore } from "../../firebase/services/user-information.firebase";
+import { Link } from "react-router-dom";
+import { useAuthForms } from "../../hooks/useAuthForms";
 
 const LoginPage = () => {
 
-  const navigate = useNavigate();
-
+  const { logInWithEmail, registerWithGoogle, isLoading, isError } = useAuthForms()
+  
   const{
     register,
     handleSubmit,
@@ -18,33 +16,8 @@ const LoginPage = () => {
   } = useForm<LoginFormInputs>();
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
-    await validateFirebase(data.email, data.password)
+    logInWithEmail(data.email, data.password)
   }
-
-  const validateFirebase = async (email:string, password:string) => {
-    const { user, error } = await loginFirebase(email, password);
-      if(error){
-        sileo.error({ 
-          title: "Ha habido un problema en la creación del usuario", 
-          fill: "#171717" 
-        });
-      }else {
-        console.log("Iniciada sesión en:", user);
-        navigate("/directory")
-      }
-  }
-
-  const loginGoogle = async () => {
-    const { user, error } = await loginWithGoogle();
-    
-    if (error) {
-      console.log("error" + error);
-    } else {
-      console.log("sesion iniciada " + user);
-      if(user) await addUserToFirestore(user.uid, user.email ?? "", "randomName")
-      navigate("/directory")
-    }
-  };
 
   return (
     <>
@@ -100,8 +73,11 @@ const LoginPage = () => {
             {errors.password && <span>{errors.password.message}</span>}
           </div>
           <p className="login-page__form-forget">Forget your password?</p>
+          
+          {isError && (<span>Ha ocurrido un error iniciando sesión</span>)}
+          {isLoading && (<p>Iniciando sesion del usuario...</p>)}
 
-          <button className="btn-primary login-page__button" type="submit">Iniciar sesión</button>
+          <button disabled={isLoading} className="btn-primary login-page__button" type="submit">Iniciar sesión</button>
         
         </form>
 
@@ -111,7 +87,7 @@ const LoginPage = () => {
           <div className="login-page__form-separation-line"></div>
         </div>
 
-        <button className="btn-secondary login-page__button" onClick={loginGoogle}>Inicia sesión con google</button>
+        <button disabled={isLoading} className="btn-secondary login-page__button" onClick={registerWithGoogle}>Inicia sesión con google</button>
         
         <Link to="/register"> <p className="login-page__form-sing-up">You don't have account? Register here</p> </Link>
       </section>
