@@ -4,14 +4,16 @@
 }
 
 .my-list__filters {
-    border:2px solid red;
     display: flex;
     align-items: center;
     gap: var(--space-m);
 }
+
 .my-list__selector {
     padding: var(--space-xs) var(--space-xs);
+    border-radius: var(--border-radius-s);
 }
+
 .my-list__search{
     display: flex;
     align-items: center;
