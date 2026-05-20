@@ -7,7 +7,7 @@ export interface JikanAnimeListType {
   mal_id: number;
   title: string;
   images: {
-    jpg: {
+    webp: {
       large_image_url: string;
     };
   };
@@ -38,10 +38,13 @@ export interface JikanAnimeInformationType {
   title_english: string;
   type: string;
   images: {
-    jpg: {
+    webp: {
       large_image_url: string;
     };
   };
+  trailer : {
+    embed_url:string
+  }
   aired: {
     from:string;
     to:string;

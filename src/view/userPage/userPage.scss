@@ -1,4 +1,21 @@
 .user__image {
-    height: 150px;
-    
+    height: 150px; 
+}
+
+.add_favorites {
+    width:calc((100% - 128px) / 5);
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: var(--space-s);
+    background-color: grey;
+    border-radius: var(--border-radius-m);
+    cursor: pointer;
+}
+.add__icon {
+    height: 50px;
+    width: 50px;
+    border: 2px solid red;
 }

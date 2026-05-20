@@ -7,11 +7,12 @@ import "./animeCard.scss"
 type PropsAnimeCard = {
   anime: AnimeCardType;
   userData?: UserAnimeListFirestoreType;
-  onOpenModal: (animeId: number) => void;
+  onOpenModal?: (animeId: number) => void;
+  variant?: "default" | "minimal";
 }
 
-const AnimeCard = ({anime, userData, onOpenModal}: PropsAnimeCard) => {
-
+const AnimeCard = ({anime, userData, onOpenModal, variant="default"}: PropsAnimeCard) => {
+  const isMinimal = variant === "minimal"
   const navigate = useNavigate()
 
   const calculateWidth =( total:number, watched:number ) => {
@@ -28,34 +29,37 @@ const AnimeCard = ({anime, userData, onOpenModal}: PropsAnimeCard) => {
             <p className="anime-card__score-text">{anime.score ?? "N/A"}</p>
           </div>
 
-          {userData && (<span className="anime-card__user-status" data-status={userData.statusPersonal}>{userData.statusPersonal}</span>)}
+          {!isMinimal && userData && (<span className="anime-card__user-status" data-status={userData.statusPersonal}>{userData.statusPersonal}</span>)}
         </header>
 
         <footer className="anime-card__footer">
           <div className="anime-card__options">
             <div className="anime-card__info">
-              <p className="anime-card__episodes"> {userData ? `${userData.episodesWatched} / ${anime.episodes} episodes` : `${anime.episodes} episodes`}</p>
+              <p className="anime-card__episodes"> {!isMinimal && userData ? `${userData.episodesWatched} / ${anime.episodes} episodes` : `${anime.episodes} episodes`}</p>
               <h2 className="anime-card__title">{anime.title}</h2>
             </div>
-
-            <button className={`btn btn--small anime-card__button ${userData ? "btn--secondary" : ""}`} onClick={(e) => {
+            {onOpenModal && (
+              <button className={`btn btn--small anime-card__button ${userData ? "btn--secondary" : ""}`} onClick={(e) => {
               e.stopPropagation()
               onOpenModal(anime.id)
-            }}>
-              <img className="anime-card__button-img"></img>
-              {userData ? "Edit" : "Add "}
-            </button>
+              }}>
+                <img className="anime-card__button-img"></img>
+                {userData ? "Edit" : "Add "}
+              </button>
+            )}
+            
           </div>
-
-          <div className="anime-card__progressbar">
+          {!isMinimal && (
+            <div className="anime-card__progressbar">
             {userData && (
               <div className="anime-card__progressbar-content" 
               style={{ width: `${calculateWidth(anime.episodes, userData.episodesWatched)}%`}}></div>
             )}
           </div>
+          )}
         </footer>
       </article>
-      <p className="anime-card__meta">{anime.type} | {anime.year ?? "N/A"}</p>
+      {!isMinimal && (<p className="anime-card__meta">{anime.type} | {anime.year ?? "N/A"}</p>)}
     </div>
   )
 };

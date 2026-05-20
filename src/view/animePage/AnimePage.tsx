@@ -14,7 +14,7 @@ import { fetchAnimeInformation } from "../../queries/anime-information-page.quer
 
 const AnimePage = () => {
 
-  const [activeCategory, setActiveCategory] = useState <"sinopsis" | "actors">("sinopsis")
+  const [activeCategory, setActiveCategory] = useState <"sinopsis" | "actors" | "trailer">("sinopsis")
   
   const modalAddEdit = useAnimeModal()
   const { id } = useParams();
@@ -115,12 +115,13 @@ const AnimePage = () => {
                   <div className="tab__buttons">
                     <button className={`tab-option tab-option--small ${activeCategory === 'sinopsis' ? "tab-option__selected--small" : "tab-option__unselected"}`} onClick={() => setActiveCategory("sinopsis")}>Sinopsis</button>
                     <button className={`tab-option tab-option--small ${activeCategory === 'actors' ? "tab-option__selected--small" : "tab-option__unselected"}`} onClick={() => setActiveCategory("actors")}>Voice actors and characters</button>
+                    <button className={`tab-option tab-option--small ${activeCategory === 'trailer' ? "tab-option__selected--small" : "tab-option__unselected"}`} onClick={() => setActiveCategory("trailer")}>Trailer</button>
                   </div>
                 </div>
                 <div className="anime-page__content-synopsis">
                   {activeCategory === "sinopsis" ? (
                     <p>{animeInfo.synopsis}</p>
-                  ):(
+                  ) : activeCategory==="actors" ? (
                     <div className="anime-page__content--character">
                       {animeCharacters?.map((person: AnimeCharactersType) => (
                       <div className="character-card">
@@ -133,6 +134,10 @@ const AnimePage = () => {
                         </div>
                       </div>
                       ))}
+                    </div>
+                  ) : (
+                    <div className="anime-page__content--trailer">
+                      <iframe className="anime-page__trailer" width="560" height="315" src={animeInfo.trailer} title="YouTube video player"  ></iframe> 
                     </div>
                   )}
                     

@@ -4,6 +4,7 @@ export interface AnimeInformationType {
   titleEnglish: string;
   type: string;
   image: string;
+  trailer: string;
   aired: string[];
   score: number | null;
   rank: number |null;
