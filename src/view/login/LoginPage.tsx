@@ -26,11 +26,6 @@ const LoginPage = () => {
 
         <header className="login-page__header">
           <img src="#" alt="Narime logo" className="login-page__logo"></img>
-
-          <button className="login-page__back">
-            <img src="#" alt="" />
-            <p>Go back</p>
-          </button>
         </header>
 
         <div className="login-page__text">
@@ -77,7 +72,7 @@ const LoginPage = () => {
           {isError && (<span>Ha ocurrido un error iniciando sesión</span>)}
           {isLoading && (<p>Iniciando sesion del usuario...</p>)}
 
-          <button disabled={isLoading} className="btn-primary login-page__button" type="submit">Iniciar sesión</button>
+          <button disabled={isLoading} className="btn btn--big" type="submit">Iniciar sesión</button>
         
         </form>
 
@@ -87,7 +82,7 @@ const LoginPage = () => {
           <div className="login-page__form-separation-line"></div>
         </div>
 
-        <button disabled={isLoading} className="btn-secondary login-page__button" onClick={registerWithGoogle}>Inicia sesión con google</button>
+        <button disabled={isLoading} className="btn btn--secondary btn--big" onClick={registerWithGoogle}>Inicia sesión con google</button>
         
         <Link to="/register"> <p className="login-page__form-sing-up">You don't have account? Register here</p> </Link>
       </section>

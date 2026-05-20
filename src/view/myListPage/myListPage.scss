@@ -22,11 +22,6 @@
     gap: var(--space-xs);
     border-radius: var(--border-radius-s);
     background-color: var(--color-white-10);
-    &--img {
-        border:1px solid red;
-        height: 20px;
-        width: 20px;
-    }
 }
 
 .my-list__input {

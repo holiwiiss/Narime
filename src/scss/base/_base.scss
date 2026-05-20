@@ -51,7 +51,9 @@ input {
 .btn:hover {
     transform: scale(1.10);
 }
-
+.btn--big {
+    padding: var(--space-s) var(--space-m) ;
+}
 .btn--small{
     padding:  var(--space-xs) var(--space-s);
     gap: var(--space-xxs);
@@ -70,6 +72,10 @@ input {
     border:2px solid var(--color-white);
 }
 
+.icon-size-m{
+    height: var(--space-m);
+    width: var(--space-m);
+}
 
 select {
     border:2px solid var(--color-white-50);

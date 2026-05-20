@@ -49,7 +49,10 @@ const AnimePage = () => {
 
           <div className="breadcrumbs__container">
             <Link to="/directory" className="breadcrumbs__container-text breadcrumbs__unselected">Directory</Link>
-            <img src="#" alt="" className="breadcrumbs__container-img"></img>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white-50)" className="size-6 icon-size-m">
+              <path fillRule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clipRule="evenodd" />
+            </svg>
+
             <p className="breadcrumbs__container-text">{animeInfo.title}</p>
           </div>
 

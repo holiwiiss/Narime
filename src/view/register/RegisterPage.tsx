@@ -94,7 +94,7 @@ const RegisterPage = () => {
           </div>
           {isError && (<span>Ha ocurrido un error creando al usuario</span>)}
           {isLoading && (<p>Creando el usuario...</p>)}
-          <button disabled={isLoading} className="btn-primary register-page__button" type="submit">Registrarse</button>
+          <button disabled={isLoading} className="btn btn--big" type="submit">Registrarse</button>
         </form>
         
         <div className="login-page__form-separation">
@@ -103,7 +103,7 @@ const RegisterPage = () => {
           <div className="login-page__form-separation-line"></div>
         </div>
 
-        <button disabled={isLoading} className=" register-page__button btn-secondary"  onClick={registerWithGoogle}>Continua con google</button>
+        <button disabled={isLoading} className="btn btn--secondary btn--big"  onClick={registerWithGoogle}>Continua con google</button>
         <Link to="/login"><p className="login-page__form-sing-up">Do you have account? Sign In here</p></Link>
       </section>
     </main>
