@@ -187,17 +187,17 @@ return(
       <LoadingComponent text="Chargin animes..." />
     ) : isError ? (
       <ErrorComponent text="Ha habido un error con la API" />
-    ) : listToShow.length === 0 && searchAnime ?(
-      <div>
+    ) : listToShow.length === 0 && searchAnime ? (
+      <div className="my-list__empty-state__container">
         <h1>(⁠╥⁠﹏⁠╥⁠)</h1>
         <h2>No hay ningun anime llamado asi</h2>
       </div>
     ) : listToShow.length === 0 ? (
-      <>
+      <div className="my-list__empty-state__container">
         <h1>(⁠╥⁠﹏⁠╥⁠)</h1>
         <h2>No hay animes todavia</h2>
-        <Link to={"/directory"} className="btn-primary"> Add animes to your list</Link>
-      </>
+        <Link to={"/directory"} className="btn"> Add animes to your list</Link>
+      </div>
     )  : (
           <div className="anime-cards__container">
               {listToShow.map((anime: AnimeCardType) =>(

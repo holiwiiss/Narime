@@ -1,3 +1,28 @@
+html, body, #root {
+    height: 100%;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    background: linear-gradient(
+        180deg, 
+        var(--color-black-bg) 0%,
+        var(--color-black-bg) 70%, 
+        var(--color-red-bg) 100%,
+    );
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100dvh;
+}
+
+a {
+    text-decoration: none;
+}
+
 input {
     font-size: var(--input-txt-size);
     font-family: var(--font-secondary);
@@ -45,17 +70,6 @@ input {
     border:2px solid var(--color-white);
 }
 
-body {
-    background: linear-gradient(
-        180deg, 
-        var(--color-black-bg) 0%,
-        var(--color-black-bg) 70%, 
-        var(--color-red-bg) 100%,
-    );
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    
-}
 
 select {
     border:2px solid var(--color-white-50);

@@ -35,3 +35,13 @@
     background-color: transparent;
     border-radius: 0;
 }
+
+.my-list__empty-state__container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-s);
+}
