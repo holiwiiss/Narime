@@ -4,7 +4,7 @@ import './App.scss'
 import SearchAnimeComponent from "./components/search-anime/SearchAnimeComponent";
 import { useAuth } from "./context/AuthContext";
 import { logOutFirebase } from "./firebase/services/authService";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 function App() {
   const { user } = useAuth()
