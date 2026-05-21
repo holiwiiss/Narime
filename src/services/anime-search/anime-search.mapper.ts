@@ -5,7 +5,7 @@ export function mapJikanAnimeSearch(data: JikanAnimeListType[]) : AnimeCardType[
   return data.map((anime): AnimeCardType => ({
     id: anime.mal_id,
     title: anime.title,
-    image: anime.images.jpg.large_image_url,
+    image: anime.images.webp.large_image_url,
     score: anime.score ?? null,
     episodes: anime.episodes ?? 1,
     year: anime.year ?? null,
