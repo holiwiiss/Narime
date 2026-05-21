@@ -1,5 +1,5 @@
 import { useInfiniteQuery, type InfiniteData } from "@tanstack/react-query";
-import { fetchAnimesSearch } from "../queries/search-page.queries";
+import { fetchAnimesSearch } from "../queries/search.queries";
 import type { AnimeCardType } from "../services/anime-list/anime-list.type";
 
 export const useSearchAnimes = (query: string) => {
