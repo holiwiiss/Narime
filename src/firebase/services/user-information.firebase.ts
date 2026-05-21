@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import type { UserInformationFirestoreType } from "./firestoreService.type";
 
@@ -17,6 +17,20 @@ export async function addUserToFirestore(
     username,
     animeFavs: [],
   });
+}
+
+export async function addAnimeFavorite(animeID:number, userId: string) {
+  const docRef = doc(db, "users", userId);
+  await updateDoc(docRef, {
+    animeFavs: arrayUnion(animeID)
+  })
+}
+
+export async function removeAnimeFavorite(animeID: number, userId: string) {
+  const docRef = doc(db, "users", userId);
+  await updateDoc(docRef, {
+    animeFavs: arrayRemove(animeID)
+  })
 }
 
 export async function getUserInformation(

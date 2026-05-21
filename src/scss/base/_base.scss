@@ -51,8 +51,11 @@ input {
 }
 
 .btn:hover {
-    transform: scale(1.10);
+  background: #8a0d1c; // rojo más oscuro, como 20% más oscuro que --color-red-primary
+  // o alternativamente
+  filter: brightness(0.85);
 }
+
 .btn--big {
     padding: var(--space-s) var(--space-m) ;
 }
