@@ -16,6 +16,8 @@ export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal)
   const [isError, setIsError] = useState<boolean>(false)
 
   useEffect(() => {
+    setIsLoading(true)
+    setIsError(false)
       if (!inputValue) {
         setSearchList([]);
         return;
