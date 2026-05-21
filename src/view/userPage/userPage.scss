@@ -1,8 +1,101 @@
-.user__image {
-    height: 150px; 
+.user-page__content {
+    max-width: 1920px;
+    padding: 0 var(--space-xxl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    justify-content: center;
+}
+.user-page__header {
+    width: 100%;
+    border-bottom: solid 2px var(--color-white-20);
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-xxl) 0;
+
+    &--banner{
+        height: 250px;
+        width: 100%;
+        background-color: var(--color-white-10);
+        border-radius: var(--border-radius-l);
+        border:1px solid var(--color-white-20);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding: var(--space-l);
+    }
+}
+.user-page__social--info {
+    background-color: var(--color-white-15);
+    border:1px solid var(--color-white-20);
+    border-radius: var(--border-radius-m);
+    display: flex;
+    padding: var(--space-m);
+    gap: var(--space-m);
 }
 
-.add_favorites {
+.user-page__social--item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &--number {
+        font-size: var(--font-size-9);
+        font-family: var(--font-primary);
+        line-height: 0.8;
+    }
+    &--text {
+        font-size: var(--font-size-1);
+    }
+}
+
+.user-page__header--banner-img--container {
+    position: absolute;
+    inset: auto auto -15% 50%;
+    transform: translateX(-50%);
+    height: 200px;
+    width: 200px;
+    background-color: var(--color-menu-bg);
+    border:1px solid var(--color-white-20);
+    border-radius: var(--border-radius-xxxl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-user--img {
+    height: 150px;
+    width: 150px;
+}
+
+.user-page__header-user-info{
+    margin-top: var(--space-xxxl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-s);
+}
+
+.user-page__favorites-container {
+    margin: var(--space-xxl) 0;
+    width: 100%;
+    background-color: var(--color-white-10);
+    border-radius: var(--border-radius-l);
+    border:1px solid var(--color-white-20);
+    
+}
+
+.user-page__favorites--header {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-xxl);
+    padding-bottom: 0;
+}
+
+.favorite--add_btn {
     width:calc((100% - 128px) / 5);
     height: 400px;
     display: flex;
@@ -10,12 +103,7 @@
     justify-content: center;
     flex-direction: column;
     gap: var(--space-s);
-    background-color: grey;
+    background-color: var(--color-white-50);
     border-radius: var(--border-radius-m);
     cursor: pointer;
-}
-.add__icon {
-    height: 50px;
-    width: 50px;
-    border: 2px solid red;
 }

@@ -81,6 +81,10 @@ input {
     height: var(--space-m);
     width: var(--space-m);
 }
+.icon-size-xl{
+    height: var(--space-xl);
+    width: var(--space-xl);
+}
 
 select {
     border:2px solid var(--color-white-50);
