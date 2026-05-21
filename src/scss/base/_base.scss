@@ -8,6 +8,8 @@ html, body, #root {
 }
 
 body {
+    padding-top: var(--menu-height);
+    position: relative;
     background: linear-gradient(
         180deg, 
         var(--color-black-bg) 0%,

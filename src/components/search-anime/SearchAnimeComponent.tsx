@@ -6,7 +6,20 @@ import ErrorComponent from "../error/ErrorComponent";
 import LoadingComponent from "../loading/LoadingComponent";
 import type { AnimeListResponse, AnimeCardType } from "../../services/anime-list/anime-list.type";
 
-const SearchAnimeComponent = () => {
+type Props = {
+  isOpen?: boolean;
+  onClose?: () => void;
+};
+
+const SearchAnimeComponent = ({ isOpen, onClose }: Props) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  
+  useEffect(() => {
+    if (isOpen) {
+      setTimeout(() => inputRef.current?.focus(), 50);
+    }
+  }, [isOpen]);
+
 
   const navigate = useNavigate()
   const wrapperRef = useRef<HTMLDivElement | null >(null)
@@ -25,12 +38,14 @@ const SearchAnimeComponent = () => {
     const handleClickOutside = (event: MouseEvent) => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
         setActiveSearch(false);
+        setInputValue("")
+        onClose?.();
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [onClose]);
 
   useEffect(() => {
     if (!inputValue) {
@@ -47,11 +62,9 @@ const SearchAnimeComponent = () => {
       setIsError(null);
 
       try {
-        if (activeSearch) {
-          const JSON: AnimeListResponse = await searchAnime(animeToSearch, 1, 5);
-          setSearchList(JSON.animes);
-          setTotalItems(JSON.pagination.totalItems);
-        }
+        const result: AnimeListResponse = await searchAnime(query, 1, 5);
+        setSearchList(result.animes);
+        setTotalItems(result.pagination.totalItems);
       } catch (e) {
         console.log("La api no responde, " + e);
         setIsError('Ha habido un error con la carga de la API');
@@ -66,8 +79,9 @@ const SearchAnimeComponent = () => {
 
   return (
     <>
-    <div className="search__wrapper" ref={wrapperRef}>
+    <div className={`search-input-wrap ${isOpen ? 'open' : ''}`} ref={wrapperRef}>
       <input
+        ref={inputRef}
         type="text"
         className="buscar__anime"
         value={inputValue}

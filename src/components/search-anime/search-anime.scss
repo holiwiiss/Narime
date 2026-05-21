@@ -1,16 +1,25 @@
-.search__wrapper {
-  position: relative;
-  width: 300px;
+.search-input-wrap {
+  overflow: hidden;
+  max-width: 0;
+  opacity: 0;
+  transition: max-width 0.3s ease, opacity 0.25s ease;
+
+  &.open {
+    overflow: visible;
+    max-width: 200px;
+    opacity: 1;
+  }
 }
 
 .buscar__anime  {
-    border: 2px solid red;
-    width: 300px;
+    width: 100%;
+    border: none;
+    background-color: transparent;
 }
 
 .all-search__content {
     position: absolute;
-    inset: 100% 0 auto 0;
+    inset: 120% 0 auto 0;
 
     background-color: var(--color-black-bg);
     border: 2px solid var(--color-white-20);
@@ -23,6 +32,7 @@
     flex-direction: column;
     max-width: 520px;
 }
+
 .anime-search__card {
     display: flex;
     align-items: center;
