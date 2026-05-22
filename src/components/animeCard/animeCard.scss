@@ -13,6 +13,7 @@
     position: relative;
     flex: 1;
     border-radius: var(--border-radius-m);
+    border: 1px solid rgb(52, 52, 52);
     background-size: cover;
     background-position: center;
     display: flex;
@@ -32,7 +33,7 @@
   content: "";
   position: absolute;
   inset: 0;
-
+    border: 1px solid rgb(52, 52, 52);
   background: linear-gradient(
     to top,
     rgba(0, 0, 0, 0.868) 0%,
@@ -40,7 +41,7 @@
     rgba(0, 0, 0, 0) 27%,
     rgba(102, 102, 102, 0) 100%
   );
-    border-radius: var(--border-radius-m);
+border-radius: var(--border-radius-m);
   z-index: 0;
 }
 

@@ -29,11 +29,11 @@ const DirectoryPage = () => {
 
   return (
     <>
-    <div className="directory__options">
-      <div className="directory__options-buttons">
-        <button className={`btn ${category === 'top' ? "" : "btn--disable"}`}  onClick={() => activateFilter("top")}>TOP ANIMES</button>
-        <button className={`btn ${category === 'trending' ? "" : "btn--disable"}`} onClick={() => activateFilter("trending")}>TRENDING</button>
-        <button className={`btn ${category === 'seasonal' ? "" : "btn--disable"}`} onClick={() => activateFilter("seasonal")}>SEASONAL</button>
+    <div className="my-list__options tab__container">
+      <div className="tab__buttons">
+        <button className={`tab-option ${category === 'top' ? "tab-option__selected" : "tab-option__unselected"}`}  onClick={() => activateFilter("top")}>Top animes</button>
+        <button className={`tab-option ${category === 'trending' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => activateFilter("trending")}>Trending</button>
+        <button className={`tab-option ${category === 'seasonal' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => activateFilter("seasonal")}>Seasonal</button>
       </div>
     </div>
 

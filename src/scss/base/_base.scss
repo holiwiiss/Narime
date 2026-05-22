@@ -10,14 +10,15 @@ html, body, #root {
 body {
     padding-top: var(--menu-height);
     position: relative;
-    background: linear-gradient(
+    /*background: linear-gradient(
         180deg, 
         var(--color-black-bg) 0%,
         var(--color-black-bg) 70%, 
         var(--color-red-bg) 100%,
     );
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-attachment: fixed;*/
+    background-color: var(--color-menu-bg);
     min-height: 100dvh;
 }
 

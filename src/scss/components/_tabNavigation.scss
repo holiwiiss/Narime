@@ -1,22 +1,25 @@
 .tab__container {
     display: flex;
-    border-bottom: 1px solid var(--color-white-50);
+    border-bottom: 1px solid var(--color-white-20);
 }
 
 .tab__buttons {
     display: flex;
-    gap: var(--space-xxl);
+    gap: var(--space-s);
 }
 
+// si se modifica el padding de arriba y abajo, modificar mas abajo tambien
 .tab-option {
+    display: flex;
     height: 100%;
-    padding: var(--space-xl) var(--space-s);
+    padding: var(--space-l) var(--space-l);
     font-family: var(--font-secondary);
-    font-size: var(--span-size);
-    text-transform: uppercase;
+    font-size: var(--font-size-3);
     color: var(--color-white);
     position: relative;
+    gap: var(--space-xs);
 }
+
 .tab-option--small{
     padding: var(--space-m) var(--space-s);
 }
@@ -24,7 +27,7 @@
 .tab-option::after {
     content: "";
     position: absolute;
-    bottom: -1px;
+    bottom: -2px;
     left: 50%;
     right: 50%;
     height: 5px;
@@ -33,22 +36,29 @@
 }
 
 .tab-option__count {
+    position: absolute;
+    inset: var(--space-m) 0 auto auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius-xxxl);
+    background-color: var(--color-white-35);
     color: var(--color-white);
+    font-size: 9px;
+    font-weight: var(--font-semibold);
+    padding: 0;
 }
-.tab-option .tab-option__count { transition: transform .2s cubic-bezier(0.34,1.56,0.64,1), color .2s; }
 
-.tab-option:hover .tab-option__count { transform: scale(1.4); color: var(--color-red-primary); }
-
+//Aqui
 .tab-option__selected {
-    padding-bottom: calc(var(--space-xl) - 5px);
+    padding-bottom: calc(var(--space-m) - 4px);
 }
 .tab-option__selected--small {
     padding-bottom: var(--space-m);
 }
-.tab-option__selected .tab-option__count {
-    color: var(--color-red-primary);
+.tab-option__selected .tab-option__count{
+    background-color: var(--color-red-primary);
 }
-
 .tab-option:hover::after {
     left: 0;
     right: 0;

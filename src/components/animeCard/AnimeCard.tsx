@@ -3,6 +3,7 @@ import type { UserAnimeListFirestoreType } from "../../firebase/services/firesto
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
 import { useNavigate } from "react-router-dom";
 import "./animeCard.scss"
+import { calculateWidth } from "../../utils/calculateWidth";
 
 type PropsAnimeCard = {
   anime: AnimeCardType;
@@ -15,9 +16,7 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default"}: PropsAnime
   const isMinimal = variant === "minimal"
   const navigate = useNavigate()
 
-  const calculateWidth =( total:number, watched:number ) => {
-    return (100/total * watched)
-  }
+  
 
   return(
     <div className="anime-card-wrapper">
