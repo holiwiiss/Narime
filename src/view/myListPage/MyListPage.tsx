@@ -13,6 +13,7 @@ import LoadingComponent from "../../components/loading/LoadingComponent";
 import ErrorComponent from "../../components/error/ErrorComponent";
 import { useQuery } from "@tanstack/react-query";
 import { delay } from "../../utils/delay";
+import CustomSelect from "../../components/custom-select/CustomSelect";
 
 const fetchMyList = async (myList: UserAnimeListFirestoreType[]) => {
   const results: AnimeCardType[] = [];
@@ -170,11 +171,16 @@ return(
       </div>
       <div className="my-list__filters">
 
-        <select className="my-list__selector" onChange={(e) => setSelectedFilter(e.target.value)}>
+        {/*<select className="my-list__selector" onChange={(e) => setSelectedFilter(e.target.value)}>
                 {OrderList.map(status => (
                   <option key={status} value={status}>{status}</option>
                 ))}
-        </select>
+        </select>*/}
+        <CustomSelect
+          options={OrderList}
+          value={selectedFilter}
+          onChange={setSelectedFilter}
+        />
 
         <div className="my-list__search">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white)" className="size-6 icon-size-m">

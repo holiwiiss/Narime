@@ -1,0 +1,42 @@
+.custom-select {
+  position: relative;
+
+  &__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-s);
+    background: var(--color-menu-bg);
+    padding: var(--space-s) var(--space-m);
+    width: 200px;
+    height: 39px;
+  }
+
+  &__dropdown {
+    position: absolute;
+    inset: 106% 0 auto 0;
+
+    background-color: var(--color-black-85);
+    backdrop-filter: blur(5px);
+    border: 1px solid var(--color-white-20);
+    border-radius: var(--border-radius-s);
+
+    list-style: none;
+    z-index: 10;
+    min-width: 100%;
+  }
+
+  &__option {
+    padding: var(--space-s) var(--space-m);
+    color: var(--color-white-75);
+    cursor: pointer;
+    
+    &:hover{ 
+        background-color: var(--color-red-primary);
+        
+    }
+    &--active { 
+         background: var(--color-white-20); 
+    }
+  }
+}
