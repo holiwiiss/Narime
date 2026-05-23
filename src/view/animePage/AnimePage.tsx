@@ -162,15 +162,21 @@ const AnimePage = () => {
                   {activeCategory === "sinopsis" ? (
                     <p>{animeInfo.synopsis}</p>
                   ) : activeCategory==="actors" ? (
-                    <div className="anime-page__content--character">
+                    <div className="anime-page__character--wrapper">
                       {animeCharacters?.map((person: AnimeCharactersType) => (
                       <div className="character-card">
-                        <div className="character-card__img character-card__anime--img" style={{ backgroundImage: `url(${person.characterImage})` }}>
-                          <p className="character-card__role">{person.role}</p>
-                          <p className="character-card__anime-name">{person.characterName}</p>
+                        <img className="character-card__img" src={person.characterImage} alt={person.characterName}/>
+                        
+                        <div className="character-card--header">
+                          <span className="character-card__badge">{person.role}</span>
                         </div>
-                        <div className="character-card__img character-card__actor--img" style={{ backgroundImage: `url(${person.voiceActorImage})` }}>
-                          <p className="character-card__actor-name">{person.voiceActorName}</p>
+                        
+                        <div className="character-card--foter">
+                          <div className="character-card--foter-text">
+                            <p className="character-card__anime-name">{person.characterName}</p>
+                            <p className="character-card__actor-name">CV · {person.voiceActorName}</p>
+                          </div>
+                          <img className="character-card__img-actor" src={person.voiceActorImage} alt={person.voiceActorName}></img>
                         </div>
                       </div>
                       ))}
@@ -216,7 +222,6 @@ const AnimePage = () => {
               
             
         </footer>
-        <button className="btn btn--secondary anime-page__btn-watch-trailer">Watch trailer</button>
       </main>
 </>
 )}
@@ -236,163 +241,18 @@ const AnimePage = () => {
 
 export default AnimePage;
 
+/*
+{animeCharacters?.map((person: AnimeCharactersType) => (
+  <div className="character-card">
+    <div className="character-card__img character-card__anime--img" style={{ backgroundImage: `url(${person.characterImage})` }}>
+      <p className="character-card__role">{person.role}</p>
+      <p className="character-card__anime-name">{person.characterName}</p>
+    </div>
+    <div className="character-card__img character-card__actor--img" style={{ backgroundImage: `url(${person.voiceActorImage})` }}>
+      <p className="character-card__actor-name">{person.voiceActorName}</p>
+    </div>
+  </div>
+))}
 
 
-/*const AnimePage = () => {
-
-  const [activeCategory, setActiveCategory] = useState <"sinopsis" | "actors" | "trailer">("sinopsis")
-  
-  const modalAddEdit = useAnimeModal()
-  const { id } = useParams();
-  const animeID = Number(id);
-
-  const { getUserListData } = useMyListMap()
-  const userData: UserAnimeListFirestoreType | undefined = getUserListData(animeID)
-
-  const {isLoading, isError, data } = useQuery({
-    queryKey:["animeInfo", animeID],
-    queryFn:() => fetchAnimeInformation(animeID),
-  })
-  
-  const animeInfo: AnimeInformationType | undefined = data?.info 
-  const animeCharacters: AnimeCharactersType[] | undefined = data?.characters
-
-  const openAddEditModal = (anime: any) => {
-      const userData = getUserListData(anime.id);
-      modalAddEdit.openModal(anime.id, anime.episodes, userData);
-  };
-
-  if (isLoading) return <LoadingComponent text="Cargando datos del anime..." />
-  if (isError) return <ErrorComponent text="Ha habido un error al obtener los datos del anime" />
-
-  return (
-    <>
-      {!animeInfo ? (
-        <h1>no hay anime</h1>
-      ) : (
-        <>
-        <main className="anime-page">
-
-          <div className="breadcrumbs__container">
-            <Link to="/directory" className="breadcrumbs__container-text breadcrumbs__unselected">Directory</Link>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white-50)" className="size-6 icon-size-m">
-              <path fillRule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clipRule="evenodd" />
-            </svg>
-
-            <p className="breadcrumbs__container-text">{animeInfo.title}</p>
-          </div>
-
-          <div className="anime-page__container">
-            <header className="anime-page__header">
-              <img src={animeInfo.image} className="anime-page__header-img" alt={animeInfo.title}></img>
-              
-              <div className="anime-page__header-information">
-                <p>{animeInfo.year ?? "N/A"} | {animeInfo.type}</p>
-                <p>{animeInfo.episodes} episodes</p>
-              </div>
-              
-              <button className={`btn btn--small ${userData ? "btn--secondary" : ""}`} onClick={()  => openAddEditModal(animeInfo)}>{userData ? "Edit anime" : "Add to my list"}</button>
-            </header>
-
-            <section className="anime-page__content">
-              <div className="anime-page__content-info">
-                <h1>{animeInfo.title}</h1>
-                <h2 className="anime-page__content-info-tittle-english"><i>{animeInfo.titleEnglish}</i></h2>
-                <p className="anime-page__content-info-date">{formatDate(animeInfo.aired[0])} - {formatDate(animeInfo.aired[1])}</p>
-
-                <div className="anime-page__content-stats">
-                  
-                  <div className="anime-page__content-stat">
-                    <p className="anime-page__content-stat-number">{animeInfo.score ?? "N/A"}</p>
-                    <p>Global Score</p>
-                  </div>
-
-                  {userData && userData.scorePersonal && (
-                    <div className="anime-page__content-stat">
-                      <p className="anime-page__content-stat-number">{userData.scorePersonal}</p>
-                      <p>Your Score</p>
-                    </div>
-                  )}
-
-                  <div className="anime-page__content-stat">
-                    <p className="anime-page__content-stat-number"># {animeInfo.rank ?? "N/A"}</p>
-                    <p>Ranked</p>
-                  </div>
-
-                  <div className="anime-page__content-stat">
-                    <p className="anime-page__content-stat-number">{formatNumber(animeInfo.members)}</p>
-                    <p>Watching</p>
-                  </div>  
-                </div>
-              </div>
-
-              <div className="anime-page__content-tags">
-                <h2>Hastags</h2>
-                <div className="anime-page__content-all-tags">
-                  <div className="anime-page__content-tag"><p># {animeInfo.season} {animeInfo.year ?? "N/A"}</p></div>
-                  {animeInfo.genres.map((g)=> (
-                    <div key={g} className="anime-page__content-tag"><p># {g}</p></div>
-                  ))}
-                  {animeInfo.studios.map((s)=> (
-                    <div key={s} className="anime-page__content-tag"><p># {s}</p></div>
-                  ))}
-                </div>
-              </div>
-
-              <footer className="anime-page__end-section">
-                <div className="tab__container">
-                  <div className="tab__buttons">
-                    <button className={`tab-option tab-option--small ${activeCategory === 'sinopsis' ? "tab-option__selected--small" : "tab-option__unselected"}`} onClick={() => setActiveCategory("sinopsis")}>Sinopsis</button>
-                    <button className={`tab-option tab-option--small ${activeCategory === 'actors' ? "tab-option__selected--small" : "tab-option__unselected"}`} onClick={() => setActiveCategory("actors")}>Character roster</button>
-                    <button className={`tab-option tab-option--small ${activeCategory === 'trailer' ? "tab-option__selected--small" : "tab-option__unselected"}`} onClick={() => setActiveCategory("trailer")}>Trailer</button>
-                  </div>
-                </div>
-                <div className="anime-page__content-synopsis">
-                  {activeCategory === "sinopsis" ? (
-                    <p>{animeInfo.synopsis}</p>
-                  ) : activeCategory==="actors" ? (
-                    <div className="anime-page__content--character">
-                      {animeCharacters?.map((person: AnimeCharactersType) => (
-                      <div className="character-card">
-                        <div className="character-card__img character-card__anime--img" style={{ backgroundImage: `url(${person.characterImage})` }}>
-                          <p className="character-card__role">{person.role}</p>
-                          <p className="character-card__anime-name">{person.characterName}</p>
-                        </div>
-                        <div className="character-card__img character-card__actor--img" style={{ backgroundImage: `url(${person.voiceActorImage})` }}>
-                          <p className="character-card__actor-name">{person.voiceActorName}</p>
-                        </div>
-                      </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="anime-page__content--trailer">
-                      <iframe className="anime-page__trailer" width="560" height="315" src={animeInfo.trailer} title="YouTube video player"  ></iframe> 
-                    </div>
-                  )}
-                    
-                </div>
-              </footer>
-            </section>
-          </div>
-        
-          </main>
-
-          
-        </>
-      )}
-
-      {modalAddEdit.isOpen && modalAddEdit.animeId &&(
-        <ModalAddEditAnime
-          animeId={modalAddEdit.animeId}
-          totalEpisodes = {modalAddEdit.animeEpisodes}
-          action={modalAddEdit.action}
-          infoDocIdUserAnime = {modalAddEdit.infoDocIdFromUser}
-          onClose={modalAddEdit.closeModal}
-        />
-      )}
-    </>
-  );
-};
-
-export default AnimePage;
- */
+*/
