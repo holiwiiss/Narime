@@ -39,7 +39,7 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, action, infoDocIdUserAnime, 
       animeId,
       status: "watching",
       score: null,
-      episodes: 0,
+      episodes: 1,
     }
   });
   
@@ -63,7 +63,7 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, action, infoDocIdUserAnime, 
 
   const sendAction = (data:PopUpFormInputs) =>{
     if(data.status === "completed") data.episodes = totalEpisodes
-    if(data.status === "planToWatch") data.episodes = 0
+    if(data.status === "planToWatch") data.episodes = 1
 
     if(action === "add"){
       addAnimeToMyList(animeId, data.status, data.score, data.episodes);
@@ -116,7 +116,7 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, action, infoDocIdUserAnime, 
                   <input
                     type="number"
                     {...register('episodes',{
-                      min:{value:0, message: 'No negative episodes'},
+                      min:{value:1, message: 'No negative episodes'},
                       max: {value: totalEpisodes, message:'Too many episodes'}
                     })}
                   ></input>

@@ -12,6 +12,7 @@ import { formatDate, formatNumber } from "../../utils/format";
 import { useState } from "react";
 import { fetchAnimeInformation } from "../../queries/anime-information-page.queries";
 import { calculateWidth } from "../../utils/calculateWidth";
+import { formatStatus } from "../../utils/formatStatus";
 
 const AnimePage = () => {
 
@@ -75,7 +76,7 @@ const AnimePage = () => {
                   {userData && (
                     <>
                       <p className="anime-page__status-text">Your status:</p>
-                      <span className="anime-page__status-user">{userData.statusPersonal}</span>
+                      <span className="anime-page__status-user">{formatStatus(userData.statusPersonal)}</span>
                     </>
                   )}
                 </div>
@@ -175,9 +176,13 @@ const AnimePage = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="anime-page__content--trailer">
-                      <iframe className="anime-page__trailer" width="560" height="315" src={animeInfo.trailer} title="YouTube video player"  ></iframe> 
-                    </div>
+                    <>
+                      {!animeInfo.trailer || animeInfo.trailer==="" ? (
+                        <ErrorComponent text="No se ha encontrado trailer"/>
+                      ):(
+                        <iframe className="anime-page__trailer" src={animeInfo.trailer} title="YouTube video player"  ></iframe> 
+                      )}
+                    </>
                   )}   
                 </div> 
 

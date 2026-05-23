@@ -1,14 +1,10 @@
 .menu-settings__container  {
     position: absolute;
     inset: 135% 0 auto auto;
-    background-color: var(--color-black-85);
-    backdrop-filter: blur(5px);
-    border: 1px solid var(--color-white-20);
-    border-radius: var(--border-radius-s);
     display: flex;
     flex-direction: column;
     padding: var(--space-m);
-    gap: var(--space-s);
+    gap: var(--space-xs);
     width: 250px;
 }
 .menu--settings-img-cont {

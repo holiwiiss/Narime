@@ -1,9 +1,10 @@
 import React from "react";
 import type { UserAnimeListFirestoreType } from "../../firebase/services/firestoreService.type";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import "./animeCard.scss"
 import { calculateWidth } from "../../utils/calculateWidth";
+import { formatStatus } from "../../utils/formatStatus";
 
 type PropsAnimeCard = {
   anime: AnimeCardType;
@@ -16,12 +17,10 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default"}: PropsAnime
   const isMinimal = variant === "minimal"
   const navigate = useNavigate()
 
-  
-
   return(
     <div className="anime-card-wrapper">
-      <article className="anime-card" style={{ backgroundImage: `url(${anime.image})` }} onClick={() => navigate(`/anime/${anime.id}`)}>
-        
+      <article className="anime-card" onClick={()=> navigate(`/anime/${anime.id}`)}>
+        <img className="anime-card-img" src={anime.image} alt={anime.title}></img>
         <header className="anime-card__header">
           <div className="anime-card__score">
 
@@ -32,7 +31,7 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default"}: PropsAnime
             <p className="anime-card__score-text">{anime.score ?? "N/A"}</p>
           </div>
 
-          {!isMinimal && userData && (<span className="anime-card__user-status" data-status={userData.statusPersonal}>{userData.statusPersonal}</span>)}
+          {!isMinimal && userData && (<span className="anime-card__user-status" data-status={userData.statusPersonal}>{formatStatus(userData.statusPersonal)}</span>)}
         </header>
 
         <footer className="anime-card__footer">

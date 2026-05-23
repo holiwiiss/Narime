@@ -34,7 +34,7 @@ const UserPage = () => {
     <section className="user-page__content">
     
     {isLoadingUser || !userData || !user ? (
-      <LoadingComponent text="Loading user data..."></LoadingComponent>
+      <LoadingComponent></LoadingComponent>
     ) : isErrorUser  ? (
       <ErrorComponent text="An error has ocurred"></ErrorComponent>
     ) : (
@@ -74,7 +74,7 @@ const UserPage = () => {
             </div>
               <div className="anime-cards__container">
                 {isLoadingFavorites ? (
-                  <LoadingComponent text="Charging favorite animes..."></LoadingComponent>
+                  <LoadingComponent></LoadingComponent>
                 ) : isErrorFavorites ? (
                   <ErrorComponent text="An error has ocurred"></ErrorComponent>
                 ) : (

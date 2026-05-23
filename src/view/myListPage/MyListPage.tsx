@@ -171,12 +171,7 @@ return(
       </div>
       <div className="my-list__filters">
 
-        {/*<select className="my-list__selector" onChange={(e) => setSelectedFilter(e.target.value)}>
-                {OrderList.map(status => (
-                  <option key={status} value={status}>{status}</option>
-                ))}
-        </select>*/}
-        <CustomSelect
+      <CustomSelect
           options={OrderList}
           value={selectedFilter}
           onChange={setSelectedFilter}
@@ -206,7 +201,7 @@ return(
         <h2>No hay animes todavia</h2>
         <Link to={"/directory"} className="btn"> Add animes to your list</Link>
       </div>
-    )  : (
+    ) : (
           <div className="anime-cards__container">
               {listToShow.map((anime: AnimeCardType) =>(
                 <AnimeCard

@@ -28,7 +28,7 @@ const SearchResultsPage = () => {
       <h1 className="search-page__title">Aqui tienes los resultados de tu búsqueda...</h1>
 
       {isLoading ? (
-        <LoadingComponent text="Cargando animes" />
+        <LoadingComponent />
       ) : !isLoading && isError ? (
         <ErrorComponent text="Ha ocurrido un problema"/>
       ) : searchList.length === 0 ? (

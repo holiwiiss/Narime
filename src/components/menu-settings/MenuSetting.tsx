@@ -34,7 +34,7 @@ const MenuSetting = ({ isOpen, onClose }: Props) => {
   }
 
   return (
-    <div className="menu-settings__container" ref={menuRef}>
+    <div className="popover-panel menu-settings__container" ref={menuRef}>
       <div className="menu--settings--user-info">
         <div className="menu--settings-img-cont">
           <img className="icon-size-xl" src={userData?.avatar}></img>

@@ -21,14 +21,8 @@
 .all-search__content {
     position: absolute;
     inset: 120% 0 auto 0;
-
-    background-color: var(--color-black-bg);
-    border: 2px solid var(--color-white-20);
-    border-radius: var(--border-radius-s);
-    
     padding: var(--space-xs);
     height: auto;
-
     display: flex;
     flex-direction: column;
     max-height: 520px;

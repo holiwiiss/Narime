@@ -33,8 +33,9 @@ const RegisterPage = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="register-page__form">
 
           <div className="register-page__form-field">
-            <label>UserName*</label>
+            <label htmlFor="username">UserName*</label>
             <input
+              id="username"
               type="text"
               {...register("username", { 
                   required: 'El nombre de usuario es obligatorio', 
@@ -46,8 +47,9 @@ const RegisterPage = () => {
           </div>
 
           <div className="register-page__form-field">
-            <label>Email*</label>
+            <label htmlFor="email">Email*</label>
             <input
+              id="email"
               type='email'
               {...register('email', { 
                   required: 'Este campo es obligatorio', 
@@ -57,8 +59,9 @@ const RegisterPage = () => {
           </div>
 
           <div className="register-page__form-field">
-            <label>Contraseña*</label>
+            <label htmlFor="password">Contraseña*</label>
             <input
+              id="password"
               type='password'
               {...register('password', { 
                 required: 'Este campo es obligatorio', 
@@ -70,8 +73,9 @@ const RegisterPage = () => {
           </div>
 
           <div className="register-page__form-field">
-            <label>Confirmar contraseña*</label>
+            <label htmlFor="confirmPassword">Confirmar contraseña*</label>
             <input
+              id="confirmPassword"
               type='password'
               {...register('passwordConfirm', { 
                   required: 'Este campo es obligatorio', 
@@ -85,6 +89,7 @@ const RegisterPage = () => {
           <div className="register-page__form-field">
             <label>
               <input
+                id="terms"
                 type="checkbox"
                 {...register("confirmTerms", { required:'Este campo es obligatorio'})}
               ></input>

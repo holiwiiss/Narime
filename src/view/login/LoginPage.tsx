@@ -46,8 +46,9 @@ const LoginPage = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="login-page__form">
 
           <div className="login-page__form-field">
-            <label>Email</label>
+            <label htmlFor="email">Email</label>
             <input
+              id="email"
               type="email"
               {...register('email', { 
                 required: 'Este campo es obligatorio', 
@@ -57,9 +58,10 @@ const LoginPage = () => {
           </div>
           
           <div className="login-page__form-field">
-            <label>Contraseña</label>
+            <label htmlFor="password">Password</label>
             <input
               type='password'
+              id="password"
               {...register('password', { 
                 required: 'Este campo es obligatorio', 
               minLength: {value: 6, message: 'La contraseña debe tener al  menos 6 carácteres'},

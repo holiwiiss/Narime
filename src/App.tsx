@@ -17,7 +17,7 @@ function App() {
     <>
     <Toaster position='top-right' />
       <div className="topbar">
-        <img src="#" className="topbar--logo"></img>
+        <img src="#" className="topbar--logo" alt="logo narime"></img>
 
         <nav className="topbar--nav">
 
@@ -63,7 +63,7 @@ function App() {
         
         {userData ? (
           <>
-            <button className="icon-user-profile" onClick={() => setIsOptionsOpen(true)}><img className="icon-size-xl" src={userData.avatar}></img></button>
+            <button className="icon-user-profile" onClick={() => setIsOptionsOpen(true)}><img className="icon-size-xl" src={userData.avatar} alt="user avatar"></img></button>
             {isOptionsOpen && <MenuSetting isOpen={isOptionsOpen} onClose={()=> setIsOptionsOpen(false)}/>}
           </>
         ): (
