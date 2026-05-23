@@ -9,7 +9,6 @@
     z-index: 5;
     box-shadow: 2px 2px 5px 0px var(--color-white-15);
     padding: 0 var(--space-xxl);
-
 }
 
 .topbar--logo {
@@ -28,7 +27,6 @@
 
 
 .topbar--nav {
-    width: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -42,9 +40,8 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    border: solid 2px yellow;
+    position: relative;
 }
-
 
 .nav--option-input {
     display: flex;
@@ -57,4 +54,13 @@
         padding: 0 var(--space-xs);
         background-color: var(--color-white-15);
     }
+}
+
+.icon-user-profile {
+    background-color: var(--color-white-50);
+    border-radius: var(--border-radius-xxxl);
+    padding: var(--space-xxs);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

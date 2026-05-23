@@ -29,6 +29,7 @@ const DirectoryPage = () => {
 
   return (
     <>
+    <section className="all-content-max">
     <div className="my-list__options tab__container">
       <div className="tab__buttons">
         <button className={`tab-option ${category === 'top' ? "tab-option__selected" : "tab-option__unselected"}`}  onClick={() => activateFilter("top")}>Top animes</button>
@@ -56,7 +57,9 @@ const DirectoryPage = () => {
         )}
       </>
     ): isLoading ? (
-      <LoadingComponent text="Cargando animes..." />
+      <div className="container--chargin">
+        <LoadingComponent text="Cargando animes..." />
+      </div>
     ): !isLoading && isError ? (
       <ErrorComponent text="Ha habido un error con la API" />
     ) : !isLoading && animeList.length === 0 ? (
@@ -73,6 +76,7 @@ const DirectoryPage = () => {
           onClose={modalAddEdit.closeModal}
           />
       )}
+      </section>
     </>
   );
 };

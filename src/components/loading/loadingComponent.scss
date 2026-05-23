@@ -16,6 +16,10 @@
     font-family: var(--font-secondary);
 }
 
+.loading-component__face--small {
+  font-size: var(--font-size-4);
+}
+
 .loading-component__spinner {
   width: 40px;
   height: 40px;

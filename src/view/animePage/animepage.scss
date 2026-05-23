@@ -177,7 +177,7 @@
 
 .anime-page {
     width: 100%;
-    max-width: 1920px;
+    max-width: var(--max-width-content);
     padding: var(--space-xxl) var(--space-xxl);;
 }
 
@@ -390,8 +390,8 @@
 
 .anime-page__btn-watch-trailer {
     position: fixed;
-    inset: auto var(--space-xl) var(--space-xxxl) auto;
-    background-color: var(--color-white-15);
+    inset: var(--space-5xl) auto auto var(--space-xl) ;
+    background-color: var(--color-black-25);
     border:1px var(--color-white-50) solid;
     backdrop-filter: blur(5px);
     

@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import "./search-anime.scss"
 import { searchAnime } from "../../services/anime-search/anime-search";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ErrorComponent from "../error/ErrorComponent";
 import LoadingComponent from "../loading/LoadingComponent";
 import type { AnimeListResponse, AnimeCardType } from "../../services/anime-list/anime-list.type";
 
 type Props = {
-  isOpen?: boolean;
-  onClose?: () => void;
+  isOpen: boolean;
+  onClose: () => void;
 };
 
 const SearchAnimeComponent = ({ isOpen, onClose }: Props) => {
@@ -39,7 +39,7 @@ const SearchAnimeComponent = ({ isOpen, onClose }: Props) => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
         setActiveSearch(false);
         setInputValue("")
-        onClose?.();
+        onClose();
       }
     };
 
@@ -77,12 +77,19 @@ const SearchAnimeComponent = ({ isOpen, onClose }: Props) => {
     return () =>{clearTimeout(timeout);} 
   }, [inputValue]);
 
+  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if(e.key !== "Enter") return 
+    onClose()
+    navigate(`/search/anime?q=${animeToSearch}`)
+  }
+
   return (
     <>
     <div className={`search-input-wrap ${isOpen ? 'open' : ''}`} ref={wrapperRef}>
       <input
         ref={inputRef}
         type="text"
+        onKeyDown={(e) => handleSearch(e)}
         className="buscar__anime"
         value={inputValue}
         onInput={(event: React.InputEvent<HTMLInputElement>) =>
@@ -95,20 +102,20 @@ const SearchAnimeComponent = ({ isOpen, onClose }: Props) => {
       {activeSearch && (
         <div className="all-search__content">
           {isLoading ? (
-            <LoadingComponent text="Charging anime data..." />
+            <LoadingComponent size="small" />
           ) : isError ? (
             <ErrorComponent text={isError} />
           ): searchList.length === 0 ? (
             <p>no se ha encontrado ningún anime con ese nombre</p>
           ) : (
             searchList.map((anime: AnimeCardType) => (
-              <div key={anime.id} className="anime-search__card" onClick={() => navigate(`/anime/${anime.id}`)}>
+              <Link to={`/anime/${anime.id}`} key={anime.id} className="anime-search__card" onClick={() => onClose()}>
                 <img className="anime-search__card-img" src={anime.image} />
-                <p>{anime.title}</p>
-              </div>
+                <p className="anime-search__card-tittle">{anime.title}</p>
+              </Link>
             ))
           )}
-          <button className="btn btn--small btn-search-more" onClick={() => navigate(`/search/anime?q=${animeToSearch}`)}> View More ({totalItems})</button>
+          <Link to={`/search/anime?q=${animeToSearch}`} className="btn btn--small btn-search-more" onClick={() => onClose()}> View More ({totalItems})</Link>
         </div>
       )}
       </div>

@@ -2,7 +2,7 @@ import type { AnimeCardType } from "../anime-list/anime-list.type";
 import type { JikanAnimeListType } from "../jikan-API.type";
 
 export function mapJikanAnimeSearch(data: JikanAnimeListType[]) : AnimeCardType[] {
-  return data.map((anime): AnimeCardType => ({
+  const dataMapped =  data.map((anime): AnimeCardType => ({
     id: anime.mal_id,
     title: anime.title,
     image: anime.images.webp.large_image_url,
@@ -11,4 +11,15 @@ export function mapJikanAnimeSearch(data: JikanAnimeListType[]) : AnimeCardType[
     year: anime.year ?? null,
     type:anime.type
   }));
+
+   const arrayAnimesID: number[]=  []
+
+   return dataMapped.filter((anime) => {
+    if(arrayAnimesID.includes(anime.id)){
+      return false
+    }else{
+      arrayAnimesID.push(anime.id)
+      return true
+    }
+  })
 }

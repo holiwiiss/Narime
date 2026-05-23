@@ -1,3 +1,7 @@
+.all-content-max {
+    max-width: var(--max-width-content);
+}
+
 .directory__options {
     display: flex;
     justify-content: space-between;
@@ -26,3 +30,6 @@
     padding-bottom: var(--space-xxl);
 }
 
+.container--chargin {
+    width: 100%;
+}

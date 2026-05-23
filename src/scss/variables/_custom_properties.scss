@@ -1,5 +1,6 @@
 :root {
     --menu-height: 60px;
+    --max-width-content: 1600px;
     /*      BORDER RADIUS       */
     --border-radius-xs: 0.25rem; /* 4px */
     --border-radius-s: 0.5rem;   /* 8px */
@@ -23,6 +24,7 @@
     --space-xxl: 3rem;    /* 48px */
     --space-xxxl: 4rem;    /* 48px */
     --space-4xl: 6rem;    /* 96px */
+    --space-5xl: 8rem;    
 
     /*      FONT SIZE: SCALE        */
     --font-size-1: 0.75rem;   /* 12px */

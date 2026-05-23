@@ -14,6 +14,7 @@
 .buscar__anime  {
     width: 100%;
     border: none;
+    outline: none;
     background-color: transparent;
 }
 
@@ -30,7 +31,7 @@
 
     display: flex;
     flex-direction: column;
-    max-width: 520px;
+    max-height: 520px;
 }
 
 .anime-search__card {
@@ -39,7 +40,7 @@
     border-radius: var(--border-radius-xs);
     padding: var(--space-xs);
     background-color: var(--color-black-bg);
-    gap: var(--space-xs);
+    gap: var(--space-m);
 }
 
 .anime-search__card:hover {
@@ -52,6 +53,14 @@
     object-fit: cover;
     object-position: center;
     border-radius: 2px;
+}
+
+.anime-search__card-tittle {
+    display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;  
+    line-clamp: 2;  
+    overflow: hidden;    
 }
 .btn-search-more {
     margin-top: var(--space-xs);

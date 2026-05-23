@@ -21,6 +21,7 @@ const LoginPage = () => {
 
   return (
     <>
+    <div className="bg-img-login">
     <main className="login-page">
       <section className="login-page__info">
 
@@ -87,6 +88,7 @@ const LoginPage = () => {
         <Link to="/register"> <p className="login-page__form-sing-up">You don't have account? Register here</p> </Link>
       </section>
     </main>
+    </div>
     </>
   );
 };

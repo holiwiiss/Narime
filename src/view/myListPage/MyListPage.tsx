@@ -186,7 +186,7 @@ return(
     </div>
 
     {isLoading ? (
-      <LoadingComponent text="Chargin animes..." />
+      <LoadingComponent/>
     ) : isError ? (
       <ErrorComponent text="Ha habido un error con la API" />
     ) : listToShow.length === 0 && searchAnime ? (

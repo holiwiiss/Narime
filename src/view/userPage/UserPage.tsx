@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { getUserInformation } from "../../firebase/services/user-information.firebase";
 import "./userPage.scss"
 import { useMyAnimeList } from "../../context/MyListContext";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
@@ -11,20 +10,16 @@ import { ModalAddFavorites } from "../../components/modals/ModalAddFavorite/Moda
 import { ModalRemoveFavorites } from "../../components/modals/ModalRemoveFavorite/ModalRemoveFavorite";
 import LoadingComponent from "../../components/loading/LoadingComponent";
 import ErrorComponent from "../../components/error/ErrorComponent";
+import { useUserData } from "../../hooks/useUserData";
 
 const UserPage = () => {
 
   const { user } = useAuth()
-  const {myList} = useMyAnimeList()
+  const { myList } = useMyAnimeList()
+  const { isLoadingUser, isErrorUser, userData} = useUserData()
   
   const [isOpenAddFavorite, setIsOpenAddFavorite] = useState<boolean>(false)
   const [isOpenRemoveFavorite, setIsOpenRemoveFavorite] = useState<boolean>(false)
-
-  const {isLoading: isLoadingUser, isError: isErrorUser, data: userData = null} = useQuery({
-    queryKey: ["userData", user?.uid],
-    queryFn: () => getUserInformation(user!.uid),
-    enabled: !!user,
-  })
 
   const list = userData?.animeFavs ?? []
 

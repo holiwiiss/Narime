@@ -37,7 +37,7 @@ const AnimePage = () => {
       modalAddEdit.openModal(anime.id, anime.episodes, userData);
   };
 
-  if (isLoading) return <LoadingComponent text="Cargando datos del anime..." />
+  if (isLoading) return <LoadingComponent />
   if (isError) return <ErrorComponent text="Ha habido un error al obtener los datos del anime" />
 
   return (

@@ -1,5 +1,5 @@
 .user-page__content {
-    max-width: 1920px;
+    max-width: var(--max-width-content);
     padding: 0 var(--space-xxl);
     display: flex;
     flex-direction: column;
