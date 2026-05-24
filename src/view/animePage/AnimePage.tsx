@@ -211,7 +211,7 @@ const AnimePage = () => {
                     <h3 className="more-information--item-tittle">Genres</h3>
                     <div className="more-information--item-subtittle-container">
                       {animeInfo.genres.map((g)=> (
-                        <p className="more-information--item-subtittle">{g}  </p>
+                        <p className="more-information--item-subtittle">{g} </p>
                       ))}
                     </div>
                   </div>
