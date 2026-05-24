@@ -161,8 +161,9 @@ const MyListPage = () =>{
 
 return(
   <>
-    <div className="my-list__options tab__container">
-      <div className="tab__buttons">
+  <div className="all-content-max">
+    <div className="my-list__options tab__container my-list__options-real">
+      <div className="tab__buttons tab__buttons--my-list">
         <button className={`tab-option ${activeCategory === 'all' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("all")}>All <span className="tab-option__count icon-size-m">{countersList.all}</span></button>
         <button className={`tab-option ${activeCategory === 'watching' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("watching")}>Watching <span className="tab-option__count icon-size-m">{countersList.watching}</span></button>
         <button className={`tab-option ${activeCategory === 'completed' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("completed")}>Completed <span className="tab-option__count icon-size-m">{countersList.completed}</span></button>
@@ -224,6 +225,7 @@ return(
             onClose={modalAddEdit.closeModal}
             />
           )}
+    </div>
   </>
 )
 }

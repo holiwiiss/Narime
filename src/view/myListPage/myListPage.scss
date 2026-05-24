@@ -5,19 +5,49 @@
     padding: 0 var(--space-xxl);
     @include md{
         padding: 0 var(--space-xl);
+        flex-direction: column;
     }
     @include sm{
       padding: 0 var(--space-m);
     }
-     @include xs{
+    @include xs{
         padding: 0 var(--space-xs);
     }
 }
+.my-list__options-real{
+     @include md{
+        border:none;
+    }
+    
+}
+.tab__buttons--my-list{
+    @include md{
+        border-bottom: 1px solid var(--color-white-20);
 
+    }
+    @include xs{
+        overflow-x: auto;
+        white-space: nowrap;  
+        scrollbar-width: none; 
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
 .my-list__filters {
     display: flex;
     align-items: center;
     gap: var(--space-m);
+    @include lg{
+      gap: var(--space-s);
+    }
+    @include md{
+        padding-top: var(--space-s);
+        justify-content: space-between;
+    }
+    @include xs{
+        padding-top: var(--space-xxs);
+    }
 }
 
 .my-list__selector {
@@ -33,6 +63,11 @@
     gap: var(--space-xs);
     border-radius: var(--border-radius-s);
     background-color: var(--color-white-10);
+    @include xs{
+        padding: var(--space-xxs) var(--space-xxs);
+        border-radius: var(--border-radius-xs);
+        gap: var(--space-xxs);
+    }
 }
 
 .my-list__input {
@@ -41,6 +76,17 @@
     padding: 0;
     background-color: transparent;
     border-radius: 0;
+    @include lg{
+      width: 125px;
+      font-size: var(--font-size-2);
+    }
+    @include md{
+         width: 175px;
+    }
+    @include xs{
+         width: 100px;
+         font-size: var(--font-size-1);
+    }
 }
 
 .my-list__empty-state__container {

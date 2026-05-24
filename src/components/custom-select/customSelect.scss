@@ -1,3 +1,5 @@
+@use "../../scss/mixin/" as *;
+
 .custom-select {
   position: relative;
 
@@ -10,6 +12,22 @@
     padding: var(--space-s) var(--space-m);
     width: 200px;
     height: 39px;
+
+    @include lg{
+      padding: var(--space-xs) var(--space-s);
+      gap: var(--space-xs);
+      width: 175px;
+      height: 36px;
+      font-size: var(--font-size-2);
+    }
+    
+    @include xs{
+      width: 149px;
+      font-size: var(--font-size-1);
+      padding: var(--space-xxs) var(--space-xs);
+      height: 26px;
+    }
+
   }
 
   &__dropdown {
@@ -17,6 +35,9 @@
     inset: 106% 0 auto 0;
     z-index: 3;
     overflow: hidden;
+    @include xs{
+      font-size: var(--font-size-1);
+    }
   }
 
   &__option {

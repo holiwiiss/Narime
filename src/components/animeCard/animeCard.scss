@@ -185,6 +185,11 @@
     @include sm{
         line-height: 1.2;
         font-size: var(--font-size-1);
+        display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp:2;  
+        line-clamp: 2;  
+        overflow: hidden; 
     }
 }
 .anime-card__button  {
