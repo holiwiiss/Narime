@@ -1,3 +1,5 @@
+@use "../mixin" as *;
+
 .tab__container {
     display: flex;
     border-bottom: 1px solid var(--color-white-20);
@@ -8,6 +10,9 @@
     display: flex;
     gap: var(--space-s);
     width: 100%;
+    @include xs{
+        gap: var(--space-xs);
+    }
 }
 
 // si se modifica el padding de arriba y abajo, modificar mas abajo tambien
@@ -20,6 +25,17 @@
     color: var(--color-white);
     position: relative;
     gap: var(--space-xs);
+
+    @include lg{
+        padding: var(--space-m) var(--space-m);
+    }
+    @include sm{
+        padding: var(--space-s) var(--space-s);
+        font-size: var(--font-size-1);
+    }
+    @include xs{
+        padding: var(--space-xs) var(--space-xs);
+    }
 }
 
 .tab-option--small{
@@ -35,6 +51,9 @@
     height: 5px;
     background: var(--color-red-primary);
     transition: left 0.25s ease, right 0.25s ease;
+    @include sm{
+        height: 3px;
+    }
 }
 
 .tab-option__count {
@@ -54,6 +73,9 @@
 //Aqui
 .tab-option__selected {
     padding-bottom: calc(var(--space-m) - 4px);
+    @include sm{
+        padding-bottom:calc(var(--space-s) - 2px);
+    }
 }
 .tab-option__selected--small {
     padding-bottom: var(--space-m);

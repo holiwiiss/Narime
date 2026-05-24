@@ -1,6 +1,17 @@
+@use "../../scss/mixin/" as *;
+
 .my-list__options{
     justify-content: space-between;
     padding: 0 var(--space-xxl);
+    @include md{
+        padding: 0 var(--space-xl);
+    }
+    @include sm{
+      padding: 0 var(--space-m);
+    }
+     @include xs{
+        padding: 0 var(--space-xs);
+    }
 }
 
 .my-list__filters {

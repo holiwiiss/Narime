@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 :root {
     --menu-height: 60px;
     --max-width-content: 1600px;
@@ -27,6 +29,7 @@
     --space-5xl: 8rem;    
 
     /*      FONT SIZE: SCALE        */
+    --font-size-0: 0.5rem;   /* 12px */
     --font-size-1: 0.75rem;   /* 12px */
     --font-size-2: 0.875rem;  /* 14px */
     --font-size-3: 1rem;      /* 16px */
@@ -62,24 +65,4 @@
 
     --label-size: var(--font-size-2);
     --input-txt-size: var(--font-size-3);
-}
-
-@font-face {
-  font-family: "Inter";
-  src: 
-    url("../../assets/fonts/Inter.woff2") format("woff2"),
-    url("../../assets/fonts/Inter.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Bebas Neue";
-  src: 
-    url("../../assets/fonts/BebasNeue.woff2") format("woff2"),
-    url("../../assets/fonts/BebasNeue.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
 }
