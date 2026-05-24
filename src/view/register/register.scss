@@ -1,9 +1,10 @@
+@use "../../scss/mixin/" as *;
+
 .register-page {
-    height: calc(100vh - 50px);
     width: 100vw;
     display: flex;
     justify-content: center;
-    padding: var(--space-l);
+    padding: var(--space-m);
     background-image: linear-gradient(
             to top,
             rgba(0, 0, 0, 0.7),
@@ -11,6 +12,9 @@
         ), url(../../assets/images/fondo_singUp.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    @include sm {
+        padding: 0;
+    }
 }
 
 .register-page__form-section {
@@ -20,11 +24,30 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-
-    padding: 0 var(--space-xxxl);
+    padding: var(--space-xxl) var(--space-xxxl);
     background-color: var(--color-black-75);
-    border-radius: var(--border-radius-xl);
+    backdrop-filter: blur(5px);
+    border-radius: var(--border-radius-l);
+    border: 1px solid var(--color-white-20);
     gap: var(--space-l);
+    @include lg {
+        width: 60%;
+        transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.35s ease;
+    }
+    @include md {
+        width: 80%;
+        transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.35s ease;
+    }
+    @include sm {
+        width: 100%;
+        border: none;
+        border-radius: 0;
+        padding: var(--space-l) var(--space-xl);
+        transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.35s ease;
+    }
+    @include xs {
+        padding: var(--space-m) var(--space-l);
+    }
 }
 
 .register-page__tittle {

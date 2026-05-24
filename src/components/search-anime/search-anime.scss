@@ -1,3 +1,5 @@
+@use "../../scss/mixin/" as *;
+
 .search-input-wrap {
   overflow: hidden;
   max-width: 0;
@@ -16,6 +18,9 @@
     border: none;
     outline: none;
     background-color: transparent;
+    @include sm{
+        font-size: var(--font-size-1);
+    }
 }
 
 .all-search__content {
@@ -26,6 +31,9 @@
     display: flex;
     flex-direction: column;
     max-height: 520px;
+    @include sm{
+        inset: 100% 0 auto 0;
+    }
 }
 
 .anime-search__card {
@@ -58,6 +66,7 @@
 }
 .btn-search-more {
     margin-top: var(--space-xs);
+    text-align: center;
 }
 .btn-search-more:hover {
     transform: scale(1);
