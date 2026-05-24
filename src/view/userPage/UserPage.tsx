@@ -72,7 +72,7 @@ const UserPage = () => {
               <h2>Tus favoritos</h2>
               <button className="btn" onClick={() => setIsOpenRemoveFavorite(true)}>Edit favorites</button>
             </div>
-              <div className="anime-cards__container">
+              <div className="anime-favorites__container">
                 {isLoadingFavorites ? (
                   <LoadingComponent></LoadingComponent>
                 ) : isErrorFavorites ? (

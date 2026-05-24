@@ -1,10 +1,22 @@
-.user-page__content {
+@use "../../scss/mixin/" as *;
+
+.user-page__content{
     max-width: var(--max-width-content);
+    width: 100%;
     padding: 0 var(--space-xxl);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    @include md {
+        padding: 0 var(--space-xl);
+    }
+    @include sm {
+        padding: 0 var(--space-m);
+    }
+    @include xs {
+        padding: 0 var(--space-xs);
+    }
 }
 .user-page__header {
     width: 100%;
@@ -12,6 +24,15 @@
     display: flex;
     flex-direction: column;
     padding: var(--space-xxl) 0;
+    @include md {
+        padding: var(--space-xl) 0;
+    }
+    @include sm {
+        padding: var(--space-m) 0;
+    }
+    @include xs {
+        padding: var(--space-s) 0;
+    }
 
     &--banner{
         height: 250px;
@@ -25,7 +46,16 @@
         justify-content: space-between;
         align-items: flex-end;
         padding: var(--space-l);
+        @include md {
+            padding: var(--space-m);
+            border-radius: var(--border-radius-m);
+        }
+        @include sm {
+            flex-direction:row-reverse;
+            align-items: start;
+        }
     }
+    
 }
 .user-page__social--info {
     background-color: var(--color-white-15);
@@ -34,6 +64,12 @@
     display: flex;
     padding: var(--space-m);
     gap: var(--space-m);
+    
+    @include md {
+        padding: var(--space-s);
+        gap: var(--space-s);
+        border-radius: var(--border-radius-s);
+    }
 }
 
 .user-page__social--item {
@@ -45,6 +81,9 @@
         font-size: var(--font-size-9);
         font-family: var(--font-primary);
         line-height: 0.8;
+        @include md {
+            font-size: var(--font-size-7);
+        }
     }
     &--text {
         font-size: var(--font-size-1);
@@ -63,11 +102,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    @include md {
+        height: 150px;
+        width: 150px;
+    }
 }
 
 .banner-user--img {
     height: 150px;
     width: 150px;
+    @include md {
+        height: 100px;
+        width: 100px;
+    }
 }
 
 .user-page__header-user-info{
@@ -76,6 +123,15 @@
     flex-direction: column;
     align-items: center;
     gap: var(--space-s);
+    @include md {
+        margin-top: var(--space-xxl);
+        gap: var(--space-xxs);
+    }
+}
+.user-page__header-user-info > h1 {
+    @include md {
+        font-size: var(--font-size-7);
+    }
 }
 
 .user-page__favorites-container {
@@ -84,19 +140,27 @@
     background-color: var(--color-white-10);
     border-radius: var(--border-radius-l);
     border:1px solid var(--color-white-20);
-    
+    padding: var(--space-l);
+    @include md {
+        padding: var(--space-m);
+        border-radius: var(--border-radius-m);
+    }
+}
+.anime-favorites__container {
+    display: flex;
+    gap: var(--space-xl);
 }
 
 .user-page__favorites--header {
     display: flex;
     justify-content: space-between;
-    padding: var(--space-xxl);
-    padding-bottom: 0;
+    padding: var(--space-l) auto;
+    margin-bottom: var(--space-l);
 }
 
 .favorite--add_btn {
-    width:calc((100% - 128px) / 5);
-    height: 400px;
+    width: calc((100% - 128px) / 5);
+    aspect-ratio: 2 / 3.25;
     display: flex;
     align-items: center;
     justify-content: center;
