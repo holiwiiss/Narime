@@ -25,6 +25,7 @@ const SearchResultsPage = () => {
 
   return (
     <>
+    <div className="all-content-max">
       <h1 className="search-page__title">Aqui tienes los resultados de tu búsqueda...</h1>
 
       {isLoading ? (
@@ -62,6 +63,7 @@ const SearchResultsPage = () => {
         onClose={modalAddEdit.closeModal}
         />
       )}
+      </div>
     </>
   );
 };
