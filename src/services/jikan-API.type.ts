@@ -92,6 +92,19 @@ export interface JikanAnimeCharactersType {
   }[],
 }
 
+export interface JikanAnimeRecomendations {
+  entry:{
+    mal_id: number,
+    url: string,
+    images: {
+      webp: {
+        large_image_url: string;
+      }
+    }
+    title: string;
+  }
+}
+
 export interface JikanAnimeGenresType {
   mal_id: number,
   name: string,

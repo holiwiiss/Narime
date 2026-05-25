@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
-import { getAnimeInformationTypeList } from "../../services/anime-information/anime-information";
-import type { AnimePersonalStatusType, UserAnimeListFirestoreType } from "../../firebase/services/firestoreService.type";
+import type { AnimePersonalStatusType } from "../../firebase/services/firestoreService.type";
 import { useAnimeModal } from "../../hooks/useAnimeModal";
 import ModalAddEditAnime from "../../components/modalAddEditAnime/ModalAddEditAnime";
 import { useMyAnimeList } from "../../context/MyListContext";
@@ -12,20 +11,8 @@ import "./myListPage.scss"
 import LoadingComponent from "../../components/loading/LoadingComponent";
 import ErrorComponent from "../../components/error/ErrorComponent";
 import { useQuery } from "@tanstack/react-query";
-import { delay } from "../../utils/delay";
 import CustomSelect from "../../components/custom-select/CustomSelect";
-
-const fetchMyList = async (myList: UserAnimeListFirestoreType[]) => {
-  const results: AnimeCardType[] = [];
-  
-  for (const anime of myList) {
-    const data = await getAnimeInformationTypeList(anime.animeId);
-    results.push(data);
-    await delay(400); 
-  }
-  
-  return results;
-}
+import { fetchMyList } from "../../queries/my-list-information";
 
 const MyListPage = () =>{
 

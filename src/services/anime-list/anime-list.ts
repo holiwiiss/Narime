@@ -110,6 +110,20 @@ export async function getTrendingAnimes(numPage:number): Promise<AnimeListRespon
   };
 }
 
+export async function getUpcomingAnimes(numPage:number): Promise<AnimeListResponse> {
+  const { data } = await jikanApiUrl.get<{ data: JikanAnimeListType[], pagination: JikanPaginationType}>("/seasons/upcoming", {
+    params: {
+      page: numPage,
+      sfw: true,
+    },
+  });
+
+  return {
+    animes: mapJikanAnimeList(data.data),
+    pagination: mapJikanAnimePagination(data.pagination),
+  };
+}
+
 /*
 export async function getAnimesFiltered(genre:string, year:number, type:string, numPage:number):Promise<AnimeListResponse> {
   

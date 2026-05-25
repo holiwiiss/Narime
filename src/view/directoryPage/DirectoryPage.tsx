@@ -9,6 +9,7 @@ import { useDirectoryAnimes } from "../../hooks/useDirectoryAnime";
 import { useMyListMap } from "../../hooks/useMyListMap";
 import { useAnimeModal } from "../../hooks/useAnimeModal";
 import type { CategoryType } from "../../queries/directory.type";
+import ParaTi from "../../components/paraTi/ParaTi";
 
 const DirectoryPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -32,13 +33,16 @@ const DirectoryPage = () => {
     <section className="all-content-max">
       <div className="my-list__options tab__container">
         <div className="tab__buttons">
+          <button className={`tab-option ${category === 'para ti' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => activateFilter("para ti")}> Para ti </button>
           <button className={`tab-option ${category === 'top' ? "tab-option__selected" : "tab-option__unselected"}`}  onClick={() => activateFilter("top")}>Top animes</button>
           <button className={`tab-option ${category === 'trending' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => activateFilter("trending")}>Trending</button>
           <button className={`tab-option ${category === 'seasonal' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => activateFilter("seasonal")}>Seasonal</button>
+          <button className={`tab-option ${category === 'upcoming' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => activateFilter("upcoming")}>Upcoming</button>
         </div>
       </div>
-
-      {animeList.length > 0 ? (
+      {category === "para ti" ? (
+        <ParaTi />
+      ) : animeList.length > 0 ? (
         <>
         <div className="anime-cards__container">
           {animeList.map((anime: AnimeCardType) => (

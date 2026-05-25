@@ -17,6 +17,7 @@ export const useDirectoryAnimes = (category: CategoryType) => {
       queryFn: fecthAnimesDirectory,
       getNextPageParam: (lastPage) => lastPage.nextPage,
       initialPageParam: 1,
+      enabled: category !== "para ti", 
     });
 
   return {
