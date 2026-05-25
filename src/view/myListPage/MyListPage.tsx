@@ -197,6 +197,7 @@ return(
                   anime={anime}
                   userData={getUserListData(anime.id)}
                   onOpenModal={() => openAddEditModal(anime)}
+                  variant = "mylist"
                 >
                 </AnimeCard>
               ))}

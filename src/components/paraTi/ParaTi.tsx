@@ -8,15 +8,24 @@ import AnimeCard from "../animeCard/AnimeCard";
 import type { AnimeRecomendationCardType } from "../../services/anime-recommendations/anime-recommendations.type";
 import { getRecomendationsAnimes } from "../../services/anime-recommendations/anime-recommendations";
 import { useMemo } from "react";
+import { useMyListMap } from "../../hooks/useMyListMap";
+import { useAnimeModal } from "../../hooks/useAnimeModal";
+import ModalAddEditAnime from "../modalAddEditAnime/ModalAddEditAnime";
+import type { UserAnimeListFirestoreType } from "../../firebase/services/firestoreService.type";
+import "./parati.scss"
 
-const fecthAnimesRecommendations = async (animeId:number) => {
-  const data: AnimeRecomendationCardType[] = await getRecomendationsAnimes(animeId)
-  return data
+const fecthAnimesRecommendations = async (animeId:number, getUserListData: (id: number) => UserAnimeListFirestoreType | undefined
+) => {
+  const data = await getRecomendationsAnimes(animeId)
+  return data.filter(a => !getUserListData(a.id)) 
 }
 
 const ParaTi = () => {
   
   const {myList} = useMyAnimeList()
+  const  { getUserListData } = useMyListMap()
+  const modalAddEdit = useAnimeModal();
+
   const myListWatching = myList.filter(a => a.statusPersonal === "watching")
   const scoreCompleted = myList.filter(a => a.scorePersonal && a.statusPersonal === "completed")
   const betterScore = scoreCompleted.filter(a =>  a.scorePersonal && a.scorePersonal > 7)
@@ -40,10 +49,14 @@ const ParaTi = () => {
 
   const {isLoading: isLoadingRecommendations, isError: isErrorRecommendations, data: recommendationsList} = useQuery({
     queryKey:["recommendationsList", randomId],
-    queryFn: () => fecthAnimesRecommendations(randomId),
+    queryFn: () => fecthAnimesRecommendations(randomId, getUserListData),
     enabled: myList.length > 0
   })
 
+  const openAddEditModal = (anime: AnimeCardType) => {
+    const userData = getUserListData(anime.id);
+    modalAddEdit.openModal(anime.id, anime.episodes, userData);
+  };
 
   return (
     <>
@@ -52,14 +65,20 @@ const ParaTi = () => {
       ) : !isLoadingWatching && isErrorWatching ? (
         <ErrorComponent text="Ha ocurrido un errorr"></ErrorComponent>
       ): myAnimeListWatching && myAnimeListWatching.length > 0  ? (
-        <section>
+        <>
+        <h1 className="para-ti__title">Ahora mismo estas viendo...</h1>
+        <section className="anime-cards__container">
           {myAnimeListWatching.map((anime: AnimeCardType) => (
-                      <AnimeCard
-                        key={anime.id}
-                        anime={anime}
-                      />
+            <AnimeCard
+              key={anime.id}
+              anime={anime}
+              userData={getUserListData(anime.id)}
+              onOpenModal={() => openAddEditModal(anime)}
+              variant="mylist"
+            />
           ))}
         </section>
+        </>
       ) : (
         <>
         </>
@@ -70,21 +89,32 @@ const ParaTi = () => {
       ) : !isLoadingRecommendations  && isErrorRecommendations ? (
         <ErrorComponent text="Ha habido un error"></ErrorComponent>
       ) : recommendationsList && recommendationsList?.length ? (
-        <section>
-          {scoreCompleted.length > 0 && betterScoreID.length > 0  ? (<h1>Porque te gustó x</h1>): (<h1>Recomendaciones para emprezar</h1>)}
+        <>
+          {scoreCompleted.length > 0 && betterScoreID.length > 0  ? (<h2 className="para-ti__subtitle">Porque te gustó x</h2>): (<h2 className="para-ti__subtitle">Recomendaciones para empezar</h2>)}
+          <section className="anime-cards__container">
           {recommendationsList.map((anime: AnimeRecomendationCardType) => (
-            <div>
-              <h1>{anime.title}</h1>
-
-            </div>
+                      <AnimeCard
+                        key={anime.id}
+                        anime={anime}
+                        variant="recomendations"
+                      />
           ))}
         </section>
+        </>
       ) : (
         <>
           <h1> No hay recomendaciones </h1>
         </>
       )}
-
+        {modalAddEdit.isOpen && modalAddEdit.animeId &&(
+          <ModalAddEditAnime
+          animeId={modalAddEdit.animeId}
+          totalEpisodes = {modalAddEdit.animeEpisodes}
+          action={modalAddEdit.action}
+          infoDocIdUserAnime = {modalAddEdit.infoDocIdFromUser}
+          onClose={modalAddEdit.closeModal}
+        />
+      )}
     </>
   );
 };

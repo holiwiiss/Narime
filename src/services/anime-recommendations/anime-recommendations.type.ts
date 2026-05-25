@@ -2,4 +2,9 @@ import type { AnimeInformationType } from "../anime-information/anime-informatio
 
 export type AnimeRecomendationCardType = Pick <
 AnimeInformationType, 
-"id" | "title" | "image">
+"id" | "title" | "image"> & {
+  score?: number;
+  episodes?: number;
+  type?: string;
+  year?: number;
+}

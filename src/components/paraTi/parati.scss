@@ -1,0 +1,31 @@
+@use "../../scss/mixin/" as *;
+
+.para-ti__title {
+    padding: var(--space-xl) var(--space-xxl);
+    padding-bottom: 0;
+    @include md{
+        padding: var(--space-l) var(--space-xl);
+        padding-bottom: 0;
+    }
+    @include sm{
+        padding: var(--space-m) var(--space-m);
+        padding-bottom: 0;
+    }
+    @include xs{
+        padding: var(--space-xs) var(--space-xs);
+        padding-bottom: 0;
+    }
+}
+
+.para-ti__subtitle {
+    padding: 0 var(--space-xxl);
+    @include md{
+        padding: 0 var(--space-xl);
+    }
+    @include sm{
+        padding: 0 var(--space-m);
+    }
+    @include xs{
+        padding: 0 var(--space-xs);
+    }
+}

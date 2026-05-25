@@ -51,6 +51,7 @@ const DirectoryPage = () => {
               anime={anime}
               userData={getUserListData(anime.id)}
               onOpenModal={() => openAddEditModal(anime)}
+              variant={category === 'upcoming' ? "upcoming" : "directory"}
             />
           ))}
         </div>

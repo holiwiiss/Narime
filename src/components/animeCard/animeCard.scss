@@ -4,7 +4,7 @@
     // Quiero 5 tarjetas por fila, pues 100%/ 5 = 20% - 128 ya que el gap es de 32px,
     // 32 x 4 = 192, cuatro espacios  intermedios entre tarjetas /5 tarjetas a las que dividir el espacio
     width:calc((100% - 128px) / 5);
-    aspect-ratio: 2 / 3.25;
+    aspect-ratio: 2 / 3;
     display: flex;
     flex-direction: column;
     gap: var(--space-s);
@@ -108,16 +108,18 @@
 }
 
 .anime-card__user-status {
-    padding: var(--space-xxs) var(--space-xs);
+    padding: var(--space-xxs) var(--space-s);
+    background-color: var(--color-black-25);
+    border: solid 1px var(--color-white-75);
     border-radius: var(--border-radius-s);
-    color: var(--color-text-dark);
-    background-color: var(--color-white);
+    color: var(--color-white);
+    backdrop-filter: blur(5px);
      @include sm{
         padding: var(--space-xxs);
         border-radius: var(--border-radius-xs);
     }
 }
-
+/*
 .anime-card__user-status[data-status="completed"] {
     background-color:var(--color-completed);
 }
@@ -131,12 +133,13 @@
 }
 .anime-card__user-status[data-status="planToWatch"] {
     background-color:var(--color-plan-to-watch);
-}
+}*/
 
 .anime-card__footer {
     display: flex;
     flex-direction: column;
-    gap: var(--space-xs);
+    
+    
     z-index: 1;
     @include sm{
         gap: var(--space-xxs);
@@ -150,6 +153,7 @@
     align-items: end;
     gap: var(--space-xs) ;
     padding: 0 var(--space-s);
+    padding-bottom: var(--space-xs);
     @include sm{
         padding: 0 var(--space-xxs);
         gap: var(--space-xxs);
@@ -207,7 +211,6 @@
        display: none;
     }
 }
-
 
 .anime-card__progressbar {
     width: 100%;

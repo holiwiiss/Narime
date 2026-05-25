@@ -5,16 +5,23 @@ import { useNavigate} from "react-router-dom";
 import "./animeCard.scss"
 import { calculateWidth } from "../../utils/calculateWidth";
 import { formatStatus } from "../../utils/formatStatus";
+import type { AnimeRecomendationCardType } from "../../services/anime-recommendations/anime-recommendations.type";
 
 type PropsAnimeCard = {
-  anime: AnimeCardType;
+  anime: AnimeCardType | AnimeRecomendationCardType;
   userData?: UserAnimeListFirestoreType;
   onOpenModal?: (animeId: number) => void;
-  variant?: "default" | "minimal";
+  variant?: "default" | "minimal" | "directory" | "upcoming" | "mylist" | "recomendations" ;
 }
 
 const AnimeCard = ({anime, userData, onOpenModal, variant="default"}: PropsAnimeCard) => {
+
   const isMinimal = variant === "minimal"
+  const isDirectory = variant === "directory"
+  const isUpcoming = variant === "upcoming"
+  const isMyList = variant === "mylist"
+  const isRecommendations = variant ==="recomendations"
+
   const navigate = useNavigate()
 
   return(
@@ -22,14 +29,25 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default"}: PropsAnime
       <article className="anime-card" onClick={()=> navigate(`/anime/${anime.id}`)}>
         <img className="anime-card-img" src={anime.image} alt={anime.title}></img>
         <header className="anime-card__header">
-          <div className="anime-card__score">
 
+        {isRecommendations || isMinimal? (
+          <></>
+        ): isMyList ? (
+          <div className="anime-card__score">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="var(--color-red-primary)" className="size-4 icon-size-m">
+              <path fillRule="evenodd" d="M8 1.75a.75.75 0 0 1 .692.462l1.41 3.393 3.664.293a.75.75 0 0 1 .428 1.317l-2.791 2.39.853 3.575a.75.75 0 0 1-1.12.814L7.998 12.08l-3.135 1.915a.75.75 0 0 1-1.12-.814l.852-3.574-2.79-2.39a.75.75 0 0 1 .427-1.318l3.663-.293 1.41-3.393A.75.75 0 0 1 8 1.75Z" clipRule="evenodd" />
+            </svg>
+            <p className="anime-card__score-text">{userData?.scorePersonal ?? "N/A"}</p>
+          </div>
+        ) : (
+          <div className="anime-card__score">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#CFA80B" className="size-4 icon-size-m">
               <path fillRule="evenodd" d="M8 1.75a.75.75 0 0 1 .692.462l1.41 3.393 3.664.293a.75.75 0 0 1 .428 1.317l-2.791 2.39.853 3.575a.75.75 0 0 1-1.12.814L7.998 12.08l-3.135 1.915a.75.75 0 0 1-1.12-.814l.852-3.574-2.79-2.39a.75.75 0 0 1 .427-1.318l3.663-.293 1.41-3.393A.75.75 0 0 1 8 1.75Z" clipRule="evenodd" />
             </svg>
-
             <p className="anime-card__score-text">{anime.score ?? "N/A"}</p>
           </div>
+        )}
+          
 
           {!isMinimal && userData && (<span className="anime-card__user-status" data-status={userData.statusPersonal}>{formatStatus(userData.statusPersonal)}</span>)}
         </header>
@@ -37,10 +55,18 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default"}: PropsAnime
         <footer className="anime-card__footer">
           <div className="anime-card__options">
             <div className="anime-card__info">
-              <p className="anime-card__episodes"> {!isMinimal && userData ? `${userData.episodesWatched} / ${anime.episodes} episodes` : `${anime.episodes} episodes`}</p>
+              {isRecommendations || isMinimal ? (
+                <></>
+              ): isDirectory || isUpcoming ? (
+                <p className="anime-card__meta">{anime.type} · {anime.year ?? "N/A"}</p>
+              ): (
+                <p className="anime-card__episodes"> {!isMinimal && userData ? `${userData.episodesWatched} / ${anime.episodes} episodes` : `${anime.episodes} episodes`}</p>
+              )}
               <h2 className="anime-card__title">{anime.title}</h2>
             </div>
+              
             {onOpenModal && (
+              
               <button className={`btn btn--small anime-card__button ${userData ? "btn--secondary" : ""}`} onClick={(e) => {
               e.stopPropagation()
               onOpenModal(anime.id)
@@ -57,19 +83,21 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default"}: PropsAnime
                 <span className="btn-anime-card__text">{userData ? "Edit" : "Add"}</span>
               </button>
             )}
+
+            
             
           </div>
-          {!isMinimal && (
+          {isMinimal || isDirectory || isUpcoming || isRecommendations ? (<></>):(
             <div className="anime-card__progressbar">
-            {userData && (
-              <div className="anime-card__progressbar-content" 
-              style={{ width: `${calculateWidth(anime.episodes, userData.episodesWatched)}%`}}></div>
-            )}
-          </div>
+              {userData && (
+                <div className="anime-card__progressbar-content" 
+                style={{ width: `${calculateWidth(anime.episodes ?? 1, userData.episodesWatched)}%`}}></div>
+              )}
+            </div>
           )}
         </footer>
       </article>
-      {!isMinimal && (<p className="anime-card__meta">{anime.type} | {anime.year ?? "N/A"}</p>)}
+      {variant==="default"  && (<p className="anime-card__meta">{anime.type} · {anime.year ?? "N/A"}</p>)}
     </div>
   )
 };
