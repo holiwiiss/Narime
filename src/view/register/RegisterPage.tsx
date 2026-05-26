@@ -33,14 +33,14 @@ const RegisterPage = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="register-page__form">
 
           <div className="register-page__form-field">
-            <label htmlFor="username">UserName*</label>
+            <label htmlFor="username">Username*</label>
             <input
               id="username"
               type="text"
               {...register("username", { 
-                  required: 'El nombre de usuario es obligatorio', 
-                  maxLength:{value:20, message:'El máximo de carácteres son 20'},
-                  minLength:{value:3, message:'El mínimo de carácteres son 3'}
+                  required: 'Username is required', 
+                  maxLength:{value:20, message:'Maximum 20 characters'},
+                  minLength:{value:3, message:'Minimum 3 characters'}
               })}
             ></input>
             {errors.username && <span>{errors.username.message}</span>}
@@ -52,35 +52,35 @@ const RegisterPage = () => {
               id="email"
               type='email'
               {...register('email', { 
-                  required: 'Este campo es obligatorio', 
+                  required: 'This field is required', 
               })}
             ></input>
             {errors.email && <span>{errors.email.message}</span>}
           </div>
 
           <div className="register-page__form-field">
-            <label htmlFor="password">Contraseña*</label>
+            <label htmlFor="password">Password*</label>
             <input
               id="password"
               type='password'
               {...register('password', { 
-                required: 'Este campo es obligatorio', 
-                minLength: {value: 6, message: 'La contraseña debe tener al  menos 6 carácteres'},
-                pattern: {value: /^(?=.*[A-Z])(?=.*\d).+$/, message: "Debe tener una mayúscula y un número"}
+                required: 'This field is required', 
+                minLength: {value: 6, message: 'Password must be at least 6 characters'},
+                pattern: {value: /^(?=.*[A-Z])(?=.*\d).+$/, message: "Must contain one uppercase letter and one number"}
               })}
             ></input>
             {errors.password && <span>{errors.password.message}</span>}
           </div>
 
           <div className="register-page__form-field">
-            <label htmlFor="confirmPassword">Confirmar contraseña*</label>
+            <label htmlFor="confirmPassword">Confirm password*</label>
             <input
               id="confirmPassword"
               type='password'
               {...register('passwordConfirm', { 
-                  required: 'Este campo es obligatorio', 
+                  required: 'This field is required', 
                   validate: (value) =>
-                  value === passwordValue || 'Las contraseñas no coinciden',
+                  value === passwordValue || 'Passwords do not match',
               })}
             ></input>
             {errors.passwordConfirm && (<span>{errors.passwordConfirm.message}</span>)}  
@@ -91,25 +91,25 @@ const RegisterPage = () => {
               <input
                 id="terms"
                 type="checkbox"
-                {...register("confirmTerms", { required:'Este campo es obligatorio'})}
+                {...register("confirmTerms", { required:'This field is required'})}
               ></input>
-              He leido y acepto los terminos y condiciones de uso
+              I have read and accept the terms and conditions
             </label>
             {errors.confirmTerms && (<span>{errors.confirmTerms.message}</span>)}  
           </div>
-          {isError && (<span>Ha ocurrido un error creando al usuario</span>)}
-          {isLoading && (<p>Creando el usuario...</p>)}
-          <button disabled={isLoading} className="btn btn--big" type="submit">Registrarse</button>
+          {isError && (<span>An error occurred while creating the account</span>)}
+          {isLoading && (<p>Creating account...</p>)}
+          <button disabled={isLoading} className="btn btn--big" type="submit">Sign up</button>
         </form>
         
         <div className="login-page__form-separation">
           <div className="login-page__form-separation-line"></div>
-          <p className="login-page__form-separation-text">o</p>
+          <p className="login-page__form-separation-text">or</p>
           <div className="login-page__form-separation-line"></div>
         </div>
 
-        <button disabled={isLoading} className="btn btn--secondary btn--big"  onClick={registerWithGoogle}>Continua con google</button>
-        <Link to="/login"><p className="login-page__form-sing-up">Do you have account? Sign In here</p></Link>
+        <button disabled={isLoading} className="btn btn--secondary btn--big"  onClick={registerWithGoogle}>Continue with Google</button>
+        <Link to="/login"><p className="login-page__form-sing-up">Already have an account? Sign in here</p></Link>
       </section>
     </main>
     </>

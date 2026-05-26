@@ -177,16 +177,16 @@ return(
     {isLoading ? (
       <LoadingComponent/>
     ) : isError ? (
-      <ErrorComponent text="Ha habido un error con la API" />
+      <ErrorComponent text="Something went wrong" />
     ) : listToShow.length === 0 && searchAnime ? (
       <div className="my-list__empty-state__container">
         <h1>(⁠╥⁠﹏⁠╥⁠)</h1>
-        <h2>No hay ningun anime llamado asi</h2>
+        <h2>No anime found with that name</h2>
       </div>
     ) : listToShow.length === 0 ? (
       <div className="my-list__empty-state__container">
         <h1>(⁠╥⁠﹏⁠╥⁠)</h1>
-        <h2>No hay animes todavia</h2>
+        <h2>NNo anime yet</h2>
         <Link to={"/directory"} className="btn"> Add animes to your list</Link>
       </div>
     ) : (

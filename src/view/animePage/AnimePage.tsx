@@ -39,12 +39,12 @@ const AnimePage = () => {
   };
 
   if (isLoading) return <LoadingComponent />
-  if (isError) return <ErrorComponent text="Ha habido un error al obtener los datos del anime" />
+  if (isError) return <ErrorComponent text="Something went wrong loading the anime data" />
 
   return (
     <>
       {!animeInfo ? (
-        <h1>no hay anime</h1>
+        <h1>No anime found</h1>
       ) : (
         <>
         <main className="anime-page">
@@ -152,7 +152,7 @@ const AnimePage = () => {
           <footer className="anime-page__end-section">
             <div className="tab__container">
                 <div className="tab__buttons">
-                  <button className={`tab-option tab-option--small ${activeCategory === 'sinopsis' ? "tab-option__selected--small" : "tab-option__unselected"}`} onClick={() => setActiveCategory("sinopsis")}>Sinopsis</button>
+                  <button className={`tab-option tab-option--small ${activeCategory === 'sinopsis' ? "tab-option__selected--small" : "tab-option__unselected"}`} onClick={() => setActiveCategory("sinopsis")}>Synopsis</button>
                   <button className={`tab-option tab-option--small ${activeCategory === 'actors' ? "tab-option__selected--small" : "tab-option__unselected"}`} onClick={() => setActiveCategory("actors")}>Character roster</button>
                   <button className={`tab-option tab-option--small ${activeCategory === 'trailer' ? "tab-option__selected--small" : "tab-option__unselected"}`} onClick={() => setActiveCategory("trailer")}>Trailer</button>
                 </div>
@@ -184,7 +184,7 @@ const AnimePage = () => {
                   ) : (
                     <>
                       {!animeInfo.trailer || animeInfo.trailer==="" ? (
-                        <ErrorComponent text="No se ha encontrado trailer"/>
+                        <ErrorComponent text="No trailer found"/>
                       ):(
                         <iframe className="anime-page__trailer" src={animeInfo.trailer} title="YouTube video player"  ></iframe> 
                       )}

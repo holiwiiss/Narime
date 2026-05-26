@@ -67,7 +67,7 @@ const SearchAnimeComponent = ({ isOpen, onClose }: Props) => {
         setTotalItems(result.pagination.totalItems);
       } catch (e) {
         console.log("La api no responde, " + e);
-        setIsError('Ha habido un error con la carga de la API');
+        setIsError('There was an error loading the data');
       }finally{
         setIsLoading(false)
       }
@@ -106,7 +106,7 @@ const SearchAnimeComponent = ({ isOpen, onClose }: Props) => {
           ) : isError ? (
             <ErrorComponent text={isError} />
           ): searchList.length === 0 ? (
-            <p>no se ha encontrado ningún anime con ese nombre</p>
+            <p>No anime found with that name</p>
           ) : (
             searchList.map((anime: AnimeCardType) => (
               <Link to={`/anime/${anime.id}`} key={anime.id} className="anime-search__card" onClick={() => onClose()}>

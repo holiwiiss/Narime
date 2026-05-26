@@ -53,7 +53,7 @@ const UserPage = () => {
                 </div>
                 <div className="user-page__social--item">
                   <p className="user-page__social--item--number">{myList.length ?? 0}</p>
-                  <p className="user-page__social--item--text">ítems in list</p>
+                  <p className="user-page__social--item--text">items in list</p>
                 </div>
               </div>
 
@@ -69,7 +69,7 @@ const UserPage = () => {
 
           <div className="user-page__favorites-container">
             <div className="user-page__favorites--header">
-              <h2>Tus favoritos</h2>
+              <h2>Your Favorites</h2>
               <button className="btn" onClick={() => setIsOpenRemoveFavorite(true)}>Edit favorites</button>
             </div>
               <div className="anime-favorites__container">

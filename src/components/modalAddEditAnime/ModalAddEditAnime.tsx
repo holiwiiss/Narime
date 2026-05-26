@@ -85,9 +85,9 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, action, infoDocIdUserAnime, 
       <div className="popup__container">
         {!user ? (
           <>
-            <h2>¿No estás logeado?</h2>
-            <p>Inicia sesión para empezar a guardar tu progreso</p>
-            <Link to="/login" className="bton">Iniciar sesión</Link>
+            <h2>You're not logged in</h2>
+            <p>Sign in to start saving your progress</p>
+            <Link to="/login" className="bton">Sign in</Link>
           </>
         ):(
           <>
@@ -105,7 +105,7 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, action, infoDocIdUserAnime, 
               <input
                 type="number"
                 {...register('score',{
-                  min:{value:0, message: '"No negative score'},
+                  min:{value:0, message: '"No negative scores'},
                   max: {value: 10, message:'Max score is 10'}
                 })}
               ></input>
@@ -125,7 +125,7 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, action, infoDocIdUserAnime, 
               )}
               
               {action==="edit" && (
-                <a href="#" onClick={deleteAnime} className="popup__delete-anime"> delete anime to the list</a>
+                <a href="#" onClick={deleteAnime} className="popup__delete-anime">Remove anime from list</a>
               )}
 
               <button type="submit" className="btn">{action === "add" ? "Add" : "Edit"}</button>
@@ -133,7 +133,7 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, action, infoDocIdUserAnime, 
             </form>
           </>
         )}
-        <button type="button" className="btn btn--secondary" onClick={onClose}>Cerrar</button>
+        <button type="button" className="btn btn--secondary" onClick={onClose}>Close</button>
       </div>
     </div>
   );

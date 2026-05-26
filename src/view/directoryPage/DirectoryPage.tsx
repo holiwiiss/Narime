@@ -33,8 +33,8 @@ const DirectoryPage = () => {
     <section className="all-content-max">
       <div className="my-list__options tab__container">
         <div className="tab__buttons">
-          <button className={`tab-option ${category === 'para ti' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => activateFilter("para ti")}> Para ti </button>
-          <button className={`tab-option ${category === 'top' ? "tab-option__selected" : "tab-option__unselected"}`}  onClick={() => activateFilter("top")}>Top animes</button>
+          <button className={`tab-option ${category === 'para ti' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => activateFilter("para ti")}>For You</button>
+          <button className={`tab-option ${category === 'top' ? "tab-option__selected" : "tab-option__unselected"}`}  onClick={() => activateFilter("top")}>Top anime</button>
           <button className={`tab-option ${category === 'trending' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => activateFilter("trending")}>Trending</button>
           <button className={`tab-option ${category === 'seasonal' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => activateFilter("seasonal")}>Seasonal</button>
           <button className={`tab-option ${category === 'upcoming' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => activateFilter("upcoming")}>Upcoming</button>
@@ -57,7 +57,7 @@ const DirectoryPage = () => {
         </div>
         {hasNextPage && (
           <div className="directory--btn__container">
-            <button className="btn" onClick={() => fetchNextPage ()}>Cargar más animes</button>
+            <button className="btn" onClick={() => fetchNextPage ()}>Load more anime</button>
           </div>
           )}
         </>
@@ -66,11 +66,11 @@ const DirectoryPage = () => {
           <LoadingComponent />
         </div>
       ): !isLoading && isError ? (
-        <ErrorComponent text="Ha habido un error con la API" />
+        <ErrorComponent text="Something went wrong" />
       ) : !isLoading && animeList.length === 0 ? (
         <h1>(⁠╥⁠﹏⁠╥⁠)</h1>
       ) : (
-        <h1>hola</h1>
+        <h1>No anime found</h1>
       )}
 
       {modalAddEdit.isOpen && modalAddEdit.animeId &&(

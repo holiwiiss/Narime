@@ -26,14 +26,14 @@ const SearchResultsPage = () => {
   return (
     <>
     <div className="all-content-max">
-      <h1 className="search-page__title">Aqui tienes los resultados de tu búsqueda...</h1>
+      <h1 className="search-page__title">Here are your search results...</h1>
 
       {isLoading ? (
         <LoadingComponent />
       ) : !isLoading && isError ? (
-        <ErrorComponent text="Ha ocurrido un problema"/>
+        <ErrorComponent text="Something went wrong"/>
       ) : searchList.length === 0 ? (
-        <ErrorComponent text="No se han encontrado animes con ese nombre..." />
+        <ErrorComponent text="No anime found with that name..." />
       ) : (
         <div className="anime-cards__container">
           {searchList.map((anime: AnimeCardType) => (
@@ -50,7 +50,7 @@ const SearchResultsPage = () => {
       
       {hasNextPage && (
         <div className="directory--btn__container">
-          <button className="btn" onClick={() => fetchNextPage ()}>Cargar más animes</button>
+          <button className="btn" onClick={() => fetchNextPage ()}>Load more anime</button>
         </div>
       )}
 

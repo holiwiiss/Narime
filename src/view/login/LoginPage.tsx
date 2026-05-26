@@ -51,7 +51,7 @@ const LoginPage = () => {
               id="email"
               type="email"
               {...register('email', { 
-                required: 'Este campo es obligatorio', 
+                required: 'This field is required', 
               })}
             ></input>
             {errors.email && <span>{errors.email.message}</span>}
@@ -63,31 +63,31 @@ const LoginPage = () => {
               type='password'
               id="password"
               {...register('password', { 
-                required: 'Este campo es obligatorio', 
-              minLength: {value: 6, message: 'La contraseña debe tener al  menos 6 carácteres'},
-              pattern: {value: /^(?=.*[A-Z])(?=.*\d).+$/, message: "Debe tener una mayúscula y un número"}
+                required: 'This field is required', 
+              minLength: {value: 6, message: 'Password must be at least 6 characters'},
+              pattern: {value: /^(?=.*[A-Z])(?=.*\d).+$/, message: "Must contain one uppercase letter and one number"}
             })}
             ></input>
             {errors.password && <span>{errors.password.message}</span>}
           </div>
           <p className="login-page__form-forget">Forget your password?</p>
           
-          {isError && (<span>Ha ocurrido un error iniciando sesión</span>)}
-          {isLoading && (<p>Iniciando sesion del usuario...</p>)}
+          {isError && (<span>An error occurred while signing in</span>)}
+          {isLoading && (<p>Signing in...</p>)}
 
-          <button disabled={isLoading} className="btn btn--big" type="submit">Iniciar sesión</button>
+          <button disabled={isLoading} className="btn btn--big" type="submit">Sign in</button>
         
         </form>
 
         <div className="login-page__form-separation">
           <div className="login-page__form-separation-line"></div>
-          <p className="login-page__form-separation-text">o</p>
+          <p className="login-page__form-separation-text">or</p>
           <div className="login-page__form-separation-line"></div>
         </div>
 
-        <button disabled={isLoading} className="btn btn--secondary btn--big" onClick={registerWithGoogle}>Inicia sesión con google</button>
+        <button disabled={isLoading} className="btn btn--secondary btn--big" onClick={registerWithGoogle}>Sign in with Google</button>
         
-        <Link to="/register"> <p className="login-page__form-sing-up">You don't have account? Register here</p> </Link>
+        <Link to="/register"> <p className="login-page__form-sing-up">Don't have an account? Register here</p> </Link>
       </section>
     </main>
     </div>

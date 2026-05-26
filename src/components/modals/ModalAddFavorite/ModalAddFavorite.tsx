@@ -58,7 +58,7 @@ export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal)
     <>
       <div className="bg-popup">
         <div className="popup__container">
-          <h3>Añade a favoritos</h3>
+          <h3>Add to favorites</h3>
           <input
             type="text"
             value={inputValue}
@@ -69,11 +69,11 @@ export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal)
           ></input>
           <div>
             {isLoading ? (
-              <h1>cargando...</h1>
+              <h1>Loading...</h1>
             ) : isError ? (
-              <h1>error ocurrido</h1>
+              <h1>Something went wrong</h1>
             ) : searchList.length === 0 ? (
-              <p>no se ha encontrado ningún anime con ese nombre</p>
+              <p>No anime found with that name</p>
             ) : (
               searchList.map((anime: AnimeCardType) =>
                 !isInList(anime.id) ? (
@@ -87,7 +87,7 @@ export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal)
                       className="btn"
                       onClick={() => addToFavorite(anime.id, userId)}
                     >
-                      Add to favorite
+                      Add to favorites
                     </button>
                   </div>
                 ) : (
@@ -97,7 +97,7 @@ export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal)
                       src={anime.image}
                     />
                     <p>{anime.title}</p>
-                    <span>Ya esta en tus favoritos</span>
+                    <span>Already in your favorites</span>
                   </div>
                 ),
               )

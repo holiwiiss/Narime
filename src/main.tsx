@@ -63,7 +63,7 @@ const router = createBrowserRouter([
       },
       {
         path:'*',
-        element: <div>Esta página no existe</div>
+        element: <div>This page doesnt exists</div>
       }
     ]
   }

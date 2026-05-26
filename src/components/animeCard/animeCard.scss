@@ -70,7 +70,6 @@
     rgba(0, 0, 0, 0) 40%,
     rgba(102, 102, 102, 0) 100%
   );
-    border-radius: var(--border-radius-m);
   z-index: 1;
    @include sm{
        border-radius: var(--border-radius-xs);
@@ -182,6 +181,11 @@
     font-size: var(--font-size-5);
     font-weight: var(--font-regular);
     line-height: 20px;
+    display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp:2;  
+        line-clamp: 2;  
+        overflow: hidden; 
 
     @include xl{
         font-size: var(--font-size-4);
@@ -189,11 +193,7 @@
     @include sm{
         line-height: 1.2;
         font-size: var(--font-size-1);
-        display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp:2;  
-        line-clamp: 2;  
-        overflow: hidden; 
+        
     }
 }
 .anime-card__button  {

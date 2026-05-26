@@ -61,12 +61,12 @@ const ParaTi = () => {
   return (
     <>
       {isLoadingWatching ? (
-        <LoadingComponent></LoadingComponent>
+        <LoadingComponent/>
       ) : !isLoadingWatching && isErrorWatching ? (
-        <ErrorComponent text="Ha ocurrido un errorr"></ErrorComponent>
+        <ErrorComponent text="Something went wrong"></ErrorComponent>
       ): myAnimeListWatching && myAnimeListWatching.length > 0  ? (
         <>
-        <h1 className="para-ti__title">Ahora mismo estas viendo...</h1>
+        <h1 className="para-ti__title">Currently watching...</h1>
         <section className="anime-cards__container">
           {myAnimeListWatching.map((anime: AnimeCardType) => (
             <AnimeCard
@@ -87,10 +87,10 @@ const ParaTi = () => {
       { isLoadingRecommendations ? (
         <LoadingComponent></LoadingComponent>
       ) : !isLoadingRecommendations  && isErrorRecommendations ? (
-        <ErrorComponent text="Ha habido un error"></ErrorComponent>
+        <ErrorComponent text="Something went wrong"></ErrorComponent>
       ) : recommendationsList && recommendationsList?.length ? (
         <>
-          {scoreCompleted.length > 0 && betterScoreID.length > 0  ? (<h2 className="para-ti__subtitle">Porque te gustó x</h2>): (<h2 className="para-ti__subtitle">Recomendaciones para empezar</h2>)}
+          {scoreCompleted.length > 0 && betterScoreID.length > 0  ? (<h2 className="para-ti__subtitle">Because you liked X</h2>): (<h2 className="para-ti__subtitle">Recommendations to get started</h2>)}
           <section className="anime-cards__container">
           {recommendationsList.map((anime: AnimeRecomendationCardType) => (
                       <AnimeCard
@@ -103,7 +103,7 @@ const ParaTi = () => {
         </>
       ) : (
         <>
-          <h1> No hay recomendaciones </h1>
+          <h1>No recommendations found</h1>
         </>
       )}
         {modalAddEdit.isOpen && modalAddEdit.animeId &&(
