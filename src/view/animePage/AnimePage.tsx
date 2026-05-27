@@ -35,7 +35,7 @@ const AnimePage = () => {
 
   const openAddEditModal = (anime: any) => {
       const userData = getUserListData(anime.id);
-      modalAddEdit.openModal(anime.id, anime.episodes, userData);
+      modalAddEdit.openModal(anime.id, anime.episodes, anime.title, userData);
   };
 
   if (isLoading) return <LoadingComponent />
@@ -230,6 +230,7 @@ const AnimePage = () => {
         <ModalAddEditAnime
           animeId={modalAddEdit.animeId}
           totalEpisodes = {modalAddEdit.animeEpisodes}
+          animeTitle={modalAddEdit.animeTitle}
           action={modalAddEdit.action}
           infoDocIdUserAnime = {modalAddEdit.infoDocIdFromUser}
           onClose={modalAddEdit.closeModal}

@@ -56,3 +56,13 @@
     flex-direction: column;
     gap: var(--space-s);
 }
+
+.popUp__container-header--title {
+    display: flex;
+    flex-direction: column;
+}
+
+.popUp__container-header--h3 {
+    font-size: var(--font-size-6);
+    font-weight: var(--font-medium);
+}

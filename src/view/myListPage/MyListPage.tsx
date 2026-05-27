@@ -143,7 +143,7 @@ const MyListPage = () =>{
 
   const openAddEditModal = (anime: AnimeCardType) => {
     const userData = myListMap.get(anime.id);
-    modalAddEdit.openModal(anime.id, anime.episodes, userData);
+    modalAddEdit.openModal(anime.id, anime.episodes,  anime.title, userData);
   }
 
 return(
@@ -208,6 +208,7 @@ return(
             <ModalAddEditAnime
             animeId={modalAddEdit.animeId}
             totalEpisodes = {modalAddEdit.animeEpisodes}
+            animeTitle={modalAddEdit.animeTitle}
             action={modalAddEdit.action}
             infoDocIdUserAnime = {modalAddEdit.infoDocIdFromUser}
             onClose={modalAddEdit.closeModal}

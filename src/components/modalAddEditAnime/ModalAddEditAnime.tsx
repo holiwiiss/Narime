@@ -14,6 +14,7 @@ import OptionsPopUp from "../optionsPopUp/OptionsPopUP";
 type PropsModal = {
   animeId: number;
   totalEpisodes: number;
+  animeTitle: string;
   action: "add" | "edit";
   infoDocIdUserAnime: UserAnimeEditDataType | null;
   onClose: () => void;
@@ -26,7 +27,7 @@ export interface PopUpFormInputs {
   episodes: number
 }
 
-const ModalAddEditAnime = ({animeId, totalEpisodes, action, infoDocIdUserAnime, onClose} :PropsModal) => {
+const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocIdUserAnime, onClose} :PropsModal) => {
 
   const { user } = useAuth()
   const { addAnimeToMyList, editAnimeToMyList, deleteAnimeToMyList } = useMyAnimeList()
@@ -95,7 +96,10 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, action, infoDocIdUserAnime, 
         ):(
           <>
             <div className="popUp__container--header">
-              <h3>{action === "add" ? "Add to my list" : "Edit anime"}</h3>
+              <div className="popUp__container-header--title">
+                <p>{action === "add" ? "Adding to my list" : "Editing"}</p>
+                <h3 className="popUp__container-header--h3">{animeTitle}</h3>
+              </div>
               {action==="edit" && (
                 <>
                 <button className="btn btn--secondary btn--small" onClick={() => setIsOptionsOpen(true)}>
