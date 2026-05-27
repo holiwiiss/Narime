@@ -59,7 +59,7 @@ const router = createBrowserRouter([
       },
       {
         path:'/user-page',
-        element: <UserPage/>
+        element: <ProtectedRoute><UserPage/></ProtectedRoute>
       },
       {
         path:'*',

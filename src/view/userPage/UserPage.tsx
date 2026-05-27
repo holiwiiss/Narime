@@ -11,6 +11,7 @@ import { ModalRemoveFavorites } from "../../components/modals/ModalRemoveFavorit
 import LoadingComponent from "../../components/loading/LoadingComponent";
 import ErrorComponent from "../../components/error/ErrorComponent";
 import { useUserData } from "../../hooks/useUserData";
+import { Navigate } from "react-router-dom";
 
 const UserPage = () => {
 
@@ -28,6 +29,8 @@ const UserPage = () => {
     queryFn: () => fetchMyFavoriteList(list),
     enabled: list.length > 0,
   })
+
+  if (!user) return <Navigate to="/login" replace />
 
   return(
   <>

@@ -66,7 +66,6 @@ const SearchAnimeComponent = ({ isOpen, onClose }: Props) => {
         setSearchList(result.animes);
         setTotalItems(result.pagination.totalItems);
       } catch (e) {
-        console.log("La api no responde, " + e);
         setIsError('There was an error loading the data');
       }finally{
         setIsLoading(false)

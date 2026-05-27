@@ -54,8 +54,7 @@ export const useAuthForms = () => {
     setIsLoading(true)
     setIsError(false)
     try{
-      const user = await loginFirebase(email, password)
-      console.log("Sesión iniciada en: " + user)
+      await loginFirebase(email, password)
       navigate("/directory")
     }catch{
       setIsError(true)
