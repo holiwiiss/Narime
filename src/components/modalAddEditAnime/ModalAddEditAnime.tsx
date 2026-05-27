@@ -1,10 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useMyAnimeList } from "../../context/MyListContext";
 import type { AnimePersonalStatusType, UserAnimeEditDataType } from "../../firebase/services/firestoreService.type";
 import "./modalAddEditAnime.scss"
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { useForm, Controller , type SubmitHandler } from "react-hook-form";
 import { useAuth } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
+
+import EpisodesInput from "../episodesInput/EpisodesInput";
+import StatusSelector from "../statusSelector/StatusSelector";
+import StarRating from "../starRating/StarRating";
+import OptionsPopUp from "../optionsPopUp/OptionsPopUP";
 
 type PropsModal = {
   animeId: number;
@@ -25,15 +30,13 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, action, infoDocIdUserAnime, 
 
   const { user } = useAuth()
   const { addAnimeToMyList, editAnimeToMyList, deleteAnimeToMyList } = useMyAnimeList()
-
-  const statusList = ["watching", "completed", "dropped", "planToWatch"];
+  const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 
   const {
-    register,
     handleSubmit,
     watch,
     reset,
-    formState: { errors },
+    control,
   } = useForm<PopUpFormInputs>({
     defaultValues: {
       animeId,
@@ -91,49 +94,70 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, action, infoDocIdUserAnime, 
           </>
         ):(
           <>
-            <h3>{action === "add" ? "Add to my list" : "Edit anime"}</h3>
-            <form onSubmit={handleSubmit(onSubmit)} className="popUp_container_form">
-              
+            <div className="popUp__container--header">
+              <h3>{action === "add" ? "Add to my list" : "Edit anime"}</h3>
+              {action==="edit" && (
+                <>
+                <button className="btn btn--secondary btn--small" onClick={() => setIsOptionsOpen(true)}>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white)" className="size-6 icon-size-m icon-options-pop-up">
+                    <path fillRule="evenodd" d="M10.5 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm0 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm0 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z" clipRule="evenodd" />
+                  </svg>
+                </button>
+                {isOptionsOpen && (<OptionsPopUp isOpen={isOptionsOpen} onClose={()=> setIsOptionsOpen(false)} onDelete={deleteAnime}/>)}
+                </>
+              )}
+            </div>
+            <form onSubmit={handleSubmit(onSubmit)} className="popUp_container_form"> 
               <label>Status</label>
-              <select {...register("status")}>
-                {statusList.map(status => (
-                  <option key={status} value={status}>{status}</option>
-                ))}
-              </select>
+              <Controller
+                name="status"
+                control={control}
+                render={({ field }) => (
+                  <StatusSelector
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
+                )}
+              />
 
-              <label>Score</label>
-              <input
-                type="number"
-                {...register('score',{
-                  min:{value:0, message: '"No negative scores'},
-                  max: {value: 10, message:'Max score is 10'}
-                })}
-              ></input>
-              {errors.score && <span>{errors.score.message}</span>}
+              <label>Personal Score</label>
+              <Controller
+                name="score"
+                control={control}
+                render={({ field }) => (
+                  <StarRating
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
+                )}
+              />
+
               {(statusValue === "watching" || statusValue === "dropped") && (
                 <>
                   <label>Episodes</label>
-                  <input
-                    type="number"
-                    {...register('episodes',{
-                      min:{value:1, message: 'No negative episodes'},
-                      max: {value: totalEpisodes, message:'Too many episodes'}
-                    })}
-                  ></input>
-                  {errors.episodes && <span>{errors.episodes.message}</span>}
+                  <div className="episodes-row">
+                  <Controller
+                    name="episodes"
+                    control={control}
+                    render={({ field }) => (
+                      <EpisodesInput
+                        value={field.value}
+                        onChange={field.onChange}
+                        max={totalEpisodes}
+                      />
+                    )}
+                  />
+                  <p> / {totalEpisodes} episodes</p>
+                  </div>
                 </>
               )}
-              
-              {action==="edit" && (
-                <a href="#" onClick={deleteAnime} className="popup__delete-anime">Remove anime from list</a>
-              )}
-
-              <button type="submit" className="btn">{action === "add" ? "Add" : "Edit"}</button>
-              
+              <div className="btn--popup-container">
+                <button type="submit" className="btn">{action === "add" ? "Add" : "Edit"}</button>
+                <button type="button" className="btn btn--secondary" onClick={onClose}>Close</button>
+              </div>
             </form>
           </>
         )}
-        <button type="button" className="btn btn--secondary" onClick={onClose}>Close</button>
       </div>
     </div>
   );

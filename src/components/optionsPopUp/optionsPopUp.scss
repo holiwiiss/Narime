@@ -1,0 +1,22 @@
+.container--option-delete {
+    position: absolute;
+    inset: 135% 0 auto auto;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-xs);
+    gap: var(--space-xs);
+    z-index: 2;
+}
+
+.option--items {
+    display: flex;
+    align-items: center;
+    padding: var(--space-xs);
+    gap: var(--space-s);
+    color: var(--color-white);
+}
+
+.option--items:hover {
+    background-color: var(--color-white-20);
+    border-radius: var(--border-radius-xs);
+}

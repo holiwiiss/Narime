@@ -1,0 +1,9 @@
+.star-wrapper {
+    display: flex;
+    flex-wrap: var(--space-xs);
+    justify-content: space-between;
+    align-items: center;
+}
+.star--item {
+    cursor: pointer;
+}

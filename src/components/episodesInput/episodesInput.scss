@@ -1,0 +1,22 @@
+.episodes--wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex:1;
+}
+.btn--episodes-input {
+    height: 36.8px;
+}
+
+.btn-right {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.btn-left {
+     border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.input--episodes {
+    border-radius: 0;
+}

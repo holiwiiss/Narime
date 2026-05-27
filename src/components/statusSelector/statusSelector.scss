@@ -1,0 +1,14 @@
+.status-selector {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-s);
+}
+.status-selector__btn {
+    width: calc(50% - 6px);
+}
+
+.status-selector__btn--active {
+    background-color: var(--color-red-primary);
+    border: none;
+}

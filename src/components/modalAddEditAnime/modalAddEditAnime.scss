@@ -18,7 +18,7 @@
     display: flex;
     flex-direction: column;
     padding: var(--space-xxl);
-    gap:  var(--space-xl);
+    gap:  var(--space-l);
 }
 
 .popUp_container_form {
@@ -30,4 +30,29 @@
 .popup__delete-anime {
     width: 100%;
     text-align: center;
+}
+
+.episodes-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap:var(--space-xxs)
+}
+
+.popUp__container--header {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.icon-options-pop-up {
+    display: flex;
+    align-items: center;
+}
+
+.btn--popup-container {
+    margin-top: var(--space-s);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
 }
