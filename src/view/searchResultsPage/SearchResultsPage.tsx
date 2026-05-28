@@ -1,13 +1,14 @@
 import { useSearchParams } from "react-router-dom";
 import { useMyListMap } from "../../hooks/useMyListMap";
-import AnimeCard from "../../components/animeCard/AnimeCard";
+import AnimeCard from "../../components/AnimeCard/AnimeCard";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
-import ModalAddEditAnime from "../../components/modalAddEditAnime/ModalAddEditAnime";
+
 import { useAnimeModal } from "../../hooks/useAnimeModal";
 import "./searchResultsPage.scss"
 import { useSearchAnimes } from "../../hooks/useSearchAnime";
-import LoadingComponent from "../../components/loading/LoadingComponent";
-import ErrorComponent from "../../components/error/ErrorComponent";
+import LoadingComponent from "../../components/Loading/LoadingComponent";
+import ErrorComponent from "../../components/Error/ErrorComponent";
+import ModalAddEditAnime from "../../components/modals/ModalAddEditAnime/ModalAddEditAnime";
 
 const SearchResultsPage = () => {
 

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useUserData } from "../../hooks/useUserData";
-import { logOutFirebase } from "../../firebase/services/authService";
+import { logOutFirebase } from "../../firebase/services/auth-service.firebase";
 import "./menuSetting.scss"
 import { useEffect, useRef } from "react";
 

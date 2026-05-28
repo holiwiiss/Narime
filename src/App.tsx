@@ -1,11 +1,11 @@
 import {Link, NavLink, Outlet } from "react-router-dom"
 import {Toaster } from "sileo";
 import './App.scss'
-import SearchAnimeComponent from "./components/search-anime/SearchAnimeComponent";
-import { useAuth } from "./context/AuthContext";
+import SearchAnimeComponent from "./components/SearchAnime/SearchAnimeComponent";
+import { useAuth } from "./context/authContext";
 import { useState } from "react";
 import { useUserData } from "./hooks/useUserData";
-import MenuSetting from "./components/menu-settings/MenuSetting";
+import MenuSetting from "./components/MenuSettings/MenuSetting";
 
 function App() {
   const { user } = useAuth()

@@ -1,11 +1,10 @@
 import "./animepage.scss";
 import type { AnimeCharactersType, AnimeInformationType } from "../../services/anime-information/anime-information.type";
 import { Link, useLocation, useParams } from "react-router-dom";
-import ErrorComponent from "../../components/error/ErrorComponent";
-import LoadingComponent from "../../components/loading/LoadingComponent";
+import ErrorComponent from "../../components/Error/ErrorComponent";
+import LoadingComponent from "../../components/Loading/LoadingComponent";
 import { useMyListMap } from "../../hooks/useMyListMap";
-import type { UserAnimeListFirestoreType } from "../../firebase/services/firestoreService.type";
-import ModalAddEditAnime from "../../components/modalAddEditAnime/ModalAddEditAnime";
+import type { UserAnimeListFirestoreType } from "../../firebase/services/firestore-service.type";
 import { useAnimeModal } from "../../hooks/useAnimeModal";
 import { useQuery } from "@tanstack/react-query";
 import { formatDate, formatNumber } from "../../utils/format";
@@ -13,6 +12,7 @@ import { useState } from "react";
 import { fetchAnimeInformation } from "../../queries/anime-information-page.queries";
 import { calculateWidth } from "../../utils/calculateWidth";
 import { formatStatus } from "../../utils/formatStatus";
+import ModalAddEditAnime from "../../components/modals/ModalAddEditAnime/ModalAddEditAnime";
 
 const AnimePage = () => {
 

@@ -1,6 +1,6 @@
 import { db } from "../firebase";
 import { collection, addDoc, query, where, getDocs, doc, updateDoc, deleteDoc, serverTimestamp,} from "firebase/firestore";
-import type { AnimePersonalStatusType, UserAnimeListFirestoreType,} from "./firestoreService.type";
+import type { AnimePersonalStatusType, UserAnimeListFirestoreType,} from "./firestore-service.type";
 
 /**
  * Añade un anime a la lista personal del usuario en Firestore

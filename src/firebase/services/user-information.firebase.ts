@@ -1,6 +1,6 @@
 import { arrayRemove, arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
-import type { UserInformationFirestoreType } from "./firestoreService.type";
+import type { UserInformationFirestoreType } from "./firestore-service.type";
 
 export async function addUserToFirestore(
   userID: string,

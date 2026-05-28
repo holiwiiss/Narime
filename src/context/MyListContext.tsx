@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "./authContext";
 
-import type { AnimePersonalStatusType, UserAnimeListFirestoreType } from "../firebase/services/firestoreService.type";
+import type { AnimePersonalStatusType, UserAnimeListFirestoreType } from "../firebase/services/firestore-service.type";
 import { addAnimeToFirebase, deleteAnimeInformationFirebase, getAllAnimesFirebase, updateAnimeInformationFirebase } from "../firebase/services/list-methods.firebase";
 
 type MyListContextType = {

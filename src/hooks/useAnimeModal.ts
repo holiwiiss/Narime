@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { UserAnimeEditDataType, UserAnimeListFirestoreType } from "../firebase/services/firestoreService.type";
+import type { UserAnimeEditDataType, UserAnimeListFirestoreType } from "../firebase/services/firestore-service.type";
 
 export function useAnimeModal() {
   

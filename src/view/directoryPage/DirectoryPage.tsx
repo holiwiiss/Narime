@@ -1,15 +1,16 @@
 import "./directorypage.scss";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
-import LoadingComponent from "../../components/loading/LoadingComponent";
-import ErrorComponent from "../../components/error/ErrorComponent";
-import ModalAddEditAnime from "../../components/modalAddEditAnime/ModalAddEditAnime";
-import AnimeCard from "../../components/animeCard/AnimeCard";
+import LoadingComponent from "../../components/Loading/LoadingComponent";
+import ErrorComponent from "../../components/Error/ErrorComponent";
+
+import AnimeCard from "../../components/AnimeCard/AnimeCard";
 import { useSearchParams } from "react-router-dom";
 import { useDirectoryAnimes } from "../../hooks/useDirectoryAnime";
 import { useMyListMap } from "../../hooks/useMyListMap";
 import { useAnimeModal } from "../../hooks/useAnimeModal";
 import type { CategoryType } from "../../queries/directory.type";
-import ParaTi from "../../components/paraTi/ParaTi";
+import ParaTi from "../../components/ForYou/ForYou";
+import ModalAddEditAnime from "../../components/modals/ModalAddEditAnime/ModalAddEditAnime";
 
 const DirectoryPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();

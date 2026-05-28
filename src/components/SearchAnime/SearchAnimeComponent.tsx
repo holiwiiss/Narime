@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import "./search-anime.scss"
+import "./searchAnime.scss"
 import { searchAnime } from "../../services/anime-search/anime-search";
 import { Link, useNavigate } from "react-router-dom";
-import ErrorComponent from "../error/ErrorComponent";
-import LoadingComponent from "../loading/LoadingComponent";
+import ErrorComponent from "../Error/ErrorComponent";
+import LoadingComponent from "../Loading/LoadingComponent";
 import type { AnimeListResponse, AnimeCardType } from "../../services/anime-list/anime-list.type";
 
 type Props = {

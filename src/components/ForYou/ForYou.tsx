@@ -1,18 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
-import { useMyAnimeList } from "../../context/MyListContext";
+import { useMyAnimeList } from "../../context/myListContext";
 import { fetchMyList } from "../../queries/my-list-information";
-import LoadingComponent from "../loading/LoadingComponent";
-import ErrorComponent from "../error/ErrorComponent";
+import LoadingComponent from "../Loading/LoadingComponent";
+import ErrorComponent from "../Error/ErrorComponent";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
-import AnimeCard from "../animeCard/AnimeCard";
+import AnimeCard from "../AnimeCard/AnimeCard";
 import type { AnimeRecomendationCardType } from "../../services/anime-recommendations/anime-recommendations.type";
 import { getRecomendationsAnimes } from "../../services/anime-recommendations/anime-recommendations";
 import { useMemo } from "react";
 import { useMyListMap } from "../../hooks/useMyListMap";
 import { useAnimeModal } from "../../hooks/useAnimeModal";
-import ModalAddEditAnime from "../modalAddEditAnime/ModalAddEditAnime";
-import type { UserAnimeListFirestoreType } from "../../firebase/services/firestoreService.type";
-import "./parati.scss"
+
+import type { UserAnimeListFirestoreType } from "../../firebase/services/firestore-service.type";
+import "./forYou.scss"
+import ModalAddEditAnime from "../modals/ModalAddEditAnime/ModalAddEditAnime";
 
 const fecthAnimesRecommendations = async (animeId:number, getUserListData: (id: number) => UserAnimeListFirestoreType | undefined
 ) => {
@@ -20,7 +21,7 @@ const fecthAnimesRecommendations = async (animeId:number, getUserListData: (id: 
   return data.filter(a => !getUserListData(a.id)) 
 }
 
-const ParaTi = () => {
+const ForYou = () => {
   
   const {myList} = useMyAnimeList()
   const  { getUserListData } = useMyListMap()
@@ -120,4 +121,4 @@ const ParaTi = () => {
   );
 };
 
-export default ParaTi;
+export default ForYou;

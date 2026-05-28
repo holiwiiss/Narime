@@ -1,5 +1,5 @@
 import React from "react";
-import type { UserAnimeListFirestoreType } from "../../firebase/services/firestoreService.type";
+import type { UserAnimeListFirestoreType } from "../../firebase/services/firestore-service.type";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
 import { useNavigate} from "react-router-dom";
 import "./animeCard.scss"

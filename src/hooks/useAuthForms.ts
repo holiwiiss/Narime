@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { deleteUserFromFirebase, loginFirebase, loginWithGoogle, registerFirebase } from "../firebase/services/authService";
+import { deleteUserFromFirebase, loginFirebase, loginWithGoogle, registerFirebase } from "../firebase/services/auth-service.firebase";
 import { addUserToFirestore } from "../firebase/services/user-information.firebase";
 import { useState } from "react";
 import type { User } from "firebase/auth";

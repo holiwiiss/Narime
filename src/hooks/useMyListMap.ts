@@ -1,6 +1,7 @@
 import { useMemo } from "react";
-import type { UserAnimeListFirestoreType } from "../firebase/services/firestoreService.type";
-import { useMyAnimeList } from "../context/MyListContext";
+import type { UserAnimeListFirestoreType } from "../firebase/services/firestore-service.type";
+import { useMyAnimeList } from "../context/myListContext";
+
 
 export function useMyListMap() {
 
