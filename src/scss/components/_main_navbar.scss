@@ -41,7 +41,6 @@
     gap: var(--space-xs);
     
     &-text{
-        color: var(--color-white-50);
         @include sm{
         display: none;
         }

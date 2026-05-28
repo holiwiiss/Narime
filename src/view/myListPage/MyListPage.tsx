@@ -151,11 +151,11 @@ return(
   <div className="all-content-max">
     <div className="my-list__options tab__container my-list__options-real">
       <div className="tab__buttons tab__buttons--my-list">
-        <button className={`tab-option ${activeCategory === 'all' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("all")}>All <span className="tab-option__count icon-size-m">{countersList.all}</span></button>
-        <button className={`tab-option ${activeCategory === 'watching' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("watching")}>Watching <span className="tab-option__count icon-size-m">{countersList.watching}</span></button>
-        <button className={`tab-option ${activeCategory === 'completed' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("completed")}>Completed <span className="tab-option__count icon-size-m">{countersList.completed}</span></button>
-        <button className={`tab-option ${activeCategory === 'dropped' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("dropped")}>Dropped <span className="tab-option__count icon-size-m">{countersList.dropped}</span></button>
-        <button className={`tab-option ${activeCategory === 'planToWatch' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("planToWatch")}>Plan to watch <span className="tab-option__count icon-size-m">{countersList.planToWatch}</span></button>
+        <button className={`text-p tab-option ${activeCategory === 'all' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("all")}>All <span className="tab-option__count icon-size-m">{countersList.all}</span></button>
+        <button className={`text-p tab-option ${activeCategory === 'watching' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("watching")}>Watching <span className="tab-option__count icon-size-m">{countersList.watching}</span></button>
+        <button className={`text-p tab-option ${activeCategory === 'completed' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("completed")}>Completed <span className="tab-option__count icon-size-m">{countersList.completed}</span></button>
+        <button className={`text-p tab-option ${activeCategory === 'dropped' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("dropped")}>Dropped <span className="tab-option__count icon-size-m">{countersList.dropped}</span></button>
+        <button className={`text-p tab-option ${activeCategory === 'planToWatch' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("planToWatch")}>Plan to watch <span className="tab-option__count icon-size-m">{countersList.planToWatch}</span></button>
       </div>
       <div className="my-list__filters">
 
@@ -186,7 +186,7 @@ return(
     ) : listToShow.length === 0 ? (
       <div className="my-list__empty-state__container">
         <h1>(⁠╥⁠﹏⁠╥⁠)</h1>
-        <h2>NNo anime yet</h2>
+        <h2>No anime yet</h2>
         <Link to={"/directory"} className="btn"> Add animes to your list</Link>
       </div>
     ) : (

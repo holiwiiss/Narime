@@ -20,14 +20,6 @@ html, body, #root {
 body {
     padding-top: var(--menu-height);
     position: relative;
-    /*background: linear-gradient(
-        180deg, 
-        var(--color-black-bg) 0%,
-        var(--color-black-bg) 70%, 
-        var(--color-red-bg) 100%,
-    );
-    background-repeat: no-repeat;
-    background-attachment: fixed;*/
     background-color: var(--color-menu-bg);
     min-height: 100dvh;
 }
@@ -71,8 +63,7 @@ input {
     color: var(--color-white);
     border-radius: var(--border-radius-s);
     font-family: var(--font-secondary);
-    font-weight: var(--font-medium);
-    font-size: var(--p-size);
+    font-size: var(--font-size-2);
     background-color: var(--color-red-primary);
     transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
     @include sm{
@@ -159,3 +150,67 @@ input {
     height: var(--space-xl);
     width: var(--space-xl);
 }
+
+/*              FONTS STANDARS              */
+
+.text-details {
+    font-size: var(--font-size-1);
+    color: var(--color-white);
+}
+
+.text-p {
+    font-family: var(--font-secondary);
+    font-size: var(--font-size-3);
+    color: var(--color-white);
+}
+
+.text-btn {
+    font-family: var(--font-secondary);
+    font-size: var(--font-size-2);
+    color: var(--color-white);
+}
+
+.text-h1 {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-7);
+    color: var(--color-white);
+    line-height: 0.9;
+    font-weight: var(--font-medium);
+}
+
+.text-h2 {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-6);
+    color: var(--color-white);
+    font-weight: var(--font-medium);
+}
+
+.text-card {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-5);
+    color: var(--color-white);
+    line-height: 20px;
+    @include sm{
+        font-size: var(--font-size-4);
+    }
+}
+
+.text-card--small {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-4);
+    color: var(--color-white);
+}
+
+
+.text-color--75 {
+    color: var(--color-white-75);
+}
+.text-color--50 {
+    color: var(--color-white-50);
+}
+
+.text-color--primary {
+    color:var(--color-red-primary);
+}
+
+

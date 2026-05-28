@@ -26,7 +26,7 @@ const SearchResultsPage = () => {
   return (
     <>
     <div className="all-content-max">
-      <h1 className="search-page__title">Here are your search results...</h1>
+      <h1 className="text-h1 search-page__title">Here are your search results...</h1>
 
       {isLoading ? (
         <LoadingComponent />

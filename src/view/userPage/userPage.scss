@@ -76,18 +76,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    &--number {
-        font-size: var(--font-size-9);
-        font-family: var(--font-primary);
-        line-height: 0.8;
-        @include md {
-            font-size: var(--font-size-7);
-        }
-    }
-    &--text {
-        font-size: var(--font-size-1);
-    }
 }
 
 .user-page__header--banner-img--container {
@@ -126,11 +114,6 @@
     @include md {
         margin-top: var(--space-xxl);
         gap: var(--space-xxs);
-    }
-}
-.user-page__header-user-info > h1 {
-    @include md {
-        font-size: var(--font-size-7);
     }
 }
 

@@ -37,19 +37,19 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default"}: PropsAnime
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="var(--color-red-primary)" className="size-4 icon-size-m">
               <path fillRule="evenodd" d="M8 1.75a.75.75 0 0 1 .692.462l1.41 3.393 3.664.293a.75.75 0 0 1 .428 1.317l-2.791 2.39.853 3.575a.75.75 0 0 1-1.12.814L7.998 12.08l-3.135 1.915a.75.75 0 0 1-1.12-.814l.852-3.574-2.79-2.39a.75.75 0 0 1 .427-1.318l3.663-.293 1.41-3.393A.75.75 0 0 1 8 1.75Z" clipRule="evenodd" />
             </svg>
-            <p className="anime-card__score-text">{userData?.scorePersonal ?? "N/A"}</p>
+            <p className="text-details">{userData?.scorePersonal ?? "N/A"}</p>
           </div>
         ) : (
           <div className="anime-card__score">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#CFA80B" className="size-4 icon-size-m">
               <path fillRule="evenodd" d="M8 1.75a.75.75 0 0 1 .692.462l1.41 3.393 3.664.293a.75.75 0 0 1 .428 1.317l-2.791 2.39.853 3.575a.75.75 0 0 1-1.12.814L7.998 12.08l-3.135 1.915a.75.75 0 0 1-1.12-.814l.852-3.574-2.79-2.39a.75.75 0 0 1 .427-1.318l3.663-.293 1.41-3.393A.75.75 0 0 1 8 1.75Z" clipRule="evenodd" />
             </svg>
-            <p className="anime-card__score-text">{anime.score ?? "N/A"}</p>
+            <p className="text-details">{anime.score ?? "N/A"}</p>
           </div>
         )}
           
 
-          {!isMinimal && userData && (<span className="anime-card__user-status" data-status={userData.statusPersonal}>{formatStatus(userData.statusPersonal)}</span>)}
+          {!isMinimal && userData && (<span className="anime-card__user-status text-details" data-status={userData.statusPersonal}>{formatStatus(userData.statusPersonal)}</span>)}
         </header>
 
         <footer className="anime-card__footer">
@@ -58,11 +58,11 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default"}: PropsAnime
               {isRecommendations || isMinimal ? (
                 <></>
               ): isDirectory || isUpcoming ? (
-                <p className="anime-card__meta">{anime.type} · {anime.year ?? "N/A"}</p>
+                <p className="text-details">{anime.type} · {anime.year ?? "N/A"}</p>
               ): (
-                <p className="anime-card__episodes"> {!isMinimal && userData ? `${userData.episodesWatched} / ${anime.episodes} episodes` : `${anime.episodes} episodes`}</p>
+                <p className="text-details"> {!isMinimal && userData ? `${userData.episodesWatched} / ${anime.episodes} episodes` : `${anime.episodes} episodes`}</p>
               )}
-              <h2 className="anime-card__title">{anime.title}</h2>
+              <h2 className="text-card anime-card__title">{anime.title}</h2>
             </div>
               
             {onOpenModal && (
@@ -80,7 +80,7 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default"}: PropsAnime
                     <path fillRule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
                   </svg>
                 )}
-                <span className="btn-anime-card__text">{userData ? "Edit" : "Add"}</span>
+                <span className="text-btn btn-anime-card__text">{userData ? "Edit" : "Add"}</span>
               </button>
             )}
 
@@ -97,7 +97,7 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default"}: PropsAnime
           )}
         </footer>
       </article>
-      {variant==="default"  && (<p className="anime-card__meta">{anime.type} · {anime.year ?? "N/A"}</p>)}
+      {variant==="default"  && (<p className="text-details">{anime.type} · {anime.year ?? "N/A"}</p>)}
     </div>
   )
 };

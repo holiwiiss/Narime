@@ -33,11 +33,11 @@ const DirectoryPage = () => {
     <section className="all-content-max">
       <div className="my-list__options tab__container">
         <div className="tab__buttons">
-          <button className={`tab-option ${category === 'para ti' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => activateFilter("para ti")}>For You</button>
-          <button className={`tab-option ${category === 'top' ? "tab-option__selected" : "tab-option__unselected"}`}  onClick={() => activateFilter("top")}>Top anime</button>
-          <button className={`tab-option ${category === 'trending' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => activateFilter("trending")}>Trending</button>
-          <button className={`tab-option ${category === 'seasonal' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => activateFilter("seasonal")}>Seasonal</button>
-          <button className={`tab-option ${category === 'upcoming' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => activateFilter("upcoming")}>Upcoming</button>
+          <button className={`text-p tab-option ${category === 'para ti' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => activateFilter("para ti")}>For You</button>
+          <button className={`text-p tab-option ${category === 'top' ? "tab-option__selected" : "tab-option__unselected"}`}  onClick={() => activateFilter("top")}>Top anime</button>
+          <button className={`text-p tab-option ${category === 'trending' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => activateFilter("trending")}>Trending</button>
+          <button className={`text-p tab-option ${category === 'seasonal' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => activateFilter("seasonal")}>Seasonal</button>
+          <button className={`text-p tab-option ${category === 'upcoming' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => activateFilter("upcoming")}>Upcoming</button>
         </div>
       </div>
       {category === "para ti" ? (

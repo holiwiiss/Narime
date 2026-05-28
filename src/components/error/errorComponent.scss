@@ -1,3 +1,5 @@
+@use "../../scss/mixin" as *;
+
 .error-component__container {
     width: 100%;
     //lo que mide la barra superior
@@ -12,6 +14,9 @@
 .error-component__sad-face {
     font-size: var(--font-size-10);
     font-family: var(--font-secondary);
+    @include sm{
+        font-size: var(--font-size-5);
+    }
 }
 
 .error-omponent__text {

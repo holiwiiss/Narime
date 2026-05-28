@@ -60,41 +60,15 @@
     gap:var(--space-xxs)
 }
 
-.breadcrumbs__unselected {
-    color: var(--color-white-50);
-}
-
 .anime-page__content-info{
     display: flex;
     align-items: start;
     justify-content: space-between;
-    &-tittle {
-        letter-spacing: 1.5px;
-        line-height: 1;
-        font-size: var(--font-size-9);
+    &-tittle {   
         margin-bottom: var(--space-xs);
-        @include md{
-            font-size: var(--font-size-7);
-        }
-        @include sm{
-            letter-spacing: 1px;
-            font-size: var(--font-size-7);
-        }
-    }
-    &-tittle-english {
-        font-size: var(--font-size-4);
-        color: var(--color-red-primary);
-        @include md{
-            font-size: var(--font-size-3);
-        }
-    }
-    &-date {
-        color: var(--color-white-75);
-        @include md{
-            font-size: var(--font-size-1);
-        }
     }
 }
+
 
 .anime-page__content-user-options {
     display: flex;
@@ -110,21 +84,15 @@
 
 .anime-page__status{
     &-text {
-        color: var(--color-white-50);
         white-space: nowrap;
-        @include md{
-            font-size: var(--font-size-1);
-        }
     }
     &-user {
         padding: var(--space-xs) var(--space-s);
         background-color: var(--color-white-15);
         border: solid 1px var(--color-white-20);
-        color: var(--color-white-75);
         border-radius: var(--border-radius-xl);
         @include sm{
             padding: var(--space-xxs) var(--space-xs);
-            font-size: var(--font-size-1);
         }
     }
 }
@@ -156,25 +124,10 @@
     justify-content: center;
     flex:1;
 
-    &--number {
-        font-size: var(--font-size-9);
-        font-family: var(--font-primary);
-        line-height: 0.8;
-        @include md{
-            font-size: var(--font-size-7);
-        }
-        @include xs{
-            font-size: var(--font-size-6);
-        }
-        
-    }
     &--text {
-        font-size: var(--font-size-1);
-        color: var(--color-white-75);
         text-align: center;
         @include xs{
             padding: 0 var(--space-xs);
-            font-size: var(--font-size-0);
         }
     }
 }
@@ -203,16 +156,7 @@
         display: flex;
         justify-content: space-between;
     }
-    &--text {
-        font-size: var(--font-size-3);
-        font-weight: var(--font-regular);
-        @include sm{
-            font-size: var(--font-size-2);
-        }
-        @include xs{
-             font-size: var(--font-size-1);
-        }
-    }
+    
     &--empty {
         height: 8px;
         width: 100%;
@@ -253,12 +197,6 @@
         padding: var(--space-xxs) var(--space-xs);
     }
 
-}
-.anime-page__content-tag > p, .anime-page__content-synopsis > p {
-    color: var(--color-white-75);
-    @include sm{
-        font-size: var(--font-size-1);
-    }
 }
 
 .anime-page__end-section {
@@ -307,10 +245,6 @@
         gap: var(--space-xs);
         align-items: start;
         flex-wrap: wrap;
-    }
-    &-subtittle {
-        font-size: var(--font-size-1);
-        color: var(--color-white-75);
     }
 }
 
@@ -375,16 +309,13 @@
         background-color: var(--color-black-25);
         border: solid 1px var(--color-white-75);
         border-radius: var(--border-radius-s);
-        color: var(--color-white);
         backdrop-filter: blur(5px);
 
         @include md{
             padding: var(--space-xxs);
-            font-size: var(--font-size-1);
         }
         @include xs{
-             font-size: var(--font-size-0);
-             border-radius: var(--border-radius-xs);
+            border-radius: var(--border-radius-xs);
         }
     }
     &--foter {
@@ -399,31 +330,6 @@
         display: flex;
         flex-direction: column;
         flex:1;
-    }
-
-    &__anime-name {
-        color: var(--color-white);
-        font-family: var(--font-primary);
-        font-size: var(--font-size-5);
-        @include md{
-            font-size: var(--font-size-4);
-        }
-        @include md{
-            font-size: var(--font-size-3);
-        }
-        @include xs{
-            font-size: var(--font-size-2);
-        }
-    }
-    &__actor-name {
-        color: var(--color-white);
-        font-size: var(--font-size-2);
-        @include md{
-            font-size: var(--font-size-1);
-        }
-        @include md{
-            font-size: var(--font-size-0);
-        }
     }
 
     &__img-actor{
@@ -455,56 +361,3 @@
         );
         z-index: 1;
 }
-
-
-
-
-
-
-
-
-/*
-.anime-page__content--character{
-    display: flex;
-    flex-direction: row;
-    gap: var(--space-m);
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding-bottom: var(--space-xs);
-}
-
-.character-card {
-    height: 200px;
-    width: 275px;
-    min-width: 275px;
-    display: flex;
-    position: relative;
-    &__img {
-        background-size: cover;
-        background-position: center;
-        width: 50%;
-        display: flex;
-        flex-direction: column;
-        justify-content: end;
-        padding: var(--space-xs) var(--space-xs);
-    }
-    &__anime--img {
-        border-top-left-radius: var(--border-radius-s);
-        border-bottom-left-radius: var(--border-radius-s);
-    }
-    &__role{
-        z-index: 1;
-    }
-    &__anime-name, &__actor-name{
-        z-index:1;
-        font-family: var(--font-primary);
-        font-size: var(--font-size-5);
-    }
-    &__actor--img {
-        border-top-right-radius: var(--border-radius-s);
-        border-bottom-right-radius: var(--border-radius-s);
-        align-items: end;
-    }
-}
-
-*/

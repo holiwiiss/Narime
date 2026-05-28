@@ -11,16 +11,13 @@
     @include md{
         padding: 0 var(--space-xl);
         padding-top: var(--space-l);
-        font-size: var(--font-size-6);
     }
     @include sm{
         padding: 0 var(--space-m);
         padding-top: var(--space-m);
-        font-size: var(--font-size-5);
     }
     @include xs{
         padding: 0 var(--space-xs);
         padding-top: var(--space-m);
-        font-size: var(--font-size-4);
     }
 }

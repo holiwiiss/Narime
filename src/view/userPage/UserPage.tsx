@@ -47,16 +47,16 @@ const UserPage = () => {
               <button className="btn btn--secondary btn--small">Edit profile</button>
               <div className="user-page__social--info">
                 <div className="user-page__social--item">
-                  <p className="user-page__social--item--number">{userData.followersCount}</p>
-                  <p className="user-page__social--item--text">followers</p>
+                  <p className="text-h1">{userData.followersCount}</p>
+                  <p className="text-details text-color--75">followers</p>
                 </div>
                 <div className="user-page__social--item">
-                  <p className="user-page__social--item--number">{userData.followingCount}</p>
-                  <p className="user-page__social--item--text">following</p>
+                  <p className="text-h1">{userData.followingCount}</p>
+                  <p className="text-details text-color--75">following</p>
                 </div>
                 <div className="user-page__social--item">
-                  <p className="user-page__social--item--number">{myList.length ?? 0}</p>
-                  <p className="user-page__social--item--text">items in list</p>
+                  <p className="text-h1">{myList.length ?? 0}</p>
+                  <p className="text-details text-color--75">items in list</p>
                 </div>
               </div>
 
@@ -65,14 +65,14 @@ const UserPage = () => {
               </div>
             </div>
             <div className="user-page__header-user-info">
-              <h1>{userData.username}</h1>
-              <p>{userData.description}</p>
+              <h1 className="text-h1">{userData.username}</h1>
+              <p className="text-p">{userData.description}</p>
             </div>
           </header>
 
           <div className="user-page__favorites-container">
             <div className="user-page__favorites--header">
-              <h2>Your Favorites</h2>
+              <h2 className="text-h2">Your Favorites</h2>
               <button className="btn" onClick={() => setIsOpenRemoveFavorite(true)}>Edit favorites</button>
             </div>
               <div className="anime-favorites__container">

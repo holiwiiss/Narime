@@ -27,15 +27,16 @@ const RegisterPage = () => {
     <main className="register-page">
       <section className="register-page__form-section">
         <div className="register-page__form-section-text">
-          <h1 className="register-page__tittle">Start now</h1>
-          <p>Don't miss the ultimate anime and series content management.</p>
+          <h1 className="text-h2">Start now</h1>
+          <p className="text-p text-color--75">Don't miss the ultimate anime and series content management.</p>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className="register-page__form">
 
           <div className="register-page__form-field">
-            <label htmlFor="username">Username*</label>
+            <label htmlFor="username" className="text-details">Username*</label>
             <input
               id="username"
+              className="text-p"
               type="text"
               {...register("username", { 
                   required: 'Username is required', 
@@ -47,9 +48,10 @@ const RegisterPage = () => {
           </div>
 
           <div className="register-page__form-field">
-            <label htmlFor="email">Email*</label>
+            <label htmlFor="email" className="text-details">Email*</label>
             <input
               id="email"
+              className="text-p"
               type='email'
               {...register('email', { 
                   required: 'This field is required', 
@@ -59,9 +61,10 @@ const RegisterPage = () => {
           </div>
 
           <div className="register-page__form-field">
-            <label htmlFor="password">Password*</label>
+            <label htmlFor="password" className="text-details">Password*</label>
             <input
               id="password"
+              className="text-p"
               type='password'
               {...register('password', { 
                 required: 'This field is required', 
@@ -73,9 +76,10 @@ const RegisterPage = () => {
           </div>
 
           <div className="register-page__form-field">
-            <label htmlFor="confirmPassword">Confirm password*</label>
+            <label htmlFor="confirmPassword" className="text-details">Confirm password*</label>
             <input
               id="confirmPassword"
+              className="text-p"
               type='password'
               {...register('passwordConfirm', { 
                   required: 'This field is required', 
@@ -87,9 +91,10 @@ const RegisterPage = () => {
           </div>
 
           <div className="register-page__form-field">
-            <label>
+            <label className="text-details text-color--75">
               <input
                 id="terms"
+                className="text-p"
                 type="checkbox"
                 {...register("confirmTerms", { required:'This field is required'})}
               ></input>
@@ -104,12 +109,12 @@ const RegisterPage = () => {
         
         <div className="login-page__form-separation">
           <div className="login-page__form-separation-line"></div>
-          <p className="login-page__form-separation-text">or</p>
+          <p className="text-p text-color--50">or</p>
           <div className="login-page__form-separation-line"></div>
         </div>
 
         <button disabled={isLoading} className="btn btn--secondary btn--big"  onClick={registerWithGoogle}>Continue with Google</button>
-        <Link to="/login"><p className="login-page__form-sing-up">Already have an account? Sign in here</p></Link>
+        <Link to="/login"><p className="text-details login-page__form-sing-up">Already have an account? Sign in here</p></Link>
       </section>
     </main>
     </>

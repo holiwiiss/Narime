@@ -14,7 +14,7 @@ const EpisodesInput = ({ value, onChange, max }: Props) => {
           -
         </button>
         <input
-          className="input--episodes"
+          className="text-p input--episodes"
           type="number"
           value={value}
           onChange={(e) => onChange(Number(e.target.value))}
@@ -29,7 +29,7 @@ const EpisodesInput = ({ value, onChange, max }: Props) => {
           +
         </button>
         </div>
-        <p>{value}</p>
+        <p className="text-details text-color--75">{value}</p>
     </div>
   );
 };

@@ -23,9 +23,7 @@
     display: flex;
     height: 100%;
     padding: var(--space-l) var(--space-l);
-    font-family: var(--font-secondary);
-    font-size: var(--font-size-3);
-    color: var(--color-white);
+
     position: relative;
     gap: var(--space-xs);
 
@@ -34,7 +32,6 @@
     }
     @include sm{
         padding: var(--space-s) var(--space-s);
-        font-size: var(--font-size-1);
     }
     @include xs{
         padding: var(--space-xs) var(--space-xs);

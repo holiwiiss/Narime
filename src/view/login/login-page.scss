@@ -85,20 +85,6 @@
     }
 }
 
-.login-page__title {
-    @include md{
-        font-size: var(--font-size-6);
-    }
-}
-
-.login-page__description {
-    @include md{
-        font-size: var(--font-size-1);
-    }
-}
-.login-page__subtitle{
-    font-size: var(--font-size-6);
-}
 
 .login-page__form {
     display: flex;
@@ -127,18 +113,14 @@
         background-color: var(--color-white-50);
         border-radius: var(--border-radius-xs);
     }
-    &-text{
-        color: var(--color-white-50);
-    }
 }
 .login-page__form-forget {
     width: 100%;
     text-align: right;
-    font-size: var(--caption-size);
+
 }
 
 .login-page__form-sing-up {
     width: 100%;
     text-align: center;
-    font-size: var(--caption-size);
 }

@@ -89,16 +89,16 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
       <div className="popup__container">
         {!user ? (
           <>
-            <h2>You're not logged in</h2>
-            <p>Sign in to start saving your progress</p>
+            <h2 className="text-h2">You're not logged in</h2>
+            <p className="text-p text-color--75">Sign in to start saving your progress</p>
             <Link to="/login" className="bton">Sign in</Link>
           </>
         ):(
           <>
             <div className="popUp__container--header">
               <div className="popUp__container-header--title">
-                <p>{action === "add" ? "Adding to my list" : "Editing"}</p>
-                <h3 className="popUp__container-header--h3">{animeTitle}</h3>
+                <p className="text-p text-color--75">{action === "add" ? "Adding to my list" : "Editing"}</p>
+                <h3 className="text-h2">{animeTitle}</h3>
               </div>
               {action==="edit" && (
                 <>
@@ -112,7 +112,7 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
               )}
             </div>
             <form onSubmit={handleSubmit(onSubmit)} className="popUp_container_form"> 
-              <label>Status</label>
+              <label className="text-details">Status</label>
               <Controller
                 name="status"
                 control={control}
@@ -124,7 +124,7 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
                 )}
               />
 
-              <label>Personal Score</label>
+              <label className="text-details">Personal Score</label>
               <Controller
                 name="score"
                 control={control}
@@ -138,7 +138,7 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
 
               {(statusValue === "watching" || statusValue === "dropped") && (
                 <>
-                  <label>Episodes</label>
+                  <label className="text-details">Episodes</label>
                   <div className="episodes-row">
                   <Controller
                     name="episodes"
@@ -151,12 +151,12 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
                       />
                     )}
                   />
-                  <p> / {totalEpisodes} episodes</p>
+                  <p className="text-details text-color--75"> / {totalEpisodes} episodes</p>
                   </div>
                 </>
               )}
               <div className="btn--popup-container">
-                <button type="submit" className="btn">{action === "add" ? "Add" : "Edit"}</button>
+                <button type="submit" className="btn">Save</button>
                 <button type="button" className="btn btn--secondary" onClick={onClose}>Close</button>
               </div>
             </form>

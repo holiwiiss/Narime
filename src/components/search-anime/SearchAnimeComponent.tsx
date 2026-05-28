@@ -89,7 +89,7 @@ const SearchAnimeComponent = ({ isOpen, onClose }: Props) => {
         ref={inputRef}
         type="text"
         onKeyDown={(e) => handleSearch(e)}
-        className="buscar__anime"
+        className="text-p buscar__anime"
         value={inputValue}
         onInput={(event: React.InputEvent<HTMLInputElement>) =>
           setInputValue(event.currentTarget.value)
@@ -105,12 +105,12 @@ const SearchAnimeComponent = ({ isOpen, onClose }: Props) => {
           ) : isError ? (
             <ErrorComponent text={isError} />
           ): searchList.length === 0 ? (
-            <p>No anime found with that name</p>
+            <p className="text-p">No anime found with that name</p>
           ) : (
             searchList.map((anime: AnimeCardType) => (
               <Link to={`/anime/${anime.id}`} key={anime.id} className="anime-search__card" onClick={() => onClose()}>
                 <img className="anime-search__card-img" src={anime.image} />
-                <p className="anime-search__card-tittle">{anime.title}</p>
+                <p className="text-p anime-search__card-tittle">{anime.title}</p>
               </Link>
             ))
           )}

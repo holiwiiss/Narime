@@ -27,7 +27,7 @@ const StarRating = ({ value, onChange }: Props) => {
         </svg>
       ))}
       </div>
-      <p>{hovered ?? value ?? 0} / 10</p>
+      <p className="text-details text-color--75">{hovered ?? value ?? 0} / 10</p>
     </div>
   )
 }

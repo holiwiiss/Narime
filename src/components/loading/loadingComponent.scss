@@ -1,4 +1,5 @@
 //mismo scss que error component practicamente
+@use "../../scss/mixin" as *;
 
 .loading-component__container {
     width: 100%;
@@ -14,10 +15,13 @@
 .loading-component__face {
     font-size: var(--font-size-10);
     font-family: var(--font-secondary);
+    @include sm{
+        font-size: var(--font-size-5);
+    }
 }
 
 .loading-component__face--small {
-  font-size: var(--font-size-4);
+  font-size: var(--font-size-3);
 }
 
 .loading-component__spinner {

@@ -66,7 +66,7 @@ const ParaTi = () => {
         <ErrorComponent text="Something went wrong"></ErrorComponent>
       ): myAnimeListWatching && myAnimeListWatching.length > 0  ? (
         <>
-        <h1 className="para-ti__title">Currently watching...</h1>
+        <h1 className="text-h1 para-ti__title">Currently watching...</h1>
         <section className="anime-cards__container">
           {myAnimeListWatching.map((anime: AnimeCardType) => (
             <AnimeCard
@@ -90,7 +90,7 @@ const ParaTi = () => {
         <ErrorComponent text="Something went wrong"></ErrorComponent>
       ) : recommendationsList && recommendationsList?.length ? (
         <>
-          {scoreCompleted.length > 0 && betterScoreID.length > 0  ? (<h2 className="para-ti__subtitle">Because you liked X</h2>): (<h2 className="para-ti__subtitle">Recommendations to get started</h2>)}
+          {scoreCompleted.length > 0 && betterScoreID.length > 0  ? (<h2 className="text-h2 para-ti__subtitle">Because you liked X</h2>): (<h2 className="text-h2 para-ti__subtitle">Recommendations to get started</h2>)}
           <section className="anime-cards__container">
           {recommendationsList.map((anime: AnimeRecomendationCardType) => (
                       <AnimeCard

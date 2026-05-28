@@ -30,25 +30,26 @@ const LoginPage = () => {
         </header>
 
         <div className="login-page__text">
-          <h1 className="login-page__title"> EVERY STORY MATTERS, YOURS TOO </h1>
+          <h1 className="text-h1"> EVERY STORY MATTERS, YOURS TOO </h1>
 
-          <p className="login-page__description"> Narime allows you to create smart lists, dynamic rankings, and personalized recommendations.</p>
+          <p className="text-p"> Narime allows you to create smart lists, dynamic rankings, and personalized recommendations.</p>
         </div>
 
       </section>
 
       <section className="login-page__form-section">
         <div className="login-page__form-section-text">
-          <h2 className="login-page__subtitle">Log In</h2>
-          <p className="login-page__subtitle-text"> Sign in to keep tracking the progress of your favorite series.</p>
+          <h2 className="text-h2">Log In</h2>
+          <p className="text-p text-color--75"> Sign in to keep tracking the progress of your favorite series.</p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="login-page__form">
 
           <div className="login-page__form-field">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email" className="text-details">Email</label>
             <input
               id="email"
+              className="text-p"
               type="email"
               {...register('email', { 
                 required: 'This field is required', 
@@ -58,9 +59,10 @@ const LoginPage = () => {
           </div>
           
           <div className="login-page__form-field">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password" className="text-details">Password</label>
             <input
               type='password'
+              className="text-p"
               id="password"
               {...register('password', { 
                 required: 'This field is required', 
@@ -70,7 +72,7 @@ const LoginPage = () => {
             ></input>
             {errors.password && <span>{errors.password.message}</span>}
           </div>
-          <p className="login-page__form-forget">Forget your password?</p>
+          <p className="text-details login-page__form-forget">Forget your password?</p>
           
           {isError && (<span>An error occurred while signing in</span>)}
           {isLoading && (<p>Signing in...</p>)}
@@ -81,13 +83,13 @@ const LoginPage = () => {
 
         <div className="login-page__form-separation">
           <div className="login-page__form-separation-line"></div>
-          <p className="login-page__form-separation-text">or</p>
+          <p className="text-p text-color--50">or</p>
           <div className="login-page__form-separation-line"></div>
         </div>
 
         <button disabled={isLoading} className="btn btn--secondary btn--big" onClick={registerWithGoogle}>Sign in with Google</button>
         
-        <Link to="/register"> <p className="login-page__form-sing-up">Don't have an account? Register here</p> </Link>
+        <Link to="/register"> <p className="text-details login-page__form-sing-up">Don't have an account? Register here</p> </Link>
       </section>
     </main>
     </div>

@@ -58,8 +58,9 @@ export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal)
     <>
       <div className="bg-popup">
         <div className="popup__container">
-          <h3>Add to favorites</h3>
+          <h3 className="text-h2">Add to favorites</h3>
           <input
+            className="text-p"
             type="text"
             value={inputValue}
             onInput={(event: React.InputEvent<HTMLInputElement>) =>
@@ -69,11 +70,11 @@ export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal)
           ></input>
           <div>
             {isLoading ? (
-              <h1>Loading...</h1>
+              <h1 className="text-h2 text-color--75">Loading...</h1>
             ) : isError ? (
-              <h1>Something went wrong</h1>
+              <h1 className="text-h2 text-color--75" >Something went wrong</h1>
             ) : searchList.length === 0 ? (
-              <p>No anime found with that name</p>
+              <p className="text-p text-color--75">No anime found with that name</p>
             ) : (
               searchList.map((anime: AnimeCardType) =>
                 !isInList(anime.id) ? (
@@ -82,7 +83,7 @@ export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal)
                       className="anime-search__card-img"
                       src={anime.image}
                     />
-                    <p>{anime.title}</p>
+                    <p className="text-p">{anime.title}</p>
                     <button
                       className="btn"
                       onClick={() => addToFavorite(anime.id, userId)}
@@ -96,8 +97,8 @@ export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal)
                       className="anime-search__card-img"
                       src={anime.image}
                     />
-                    <p>{anime.title}</p>
-                    <span>Already in your favorites</span>
+                    <p className="text-p">{anime.title}</p>
+                    <span className="text-p">Already in your favorites</span>
                   </div>
                 ),
               )

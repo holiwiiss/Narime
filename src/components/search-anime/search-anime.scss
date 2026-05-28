@@ -18,9 +18,6 @@
     border: none;
     outline: none;
     background-color: transparent;
-    @include sm{
-        font-size: var(--font-size-1);
-    }
 }
 
 .all-search__content {

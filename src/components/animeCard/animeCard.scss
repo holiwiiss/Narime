@@ -16,10 +16,10 @@
         width:calc((100% - 48px) / 3);
     }
     @include sm{
-        width:calc((100% - 32px) / 3);
+        width:calc((100% - 16px) / 2);
     }
     @include xs{
-        width:calc((100% - 16px) / 3);
+        width:calc((100% - 16px) / 2);
         gap: var(--space-xxs);
     }
 }
@@ -99,40 +99,17 @@
     }
 }
 
-.anime-card__score-text, .anime-card__user-status, .anime-card__meta {
-    font-size: var(--font-size-1);
-    @include sm{
-        font-size: var(--font-size-0);
-    }
-}
-
 .anime-card__user-status {
     padding: var(--space-xxs) var(--space-s);
     background-color: var(--color-black-25);
     border: solid 1px var(--color-white-75);
     border-radius: var(--border-radius-s);
-    color: var(--color-white);
     backdrop-filter: blur(5px);
      @include sm{
         padding: var(--space-xxs);
         border-radius: var(--border-radius-xs);
     }
 }
-/*
-.anime-card__user-status[data-status="completed"] {
-    background-color:var(--color-completed);
-}
-
-.anime-card__user-status[data-status="watching"] {
-    background-color:var(--color-watching);
-}
-
-.anime-card__user-status[data-status="dropped"] {
-    background-color:var(--color-dropped);
-}
-.anime-card__user-status[data-status="planToWatch"] {
-    background-color:var(--color-plan-to-watch);
-}*/
 
 .anime-card__footer {
     display: flex;
@@ -167,46 +144,22 @@
     gap: var(--space-xxs);
 }
 
-.anime-card__episodes {
-    font-weight: var(--font-semibold);
-    @include xl{
-        font-size: var(--font-size-1);
-    }
-    @include sm{
-        font-size: var(--font-size-0);
-    }
-}
-
 .anime-card__title {
-    font-size: var(--font-size-5);
-    font-weight: var(--font-regular);
-    line-height: 20px;
     display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp:2;  
-        line-clamp: 2;  
-        overflow: hidden; 
-
-    @include xl{
-        font-size: var(--font-size-4);
-    }
-    @include sm{
-        line-height: 1.2;
-        font-size: var(--font-size-1);
-        
-    }
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp:2;  
+    line-clamp: 4;  
+    overflow: hidden; 
 }
+
 .anime-card__button  {
     height: fit-content;
     display: flex;
     gap: var(--space-xs);
     align-items: center;
-    font-size: var(--font-size-1);
 }
 
 .btn-anime-card__text {
-    color: var(--color-white);
-    font-size: var(--font-size-1);
     @include lg{
        display: none;
     }
