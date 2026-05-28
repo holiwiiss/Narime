@@ -37,7 +37,7 @@ const LoginPage = () => {
 
       </section>
 
-      <section className="login-page__form-section">
+      <section className="surface login-page__form-section">
         <div className="login-page__form-section-text">
           <h2 className="text-h2">Log In</h2>
           <p className="text-p text-color--75"> Sign in to keep tracking the progress of your favorite series.</p>

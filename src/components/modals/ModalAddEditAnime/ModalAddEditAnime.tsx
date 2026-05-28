@@ -12,8 +12,6 @@ import StarRating from "../../StarRating/StarRating";
 import EpisodesInput from "../../EpisodesInput/EpisodesInput";
 import { useMyAnimeList } from "../../../context/myListContext";
 
-
-
 type PropsModal = {
   animeId: number;
   totalEpisodes: number;
@@ -89,7 +87,7 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
 
   return (
     <div className="bg-popup">
-      <div className="popup__container">
+      <div className="surface popup__container">
         {!user ? (
           <>
             <h2 className="text-h2">You're not logged in</h2>

@@ -1,3 +1,5 @@
+@use "../mixin" as *;
+
 .action-item {
     display: flex;
     align-items: center;

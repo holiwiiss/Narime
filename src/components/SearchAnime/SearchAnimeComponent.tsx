@@ -99,7 +99,7 @@ const SearchAnimeComponent = ({ isOpen, onClose }: Props) => {
       ></input>
 
       {activeSearch && (
-        <div className="popover-panel all-search__content">
+        <div className="surface all-search__content">
           {isLoading ? (
             <LoadingComponent size="small" />
           ) : isError ? (

@@ -20,16 +20,9 @@
 .register-page__form-section {
 
     width: 50%;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     padding: var(--space-xxl) var(--space-xxxl);
-    background-color: var(--color-black-75);
-    backdrop-filter: blur(5px);
-    border-radius: var(--border-radius-l);
-    border: 1px solid var(--color-white-20);
     gap: var(--space-l);
+
     @include lg {
         width: 60%;
         transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.35s ease;

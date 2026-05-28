@@ -1,0 +1,13 @@
+@use "../mixin" as *;
+
+.badge {
+    padding: var(--space-xxs) var(--space-s);
+    background-color: var(--color-black-25);
+    border: solid 1px var(--color-white-75);
+    border-radius: var(--border-radius-s);
+    backdrop-filter: blur(5px);
+     @include sm{
+        padding: var(--space-xxs);
+        border-radius: var(--border-radius-xs);
+    }
+}

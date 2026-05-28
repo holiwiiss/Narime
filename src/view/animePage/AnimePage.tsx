@@ -171,7 +171,7 @@ const AnimePage = () => {
                         <img className="character-card__img" src={person.characterImage} alt={person.characterName}/>
                         
                         <div className="character-card--header">
-                          <span className="text-details character-card__badge">{person.role}</span>
+                          <span className="text-details badge">{person.role}</span>
                         </div>
                         
                         <div className="character-card--foter">

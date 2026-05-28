@@ -22,7 +22,7 @@ export const ModalRemoveFavorites = ({listFavoriteInformation, userId, onClose}:
 
   return (
     <div className="bg-popup">
-      <div className="popup__container">
+      <div className="surface popup__container">
         <h3 className="text-h2">Edit your favorites</h3>
         <div>
           {listFavoriteInformation.map((anime: AnimeCardType) => (

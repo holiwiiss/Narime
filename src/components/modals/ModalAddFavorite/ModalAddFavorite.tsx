@@ -57,7 +57,7 @@ export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal)
   return (
     <>
       <div className="bg-popup">
-        <div className="popup__container">
+        <div className="surface popup__container">
           <h3 className="text-h2">Add to favorites</h3>
           <input
             className="text-p"

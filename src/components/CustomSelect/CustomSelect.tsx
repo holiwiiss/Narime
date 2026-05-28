@@ -31,7 +31,7 @@ const CustomSelect = ({ options, value, onChange }: Props) => {
           </svg>
         </button>
       {isOpen && (
-          <ul className="popover-panel custom-select__dropdown">
+          <ul className="surface custom-select__dropdown">
             {options.map(option => (
               <li
                 key={option}

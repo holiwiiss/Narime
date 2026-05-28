@@ -34,15 +34,15 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default", fromState}:
         {isRecommendations || isMinimal? (
           <></>
         ): isMyList ? (
-          <div className="anime-card__score">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="var(--color-red-primary)" className="size-4 icon-size-m">
+          <div className="action-item anime-card__score">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="var(--color-red-primary)" className="size-4 action-item__icon">
               <path fillRule="evenodd" d="M8 1.75a.75.75 0 0 1 .692.462l1.41 3.393 3.664.293a.75.75 0 0 1 .428 1.317l-2.791 2.39.853 3.575a.75.75 0 0 1-1.12.814L7.998 12.08l-3.135 1.915a.75.75 0 0 1-1.12-.814l.852-3.574-2.79-2.39a.75.75 0 0 1 .427-1.318l3.663-.293 1.41-3.393A.75.75 0 0 1 8 1.75Z" clipRule="evenodd" />
             </svg>
             <p className="text-details">{userData?.scorePersonal ?? "N/A"}</p>
           </div>
         ) : (
-          <div className="anime-card__score">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#CFA80B" className="size-4 icon-size-m">
+          <div className="action-item anime-card__score">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#CFA80B" className="size-4 action-item__icon">
               <path fillRule="evenodd" d="M8 1.75a.75.75 0 0 1 .692.462l1.41 3.393 3.664.293a.75.75 0 0 1 .428 1.317l-2.791 2.39.853 3.575a.75.75 0 0 1-1.12.814L7.998 12.08l-3.135 1.915a.75.75 0 0 1-1.12-.814l.852-3.574-2.79-2.39a.75.75 0 0 1 .427-1.318l3.663-.293 1.41-3.393A.75.75 0 0 1 8 1.75Z" clipRule="evenodd" />
             </svg>
             <p className="text-details">{anime.score ?? "N/A"}</p>
@@ -50,7 +50,7 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default", fromState}:
         )}
           
 
-          {!isMinimal && userData && (<span className="anime-card__user-status text-details" data-status={userData.statusPersonal}>{formatStatus(userData.statusPersonal)}</span>)}
+          {!isMinimal && userData && (<span className="badge text-details" data-status={userData.statusPersonal}>{formatStatus(userData.statusPersonal)}</span>)}
         </header>
 
         <footer className="anime-card__footer">

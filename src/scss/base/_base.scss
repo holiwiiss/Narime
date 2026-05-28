@@ -103,8 +103,6 @@ input {
     border:2px solid var(--color-white-50);
 }
 
-
-
 .selector {
     border:2px solid var(--color-white-50);
     color: var(--color-white);
@@ -115,11 +113,13 @@ input {
     cursor: pointer;
 }
 
-.popover-panel {
+.surface {
     background-color: var(--color-black-85);
-    backdrop-filter: blur(5px);
     border: 1px solid var(--color-white-20);
+    backdrop-filter: blur(5px);
     border-radius: var(--border-radius-s);
+    display: flex;
+    flex-direction: column;
 }
 
 //          ICONS

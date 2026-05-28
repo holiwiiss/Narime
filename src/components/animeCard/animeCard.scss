@@ -87,8 +87,6 @@
 }
 
 .anime-card__score {
-    display: flex;
-    align-items: center;
     background-color: var(--color-black-75);
     border-radius: var(--border-radius-s);
     padding: var(--space-xxs) var(--space-xs);
@@ -114,8 +112,6 @@
 .anime-card__footer {
     display: flex;
     flex-direction: column;
-    
-    
     z-index: 1;
     @include sm{
         gap: var(--space-xxs);

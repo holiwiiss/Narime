@@ -25,7 +25,7 @@ const RegisterPage = () => {
   return (
     <>
     <main className="register-page">
-      <section className="register-page__form-section">
+      <section className="surface register-page__form-section">
         <div className="register-page__form-section-text">
           <h1 className="text-h2">Start now</h1>
           <p className="text-p text-color--75">Don't miss the ultimate anime and series content management.</p>

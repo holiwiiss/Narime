@@ -25,8 +25,6 @@
     inset: 120% 0 auto 0;
     padding: var(--space-xs);
     height: auto;
-    display: flex;
-    flex-direction: column;
     max-height: 520px;
     @include sm{
         inset: 100% 0 auto 0;

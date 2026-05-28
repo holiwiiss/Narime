@@ -1,8 +1,6 @@
 .menu-settings__container  {
     position: absolute;
     inset: 135% 0 auto auto;
-    display: flex;
-    flex-direction: column;
     padding: var(--space-m);
     gap: var(--space-xs);
     width: 250px;
@@ -23,10 +21,7 @@
 }
 
 .menu--settings--item {
-    display: flex;
-    align-items: center;
     padding: var(--space-xs);
-    gap: var(--space-s);
 }
 
 .menu--settings--item:hover {
