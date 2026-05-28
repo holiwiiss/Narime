@@ -1,0 +1,17 @@
+.action-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.action-item__text {
+    @include lg{
+       display: none;
+    }
+}  
+
+.action-item__icon {
+    width: 1em;
+    height: 1em;
+}      
+

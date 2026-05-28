@@ -85,19 +85,6 @@
     }
 }
 
-
-.login-page__form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-s);
-}
-
-.login-page__form-field {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
-}
-
 .login-page__button {
     height: 50px;
 }
@@ -117,7 +104,6 @@
 .login-page__form-forget {
     width: 100%;
     text-align: right;
-
 }
 
 .login-page__form-sing-up {

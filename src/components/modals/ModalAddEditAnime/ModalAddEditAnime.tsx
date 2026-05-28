@@ -114,35 +114,39 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
                 </>
               )}
             </div>
-            <form onSubmit={handleSubmit(onSubmit)} className="popUp_container_form"> 
-              <label htmlFor="status-selector" className="text-details">Status</label>
-              <Controller
-                name="status"
-                control={control}
-                render={({ field }) => (
-                  <StatusSelector
-                    id="status-selector"
-                    value={field.value}
-                    onChange={field.onChange}
-                  />
-                )}
-              />
+            <form onSubmit={handleSubmit(onSubmit)} className="form"> 
+              <div className="form__group">
+                <label htmlFor="status-selector" className="text-details">Status</label>
+                <Controller
+                  name="status"
+                  control={control}
+                  render={({ field }) => (
+                    <StatusSelector
+                      id="status-selector"
+                      value={field.value}
+                      onChange={field.onChange}
+                    />
+                  )}
+                />
+              </div>
 
-              <label htmlFor="score-value" className="text-details">Personal Score</label>
-              <Controller
-                name="score"
-                control={control}
-                render={({ field }) => (
-                  <StarRating
-                    id="score-selector"
-                    value={field.value}
-                    onChange={field.onChange}
-                  />
-                )}
-              />
+              <div className="form__group">     
+                <label htmlFor="score-value" className="text-details">Personal Score</label>
+                <Controller
+                  name="score"
+                  control={control}
+                  render={({ field }) => (
+                    <StarRating
+                      id="score-selector"
+                      value={field.value}
+                      onChange={field.onChange}
+                    />
+                  )}
+                />
+              </div> 
 
               {(statusValue === "watching" || statusValue === "dropped") && (
-                <>
+                <div className="form__group">
                   <label htmlFor="episodes-selector" className="text-details">Episodes</label>
                   <div className="episodes-row">
                   <Controller
@@ -159,9 +163,9 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
                   />
                   <p className="text-details text-color--75"> / {totalEpisodes} episodes</p>
                   </div>
-                </>
+                </div>
               )}
-              <div className="btn--popup-container">
+              <div className=" form__group btn--popup-container">
                 <button type="submit" className="btn">Save</button>
                 <button type="button" className="btn btn--secondary" onClick={onClose}>Close</button>
               </div>

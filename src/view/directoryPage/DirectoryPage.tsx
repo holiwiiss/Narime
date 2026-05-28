@@ -2,15 +2,14 @@ import "./directorypage.scss";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
 import LoadingComponent from "../../components/Loading/LoadingComponent";
 import ErrorComponent from "../../components/Error/ErrorComponent";
-
 import AnimeCard from "../../components/AnimeCard/AnimeCard";
 import { useSearchParams } from "react-router-dom";
 import { useDirectoryAnimes } from "../../hooks/useDirectoryAnime";
 import { useMyListMap } from "../../hooks/useMyListMap";
 import { useAnimeModal } from "../../hooks/useAnimeModal";
 import type { CategoryType } from "../../queries/directory.type";
-import ParaTi from "../../components/ForYou/ForYou";
 import ModalAddEditAnime from "../../components/modals/ModalAddEditAnime/ModalAddEditAnime";
+import ForYou from "../../components/ForYou/ForYou";
 
 const DirectoryPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -42,7 +41,7 @@ const DirectoryPage = () => {
         </div>
       </div>
       {category === "para ti" ? (
-        <ParaTi />
+        <ForYou />
       ) : animeList.length > 0 ? (
         <>
         <div className="anime-cards__container">

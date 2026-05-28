@@ -50,18 +50,6 @@
     }
 }
 
-.register-page__form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-s);
-}
-
-.register-page__form-field {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
-}
-
 .register-page__button {
     height: 40px;
 }

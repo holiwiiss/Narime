@@ -1,0 +1,24 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+}  
+//label + input                 
+.form__group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.form__error {
+    //mismo que text details
+    font-size: var(--font-size-1);
+    color: var(--color-errors);
+}
+
+
+/*
+.form__label { }             // label
+.form__input { }             // input, select, textarea
+.form__hint { }              // texto de ayuda debajo
+*/

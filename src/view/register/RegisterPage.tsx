@@ -30,9 +30,9 @@ const RegisterPage = () => {
           <h1 className="text-h2">Start now</h1>
           <p className="text-p text-color--75">Don't miss the ultimate anime and series content management.</p>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="register-page__form">
+        <form onSubmit={handleSubmit(onSubmit)} className="form">
 
-          <div className="register-page__form-field">
+          <div className="form__group">
             <label htmlFor="username" className="text-details">Username*</label>
             <input
               id="username"
@@ -44,10 +44,10 @@ const RegisterPage = () => {
                   minLength:{value:3, message:'Minimum 3 characters'}
               })}
             ></input>
-            {errors.username && <span>{errors.username.message}</span>}
+            {errors.username && <span className="form__error">{errors.username.message}</span>}
           </div>
 
-          <div className="register-page__form-field">
+          <div className="form__group">
             <label htmlFor="email" className="text-details">Email*</label>
             <input
               id="email"
@@ -57,10 +57,10 @@ const RegisterPage = () => {
                   required: 'This field is required', 
               })}
             ></input>
-            {errors.email && <span>{errors.email.message}</span>}
+            {errors.email && <span className="form__error">{errors.email.message}</span>}
           </div>
 
-          <div className="register-page__form-field">
+          <div className="form__group">
             <label htmlFor="password" className="text-details">Password*</label>
             <input
               id="password"
@@ -72,10 +72,10 @@ const RegisterPage = () => {
                 pattern: {value: /^(?=.*[A-Z])(?=.*\d).+$/, message: "Must contain one uppercase letter and one number"}
               })}
             ></input>
-            {errors.password && <span>{errors.password.message}</span>}
+            {errors.password && <span className="form__error">{errors.password.message}</span>}
           </div>
 
-          <div className="register-page__form-field">
+          <div className="form__group">
             <label htmlFor="confirmPassword" className="text-details">Confirm password*</label>
             <input
               id="confirmPassword"
@@ -87,10 +87,10 @@ const RegisterPage = () => {
                   value === passwordValue || 'Passwords do not match',
               })}
             ></input>
-            {errors.passwordConfirm && (<span>{errors.passwordConfirm.message}</span>)}  
+            {errors.passwordConfirm && (<span className="form__error">{errors.passwordConfirm.message}</span>)}  
           </div>
 
-          <div className="register-page__form-field">
+          <div className="form__group">
             <label className="text-details text-color--75">
               <input
                 id="terms"
@@ -100,9 +100,9 @@ const RegisterPage = () => {
               ></input>
               I have read and accept the terms and conditions
             </label>
-            {errors.confirmTerms && (<span>{errors.confirmTerms.message}</span>)}  
+            {errors.confirmTerms && (<span className="form__error">{errors.confirmTerms.message}</span>)}  
           </div>
-          {isError && (<span>An error occurred while creating the account</span>)}
+          {isError && (<span className="form__error">An error occurred while creating the account</span>)}
           {isLoading && (<p>Creating account...</p>)}
           <button disabled={isLoading} className="btn btn--big" type="submit">Sign up</button>
         </form>

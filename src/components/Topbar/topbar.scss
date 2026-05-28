@@ -1,4 +1,4 @@
-@use "../../scss/mixin/" as *;
+@use "../../scss/mixin" as *;
 
 .topbar{
     position: fixed;
@@ -34,32 +34,14 @@
     border: 1px solid red;
 }
 
-.nav--option {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: var(--space-xs);
-    
-    &-text{
-        @include sm{
-        display: none;
-        }
-    }
-    &-img{
-        @include sm{
-            height: var(--space-m);
-            width: var(--space-m);
-        }
-    }
-}
 .nav--option--active {
     svg { fill: var(--color-white); }
-    .nav--option-text { color: var(--color-white); }
+    .action-item__text { color: var(--color-white); }
 }
 
 .nav--option:hover{
     svg { fill: var(--color-white); }
-    .nav--option-text { color: var(--color-white); }
+    .action-item__text { color: var(--color-white); }
 }
 
 

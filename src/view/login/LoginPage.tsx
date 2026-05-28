@@ -43,9 +43,9 @@ const LoginPage = () => {
           <p className="text-p text-color--75"> Sign in to keep tracking the progress of your favorite series.</p>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="login-page__form">
+        <form onSubmit={handleSubmit(onSubmit)} className="form">
 
-          <div className="login-page__form-field">
+          <div className="form__group">
             <label htmlFor="email" className="text-details">Email</label>
             <input
               id="email"
@@ -55,10 +55,10 @@ const LoginPage = () => {
                 required: 'This field is required', 
               })}
             ></input>
-            {errors.email && <span>{errors.email.message}</span>}
+            {errors.email && <span className="form__error">{errors.email.message}</span>}
           </div>
           
-          <div className="login-page__form-field">
+          <div className="form__group">
             <label htmlFor="password" className="text-details">Password</label>
             <input
               type='password'
@@ -70,11 +70,11 @@ const LoginPage = () => {
               pattern: {value: /^(?=.*[A-Z])(?=.*\d).+$/, message: "Must contain one uppercase letter and one number"}
             })}
             ></input>
-            {errors.password && <span>{errors.password.message}</span>}
+            {errors.password && <span className="form__error">{errors.password.message}</span>}
           </div>
           <p className="text-details login-page__form-forget">Forget your password?</p>
           
-          {isError && (<span>An error occurred while signing in</span>)}
+          {isError && (<span className="form__error">An error occurred while signing in</span>)}
           {isLoading && (<p>Signing in...</p>)}
 
           <button disabled={isLoading} className="btn btn--big" type="submit">Sign in</button>
