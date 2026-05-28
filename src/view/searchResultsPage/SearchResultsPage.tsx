@@ -42,6 +42,7 @@ const SearchResultsPage = () => {
               anime={anime}
               userData={getUserListData(anime.id)}
               onOpenModal={() => openAddEditModal(anime)}
+              fromState={{ from: `/search/anime?q=${query}`, label: "Search"}}
             >
             </AnimeCard>
           ))}

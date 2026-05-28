@@ -52,6 +52,7 @@ const DirectoryPage = () => {
               userData={getUserListData(anime.id)}
               onOpenModal={() => openAddEditModal(anime)}
               variant={category === 'upcoming' ? "upcoming" : "directory"}
+              fromState={{ from: "/", label: "Directory" }}
             />
           ))}
         </div>

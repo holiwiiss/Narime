@@ -52,6 +52,15 @@
         }
     }
 }
+.nav--option--active {
+    svg { fill: var(--color-white); }
+    .nav--option-text { color: var(--color-white); }
+}
+
+.nav--option:hover{
+    svg { fill: var(--color-white); }
+    .nav--option-text { color: var(--color-white); }
+}
 
 
 .topbar--nav {

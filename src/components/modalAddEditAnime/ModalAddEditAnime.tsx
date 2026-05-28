@@ -112,24 +112,26 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
               )}
             </div>
             <form onSubmit={handleSubmit(onSubmit)} className="popUp_container_form"> 
-              <label className="text-details">Status</label>
+              <label htmlFor="status-selector" className="text-details">Status</label>
               <Controller
                 name="status"
                 control={control}
                 render={({ field }) => (
                   <StatusSelector
+                    id="status-selector"
                     value={field.value}
                     onChange={field.onChange}
                   />
                 )}
               />
 
-              <label className="text-details">Personal Score</label>
+              <label htmlFor="score-value" className="text-details">Personal Score</label>
               <Controller
                 name="score"
                 control={control}
                 render={({ field }) => (
                   <StarRating
+                    id="score-selector"
                     value={field.value}
                     onChange={field.onChange}
                   />
@@ -138,13 +140,14 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
 
               {(statusValue === "watching" || statusValue === "dropped") && (
                 <>
-                  <label className="text-details">Episodes</label>
+                  <label htmlFor="episodes-selector" className="text-details">Episodes</label>
                   <div className="episodes-row">
                   <Controller
                     name="episodes"
                     control={control}
                     render={({ field }) => (
                       <EpisodesInput
+                        id="episodes-selector"
                         value={field.value}
                         onChange={field.onChange}
                         max={totalEpisodes}

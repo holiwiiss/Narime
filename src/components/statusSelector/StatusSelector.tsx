@@ -3,13 +3,14 @@ import "./statusSelector.scss"
 type Props = {
   value: string;
   onChange: (value: string) => void;
+  id:string;
 }
 
 const statusList = ["watching", "completed", "dropped", "planToWatch"]
 
-const StatusSelector = ({ value, onChange }: Props) => {
+const StatusSelector = ({ value, onChange, id }: Props) => {
   return (
-    <div className="status-selector">
+    <div className="status-selector" id={id}>
       {statusList.map(status => (
         <button
           key={status}

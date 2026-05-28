@@ -4,9 +4,10 @@ type Props = {
   value: number;
   onChange: (value: number) => void;
   max: number;
+  id:string;
 };
 
-const EpisodesInput = ({ value, onChange, max }: Props) => {
+const EpisodesInput = ({ value, onChange, max, id }: Props) => {
   return (
     <div className="episodes--wrapper">
         <div>
@@ -14,6 +15,7 @@ const EpisodesInput = ({ value, onChange, max }: Props) => {
           -
         </button>
         <input
+          id={id}
           className="text-p input--episodes"
           type="number"
           value={value}

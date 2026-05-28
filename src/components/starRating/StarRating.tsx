@@ -3,9 +3,10 @@ import "./starRating.scss"
 type Props = {
   value: number | null;
   onChange: (value: number) => void;
+  id: string;
 }
 
-const StarRating = ({ value, onChange }: Props) => {
+const StarRating = ({ value, onChange,id }: Props) => {
   const [hovered, setHovered] = useState<number | null>(null)
 
   return (
@@ -14,6 +15,7 @@ const StarRating = ({ value, onChange }: Props) => {
       {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((star) => (
         
         <svg
+          id={id}
           key={star}
           xmlns="http://www.w3.org/2000/svg" 
           viewBox="0 0 24 24" 

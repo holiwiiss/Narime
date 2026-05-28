@@ -13,6 +13,7 @@ import { AuthProvider } from './context/AuthContext.tsx'
 import ProtectedRoute from './router/ProtectedRoute.tsx'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import UserPage from './view/userPage/UserPage.tsx'
+import PublicRoute from './router/PublicRoute.tsx'
 
 const router = createBrowserRouter([
   {
@@ -43,11 +44,11 @@ const router = createBrowserRouter([
       },
       {
         path:'/register',
-        element: <RegisterPage/>
+        element: <PublicRoute> <RegisterPage /> </PublicRoute>
       },
       {
         path:'/login',
-        element: <LoginPage/>
+        element: <PublicRoute> <LoginPage /> </PublicRoute>
       },
       {
         path:'/anime/:id',

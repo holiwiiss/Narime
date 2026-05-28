@@ -11,10 +11,11 @@ type PropsAnimeCard = {
   anime: AnimeCardType | AnimeRecomendationCardType;
   userData?: UserAnimeListFirestoreType;
   onOpenModal?: (animeId: number) => void;
-  variant?: "default" | "minimal" | "directory" | "upcoming" | "mylist" | "recomendations" ;
+  variant?: "default" | "minimal" | "directory" | "upcoming" | "mylist" | "recomendations";
+  fromState?: { from: string; label: string }; 
 }
 
-const AnimeCard = ({anime, userData, onOpenModal, variant="default"}: PropsAnimeCard) => {
+const AnimeCard = ({anime, userData, onOpenModal, variant="default", fromState}: PropsAnimeCard) => {
 
   const isMinimal = variant === "minimal"
   const isDirectory = variant === "directory"
@@ -26,7 +27,7 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default"}: PropsAnime
 
   return(
     <div className="anime-card-wrapper">
-      <article className="anime-card" onClick={()=> navigate(`/anime/${anime.id}`)}>
+      <article className="anime-card" onClick={()=> navigate(`/anime/${anime.id}`, { state: fromState })}>
         <img className="anime-card-img" src={anime.image} alt={anime.title}></img>
         <header className="anime-card__header">
 

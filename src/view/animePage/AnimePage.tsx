@@ -1,6 +1,6 @@
 import "./animepage.scss";
 import type { AnimeCharactersType, AnimeInformationType } from "../../services/anime-information/anime-information.type";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import ErrorComponent from "../../components/error/ErrorComponent";
 import LoadingComponent from "../../components/loading/LoadingComponent";
 import { useMyListMap } from "../../hooks/useMyListMap";
@@ -21,6 +21,10 @@ const AnimePage = () => {
   const modalAddEdit = useAnimeModal()
   const { id } = useParams();
   const animeID = Number(id);
+
+  const location = useLocation()
+  const from = location.state?.from ?? "/"
+  const fromLabel = location.state?.label ?? "Directory"
 
   const { getUserListData } = useMyListMap()
   const userData: UserAnimeListFirestoreType | undefined = getUserListData(animeID)
@@ -58,7 +62,7 @@ const AnimePage = () => {
             <section className="anime-page__content">
 
               <div className="breadcrumbs__container">
-                <Link to="/directory" className="text-details text-color--50">Directory</Link>
+                <Link to={from}  className="text-details text-color--50">{fromLabel}</Link>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white-50)" className="size-6 icon-size-m">
                   <path fillRule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clipRule="evenodd" />
                 </svg>
