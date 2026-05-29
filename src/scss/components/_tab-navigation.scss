@@ -13,8 +13,14 @@
     display: flex;
     gap: var(--space-s);
     width: 100%;
-    @include xs{
+    @include md{
         gap: var(--space-xs);
+        overflow-x: auto;
+        white-space: nowrap;  
+        scrollbar-width: none; 
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
 }
 
@@ -83,6 +89,7 @@
 .tab-option__selected .tab-option__count{
     background-color: var(--color-red-primary);
 }
+
 .tab-option:hover::after {
     left: 0;
     right: 0;

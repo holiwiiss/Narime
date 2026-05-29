@@ -82,6 +82,9 @@
     padding: var(--space-xs);
     z-index: 1;
     @include sm{
+        padding: var(--space-xs);
+    }
+    @include xs {
         padding: var(--space-xxs);
     }
 }
@@ -113,9 +116,6 @@
     display: flex;
     flex-direction: column;
     z-index: 1;
-    @include sm{
-        gap: var(--space-xxs);
-    }
 }
 
 .anime-card__options {
@@ -127,8 +127,13 @@
     padding: 0 var(--space-s);
     padding-bottom: var(--space-xs);
     @include sm{
+        padding: 0 var(--space-xs);
+        padding-bottom: var(--space-xs);
+        gap: var(--space-xs);
+    }
+    @include xs {
         padding: 0 var(--space-xxs);
-        gap: var(--space-xxs);
+        padding-bottom: var(--space-xxs);
     }
 }
 
@@ -154,9 +159,7 @@
     background-color: var(--color-black-75);
     border-bottom-left-radius: var(--border-radius-s);
     border-bottom-right-radius: var(--border-radius-s);
-    @include sm{
-        height: 4px;
-    }
+    
 }
 
 .anime-card__progressbar-content {

@@ -91,7 +91,7 @@ const RegisterPage = () => {
           </div>
 
           <div className="form__group">
-            <label className="text-details text-color--75">
+            <label className="text-details text-color--75 form__checkbox">
               <input
                 id="terms"
                 className="text-p"

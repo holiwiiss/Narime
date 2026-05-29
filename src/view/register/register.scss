@@ -1,7 +1,7 @@
 @use "../../scss/mixin/" as *;
 
 .register-page {
-    width: 100vw;
+    width:100%;
     display: flex;
     justify-content: center;
     padding: var(--space-m);
@@ -18,7 +18,6 @@
 }
 
 .register-page__form-section {
-
     width: 50%;
     padding: var(--space-xxl) var(--space-xxxl);
     gap: var(--space-l);
@@ -45,4 +44,26 @@
 
 .register-page__button {
     height: 40px;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    border: 2px solid var(--color-white-50);
+    border-radius: var(--border-radius-xs);
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:checked {
+      background-color: var(--color-red-primary);
+      border-color: var(--color-red-primary);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3E%3C/svg%3E");
+      background-size: contain;
+    }
+
+    &:hover {
+      border-color: var(--color-white);
+    }
 }
