@@ -15,7 +15,10 @@
     padding: var(--space-xxl);
     gap:  var(--space-l);
 }
-
+.popup_ad {
+    min-height: 670px;
+    max-height: 680px;
+}
 .popup__delete-anime {
     width: 100%;
     text-align: center;
@@ -31,12 +34,27 @@
 .popUp__container--header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     position: relative;
+    gap: var(--space-s);
+}
+
+.container-info-favorites{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
 }
 
 .icon-options-pop-up {
     display: flex;
     align-items: center;
+    height: var(--space-xl);
+    width: var(--space-xl);
+    padding: var(--space-xs);
+}
+.icon-options-pop-up:hover {
+    background-color: var(--color-white-35);
+    border-radius: var(--border-radius-xs);
 }
 
 .btn--popup-container {
@@ -49,4 +67,24 @@
 .popUp__container-header--title {
     display: flex;
     flex-direction: column;
+}
+
+.anime-favorite__card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: var(--border-radius-xs);
+    padding: var(--space-xs);
+    background-color: transparent;
+    gap: var(--space-m);
+    &-header {
+        display: flex;
+        align-items: center;
+        gap: var(--space-m);
+    }
+}
+
+.anime-favorite__card:hover {
+    cursor: pointer;
+    background-color: var(--color-white-20);
 }

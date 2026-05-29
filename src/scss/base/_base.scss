@@ -7,6 +7,30 @@
     font-family: var(--font-secondary);
 }
 
+::-webkit-scrollbar {
+  width: 8px;  
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #271b1b;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-red-primary2); 
+  border-radius: 10px;
+
+  &:hover {
+    background: var(--color-red-primary); 
+  }
+}
+
+::selection {
+  background: var(--color-red-primary2); // color al arrastrar/seleccionar texto
+  color: var(--color-white);
+}
+
 html, body, #root {
     height: 100%;
 }

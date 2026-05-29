@@ -10,6 +10,7 @@ type MyListContextType = {
 
   addAnimeToMyList: (
     id: number,
+    animeTitle: string,
     status: AnimePersonalStatusType,
     score: number | null,
     episodes: number,
@@ -56,10 +57,10 @@ export function MyListProvider({ children }: ProviderProps) {
     setIsLoading(false);
   }
 
-  const addAnimeToMyList = async (AnimeId: number, status: AnimePersonalStatusType, score: number | null, episodes: number) => {
+  const addAnimeToMyList = async (animeId: number, animeTitle: string, status: AnimePersonalStatusType, score: number | null, episodes: number) => {
     
     if(!user) return
-    await addAnimeToFirebase(AnimeId, status, score, episodes, user.uid)
+    await addAnimeToFirebase(animeId, animeTitle, status, score, episodes, user.uid)
     await refetchMyList()
   };
 

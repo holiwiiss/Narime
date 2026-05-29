@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import type { AnimeCardType, AnimeListResponse } from "../../../services/anime-list/anime-list.type";
 import { searchAnime } from "../../../services/anime-search/anime-search";
 import { addAnimeFavorite } from "../../../firebase/services/user-information.firebase";
+import "../modals.scss"
+import LoadingComponent from "../../Loading/LoadingComponent";
 
 type PropsModal = {
   listFavoriteId: number[],
@@ -20,6 +22,7 @@ export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal)
     setIsError(false)
       if (!inputValue) {
         setSearchList([]);
+        setIsLoading(false)
         return;
       }
     
@@ -29,10 +32,10 @@ export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal)
         try {
           const result: AnimeListResponse = await searchAnime(query, 1, 5);
           setSearchList(result.animes);
-          console.log(searchList)
         } catch (e) {
-          console.log("La api no responde, " + e);
+          setIsError(true)
         }finally{
+          setIsLoading(false)
         }
       }, 300);
   
@@ -57,7 +60,7 @@ export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal)
   return (
     <>
       <div className="bg-popup">
-        <div className="surface popup__container">
+        <div className="surface popup__container popup_ad">
           <h3 className="text-h2">Add to favorites</h3>
           <input
             className="text-p"
@@ -68,37 +71,43 @@ export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal)
             }
             placeholder="Search an anime..."
           ></input>
-          <div>
+          <div className="container-info-favorites">
             {isLoading ? (
-              <h1 className="text-h2 text-color--75">Loading...</h1>
+              <LoadingComponent size="small"/>
             ) : isError ? (
               <h1 className="text-h2 text-color--75" >Something went wrong</h1>
+            ) : inputValue==="" && searchList.length === 0 ? (
+              <p className="text-p text-color--75">Start searching</p>
             ) : searchList.length === 0 ? (
-              <p className="text-p text-color--75">No anime found with that name</p>
+              <p className="text-p text-color--75">Not found anime</p>
             ) : (
               searchList.map((anime: AnimeCardType) =>
                 !isInList(anime.id) ? (
-                  <div key={anime.id} className="anime-search__card">
+                  <div key={anime.id} className="anime-favorite__card">
+                    <div className="anime-favorite__card-header">
                     <img
                       className="anime-search__card-img"
                       src={anime.image}
                     />
-                    <p className="text-p">{anime.title}</p>
+                    <p className="text-p anime-search__card-tittle">{anime.title}</p>
+                    </div>
                     <button
                       className="btn"
                       onClick={() => addToFavorite(anime.id, userId)}
                     >
-                      Add to favorites
+                      Add
                     </button>
                   </div>
                 ) : (
-                  <div key={anime.id} className="anime-search__card">
+                  <div key={anime.id} className="anime-favorite__card">
+                    <div className="anime-favorite__card-header">
                     <img
                       className="anime-search__card-img"
                       src={anime.image}
                     />
-                    <p className="text-p">{anime.title}</p>
-                    <span className="text-p">Already in your favorites</span>
+                    <p className="text-p anime-search__card-tittle">{anime.title}</p>
+                    </div>
+                    <span className="text-details text-color--75">Already in your favorites</span>
                   </div>
                 ),
               )

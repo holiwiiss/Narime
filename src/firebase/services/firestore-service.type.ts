@@ -5,6 +5,7 @@ export type AnimePersonalStatusType = "watching" | "completed" | "dropped" | "pl
 export type UserAnimeListFirestoreType = {
     docId: string
     animeId: number,
+    animeTitle: string,
     statusPersonal: AnimePersonalStatusType,
     scorePersonal: number | null,
     episodesWatched: number,

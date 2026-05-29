@@ -71,7 +71,7 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
     if(data.status === "planToWatch") data.episodes = 1
 
     if(action === "add"){
-      addAnimeToMyList(animeId, data.status, data.score, data.episodes);
+      addAnimeToMyList(animeId, animeTitle, data.status, data.score, data.episodes);
     } else {
       if(!infoDocIdUserAnime) return
       editAnimeToMyList(infoDocIdUserAnime?.docId, data.status, data.score, data.episodes)
@@ -103,8 +103,8 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
               </div>
               {action==="edit" && (
                 <>
-                <button className="btn btn--secondary btn--small" onClick={() => setIsOptionsOpen(true)}>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white)" className="size-6 icon-size-m icon-options-pop-up">
+                <button className="icon-options-pop-up" onClick={() => setIsOptionsOpen(true)}>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white)" className="size-6 icon-size-m ">
                     <path fillRule="evenodd" d="M10.5 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm0 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm0 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z" clipRule="evenodd" />
                   </svg>
                 </button>

@@ -22,13 +22,15 @@ export const ModalRemoveFavorites = ({listFavoriteInformation, userId, onClose}:
 
   return (
     <div className="bg-popup">
-      <div className="surface popup__container">
+      <div className="surface popup__container ">
         <h3 className="text-h2">Edit your favorites</h3>
         <div>
           {listFavoriteInformation.map((anime: AnimeCardType) => (
-            <div key={anime.id} className="anime-search__card">
+            <div key={anime.id} className="anime-favorite__card">
+              <div className="anime-favorite__card-header">
               <img className="anime-search__card-img" src={anime.image} />
-              <p className="text-p">{anime.title}</p>
+              <p className="text-p anime-search__card-tittle">{anime.title}</p>
+              </div>
               <button
                 className="btn"
                 onClick={() => deleteToFavorite(anime.id, userId)}

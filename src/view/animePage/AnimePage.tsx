@@ -17,6 +17,7 @@ import ModalAddEditAnime from "../../components/modals/ModalAddEditAnime/ModalAd
 const AnimePage = () => {
 
   const [activeCategory, setActiveCategory] = useState <"sinopsis" | "actors" | "trailer">("sinopsis")
+  const [showAllCharacters, setShowAllCharacters] = useState(false)
   
   const modalAddEdit = useAnimeModal()
   const { id } = useParams();
@@ -41,6 +42,13 @@ const AnimePage = () => {
       const userData = getUserListData(anime.id);
       modalAddEdit.openModal(anime.id, anime.episodes, anime.title, userData);
   };
+
+  let visibleCharacters
+  if (showAllCharacters) {
+    visibleCharacters = animeCharacters
+  } else {
+    visibleCharacters = animeCharacters?.slice(0, 15)
+  }
 
   if (isLoading) return <LoadingComponent />
   if (isError) return <ErrorComponent text="Something went wrong loading the anime data" />
@@ -165,8 +173,9 @@ const AnimePage = () => {
                   {activeCategory === "sinopsis" ? (
                     <p className="text-p text-color--75">{animeInfo.synopsis}</p>
                   ) : activeCategory==="actors" ? (
+                    <>
                     <div className="anime-page__character--wrapper">
-                      {animeCharacters?.map((person: AnimeCharactersType) => (
+                      {visibleCharacters?.map((person: AnimeCharactersType) => (
                       <div className="character-card">
                         <img className="character-card__img" src={person.characterImage} alt={person.characterName}/>
                         
@@ -184,6 +193,19 @@ const AnimePage = () => {
                       </div>
                       ))}
                     </div>
+
+                    {animeCharacters && animeCharacters.length > 15 && (
+                      <div className="characters-btn-container">
+                        <button 
+                          className="btn btn--secondary" 
+                          onClick={() => setShowAllCharacters(!showAllCharacters)}
+                        >
+                          {showAllCharacters ? "Show less" : "Show all characters"}
+                        </button>
+                      </div>
+                    )}
+
+                  </>
                   ) : (
                     <>
                       {!animeInfo.trailer || animeInfo.trailer==="" ? (
@@ -244,19 +266,3 @@ const AnimePage = () => {
 };
 
 export default AnimePage;
-
-/*
-{animeCharacters?.map((person: AnimeCharactersType) => (
-  <div className="character-card">
-    <div className="character-card__img character-card__anime--img" style={{ backgroundImage: `url(${person.characterImage})` }}>
-      <p className="character-card__role">{person.role}</p>
-      <p className="character-card__anime-name">{person.characterName}</p>
-    </div>
-    <div className="character-card__img character-card__actor--img" style={{ backgroundImage: `url(${person.voiceActorImage})` }}>
-      <p className="character-card__actor-name">{person.voiceActorName}</p>
-    </div>
-  </div>
-))}
-
-
-*/

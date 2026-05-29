@@ -347,3 +347,9 @@
         );
         z-index: 1;
 }
+
+.characters-btn-container {
+    display: flex;
+    justify-content: center;
+    padding: var(--space-m);
+}
