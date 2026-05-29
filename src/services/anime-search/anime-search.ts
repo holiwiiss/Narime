@@ -40,3 +40,30 @@ export async function searchAnime(animeName:string, page:number, animeLimit: num
     pagination: mapJikanAnimePagination(data.pagination)
   }
 }
+
+
+/* 
+
+export async function searchAnime(genre:string, type:string ,score:number, order:string, status: string, page:number, animeLimit: number): Promise<AnimeListResponse> {
+  
+  const {data} = await jikanApiUrl.get<{ data: JikanAnimeListType[], pagination: JikanPaginationType}>('/anime', {
+    params:{
+      genres: genre
+      type: type
+      page: page,
+      min_score: score
+      order_by: "score",
+      status: status
+      limit: animeLimit,
+      sfw: true,
+    }
+  })
+
+  return{
+    animes: mapJikanAnimeSearch(data.data),
+    pagination: mapJikanAnimePagination(data.pagination)
+  }
+}
+
+
+*/

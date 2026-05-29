@@ -1,6 +1,8 @@
+@use "../../scss/mixin/" as *;
+
 .container--option-delete {
     position: absolute;
-    inset: 135% 0 auto auto;
+    inset: 100% 0 auto auto;
     display: flex;
     flex-direction: column;
     padding: var(--space-xs);

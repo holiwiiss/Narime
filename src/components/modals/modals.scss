@@ -1,3 +1,5 @@
+@use "../../scss/mixin/" as *;
+
 .bg-popup {
     position: fixed;
     inset: 0 0 0 0;
@@ -14,6 +16,10 @@
     width: 30%;
     padding: var(--space-xxl);
     gap:  var(--space-l);
+    @include sm {
+        width: 75%;
+        padding: var(--space-l);
+    }
 }
 .popup_ad {
     min-height: 670px;
