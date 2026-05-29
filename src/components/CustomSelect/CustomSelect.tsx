@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "./customSelect.scss"
 
 type Props = {
-  options:string[],
+  options:any[],
   value:string,
   onChange: (option:string) => void,
 }
