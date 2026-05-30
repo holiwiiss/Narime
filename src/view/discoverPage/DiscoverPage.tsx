@@ -95,7 +95,11 @@ const DiscoverPage = () => {
           value={filters.status ?? ""}
           onChange={(value) => {
             setFilters((prev) =>({ ...prev, status: value }))
-            if(value==="upcoming") setFilters((prev) =>({ ...prev, score: 0 }))
+            if(value==="upcoming"){
+              setFilters((prev) =>({ ...prev, score: 0 }))
+            }else {
+              setFilters((prev) =>({ ...prev, score: null }))
+            }
           }}
           
           onReset={() => setFilters((prev) => ({ ...prev, status: null, score: null }))}

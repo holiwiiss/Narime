@@ -36,7 +36,7 @@ const RegisterPage = () => {
             <label htmlFor="username" className="text-details">Username*</label>
             <input
               id="username"
-              className="text-p"
+              className="text-p input"
               type="text"
               {...register("username", { 
                   required: 'Username is required', 
@@ -51,7 +51,7 @@ const RegisterPage = () => {
             <label htmlFor="email" className="text-details">Email*</label>
             <input
               id="email"
-              className="text-p"
+              className="text-p input"
               type='email'
               {...register('email', { 
                   required: 'This field is required', 
@@ -64,7 +64,7 @@ const RegisterPage = () => {
             <label htmlFor="password" className="text-details">Password*</label>
             <input
               id="password"
-              className="text-p"
+              className="text-p input"
               type='password'
               {...register('password', { 
                 required: 'This field is required', 
@@ -79,7 +79,7 @@ const RegisterPage = () => {
             <label htmlFor="confirmPassword" className="text-details">Confirm password*</label>
             <input
               id="confirmPassword"
-              className="text-p"
+              className="text-p input"
               type='password'
               {...register('passwordConfirm', { 
                   required: 'This field is required', 
@@ -94,7 +94,7 @@ const RegisterPage = () => {
             <label className="text-details text-color--75 form__checkbox">
               <input
                 id="terms"
-                className="text-p"
+                className="text-p input"
                 type="checkbox"
                 {...register("confirmTerms", { required:'This field is required'})}
               ></input>

@@ -48,37 +48,15 @@
     border-radius: var(--border-radius-s);
 }
 
-.my-list__search{
-    display: flex;
-    align-items: center;
-    border:2px solid var(--color-white-50);
-    padding: var(--space-xs) var(--space-xs);
-    gap: var(--space-xs);
-    border-radius: var(--border-radius-s);
-    background-color: var(--color-white-10);
-    @include xs{
-        padding: var(--space-xxs) var(--space-xxs);
-        border-radius: var(--border-radius-xs);
-        gap: var(--space-xxs);
-    }
-}
-
 .my-list__input {
-    border:none;
-    outline: none;
-    padding: 0;
-    background-color: transparent;
-    border-radius: 0;
     @include lg{
       width: 125px;
-      font-size: var(--font-size-2);
     }
     @include md{
          width: 175px;
     }
     @include xs{
          width: 100px;
-         font-size: var(--font-size-1);
     }
 }
 

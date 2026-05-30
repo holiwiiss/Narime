@@ -66,20 +66,31 @@ input, button, textarea, select {
   background: none;
 }
 
+input {
+    border:none;
+    outline: none;
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
+}
+
 button {
   cursor: pointer;
 }
 
-input {
-    font-size: var(--input-txt-size);
-    font-family: var(--font-secondary);
-    font-weight: var(--font-medium);
-    color: var(--color-white);
-
-    background-color: var(--color-white-15);
-    border: 1px solid var(--color-white);
+.input {
+    border: 2px solid var(--color-white-50);
     border-radius: var(--border-radius-s);
     padding: var(--space-xs);
+    background-color: var(--color-white-15);
+    transition: all 0.2s;
+}
+
+.input:hover {
+    border: 2px solid var(--color-white);
+}
+.input:focus {
+    border: 2px solid var(--color-white);
 }
 
 .btn {
@@ -89,7 +100,7 @@ input {
     font-family: var(--font-secondary);
     font-size: var(--font-size-2);
     background-color: var(--color-red-primary);
-    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+    transition: all 0.2s;
     @include sm{
         font-size: var(--font-size-1);
     }
@@ -135,6 +146,10 @@ input {
     border-radius: var(--border-radius-s);
     font-size: var(--p-size);
     cursor: pointer;
+    transition: all 0.2s;
+}
+.selector:hover {
+    border:2px solid var(--color-white-75);
 }
 
 .surface {

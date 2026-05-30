@@ -84,11 +84,11 @@ const MyListPage = () =>{
       const userDataA = getUserListData(a.id)?.scorePersonal ?? 0
       const userDataB = getUserListData(b.id)?.scorePersonal ?? 0
       
-      if(userDataA > userDataB){
+      if(userDataA < userDataB){
         return 1;
       }
 
-      if(userDataA < userDataB){
+      if(userDataA > userDataB){
         return -1
       }
       return 0
@@ -163,14 +163,16 @@ return(
           options={OrderList}
           value={selectedFilter}
           onChange={setSelectedFilter}
+          onReset={() => setSelectedFilter("")}
           firstValue="Order by"
+
         />
 
-        <div className="my-list__search">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white)" className="size-6 icon-size-m">
+        <div className="action-item input">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white)" className="size-6 action-item__icon ">
             <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clipRule="evenodd" />
           </svg>
-          <input type="text" className="my-list__input" onInput={(event: React.InputEvent<HTMLInputElement>) => setSearchAnime(event.currentTarget.value)} placeholder="Search anime..."></input>
+          <input type="text" className="text-p my-list__input" onInput={(event: React.InputEvent<HTMLInputElement>) => setSearchAnime(event.currentTarget.value)} placeholder="Search anime..."></input>
         </div>
       </div>
     </div>

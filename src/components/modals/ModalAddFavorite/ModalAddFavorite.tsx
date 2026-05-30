@@ -63,7 +63,7 @@ export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal)
         <div className="surface popup__container popup_ad">
           <h3 className="text-h2">Add to favorites</h3>
           <input
-            className="text-p"
+            className="text-p input"
             type="text"
             value={inputValue}
             onInput={(event: React.InputEvent<HTMLInputElement>) =>

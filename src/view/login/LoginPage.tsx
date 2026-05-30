@@ -49,7 +49,7 @@ const LoginPage = () => {
             <label htmlFor="email" className="text-details">Email</label>
             <input
               id="email"
-              className="text-p"
+              className="text-p input"
               type="email"
               {...register('email', { 
                 required: 'This field is required', 
@@ -62,7 +62,7 @@ const LoginPage = () => {
             <label htmlFor="password" className="text-details">Password</label>
             <input
               type='password'
-              className="text-p"
+              className="text-p input"
               id="password"
               {...register('password', { 
                 required: 'This field is required', 

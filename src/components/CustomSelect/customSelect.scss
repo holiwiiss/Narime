@@ -30,6 +30,7 @@
   &__dropdown {
     position: absolute;
     inset: 106% 0 auto 0;
+    height: auto;
     z-index: 3;
     overflow: hidden;
     @include xs{
@@ -52,7 +53,7 @@
 
 .custom-select__option--reset {
   color: var(--color-white-50);
-  border-bottom: 1px solid var(--color-white-10); // separador visual
+  border-bottom: 1px solid var(--color-white-20); 
   font-size: 0.85em;
 
   &:hover {
