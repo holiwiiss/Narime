@@ -163,6 +163,7 @@ return(
           options={OrderList}
           value={selectedFilter}
           onChange={setSelectedFilter}
+          firstValue="Order by"
         />
 
         <div className="my-list__search">

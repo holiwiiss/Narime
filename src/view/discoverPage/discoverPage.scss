@@ -1,0 +1,26 @@
+@use "../../scss/mixin/" as *;
+
+.header-discover {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-xl) var(--space-xxl);
+    padding-bottom: 0;
+    @include md{
+        padding: var(--space-l) var(--space-xl);
+        padding-bottom: 0;
+    }
+    @include sm{
+        padding: var(--space-m) var(--space-m);
+        padding-bottom: 0;
+    }
+    @include xs{
+        padding: var(--space-xs) var(--space-xs);
+        padding-bottom: 0;
+    }
+}
+
+.filters-content {
+    display: flex;
+    gap:var(--space-s)
+}

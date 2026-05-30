@@ -44,19 +44,28 @@ export async function searchAnime(animeName:string, page:number, animeLimit: num
 export async function discoverAnime(
   genre:number | null, 
   type:string | null,
-  score:number | null, 
-  order:string | null, 
+  score:number | null,
+  sort: string | null, 
+  order: string | null, 
   status: string | null, 
   page:number, 
   ): Promise<AnimeListResponse> {
-  
+
+    const finalType = type ?? "TV";
+    const finalScore = score ?? 6;
+    const finalStatus = status ?? "complete";
+    const finalSort = sort ?? "desc";
+    const finalOrder = order ?? "start_date"
+      
   const {data} = await jikanApiUrl.get<{ data: JikanAnimeListType[], pagination: JikanPaginationType}>('/anime', {
     params:{
+
       ...(genre && { genres: genre }),
-      ...(type && { type }),
-      ...(score && { min_score: score }),
-      ...(order && { order_by: order }),
-      ...(status && { status }),
+      ...(finalType && { type: finalType }),
+      ...(finalScore && { min_score: finalScore }),
+      ...(finalStatus && { status: finalStatus }),
+      ...(finalSort && { sort: finalSort }),
+      ...(finalOrder && {order_by: finalOrder}),
       page,
       sfw: true,
     }
