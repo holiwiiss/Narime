@@ -1,0 +1,95 @@
+.content-settings {
+    display: flex;
+    flex-direction: row;
+}
+
+.navigation-setting {
+    position: fixed;
+    inset: var(--menu-height) auto 0 0;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-xxl) var(--space-xxl);
+    gap: var(--space-xl);
+    border-right: 2px solid var(--color-white-35);
+}
+
+.navigation-settings--item{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m)
+}
+
+.content-settings {
+    padding: var(--space-m);
+    padding-left:calc(135px + var(--space-l));
+    padding-right: var(--space-l);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+}
+
+.user-information--settings {
+    width: 100%;
+    border: 2px solid var(--color-white-35);
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-white-15);
+    border-radius: var(--border-radius-s);
+    padding: 0 var(--space-xl);
+}
+
+.user-setting-image {
+    display: flex;
+    gap: var(--space-xl);
+    padding: var(--space-xl) 0;
+    border-bottom: 2px solid var(--color-white-35);
+}
+
+.image--settings {
+    height: 10rem;
+    width: 10rem;
+    background-color: var(--color-white-15);
+    border-radius: var(--border-radius-xxxl);
+}
+
+.user-settings--text {
+    display: flex;
+    flex-direction: column;
+    align-items: self-start;
+    justify-content: center;
+    gap: var(--space-s);
+}
+
+.user-settings-information {
+    padding: var(--space-xl) 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    border-bottom: 2px solid var(--color-white-35);
+}
+.user-setting-personal-info {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--border-radius-m);
+    border: 2px solid var(--color-white-15);
+    padding: var(--space-l);
+    gap: var(--space-l);
+
+    &--header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &--content{
+        display: flex;
+        gap: var(--space-xxl);
+    }
+}
+
+.btn-save-settings {
+    width: 12%;
+}
+
+.biography-input {
+    width: 100%;
+}

@@ -14,6 +14,7 @@ import ProtectedRoute from './router/ProtectedRoute.tsx'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import UserPage from './view/userPage/UserPage.tsx'
 import DiscoverPage from './view/discoverPage/DiscoverPage.tsx'
+import SettingsUSer from './view/settingsUser/SettingsUser.tsx'
 //import PublicRoute from './router/PublicRoute.tsx'
 
 const router = createBrowserRouter([
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
       {
         path:'/discover',
         element: <DiscoverPage/>
+      },
+      {
+        path:'/settings-user',
+        element: <ProtectedRoute><SettingsUSer/></ProtectedRoute>
       },
       {
         path:'/user-page',

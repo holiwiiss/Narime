@@ -26,6 +26,21 @@ export async function addAnimeFavorite(animeID:number, userId: string) {
   })
 }
 
+export async function updateUsername (userId:string, username:string) {
+  const docRef = doc(db, "users", userId);
+  await updateDoc(docRef, {
+    username,
+  })
+}
+
+export async function updateBiografi (userId:string, description:string) {
+  const docRef = doc(db, "users", userId);
+  await updateDoc(docRef, {
+    description,
+  })
+}
+
+
 export async function removeAnimeFavorite(animeID: number, userId: string) {
   const docRef = doc(db, "users", userId);
   await updateDoc(docRef, {
