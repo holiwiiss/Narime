@@ -11,16 +11,21 @@ import { ModalRemoveFavorites } from "../../components/modals/ModalRemoveFavorit
 import LoadingComponent from "../../components/Loading/LoadingComponent";
 import ErrorComponent from "../../components/Error/ErrorComponent";
 import { useUserData } from "../../hooks/useUserData";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { useMyListStats } from "../../hooks/useMyListStats";
+import StatsCircle from "../../components/StatsCircle/StatsCircle";
 
 const UserPage = () => {
 
   const { user } = useAuth()
   const { myList } = useMyAnimeList()
+  const { stats } = useMyListStats()
   const { isLoadingUser, isErrorUser, userData} = useUserData()
   
   const [isOpenAddFavorite, setIsOpenAddFavorite] = useState<boolean>(false)
   const [isOpenRemoveFavorite, setIsOpenRemoveFavorite] = useState<boolean>(false)
+
+  const [category, setCategory] = useState<"stats" | "favorites">("stats")
 
   const list = userData?.animeFavs ?? []
 
@@ -44,7 +49,16 @@ const UserPage = () => {
       <>
           <header className="user-page__header">
             <div className="user-page__header--banner">
-              <button className="btn btn--secondary btn--small">Edit profile</button>
+              <Link to="/settings-user" className="btn btn--secondary btn--small">Edit profile</Link>
+            
+              <div className="user-page__header--banner-img--container">
+                <img className="banner-user--img" src={userData.avatar} alt={userData.avatar} />
+              </div>
+            </div>
+            <div className="user-page__header-user-info">
+              <h1 className="text-h1">{userData.username}</h1>
+              <p className="text-p">{userData.description}</p>
+
               <div className="user-page__social--info">
                 <div className="user-page__social--item">
                   <p className="text-h1">{userData.followersCount}</p>
@@ -59,22 +73,67 @@ const UserPage = () => {
                   <p className="text-details text-color--75">items in list</p>
                 </div>
               </div>
-
-              <div className="user-page__header--banner-img--container">
-                <img className="banner-user--img" src={userData.avatar} alt={userData.avatar} />
-              </div>
-            </div>
-            <div className="user-page__header-user-info">
-              <h1 className="text-h1">{userData.username}</h1>
-              <p className="text-p">{userData.description}</p>
             </div>
           </header>
 
-          <div className="user-page__favorites-container">
-            <div className="user-page__favorites--header">
-              <h2 className="text-h2">Your Favorites</h2>
-              <button className="btn" onClick={() => setIsOpenRemoveFavorite(true)}>Edit favorites</button>
+          <div className="my-list__options tab__container">
+            <div className="tab__buttons">
+              <button className={`text-p tab-option ${category === 'stats' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setCategory("stats")}>Stats</button>
+              <button className={`text-p tab-option ${category === 'favorites' ? "tab-option__selected" : "tab-option__unselected"}`}  onClick={() => setCategory("favorites")}>Favorites</button>
             </div>
+          </div>
+
+          {category === "stats" ? (
+            <div className="container-stats">
+            
+              <div className="stats-status-recount">
+
+                <div className="stats-status-recount--item">
+                  <p className="text-p text-color--75">Watched Episodes</p>
+                  <p className="text-h1">{stats.episodesWatched}</p>
+                  <p className="text-details text-color--50">In {stats.total} animes</p>
+                </div>
+                
+                <div className="stats-status-recount--item">
+                  <p className="text-p text-color--75">Time wasted</p>
+                  <p className="text-h1">{(stats.timeInHours).toFixed(2)} hours</p>
+                  <p className="text-details text-color--50">= {(stats.timeInDays).toFixed(2)} days</p>
+                </div>
+
+                <div className="stats-status-recount--item">
+                  <p className="text-p text-color--75">Score medium</p>
+                  <p className="text-h1">{stats.scoreMedia} / 10</p>
+                  <p className="text-details text-color--50">in all the animes</p>
+                </div>
+
+                <div className="stats-status-recount--item">
+                  <p className="text-p text-color--75">Watched Episodes</p>
+                  <p className="text-h1">{stats.episodesWatched}</p>
+                  <p className="text-details text-color--50">In {stats.total} animes</p>
+                </div>
+
+              </div>
+
+              <div className="stats-status-recount">
+                <div className="stats-status-recount--item">
+                  <StatsCircle/>
+                </div>
+
+                <div className="stats-status-recount--item">
+                  <p className="text-p text-color--75">Watched Episodes</p>
+                  <p className="text-h1">{stats.episodesWatched}</p>
+                  <p className="text-details text-color--50">In {stats.total} animes</p>
+                </div>
+
+              </div>
+
+            </div>
+          ) : (
+            <div className="user-page__favorites-container">
+              <div className="user-page__favorites--header">
+                <h2 className="text-h2">Your Favorites</h2>
+                <button className="btn" onClick={() => setIsOpenRemoveFavorite(true)}>Edit favorites</button>
+              </div>
               <div className="anime-favorites__container">
                 {isLoadingFavorites ? (
                   <LoadingComponent></LoadingComponent>
@@ -101,6 +160,8 @@ const UserPage = () => {
                 )}
               </div>
           </div>
+          )}
+          
 
           {isOpenAddFavorite && (
           <ModalAddFavorites

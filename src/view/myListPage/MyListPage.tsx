@@ -33,14 +33,6 @@ const MyListPage = () =>{
 
   const myAnimeList: AnimeCardType[] = data ?? []
 
-  const countersList = {
-    all: myList.length,
-    watching: myList.filter( anime => anime.statusPersonal === "watching").length,
-    completed: myList.filter( anime => anime.statusPersonal === "completed").length,
-    dropped: myList.filter( anime => anime.statusPersonal === "dropped").length,
-    planToWatch: myList.filter( anime => anime.statusPersonal === "planToWatch").length
-  }
-
   const orderByStatus = () => {
     const watchingList = myAnimeList.filter( anime => {
         const userData = getUserListData(anime.id)
@@ -151,11 +143,11 @@ return(
   <div className="all-content-max">
     <div className="my-list__options tab__container my-list__options-real">
       <div className="tab__buttons tab__buttons--my-list">
-        <button className={`text-p tab-option ${activeCategory === 'all' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("all")}>All <span className="tab-option__count icon-size-m">{countersList.all}</span></button>
-        <button className={`text-p tab-option ${activeCategory === 'watching' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("watching")}>Watching <span className="tab-option__count icon-size-m">{countersList.watching}</span></button>
-        <button className={`text-p tab-option ${activeCategory === 'completed' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("completed")}>Completed <span className="tab-option__count icon-size-m">{countersList.completed}</span></button>
-        <button className={`text-p tab-option ${activeCategory === 'dropped' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("dropped")}>Dropped <span className="tab-option__count icon-size-m">{countersList.dropped}</span></button>
-        <button className={`text-p tab-option ${activeCategory === 'planToWatch' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("planToWatch")}>Plan to watch <span className="tab-option__count icon-size-m">{countersList.planToWatch}</span></button>
+        <button className={`text-p tab-option ${activeCategory === 'all' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("all")}>All</button>
+        <button className={`text-p tab-option ${activeCategory === 'watching' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("watching")}>Watching</button>
+        <button className={`text-p tab-option ${activeCategory === 'completed' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("completed")}>Completed</button>
+        <button className={`text-p tab-option ${activeCategory === 'dropped' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("dropped")}>Dropped</button>
+        <button className={`text-p tab-option ${activeCategory === 'planToWatch' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("planToWatch")}>Plan to watch</button>
       </div>
       <div className="my-list__filters">
 
