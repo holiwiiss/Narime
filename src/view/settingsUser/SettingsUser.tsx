@@ -5,8 +5,12 @@ import { useUserData } from "../../hooks/useUserData"
 import { useState } from "react"
 import { updateBiografi, updateUsername } from "../../firebase/services/user-information.firebase"
 import { toast } from "sonner"
+import { useQueryClient } from "@tanstack/react-query"
+import LoadingComponent from "../../components/Loading/LoadingComponent"
+import ErrorComponent from "../../components/Error/ErrorComponent"
 
 const SettingsUSer = () => {
+  const queryClient = useQueryClient()
 
   const { user } = useAuth()
   const { isLoadingUser, isErrorUser, userData} = useUserData()
@@ -20,6 +24,7 @@ const SettingsUSer = () => {
     setIsEditingPersonalInfo(false)
     try{
       updateUsername(userId, newUsername)
+      queryClient.invalidateQueries({ queryKey: ["userData"] })
       toast.success("Username updated")
     }catch{
       toast.error("Something went wrong")
@@ -31,6 +36,7 @@ const SettingsUSer = () => {
     try{
       updateBiografi(userId, newBiography)
       toast.success("Biography updated")
+      queryClient.invalidateQueries({ queryKey: ["userData"] })
     }catch{
       toast.error("Something went wrong")
     }
@@ -91,67 +97,76 @@ const SettingsUSer = () => {
         </nav>
 
         <div className="content-settings">
-          <h1 className="text-h1">Edit Profile</h1>
-          <div className="user-information--settings">
-            <div className="user-setting-image">
-              <img src={userData?.avatar} className="image--settings"></img>
-              <div className="user-settings--text">
-                <button className="btn btn--secondary">Change image</button>
-                <p className="text-p text-color--75">At least 800 x 800 px recommended.<br/>
-                  JPG or PNG is allowes</p>
-              </div>
-            </div>
-
-            <div className="user-settings-information">
-              <div className="user-setting-personal-info">
-                <div className="user-setting-personal-info--header">
-                  <p className="text-p">Personal information</p>
-                  {!isEditingPersonalInfo ? (<button className="btn btn--secondary" onClick={() => setIsEditingPersonalInfo(true)}>Edit</button>): (
-                    <button className="text-p text-color--75" onClick={() => setIsEditingPersonalInfo(false)}> Close</button>
-                  )}
-                </div>
-                <div className="user-setting-personal-info--content">
-                  <div className="user-setting-personal-info--row">
-                    <p className="text-details text-color--50">Username</p>
-                    {!isEditingPersonalInfo ? (<p className="text-p text-color--75">{userData?.username}</p>
-                    ) : (
-                      <input type="text" className="text-p input" placeholder={userData?.username} onChange={(event) => setNewUsername(event.currentTarget.value)}></input>
-                    )}
-                  </div>
-                  <div className="user-setting-personal-info--row">
-                    <p className="text-details text-color--50">Email</p>
-                    <p className="text-p text-color--75">{userData?.email}</p>
+          {isLoadingUser ? (
+            <LoadingComponent/>
+          ) : !isLoadingUser && isErrorUser ? (
+            <ErrorComponent text="Somehting went wrong" button={{ label: "Try again", action:{ type: "reload" }}} />
+          ) : (
+            <>
+              <h1 className="text-h1">Edit Profile</h1>
+              <div className="user-information--settings">
+                <div className="user-setting-image">
+                  <img src={userData?.avatar} className="image--settings"></img>
+                  <div className="user-settings--text">
+                    <button className="btn btn--secondary">Change image</button>
+                    <p className="text-p text-color--75">At least 800 x 800 px recommended.<br/>
+                      JPG or PNG is allowes</p>
                   </div>
                 </div>
-                {isEditingPersonalInfo && (<button className="btn btn-save-settings" onClick={() => handleUpdateUserInfo(user.uid)}>Save changes</button> )}
-              </div>
 
-              <div className="user-setting-personal-info">
-                <div className="user-setting-personal-info--header">
-                  <p className="text-p">Biography</p>
-                  {!isEditingBio ? (<button className="btn btn--secondary" onClick={() => setIsEditingBio(true)}>Edit</button>):(
-                    <button className="text-p text-color--75" onClick={() => setIsEditingBio(false)}> Close</button>
-                  )}
-                </div>
-                <div className="user-setting-personal-info--content">
-                  {!isEditingBio ? (<p className="text-p text-color--75">{userData?.description}</p>
-                  ):(
-                    <textarea  className="text-p input biography-input" placeholder={userData?.description} onChange={(event) => setNewBiography(event.currentTarget.value)}></textarea>
-                  )}
-                </div>
-                {isEditingBio && (<button className="btn btn-save-settings" onClick={() => handleUpdateUserBio(user.uid)}>Save changes</button>)}
-              </div>
-            </div>
+                <div className="user-settings-information">
+                  <div className="user-setting-personal-info">
+                    <div className="user-setting-personal-info--header">
+                      <p className="text-p">Personal information</p>
+                      {!isEditingPersonalInfo ? (<button className="btn btn--secondary" onClick={() => setIsEditingPersonalInfo(true)}>Edit</button>): (
+                        <button className="text-p text-color--75" onClick={() => setIsEditingPersonalInfo(false)}> Close</button>
+                      )}
+                    </div>
+                    <div className="user-setting-personal-info--content">
+                      <div className="user-setting-personal-info--row">
+                        <p className="text-details text-color--50">Username</p>
+                        {!isEditingPersonalInfo ? (<p className="text-p text-color--75">{userData?.username}</p>
+                        ) : (
+                          <input type="text" className="text-p input" placeholder={userData?.username} onChange={(event) => setNewUsername(event.currentTarget.value)}></input>
+                        )}
+                      </div>
+                      <div className="user-setting-personal-info--row">
+                        <p className="text-details text-color--50">Email</p>
+                        <p className="text-p text-color--75">{userData?.email}</p>
+                      </div>
+                    </div>
+                    {isEditingPersonalInfo && (<button className="btn btn-save-settings" onClick={() => handleUpdateUserInfo(user.uid)}>Save changes</button> )}
+                  </div>
 
-            <div className="user-settings-information">
-              <div className="user-setting-personal-info">
-                <div className="user-setting-personal-info--header">
-                  <p className="text-p">Language</p>
-                  <button className="btn btn--secondary">Edit</button>
+                  <div className="user-setting-personal-info">
+                    <div className="user-setting-personal-info--header">
+                      <p className="text-p">Biography</p>
+                      {!isEditingBio ? (<button className="btn btn--secondary" onClick={() => setIsEditingBio(true)}>Edit</button>):(
+                        <button className="text-p text-color--75" onClick={() => setIsEditingBio(false)}> Close</button>
+                      )}
+                    </div>
+                    <div className="user-setting-personal-info--content">
+                      {!isEditingBio ? (<p className="text-p text-color--75">{userData?.description}</p>
+                      ):(
+                        <textarea  className="text-p input biography-input" placeholder={userData?.description} onChange={(event) => setNewBiography(event.currentTarget.value)}></textarea>
+                      )}
+                    </div>
+                    {isEditingBio && (<button className="btn btn-save-settings" onClick={() => handleUpdateUserBio(user.uid)}>Save changes</button>)}
+                  </div>
+                </div>
+
+                <div className="user-settings-information">
+                  <div className="user-setting-personal-info">
+                    <div className="user-setting-personal-info--header">
+                      <p className="text-p">Language</p>
+                      <button className="btn btn--secondary">Edit</button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </>
+          )}
+          
         </div>
       </div>
     </>

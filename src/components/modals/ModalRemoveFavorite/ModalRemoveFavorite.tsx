@@ -1,6 +1,7 @@
 import { toast } from "sonner";
 import { removeAnimeFavorite } from "../../../firebase/services/user-information.firebase";
 import type { AnimeCardType } from "../../../services/anime-list/anime-list.type";
+import { useQueryClient } from "@tanstack/react-query";
 
 type PropsModal = {
   listFavoriteInformation: AnimeCardType[];
@@ -9,10 +10,13 @@ type PropsModal = {
 };
 
 export const ModalRemoveFavorites = ({listFavoriteInformation, userId, onClose}:PropsModal) => {
-  
+  const queryClient = useQueryClient()
+
   const deleteToFavorite = async (animeId: number, userId: string) => {
       try{
         await removeAnimeFavorite(animeId, userId)
+        queryClient.invalidateQueries({ queryKey: ["userData"] })
+        queryClient.invalidateQueries({ queryKey: ["myFavoriteList"] })
         toast.success("Anime remove from your favorites")
       }catch{
         toast.error("Something went wrong")

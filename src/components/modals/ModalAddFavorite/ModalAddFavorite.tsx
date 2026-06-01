@@ -5,6 +5,7 @@ import { addAnimeFavorite } from "../../../firebase/services/user-information.fi
 import "../modals.scss"
 import LoadingComponent from "../../Loading/LoadingComponent";
 import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 
 type PropsModal = {
   listFavoriteId: number[],
@@ -17,6 +18,7 @@ export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal)
   const [searchList, setSearchList] = useState<AnimeCardType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false)
+  const queryClient = useQueryClient()
 
   useEffect(() => {
     setIsLoading(true)
@@ -50,6 +52,8 @@ export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal)
   const addToFavorite = async (animeId: number, userId: string) => {
       try{
         await addAnimeFavorite(animeId, userId)
+        queryClient.invalidateQueries({ queryKey: ["userData"] })
+        queryClient.invalidateQueries({ queryKey: ["myFavoriteList"] }) 
         toast.success("Anime added to your favorites")
       }catch{
         toast.error("Something went wrong")

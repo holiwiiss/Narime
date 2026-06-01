@@ -128,7 +128,8 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
                 />
               </div>
 
-              <div className="form__group">     
+              {statusValue !=="planToWatch" && ( 
+                <div className="form__group">     
                 <label htmlFor="score-value" className="text-details">Personal Score</label>
                 <Controller
                   name="score"
@@ -141,7 +142,7 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
                     />
                   )}
                 />
-              </div> 
+              </div> )}
 
               {(statusValue === "watching" || statusValue === "dropped") && (
                 <div className="form__group">
