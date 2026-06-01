@@ -2,7 +2,6 @@
 
 .error-component__container {
     width: 100%;
-    //lo que mide la barra superior
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -18,9 +17,13 @@
         font-size: var(--font-size-5);
     }
 }
-
-.error-omponent__text {
-    line-height:normal;
+.error-component__sad-face--small {
+  font-size: var(--font-size-5);
 }
+
+.error-component__text--small {
+  font-size: var(--font-size-5);
+}
+
 
 

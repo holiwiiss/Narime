@@ -103,18 +103,21 @@ const SearchAnimeComponent = ({ isOpen, onClose }: Props) => {
           {isLoading ? (
             <LoadingComponent size="small" />
           ) : isError ? (
-            <ErrorComponent text={isError} />
+            <ErrorComponent text={isError} size="small"/>
           ): searchList.length === 0 ? (
-            <p className="text-p">No anime found with that name</p>
+            <ErrorComponent text="Not found anime with that name" size="small" /> 
           ) : (
-            searchList.map((anime: AnimeCardType) => (
+            <>
+            {searchList.map((anime: AnimeCardType) => (
               <Link to={`/anime/${anime.id}`} key={anime.id} className="anime-search__card" onClick={() => onClose()}>
                 <img className="anime-search__card-img" src={anime.image} />
                 <p className="text-p anime-search__card-tittle">{anime.title}</p>
               </Link>
-            ))
+            ))}
+
+            <Link to={`/search/anime?q=${animeToSearch}`} className="btn btn--small btn-search-more" onClick={() => onClose()}> View More ({totalItems})</Link>
+            </>
           )}
-          <Link to={`/search/anime?q=${animeToSearch}`} className="btn btn--small btn-search-more" onClick={() => onClose()}> View More ({totalItems})</Link>
         </div>
       )}
       </div>

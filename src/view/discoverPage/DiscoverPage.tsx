@@ -151,7 +151,7 @@ const DiscoverPage = () => {
       {isLoadingAnimes ? (
         <LoadingComponent></LoadingComponent>
       ) : !isLoadingAnimes && isErrorAnimes ? (
-        <ErrorComponent text="Something went wrong"/>
+        <ErrorComponent text="Something went wrong" button={{ label: "Try again", action:{ type: "reload" }}}/>
       ): list.length > 0 ? (
         <>
         <div className="anime-cards__container">
@@ -172,7 +172,7 @@ const DiscoverPage = () => {
           )}
           </>
       ):(
-        <h1>error cini</h1>
+        <ErrorComponent text="Something went wrong" button={{ label: "Try again", action:{ type: "reload" }}}/>
       )}
 
       {modalAddEdit.isOpen && modalAddEdit.animeId &&(

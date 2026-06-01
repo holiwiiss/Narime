@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom"
-import {Toaster } from "sileo";
+import {Toaster } from "sonner";
 import './App.scss'
 import Topbar from "./components/Topbar/Topbar";
 
@@ -9,9 +9,9 @@ function App() {
 
   return (
     <>
-      <Toaster position='top-right' />
       <Topbar></Topbar>
       <Outlet></Outlet>
+      <Toaster position='bottom-center' theme="dark" richColors/>
     </>
   )
 }

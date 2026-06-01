@@ -4,6 +4,7 @@ import { searchAnime } from "../../../services/anime-search/anime-search";
 import { addAnimeFavorite } from "../../../firebase/services/user-information.firebase";
 import "../modals.scss"
 import LoadingComponent from "../../Loading/LoadingComponent";
+import { toast } from "sonner";
 
 type PropsModal = {
   listFavoriteId: number[],
@@ -49,11 +50,10 @@ export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal)
   const addToFavorite = async (animeId: number, userId: string) => {
       try{
         await addAnimeFavorite(animeId, userId)
+        toast.success("Anime added to your favorites")
       }catch{
-  
-      }finally{
-  
-    }
+        toast.error("Something went wrong")
+      }
     onClose()
   }
 

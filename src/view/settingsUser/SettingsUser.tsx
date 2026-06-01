@@ -4,6 +4,7 @@ import { useAuth } from "../../context/authContext"
 import { useUserData } from "../../hooks/useUserData"
 import { useState } from "react"
 import { updateBiografi, updateUsername } from "../../firebase/services/user-information.firebase"
+import { toast } from "sonner"
 
 const SettingsUSer = () => {
 
@@ -19,8 +20,9 @@ const SettingsUSer = () => {
     setIsEditingPersonalInfo(false)
     try{
       updateUsername(userId, newUsername)
+      toast.success("Username updated")
     }catch{
-      console.log("error")
+      toast.error("Something went wrong")
     }
   }
 
@@ -28,8 +30,9 @@ const SettingsUSer = () => {
     setIsEditingBio(false)
     try{
       updateBiografi(userId, newBiography)
+      toast.success("Biography updated")
     }catch{
-      console.log("error")
+      toast.error("Something went wrong")
     }
   }
 

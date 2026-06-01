@@ -5,7 +5,6 @@ import { useMyAnimeList } from "../../context/myListContext";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
 import AnimeCard from "../../components/AnimeCard/AnimeCard";
 import { useMyListMap } from "../../hooks/useMyListMap";
-import { Link } from "react-router-dom";
 import "./myListPage.scss"
 import LoadingComponent from "../../components/Loading/LoadingComponent";
 import ErrorComponent from "../../components/Error/ErrorComponent";
@@ -127,7 +126,7 @@ const MyListPage = () =>{
       return definitiveList.filter( anime =>{
         const title = anime.title.toLowerCase()
         const search = searchAnime.toLowerCase()
-        if(title.startsWith(search)) return true
+        if(title.includes(search)) return true
       })
     }
     return definitiveList
@@ -157,7 +156,7 @@ return(
           onChange={setSelectedFilter}
           onReset={() => setSelectedFilter("")}
           firstValue="Order by"
-
+          containerWidth="225px"
         />
 
         <div className="action-item input">
@@ -172,18 +171,11 @@ return(
     {isLoading ? (
       <LoadingComponent/>
     ) : isError ? (
-      <ErrorComponent text="Something went wrong" />
+      <ErrorComponent text="Something went wrong" button={{ label: "Try again", action:{ type: "reload" }}} />
     ) : listToShow.length === 0 && searchAnime ? (
-      <div className="my-list__empty-state__container">
-        <h1>(⁠╥⁠﹏⁠╥⁠)</h1>
-        <h2>No anime found with that name</h2>
-      </div>
+      <ErrorComponent text="No anime found with that name"/>
     ) : listToShow.length === 0 ? (
-      <div className="my-list__empty-state__container">
-        <h1>(⁠╥⁠﹏⁠╥⁠)</h1>
-        <h2>No anime yet</h2>
-        <Link to={"/directory"} className="btn"> Add animes to your list</Link>
-      </div>
+      <ErrorComponent text="No anime yet" button={{ label: "Add animes to your list", action: { type: "navigate", href: "/" } }} />
     ) : (
           <div className="anime-cards__container">
               {listToShow.map((anime: AnimeCardType) =>(

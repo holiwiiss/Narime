@@ -3,6 +3,7 @@ import { useAuth } from "./authContext";
 
 import type { AnimePersonalStatusType, UserAnimeListFirestoreType } from "../firebase/services/firestore-service.type";
 import { addAnimeToFirebase, deleteAnimeInformationFirebase, getAllAnimesFirebase, updateAnimeInformationFirebase } from "../firebase/services/list-methods.firebase";
+import { toast } from "sonner";
 
 type MyListContextType = {
   myList: UserAnimeListFirestoreType[];
@@ -60,20 +61,36 @@ export function MyListProvider({ children }: ProviderProps) {
   const addAnimeToMyList = async (animeId: number, animeTitle: string, status: AnimePersonalStatusType, score: number | null, episodes: number) => {
     
     if(!user) return
-    await addAnimeToFirebase(animeId, animeTitle, status, score, episodes, user.uid)
-    await refetchMyList()
+    
+    try{
+      await addAnimeToFirebase(animeId, animeTitle, status, score, episodes, user.uid)
+      await refetchMyList()
+      toast.success("Anime added to your list")
+    }catch{
+      toast.error("Something went wrong")
+    }
   };
 
   const editAnimeToMyList = async (docId: string, status: AnimePersonalStatusType, score: number | null, episodes: number) => {
     if(!user) return
-    await updateAnimeInformationFirebase(docId, status, score, episodes)
-    await refetchMyList()
+    try{
+      await updateAnimeInformationFirebase(docId, status, score, episodes)
+      await refetchMyList()
+      toast.success("Anime edited")
+    }catch{
+      toast.error("Something went wrong")
+    }
   }
 
   const deleteAnimeToMyList = async (docId: string) => {
     if(!user) return 
-    await deleteAnimeInformationFirebase(docId)
-    await refetchMyList()
+    try{
+      await deleteAnimeInformationFirebase(docId)
+      await refetchMyList()
+      toast.success("Anime remove correctly")
+    }catch{
+      toast.error("Something went wrong")
+    }
   }
 
   return (

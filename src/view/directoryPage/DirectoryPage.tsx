@@ -63,15 +63,13 @@ const DirectoryPage = () => {
           )}
         </>
       ): isLoading ? (
-        <div className="container--chargin">
-          <LoadingComponent />
-        </div>
+        <LoadingComponent />
       ): !isLoading && isError ? (
-        <ErrorComponent text="Something went wrong" />
-      ) : !isLoading && animeList.length === 0 ? (
-        <h1>(⁠╥⁠﹏⁠╥⁠)</h1>
+        <ErrorComponent text="Something went wrong" button={{ label: "Try again", action:{ type: "reload" }}} />
+      ) : !isLoading && !isError && animeList.length === 0 ? (
+        <ErrorComponent text="Something went wrong" button={{ label: "Try again", action:{ type: "reload" }}} />
       ) : (
-        <h1>No anime found</h1>
+        <ErrorComponent text="Something went wrong" button={{ label: "Try again", action:{ type: "reload" }}} />
       )}
 
       {modalAddEdit.isOpen && modalAddEdit.animeId &&(

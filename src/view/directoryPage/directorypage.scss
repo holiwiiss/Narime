@@ -3,6 +3,7 @@
 .all-content-max {
     max-width: var(--max-width-content);
     width: 100%;
+    height: 100%;
 }
 
 .anime-cards__container {
@@ -34,8 +35,4 @@
     @include sm{
         padding-bottom: var(--space-m);
     }
-}
-
-.container--chargin {
-    width: 100%;
 }

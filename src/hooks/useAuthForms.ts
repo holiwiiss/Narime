@@ -3,6 +3,7 @@ import { deleteUserFromFirebase, loginFirebase, loginWithGoogle, registerFirebas
 import { addUserToFirestore } from "../firebase/services/user-information.firebase";
 import { useState } from "react";
 import type { User } from "firebase/auth";
+import { toast } from "sonner";
 
 export const useAuthForms = () => {
   const navigate = useNavigate();
@@ -12,9 +13,11 @@ export const useAuthForms = () => {
   const registerInFirestore = async (user: User, email: string, username: string) => {
     try {
       await addUserToFirestore(user.uid, email, username)
+      toast.success("user create correctly")
       navigate("/login");
     } catch {
       await deleteUserFromFirebase(user);
+      toast.error("Something went wrong")
       setIsError(true)
     }
   }
@@ -24,11 +27,12 @@ export const useAuthForms = () => {
     setIsError(false)
     try{
       const user = await registerFirebase(email, password);
-      
+      toast.success("user create correctly")
       if(user){
         await registerInFirestore(user, email, username)
       }
     }catch(e){
+      toast.error("Something went wrong")
       setIsError(true)
     }finally{
       setIsLoading(false)
@@ -40,11 +44,13 @@ export const useAuthForms = () => {
     setIsError(false)
     try{
       const user = await loginWithGoogle();
+      toast.success("user create correctly")
       if (user) {
         await registerInFirestore(user, user.email ?? "", user.displayName ?? "User");
       }
     }catch(e){
       setIsError(true)
+      toast.error("Something went wrong")
     }finally{
       setIsLoading(false)
     }
@@ -55,9 +61,11 @@ export const useAuthForms = () => {
     setIsError(false)
     try{
       await loginFirebase(email, password)
+      toast.success("user login correctly")
       navigate("/directory")
     }catch{
       setIsError(true)
+      toast.error("Something went wrong")
     }finally{
       setIsLoading(false)
     }

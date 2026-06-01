@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 import { removeAnimeFavorite } from "../../../firebase/services/user-information.firebase";
 import type { AnimeCardType } from "../../../services/anime-list/anime-list.type";
 
@@ -12,10 +13,9 @@ export const ModalRemoveFavorites = ({listFavoriteInformation, userId, onClose}:
   const deleteToFavorite = async (animeId: number, userId: string) => {
       try{
         await removeAnimeFavorite(animeId, userId)
+        toast.success("Anime remove from your favorites")
       }catch{
-  
-      }finally{
-  
+        toast.error("Something went wrong")
       }
       onClose()
     }
