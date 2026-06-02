@@ -15,6 +15,8 @@ import { Link, Navigate } from "react-router-dom";
 import { useMyListStats } from "../../hooks/useMyListStats";
 import StatsCircle from "../../components/StatsCircle/StatsCircle";
 
+
+/*SDASD*/
 const UserPage = () => {
 
   const { user } = useAuth()
