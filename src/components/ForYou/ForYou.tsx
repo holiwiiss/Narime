@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { useMyAnimeList } from "../../context/myListContext";
+import { useMyAnimeList } from "../../context/MyListContext";
 import { fetchMyList } from "../../queries/my-list-information";
-import LoadingComponent from "../Loading/LoadingComponent";
-import ErrorComponent from "../Error/ErrorComponent";
+import LoadingComponent from "../loading/LoadingComponent";
+import ErrorComponent from "../error/ErrorComponent";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
-import AnimeCard from "../AnimeCard/AnimeCard";
+import AnimeCard from "../animeCard/AnimeCard";
 import type { AnimeRecomendationCardType } from "../../services/anime-recommendations/anime-recommendations.type";
 import { getRecomendationsAnimes } from "../../services/anime-recommendations/anime-recommendations";
 import { useMemo } from "react";
@@ -78,7 +78,7 @@ const ForYou = () => {
         <>
         <div className="header-for-you">
           <h1 className="text-h1 para-ti__title">Currently watching...</h1>
-          <span className="text-details text-color--75">(showing {myAnimeListWatching.length} of {myList.filter(a => a.statusPersonal === "watching").length})</span>
+          <span className="text-details text-color--75">(showing {myAnimeListWatching.length} of {myList.filter((a:any )=> a.statusPersonal === "watching").length})</span>
         </div>
         <section className="anime-cards__container">
           {myAnimeListWatching.map((anime: AnimeCardType) => (

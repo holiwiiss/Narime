@@ -1,4 +1,4 @@
-import { useMyAnimeList } from "../context/myListContext"
+import { useMyAnimeList } from "../context/MyListContext"
 
 export function useMyListStats() {
 

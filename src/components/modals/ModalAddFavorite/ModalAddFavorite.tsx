@@ -3,7 +3,7 @@ import type { AnimeCardType, AnimeListResponse } from "../../../services/anime-l
 import { searchAnime } from "../../../services/anime-search/anime-search";
 import { addAnimeFavorite } from "../../../firebase/services/user-information.firebase";
 import "../modals.scss"
-import LoadingComponent from "../../Loading/LoadingComponent";
+import LoadingComponent from "../../loading/LoadingComponent";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 

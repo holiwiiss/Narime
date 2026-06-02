@@ -1,13 +1,13 @@
 import { Link, Navigate } from "react-router-dom"
 import "./settingsUser.scss"
-import { useAuth } from "../../context/authContext"
+import { useAuth } from "../../context/AuthContext"
 import { useUserData } from "../../hooks/useUserData"
 import { useState } from "react"
 import { updateBiografi, updateUsername } from "../../firebase/services/user-information.firebase"
 import { toast } from "sonner"
 import { useQueryClient } from "@tanstack/react-query"
-import LoadingComponent from "../../components/Loading/LoadingComponent"
-import ErrorComponent from "../../components/Error/ErrorComponent"
+import LoadingComponent from "../../components/loading/LoadingComponent"
+import ErrorComponent from "../../components/error/ErrorComponent"
 
 const SettingsUSer = () => {
   const queryClient = useQueryClient()

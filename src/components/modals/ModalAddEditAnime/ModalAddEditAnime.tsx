@@ -5,12 +5,12 @@ import { useForm, Controller , type SubmitHandler } from "react-hook-form";
 
 import { Link } from "react-router-dom";
 import type { AnimePersonalStatusType, UserAnimeEditDataType } from "../../../firebase/services/firestore-service.type";
-import { useAuth } from "../../../context/authContext";
-import OptionsPopUp from "../../OptionsPopUp/OptionsPopUP";
-import StatusSelector from "../../StatusSelector/StatusSelector";
-import StarRating from "../../StarRating/StarRating";
-import EpisodesInput from "../../EpisodesInput/EpisodesInput";
-import { useMyAnimeList } from "../../../context/myListContext";
+import { useAuth } from "../../../context/AuthContext";
+import OptionsPopUp from "../../optionsPopUp/OptionsPopUP";
+import StatusSelector from "../../statusSelector/StatusSelector";
+import StarRating from "../../starRating/StarRating";
+import EpisodesInput from "../../episodesInput/EpisodesInput";
+import { useMyAnimeList } from "../../../context/MyListContext";
 
 type PropsModal = {
   animeId: number;

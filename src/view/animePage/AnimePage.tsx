@@ -1,8 +1,8 @@
 import "./animepage.scss";
 import type { AnimeCharactersType, AnimeInformationType } from "../../services/anime-information/anime-information.type";
 import { Link, useLocation, useParams } from "react-router-dom";
-import ErrorComponent from "../../components/Error/ErrorComponent";
-import LoadingComponent from "../../components/Loading/LoadingComponent";
+import ErrorComponent from "../../components/error/ErrorComponent";
+import LoadingComponent from "../../components/loading/LoadingComponent";
 import { useMyListMap } from "../../hooks/useMyListMap";
 import type { UserAnimeListFirestoreType } from "../../firebase/services/firestore-service.type";
 import { useAnimeModal } from "../../hooks/useAnimeModal";

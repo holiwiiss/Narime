@@ -2,7 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import "./topbar.scss"
 import MenuSetting from "../MenuSettings/MenuSetting";
 import SearchAnimeComponent from "../SearchAnime/SearchAnimeComponent";
-import { useAuth } from "../../context/authContext";
+import { useAuth } from "../../context/AuthContext";
 import { useUserData } from "../../hooks/useUserData";
 import { useState } from "react";
 

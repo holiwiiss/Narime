@@ -1,8 +1,8 @@
 import "./directorypage.scss";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
-import LoadingComponent from "../../components/Loading/LoadingComponent";
-import ErrorComponent from "../../components/Error/ErrorComponent";
-import AnimeCard from "../../components/AnimeCard/AnimeCard";
+import LoadingComponent from "../../components/loading/LoadingComponent";
+import ErrorComponent from "../../components/error/ErrorComponent";
+import AnimeCard from "../../components/animeCard/AnimeCard";
 import { useSearchParams } from "react-router-dom";
 import { useDirectoryAnimes } from "../../hooks/useDirectoryAnime";
 import { useMyListMap } from "../../hooks/useMyListMap";

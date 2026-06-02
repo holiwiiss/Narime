@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { useAuth } from "../../context/authContext";
+import { useAuth } from "../../context/AuthContext";
 import "./userPage.scss"
-import { useMyAnimeList } from "../../context/myListContext";
+import { useMyAnimeList } from "../../context/MyListContext";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
 import { useQuery } from "@tanstack/react-query";
-import AnimeCard from "../../components/AnimeCard/AnimeCard";
+import AnimeCard from "../../components/animeCard/AnimeCard";
 import { fetchMyFavoriteList } from "../../queries/user-page.query";
 import { ModalAddFavorites } from "../../components/modals/ModalAddFavorite/ModalAddFavorite";
 import { ModalRemoveFavorites } from "../../components/modals/ModalRemoveFavorite/ModalRemoveFavorite";
-import LoadingComponent from "../../components/Loading/LoadingComponent";
-import ErrorComponent from "../../components/Error/ErrorComponent";
+import LoadingComponent from "../../components/loading/LoadingComponent";
+import ErrorComponent from "../../components/error/ErrorComponent";
 import { useUserData } from "../../hooks/useUserData";
 import { Link, Navigate } from "react-router-dom";
 import { useMyListStats } from "../../hooks/useMyListStats";

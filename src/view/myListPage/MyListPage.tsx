@@ -1,13 +1,13 @@
 import { useMemo, useState } from "react";
 import type { AnimePersonalStatusType } from "../../firebase/services/firestore-service.type";
 import { useAnimeModal } from "../../hooks/useAnimeModal";
-import { useMyAnimeList } from "../../context/myListContext";
+import { useMyAnimeList } from "../../context/MyListContext";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
-import AnimeCard from "../../components/AnimeCard/AnimeCard";
+import AnimeCard from "../../components/animeCard/AnimeCard";
 import { useMyListMap } from "../../hooks/useMyListMap";
 import "./myListPage.scss"
-import LoadingComponent from "../../components/Loading/LoadingComponent";
-import ErrorComponent from "../../components/Error/ErrorComponent";
+import LoadingComponent from "../../components/loading/LoadingComponent";
+import ErrorComponent from "../../components/error/ErrorComponent";
 import { useQuery } from "@tanstack/react-query";
 import CustomSelect from "../../components/CustomSelect/CustomSelect";
 import { fetchMyList } from "../../queries/my-list-information";
