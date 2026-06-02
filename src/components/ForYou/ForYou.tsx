@@ -18,7 +18,7 @@ import ModalAddEditAnime from "../modals/ModalAddEditAnime/ModalAddEditAnime";
 const fecthAnimesRecommendations = async (animeId:number, getUserListData: (id: number) => UserAnimeListFirestoreType | undefined
 ) => {
   const data = await getRecomendationsAnimes(animeId)
-  return data.filter(a => !getUserListData(a.id)) 
+  return data.filter((a:any)=> !getUserListData(a.id)) 
 }
 
 const ForYou = () => {
@@ -28,17 +28,17 @@ const ForYou = () => {
   const modalAddEdit = useAnimeModal();
 
   const myListWatching = useMemo(() => {
-    return myList.filter(a => a.statusPersonal === "watching").slice(0, 5)
+    return myList.filter((a:any) => a.statusPersonal === "watching").slice(0, 5)
   }, [myList])
 
   const watchingIds = useMemo(() => {
-    return myListWatching.map(a => a.animeId)
+    return myListWatching.map((a:any) => a.animeId)
   }, [myListWatching])
 
   const randomId = useMemo(() => {
-    const scoreCompleted = myList.filter(a => a.scorePersonal && a.statusPersonal === "completed")
-    const betterScore = scoreCompleted.filter(a =>  a.scorePersonal && a.scorePersonal > 7)
-    const betterScoreID = betterScore.map(a => ({ id: a.animeId, title: a.animeTitle }))
+    const scoreCompleted = myList.filter((a:any) => a.scorePersonal && a.statusPersonal === "completed")
+    const betterScore = scoreCompleted.filter((a:any)=>  a.scorePersonal && a.scorePersonal > 7)
+    const betterScoreID = betterScore.map((a:any)=> ({ id: a.animeId, title: a.animeTitle }))
 
     if (betterScoreID.length > 0) {
       const randomNumber = Math.floor(Math.random() * betterScoreID.length)

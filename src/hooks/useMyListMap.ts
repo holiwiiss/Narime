@@ -12,7 +12,7 @@ export function useMyListMap() {
   const myListMap = useMemo(() => {
     const map = new Map<number, UserAnimeListFirestoreType>();
 
-    myList.forEach((anime) => {
+    myList.forEach((anime:any) => {
       map.set(anime.animeId, anime);
     });
 

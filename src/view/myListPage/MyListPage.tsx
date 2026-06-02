@@ -25,7 +25,7 @@ const MyListPage = () =>{
   const [selectedFilter, setSelectedFilter] = useState("");
 
   const {isLoading, isError, data} = useQuery({
-    queryKey:["myAnimeList", myList.map(a => a.animeId)], // useQuery compara el key para saber si relanzar la query
+    queryKey:["myAnimeList", myList.map((a:any) => a.animeId)], // useQuery compara el key para saber si relanzar la query
     queryFn: () => fetchMyList(myList),
     enabled: myList.length > 0,
   })
@@ -33,22 +33,22 @@ const MyListPage = () =>{
   const myAnimeList: AnimeCardType[] = data ?? []
 
   const orderByStatus = () => {
-    const watchingList = myAnimeList.filter( anime => {
+    const watchingList = myAnimeList.filter((anime:any) => {
         const userData = getUserListData(anime.id)
         if(userData?.statusPersonal === "watching") return true
       })
 
-      const completedList = myAnimeList.filter( anime => {
+      const completedList = myAnimeList.filter((anime:any) => {
         const userData = getUserListData(anime.id)
         if(userData?.statusPersonal === "completed") return true
       })
 
-      const droppedList = myAnimeList.filter( anime => {
+      const droppedList = myAnimeList.filter((anime:any) => {
         const userData = getUserListData(anime.id)
         if(userData?.statusPersonal === "dropped") return true
       })
 
-      const planList =  myAnimeList.filter( anime => {
+      const planList =  myAnimeList.filter((anime:any) => {
         const userData = getUserListData(anime.id)
         if(userData?.statusPersonal === "planToWatch") return true
       })
@@ -58,7 +58,7 @@ const MyListPage = () =>{
   }
 
   const orderByAlphabetical = () => {
-    const FinalList = myAnimeList.sort(function (a, b){
+    const FinalList = myAnimeList.sort(function (a:any, b:any){
       if(a.title > b.title){
         return 1;
       }
@@ -71,7 +71,7 @@ const MyListPage = () =>{
   }
 
   const orderByScore = () => {
-    const FinalList = myAnimeList.sort(function (a , b){
+    const FinalList = myAnimeList.sort(function (a:any, b:any){
       const userDataA = getUserListData(a.id)?.scorePersonal ?? 0
       const userDataB = getUserListData(b.id)?.scorePersonal ?? 0
       
