@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { useMyListMap } from "../../hooks/useMyListMap";
-import AnimeCard from "../../components/AnimeCard2/AnimeCard";
+import AnimeCard from "../../components/AnimeCard/AnimeCard";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
 
 import { useAnimeModal } from "../../hooks/useAnimeModal";

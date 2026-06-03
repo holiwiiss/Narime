@@ -4,7 +4,7 @@ import { fetchMyList } from "../../queries/my-list-information";
 import LoadingComponent from "../loading/LoadingComponent";
 import ErrorComponent from "../error/ErrorComponent";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
-import AnimeCard from "../AnimeCard2/AnimeCard";
+import AnimeCard from "../AnimeCard/AnimeCard";
 import type { AnimeRecomendationCardType } from "../../services/anime-recommendations/anime-recommendations.type";
 import { getRecomendationsAnimes } from "../../services/anime-recommendations/anime-recommendations";
 import { useMemo } from "react";
