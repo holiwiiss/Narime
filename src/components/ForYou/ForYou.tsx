@@ -4,7 +4,7 @@ import { fetchMyList } from "../../queries/my-list-information";
 import LoadingComponent from "../loading/LoadingComponent";
 import ErrorComponent from "../error/ErrorComponent";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
-import AnimeCard from "../AnimeCard/AnimeCard";
+import AnimeCard from "../AnimeCard2/AnimeCard";
 import type { AnimeRecomendationCardType } from "../../services/anime-recommendations/anime-recommendations.type";
 import { getRecomendationsAnimes } from "../../services/anime-recommendations/anime-recommendations";
 import { useMemo } from "react";
@@ -80,7 +80,7 @@ const ForYou = () => {
           <h1 className="text-h1 para-ti__title">Currently watching...</h1>
           <span className="text-details text-color--75">(showing {myAnimeListWatching.length} of {myList.filter((a:any )=> a.statusPersonal === "watching").length})</span>
         </div>
-        <section className="anime-cards__container">
+        <section className="cards__grid">
           {myAnimeListWatching.map((anime: AnimeCardType) => (
             <AnimeCard
               key={anime.id}
@@ -104,7 +104,7 @@ const ForYou = () => {
       ) : recommendationsList && recommendationsList?.length ? (
         <>
           {randomId.title !== "Unknown" ? (<h2 className="text-h2 para-ti__subtitle">Because you liked {randomId.title}</h2>): (<h2 className="text-h2 para-ti__subtitle">Recommendations to get started</h2>)}
-          <section className="anime-cards__container">
+          <section className="cards__grid">
           {recommendationsList.map((anime: AnimeRecomendationCardType) => (
                       <AnimeCard
                         key={anime.id}
