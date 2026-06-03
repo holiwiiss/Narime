@@ -63,139 +63,153 @@ const AnimePage = () => {
 
           <div className="anime-page__container">
 
-            <header className="anime-page__header">
-              <img src={animeInfo.image} className="anime-page__header-img" alt={animeInfo.title}></img>
-            </header>
+            <div className="anime-page__header">
+              <figure className="anime-page__cover">
+                <img src={animeInfo.image} className="anime-page__header-img" alt={ `Caption of ${animeInfo.title}`} />
+              </figure>
+            </div>
 
             <section className="anime-page__content">
 
-              <div className="breadcrumbs__container">
-                <Link to={from}  className="text-details text-color--50">{fromLabel}</Link>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white-50)" className="size-6 icon-size-m">
-                  <path fillRule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clipRule="evenodd" />
-                </svg>
-                <p className="text-details text-color--75">{animeInfo.title}</p>
-              </div>
+              <nav aria-label="Breadcrumb" className="breadcrumbs">
+                <ol className="breadcrumbs__list">
+                  <li className="breadcrumbs__item">
+                    <Link to={from}  className="text-details text-color--50">{fromLabel}</Link>
+                  </li>
+                  <li className="breadcrumbs__item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white-50)" className="size-6 icon-size-m">
+                      <path fillRule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clipRule="evenodd" />
+                    </svg>
+                  </li>
+                  <li className="breadcrumbs__item">
+                    <p className="text-details text-color--75">{animeInfo.title}</p>
+                  </li>
+                </ol>
+              </nav>
 
-              <div className="anime-page__content-info">
-                <div className="anime-page__content-texts">
-                  <h1 className="text-h1 anime-page__content-info-tittle">{animeInfo.title}</h1>
-                  <h2 className="text-p text-color--primary">{animeInfo.titleEnglish}</h2>
+              <div className="anime-page__info">
+                <div className="anime-page__info-texts">
+                  <h1 className="text-h1 anime-page__info-title">{animeInfo.title}</h1>
+                  <p className="text-p text-color--primary">{animeInfo.titleEnglish}</p>
                   <p className="text-p text-color--50">{formatDate(animeInfo.aired[0])} - {formatDate(animeInfo.aired[1])}</p>
                 </div>
-                <div className="anime-page__content-user-options">
+                <div className="anime-page__info-user-options">
                   {userData && (
                     <>
-                      <p className="text-p text-color--50 anime-page__status-text">Your status:</p>
-                      <span className="text-p text-color--75 anime-page__status-user">{formatStatus(userData.statusPersonal)}</span>
+                      <p className="text-p text-color--50 anime-page__status-label">Your status:</p>
+                      <span className="text-p text-color--75 anime-page__status-value">{formatStatus(userData.statusPersonal)}</span>
                     </>
                   )}
                 </div>
               </div>
 
-              <div className="anime-page__content-stats">
-                <button className="btn--anime-page icon-size-xl" onClick={()  => openAddEditModal(animeInfo)}>
+              <div className="anime-page__stats">
+                <button className="anime-page__btn icon-size-xl" 
+                  aria-label={userData ? "Edit anime in list" : "Add anime to my list"}
+                  onClick={()  => openAddEditModal(animeInfo)}
+                >
                   {userData ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white)" className="size-6 icon-size-m">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white)" className="size-6 icon-size-m" aria-hidden="true">
                       <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                     </svg>
                   ):(
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white)" className="size-6 icon-size-m">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white)" className="size-6 icon-size-m" aria-hidden="true">
                     <path fillRule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
                     </svg>
-                  )}</button>
-                <div className="content__main-stats">
-                  <div className="anime-page__content-item">
+                  )}
+                </button>
+                <div className="anime-page__stats-global">
+                  <div className="anime-page__stat-item">
                     <p className="text-h1">{animeInfo.score ?? "N/A"}</p>
-                    <p className="text-details text-color--75 anime-page__content-item--text">Global Score</p>
+                    <p className="text-details text-color--75 anime-page__content-item-label">Global Score</p>
                   </div>
 
                   {userData && userData.scorePersonal && (
-                    <div className="anime-page__content-item">
+                    <div className="anime-page__stat-item">
                       <p className="text-h1">{userData.scorePersonal}</p>
-                      <p className="text-details text-color--75 anime-page__content-item--text">Your Score</p>
+                      <p className="text-details text-color--75 anime-page__content-item-label">Your Score</p>
                     </div>
                   )}
 
-                  <div className="anime-page__content-item">
+                  <div className="anime-page__stat-item">
                     <p className="text-h1"># {animeInfo.rank ?? "N/A"}</p>
-                    <p className="text-details text-color--75 anime-page__content-item--text">Ranked</p>
+                    <p className="text-details text-color--75 anime-page__content-item-label">Ranked</p>
                   </div>
 
-                  <div className="anime-page__content-item">
+                  <div className="anime-page__stat-item">
                     <p className="text-h1">{formatNumber(animeInfo.members)}</p>
-                    <p className="text-details text-color--75 anime-page__content-item--text">Watching</p>
+                    <p className="text-details text-color--75 anime-page__content-item-label">Watching</p>
                   </div> 
                 </div>
                 {userData && (
-                  <div className="content__user--progress-bar--container">
-                    <div className="content__user--progress-bar--tittle-containers">
+                  <div className="anime-page__progress">
+                    <div className="anime-page__progress-header">
                       <p className="text-p">Your progress</p>
                       <p className="text-p">{userData.episodesWatched} / {animeInfo.episodes} episodes</p>
                     </div>
-                    <div className="content__user--progress-bar--empty">
-                      <div className="content__user--progress-bar--value"
+                    <div className="anime-page__progress-track">
+                      <div className="anime-page__progress-fill"
                         style={{ width: `${calculateWidth(animeInfo.episodes, userData.episodesWatched)}%`}}
                       ></div>
                     </div>
                   </div>
                 )}
-                
               </div>
 
-              <div className="anime-page__content-tags">
+              <div>
                 <h2 className="text-h2">Tags</h2>
-                <div className="anime-page__content-all-tags">
-                  <div className="anime-page__content-tag"><p className="text-p text-color--75"># {animeInfo.season} {animeInfo.year ?? "N/A"}</p></div>
+                <div className="anime-page__tags-list">
+                  <div className="anime-page__tag"><p className="text-p text-color--75"># {animeInfo.season} {animeInfo.year ?? "N/A"}</p></div>
                   {animeInfo.genres.map((g)=> (
-                    <div key={g} className="anime-page__content-tag"><p className="text-p text-color--75"># {g}</p></div>
+                    <div key={g} className="anime-page__tag"><p className="text-p text-color--75"># {g}</p></div>
                   ))}
                   {animeInfo.studios.map((s)=> (
-                    <div key={s} className="anime-page__content-tag"><p className="text-p text-color--75"># {s}</p></div>
+                    <div key={s} className="anime-page__tag"><p className="text-p text-color--75"># {s}</p></div>
                   ))}
                 </div>
               </div>
-
               
             </section>
           </div>
 
-          <footer className="anime-page__end-section">
+          <section className="anime-page__details" aria-label="Anime details">
             <div className="tab__container">
-                <div className="tab__buttons">
-                  <button className={`text-p tab-option tab-option--small ${activeCategory === 'sinopsis' ? "tab-option__selected--small" : "tab-option__unselected"}`} onClick={() => setActiveCategory("sinopsis")}>Synopsis</button>
-                  <button className={`text-p tab-option tab-option--small ${activeCategory === 'actors' ? "tab-option__selected--small" : "tab-option__unselected"}`} onClick={() => setActiveCategory("actors")}>Character roster</button>
-                  <button className={`text-p tab-option tab-option--small ${activeCategory === 'trailer' ? "tab-option__selected--small" : "tab-option__unselected"}`} onClick={() => setActiveCategory("trailer")}>Trailer</button>
-                </div>
+              <div className="tab__buttons">
+                <button className={`text-p tab-option tab-option--small ${activeCategory === 'sinopsis' ? "tab-option__selected--small" : "tab-option__unselected"}`} onClick={() => setActiveCategory("sinopsis")}>Synopsis</button>
+                <button className={`text-p tab-option tab-option--small ${activeCategory === 'actors' ? "tab-option__selected--small" : "tab-option__unselected"}`} onClick={() => setActiveCategory("actors")}>Character roster</button>
+                <button className={`text-p tab-option tab-option--small ${activeCategory === 'trailer' ? "tab-option__selected--small" : "tab-option__unselected"}`} onClick={() => setActiveCategory("trailer")}>Trailer</button>
               </div>
-              <div className="anime-page__tab-info">
-                <div className="anime-page__content-synopsis">
-                  {activeCategory === "sinopsis" ? (
-                    <p className="text-p text-color--75">{animeInfo.synopsis}</p>
-                  ) : activeCategory==="actors" ? (
-                    <>
-                    <div className="anime-page__character--wrapper">
+            </div>
+            
+            <div className="anime-page__details-body">
+              <div className="anime-page__synopsis">
+                {activeCategory === "sinopsis" ? (
+                  <p className="text-p text-color--75">{animeInfo.synopsis}</p>
+                ) : activeCategory==="actors" ? (
+                  <>
+                    <div className="anime-page__characters">
                       {visibleCharacters?.map((person: AnimeCharactersType) => (
-                      <div className="character-card">
-                        <img className="character-card__img" src={person.characterImage} alt={person.characterName}/>
                         
-                        <div className="character-card--header">
-                          <span className="text-details badge">{person.role}</span>
-                        </div>
+                        <article key={person.characterName} className="character-card">
+                          <img className="character-card__img" src={person.characterImage} alt={person.characterName}/>
                         
-                        <div className="character-card--foter">
-                          <div className="character-card--foter-text">
-                            <p className="text-card--small character-card__anime-name">{person.characterName}</p>
-                            <p className="text-details character-card__actor-name">CV <br/> {person.voiceActorName}</p>
+                          <div className="character-card__header">
+                            <span className="text-details badge">{person.role}</span>
                           </div>
-                          <img className="character-card__img-actor" src={person.voiceActorImage} alt={person.voiceActorName}></img>
-                        </div>
-                      </div>
+                        
+                          <div className="character-card__footer">
+                            <div className="character-card__footer-text">
+                              <p className="text-card--small character-card__name">{person.characterName}</p>
+                              <p className="text-details character-card__actor-name">CV <br/> {person.voiceActorName}</p>
+                            </div>
+                            <img className="character-card__actor-img" src={person.voiceActorImage} alt={person.voiceActorName}></img>
+                          </div>
+                      </article>
                       ))}
                     </div>
 
                     {animeCharacters && animeCharacters.length > 15 && (
-                      <div className="characters-btn-container">
+                      <div className="anime-page__characters-actions">
                         <button 
                           className="btn btn--secondary" 
                           onClick={() => setShowAllCharacters(!showAllCharacters)}
@@ -211,30 +225,37 @@ const AnimePage = () => {
                       {!animeInfo.trailer || animeInfo.trailer==="" ? (
                         <ErrorComponent text="No trailer found"/>
                       ):(
-                        <iframe className="anime-page__trailer" src={animeInfo.trailer} title="YouTube video player"  ></iframe> 
+                        <iframe 
+                          className="anime-page__trailer" 
+                          src={animeInfo.trailer} 
+                          title={`Trailer of ${animeInfo.title}`} 
+                          allow="accelerometer; autoplay; encrypted-media"
+                          allowFullScreen
+                          sandbox="allow-scripts allow-same-origin allow-presentation" 
+                        />
                       )}
                     </>
                   )}   
                 </div> 
 
-                <div className="anime-page__end-section-more-information">
-                  <div className="more-information--item">
-                    <h3 className="more-information--item-tittle">Format</h3>
+                <div className="anime-page__more-info">
+                  <div className="anime-page__more-info-item">
+                    <h3 className="anime-page__more-info-item-title">Format</h3>
                     <p className="text-details text-color--75">{animeInfo.year ?? "N/A"}  ·  {animeInfo.type}  ·  {animeInfo.episodes} episodes</p>
                   </div>
 
-                  <div className="more-information--item">
-                    <h3 className="more-information--item-tittle">Studio</h3>
-                    <div className="more-information--item-subtittle-container">
+                  <div className="anime-page__more-info-item">
+                    <h3 className="anime-page__more-info-item-title">Studio</h3>
+                    <div className="anime-page__more-info-item-values">
                       {animeInfo.studios.map((s)=> (
                         <p className="text-details text-color--75">{s} </p>
                       ))}
                     </div>
                   </div>
 
-                  <div className="more-information--item">
-                    <h3 className="more-information--item-tittle">Genres</h3>
-                    <div className="more-information--item-subtittle-container">
+                  <div className="anime-page__more-info-item">
+                    <h3 className="anime-page__more-info-item-title">Genres</h3>
+                    <div className="anime-page__more-info-item-values">
                       {animeInfo.genres.map((g)=> (
                         <p className="text-details text-color--75">{g} </p>
                       ))}
@@ -246,7 +267,7 @@ const AnimePage = () => {
             
               
             
-        </footer>
+        </section>
       </main>
 </>
 )}

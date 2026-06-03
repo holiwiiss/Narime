@@ -1,6 +1,6 @@
 @use "../../scss/mixin/" as *;
 
-.header-discover {
+.discover__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -20,7 +20,7 @@
     }
 }
 
-.filters-content {
+.discover__filters {
     display: flex;
     gap:var(--space-s)
 }

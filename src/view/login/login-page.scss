@@ -1,6 +1,6 @@
 @use "../../scss/mixin/" as *;
 
-.bg-img-login {
+.login-page--background {
     width: 100%;
     height: 100dvh;
     display: flex;
@@ -31,7 +31,7 @@
     }
 }
 
-.login-page__info {
+.login-page__hero {
     width: 50%;
     padding: var(--space-l) 0;
     display: flex;
@@ -54,8 +54,7 @@
     justify-content: space-between;
 }
 
-.login-page__form-section {
-
+.login-page__panel {
     width: 50%;
     justify-content: center;
     padding: 0 var(--space-xxxl);
@@ -82,24 +81,7 @@
     height: 50px;
 }
 
-.login-page__form-separation {
-    display: flex;
-    align-items: center;
-    gap: var(--space-m);
-
-    &-line{
-        width: 100%;
-        height: 2px;
-        background-color: var(--color-white-50);
-        border-radius: var(--border-radius-xs);
-    }
-}
-.login-page__form-forget {
+.login-page__forget-password {
     width: 100%;
     text-align: right;
-}
-
-.login-page__form-sing-up {
-    width: 100%;
-    text-align: center;
 }

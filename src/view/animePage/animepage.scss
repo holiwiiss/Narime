@@ -9,8 +9,7 @@
         padding: var(--space-l) var(--space-xl);
     }
     @include sm{
-        padding: var(--space-m) var(--space-m);
-        
+        padding: var(--space-m) var(--space-m);   
     }
 }
 
@@ -58,12 +57,11 @@
     padding-left: var(--space-xxl);
     width: 75%;
     display: flex;
-    border: spñ;
     flex-direction: column;
     gap: var(--space-xl);
     
     @include lg{
-        padding-left: var(--space-l);;
+        padding-left: var(--space-l);
     }
     @include md{
         gap: var(--space-l);
@@ -76,17 +74,26 @@
     }
 }
 
-.breadcrumbs__container {
+.breadcrumbs {
     display: flex;
-    align-items: center;
     gap:var(--space-xxs)
 }
+.breadcrumbs__list{
+    display: flex;
+}
 
-.anime-page__content-info{
+.breadcrumbs__item {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.anime-page__info{
     display: flex;
     align-items: start;
     justify-content: space-between;
-    &-tittle {   
+
+    &-title {   
         margin-bottom: var(--space-xs);
     }
     @include sm{
@@ -96,7 +103,7 @@
 }
 
 
-.anime-page__content-user-options {
+.anime-page__info-user-options {
     display: flex;
     align-items: center;
     gap: var(--space-s);
@@ -109,13 +116,13 @@
 }
 
 .anime-page__status{
-    &-text {
+    &-label {
         white-space: nowrap;
         @include sm{
             display: none;
         }
     }
-    &-user {
+    &-value {
         padding: var(--space-xs) var(--space-s);
         background-color: var(--color-white-15);
         border: solid 1px var(--color-white-20);
@@ -126,84 +133,84 @@
     }
 }
 
-.anime-page__content-stats {
+.anime-page__stats {
     background-color: var(--color-white-15);
     border:1px solid var(--color-white-20);
     border-radius: var(--border-radius-m);
     display: flex;
     flex-direction: column;
     position: relative;
-}
-.content__main-stats {
-    width: 100%;
-    display: flex;
-    padding: var(--space-xl) 0;
-    @include md{
-        padding: var(--space-l) 0;
-    }
-    @include sm{
-        padding: var(--space-m);
+    &-global {
+        width: 100%;
+        display: flex;
+        padding: var(--space-xl) 0;
+        @include md{
+            padding: var(--space-l) 0;
+        }
+        @include sm{
+            padding: var(--space-m);
+        }
     }
 }
 
-.anime-page__content-item {
+
+.anime-page__stat-item {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     flex:1;
 
-    &--text {
+    &-label {
         text-align: center;
         @include xs{
             padding: 0 var(--space-xs);
         }
     }
 }
-.btn--anime-page {
+.anime-page__btn {
     position: absolute;
     inset: var(--space-s) var(--space-s) auto auto;
 }
 
-.content__user--progress-bar {
-    &--container {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        padding: var(--space-xl);
-        gap: var(--space-m);
-        border-top: 1px solid var(--color-white-20);
-        @include md{
-            padding: var(--space-l);
-        }
-        @include sm{
-            padding: var(--space-m);
-        }
+.anime-page__progress{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-xl);
+    gap: var(--space-m);
+    border-top: 1px solid var(--color-white-20);
+    @include md{
+        padding: var(--space-l);
+    }
+    @include sm{
+        padding: var(--space-m);
     }
 
-    &--tittle-containers {
+    &-header {
         display: flex;
         justify-content: space-between;
     }
-    
-    &--empty {
+    &-track {
         height: 8px;
         width: 100%;
         border-radius: var(--border-radius-s);
         background-color: var(--color-menu-bg);
         overflow: hidden;
     }
-    &--value {
+    &-fill {
         height: 100%;
         background-color: var(--color-red-primary);
     }
 }
 
-.anime-page__content-item + .anime-page__content-item {
+.anime-page__stat-item + .anime-page__stat-item  {
     border-left: 1px solid var(--color-white-20);
 }
 
-.anime-page__content-all-tags {
+
+
+.anime-page__tags-list {
     margin-top: var(--space-xs);
     display: flex;
     flex-wrap: nowrap;
@@ -217,7 +224,7 @@
     }
 }
 
-.anime-page__content-tag {
+.anime-page__tag {
     padding: var(--space-xs) var(--space-s);
     background-color: var(--color-white-15);
     border: solid 1px var(--color-white-20);
@@ -225,18 +232,17 @@
     @include sm{
         padding: var(--space-xxs) var(--space-xs);
     }
-
 }
 
-.anime-page__end-section {
+.anime-page__details {
     margin-top: var(--space-m);
     width: 100%;
 }
-.anime-page__tab-info {
+.anime-page__details-body {
     width: 100%;
     display: flex;
 }
-.anime-page__content-synopsis {
+.anime-page__synopsis {
     width: 77%;
     padding-top: var(--space-l);
     padding-right: var(--space-xxl);
@@ -248,45 +254,13 @@
         padding-right: 0;
     }
 }
-.anime-page__end-section-more-information {
-    width: 23%;
-    display: flex;
-    flex-direction: column;
-    padding: var(--space-l);
-    padding-right: 0;
-    gap: var(--space-m);
-    @include sm{
-        width: 27%;
-    }
-}
-
-.more-information--item {
-    border-left: 2px solid var(--color-red-primary);
-    padding: var(--space-xxs) var(--space-s);
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    
-    &-tittle {
-        letter-spacing: 2px;
-        color: var(--color-white-50);
-        font-size: var(--font-size-2);
-        font-weight: var(--font-light);
-    }
-    &-subtittle-container {
-        display: flex;
-        gap: var(--space-xs);
-        align-items: start;
-        flex-wrap: wrap;
-    }
-}
 
 .anime-page__trailer {
     width: 100%;
     aspect-ratio: 16 / 9;
 }
 
-.anime-page__character--wrapper {
+.anime-page__characters {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -294,8 +268,8 @@
     @include sm{
         gap: var(--space-s);
     }
-
 }
+
 //100 entre 4 cards, 3 espacios intermedios de 16px por 3 => 48, /4, numero de cards
 .character-card {
     width: calc((100% - 64px) / 5);
@@ -321,23 +295,22 @@
         width: calc((100% - 12px) / 2);
     }
 
-
     &__img {
         position: absolute;
         inset: 0 0 0 0;
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-fit: center;
+        object-position: center;
         z-index: 0;
     }
 
-    &--header {
+    &__header {
         display: flex;
         z-index: 1;
         width: 100%;
     }
-    &--foter {
+    &__footer {
         width: 100%;
         z-index: 1;
         display: flex;
@@ -345,17 +318,17 @@
         align-items: flex-end;
         gap: var(--space-xs);
     }
-    .character-card--foter-text {
+    &__footer-text {
         display: flex;
         flex-direction: column;
         flex:1;
     }
 
-    &__img-actor{
+    &__actor-img{
         width: 50px;
         aspect-ratio: 2 / 2.9;
         object-fit: cover;
-        object-fit: center;
+        object-position: center;
         border-radius: var(--border-radius-xs);
         @include md{
             width: 35px;
@@ -381,8 +354,42 @@
         z-index: 1;
 }
 
-.characters-btn-container {
+.anime-page__characters-actions {
     display: flex;
     justify-content: center;
     padding: var(--space-m);
+}
+
+.anime-page__more-info {
+    width: 23%;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-l);
+    padding-right: 0;
+    gap: var(--space-m);
+    @include sm{
+        width: 27%;
+    }
+
+    &-item {
+        border-left: 2px solid var(--color-red-primary);
+        padding: var(--space-xxs) var(--space-s);
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+
+        &-title {
+            letter-spacing: 2px;
+            color: var(--color-white-50);
+            font-size: var(--font-size-2);
+            font-weight: var(--font-light);
+        }
+
+        &-values {
+            display: flex;
+            gap: var(--space-xs);
+            align-items: start;
+            flex-wrap: wrap;
+        }
+    }
 }

@@ -2,7 +2,7 @@ import "./directorypage.scss";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
 import LoadingComponent from "../../components/loading/LoadingComponent";
 import ErrorComponent from "../../components/error/ErrorComponent";
-import AnimeCard from "../../components/animeCard/AnimeCard";
+import AnimeCard from "../../components/AnimeCard/AnimeCard";
 import { useSearchParams } from "react-router-dom";
 import { useDirectoryAnimes } from "../../hooks/useDirectoryAnime";
 import { useMyListMap } from "../../hooks/useMyListMap";
@@ -30,21 +30,23 @@ const DirectoryPage = () => {
 
   return (
     <>
-    <section className="all-content-max">
-      <div className="my-list__options tab__container">
-        <div className="tab__buttons">
+    <section className="content-max" aria-labelledby="directory-title">
+      <h1 id="directory-title" className="visually-hidden">Directory Anime</h1> 
+
+      <nav className="my-list__options tab__container" aria-label="Category filters">
+        <div className="tab__buttons" role="tablist">
           <button className={`text-p tab-option ${category === 'para ti' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => activateFilter("para ti")}>For You</button>
           <button className={`text-p tab-option ${category === 'top' ? "tab-option__selected" : "tab-option__unselected"}`}  onClick={() => activateFilter("top")}>Top anime</button>
           <button className={`text-p tab-option ${category === 'trending' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => activateFilter("trending")}>Trending</button>
           <button className={`text-p tab-option ${category === 'seasonal' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => activateFilter("seasonal")}>Seasonal</button>
           <button className={`text-p tab-option ${category === 'upcoming' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => activateFilter("upcoming")}>Upcoming</button>
         </div>
-      </div>
+      </nav>
       {category === "para ti" ? (
         <ForYou />
       ) : animeList.length > 0 ? (
         <>
-        <div className="anime-cards__container">
+        <ul className="cards__grid">
           {animeList.map((anime: AnimeCardType) => (
             <AnimeCard
               key={anime.id}
@@ -55,10 +57,10 @@ const DirectoryPage = () => {
               fromState={{ from: "/", label: "Directory" }}
             />
           ))}
-        </div>
+        </ul>
         {hasNextPage && (
-          <div className="directory--btn__container">
-            <button className="btn" onClick={() => fetchNextPage ()}>Load more anime</button>
+          <div className="cards__load-more">
+            <button className="btn" onClick={() => fetchNextPage ()} aria-label="Load more anime">Load more anime</button>
           </div>
           )}
         </>

@@ -3,7 +3,7 @@ import type { AnimePersonalStatusType } from "../../firebase/services/firestore-
 import { useAnimeModal } from "../../hooks/useAnimeModal";
 import { useMyAnimeList } from "../../context/MyListContext";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
-import AnimeCard from "../../components/animeCard/AnimeCard";
+import AnimeCard from "../../components/AnimeCard/AnimeCard";
 import { useMyListMap } from "../../hooks/useMyListMap";
 import "./myListPage.scss"
 import LoadingComponent from "../../components/loading/LoadingComponent";
@@ -139,7 +139,7 @@ const MyListPage = () =>{
 
 return(
   <>
-  <div className="all-content-max">
+  <div className="content-max">
     <div className="my-list__options tab__container my-list__options-real">
       <div className="tab__buttons tab__buttons--my-list">
         <button className={`text-p tab-option ${activeCategory === 'all' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("all")}>All</button>
@@ -177,7 +177,7 @@ return(
     ) : listToShow.length === 0 ? (
       <ErrorComponent text="No anime yet" button={{ label: "Add animes to your list", action: { type: "navigate", href: "/" } }} />
     ) : (
-          <div className="anime-cards__container">
+          <ul className="cards__grid">
               {listToShow.map((anime: AnimeCardType) =>(
                 <AnimeCard
                   key={anime.id}
@@ -189,7 +189,7 @@ return(
                 >
                 </AnimeCard>
               ))}
-            </div>
+            </ul>
           )}
   
           {modalAddEdit.isOpen && modalAddEdit.animeId &&(

@@ -33,54 +33,31 @@
     @include xs {
         padding: var(--space-s) 0;
     }
-
-    &--banner{
-        height: 250px;
-        width: 100%;
-        background-color: var(--color-white-10);
-        border-radius: var(--border-radius-l);
-        border:1px solid var(--color-white-20);
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: flex-end;
-        padding: var(--space-l);
-        @include md {
-            padding: var(--space-m);
-            border-radius: var(--border-radius-m);
-        }
-        @include sm {
-            flex-direction:row-reverse;
-            align-items: start;
-        }
-    }
-    
 }
-.user-page__social--info {
-    background-color: var(--color-white-15);
+
+.user-page__banner{
+    height: 250px;
+    width: 100%;
+    background-color: var(--color-white-10);
+    border-radius: var(--border-radius-l);
     border:1px solid var(--color-white-20);
-    border-radius: var(--border-radius-m);
-    display: flex;
-    margin-top: var(--space-l);
-    padding: var(--space-m);
-    gap: var(--space-m);
-    
-    @include md {
-        padding: var(--space-s);
-        gap: var(--space-s);
-        border-radius: var(--border-radius-s);
-    }
-}
-
-.user-page__social--item {
+    position: relative;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: var(--space-l);
+     @include md {
+        padding: var(--space-m);
+        border-radius: var(--border-radius-m);
+    }
+    @include sm {
+        flex-direction:row-reverse;
+        align-items: start;
+    }
 }
 
-.user-page__header--banner-img--container {
+.user-page__banner-img{
     position: absolute;
     inset: auto auto -15% 50%;
     transform: translateX(-50%);
@@ -98,7 +75,7 @@
     }
 }
 
-.banner-user--img {
+.user-page__avatar {
     height: 150px;
     width: 150px;
     @include md {
@@ -107,7 +84,7 @@
     }
 }
 
-.user-page__header-user-info{
+.user-page__info{
     margin-top: var(--space-xxxl);
     display: flex;
     flex-direction: column;
@@ -119,58 +96,43 @@
     }
 }
 
-.user-page__favorites-container {
-    margin: var(--space-xxl) 0;
-    width: 100%;
-    background-color: var(--color-white-10);
-    border-radius: var(--border-radius-l);
+.user-page__social-stats {
+    background-color: var(--color-white-15);
     border:1px solid var(--color-white-20);
-    padding: var(--space-l);
+    border-radius: var(--border-radius-m);
+    display: flex;
+    margin-top: var(--space-l);
+    padding: var(--space-m);
+    gap: var(--space-m);
+    
     @include md {
-        padding: var(--space-m);
-        border-radius: var(--border-radius-m);
+        padding: var(--space-s);
+        gap: var(--space-s);
+        border-radius: var(--border-radius-s);
     }
 }
-.anime-favorites__container {
-    display: flex;
-    gap: var(--space-xl);
-}
 
-.user-page__favorites--header {
+.user-page__social-stats-item {
     display: flex;
-    justify-content: space-between;
-    padding: var(--space-l) auto;
-    margin-bottom: var(--space-l);
-}
-
-.favorite--add_btn {
-    width: calc((100% - 128px) / 5);
-    aspect-ratio: 2 / 3.25;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
-    gap: var(--space-s);
-    background-color: var(--color-white-35);
-    border-radius: var(--border-radius-m);
-    cursor: pointer;
+    align-items: center;
 }
-
-
-.container-stats {
+.user-page__content-area{
     width: 100%;
+}
+.user-page__stats-grid {
     display: flex;
     flex-direction: column;
     gap: var(--space-l);
     padding: var(--space-l) 0;
 }
 
-.stats-status-recount {
+.user-page__stats-grid-line {
     display: flex;
     gap: var(--space-xxl);
 }
 
-.stats-status-recount--item {
+.stats-card {
     flex:1;
     background-color: var(--color-white-10);
     border-radius: var(--border-radius-m);
@@ -184,11 +146,44 @@
     padding:var(--space-xl);
 }
 
-.status-red-details::after {
-    content: "";
-    position: absolute;
-    inset: auto 0 0 0;
-    height: 7px;
-    background-color: var(--color-red-primary);
+.user-page__favorites {
+    margin: var(--space-xxl) 0;
+    width: 100%;
+    background-color: var(--color-white-10);
+    border-radius: var(--border-radius-l);
+    border:1px solid var(--color-white-20);
+    padding: var(--space-l);
+    @include md {
+        padding: var(--space-m);
+        border-radius: var(--border-radius-m);
+    }
 }
+
+.user-page__favorites-header {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-l) auto;
+    margin-bottom: var(--space-l);
+}
+
+.favorite-add-btn {
+    width: calc((100% - 128px) / 5);
+    aspect-ratio: 2 / 3.25;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: var(--space-s);
+    background-color: var(--color-white-35);
+    border-radius: var(--border-radius-m);
+    cursor: pointer;
+}
+
+.user-page__favorites-grid {
+    display: flex;
+    gap: var(--space-xl);
+}
+
+
+
 

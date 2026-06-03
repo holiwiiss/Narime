@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { useMyListMap } from "../../hooks/useMyListMap";
-import AnimeCard from "../../components/animeCard/AnimeCard";
+import AnimeCard from "../../components/AnimeCard/AnimeCard";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
 
 import { useAnimeModal } from "../../hooks/useAnimeModal";
@@ -26,7 +26,7 @@ const SearchResultsPage = () => {
 
   return (
     <>
-    <div className="all-content-max">
+    <div className="content-max">
       <h1 className="text-h1 search-page__title">Here are your search results...</h1>
 
       {isLoading ? (
@@ -36,7 +36,7 @@ const SearchResultsPage = () => {
       ) : searchList.length === 0 ? (
         <ErrorComponent text="No anime found with that name..." />
       ) : (
-        <div className="anime-cards__container">
+        <ul className="cards__grid">
           {searchList.map((anime: AnimeCardType) => (
             <AnimeCard
               key={anime.id}
@@ -47,11 +47,11 @@ const SearchResultsPage = () => {
             >
             </AnimeCard>
           ))}
-        </div>
+        </ul>
       )}
       
       {hasNextPage && (
-        <div className="directory--btn__container">
+        <div className="cards__load-more">
           <button className="btn" onClick={() => fetchNextPage ()}>Load more anime</button>
         </div>
       )}

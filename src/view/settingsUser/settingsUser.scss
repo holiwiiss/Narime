@@ -1,9 +1,4 @@
-.content-settings {
-    display: flex;
-    flex-direction: row;
-}
-
-.navigation-setting {
+.settings-nav {
     position: fixed;
     inset: var(--menu-height) auto 0 0;
     display: flex;
@@ -13,22 +8,22 @@
     border-right: 2px solid var(--color-white-35);
 }
 
-.navigation-settings--item{
+.settings-nav__section{
     display: flex;
     flex-direction: column;
     gap: var(--space-m)
 }
 
-.content-settings {
+.settings-panel {
     padding: var(--space-m);
-    padding-left:calc(135px + var(--space-l));
+    padding-left:calc(260px + var(--space-l));
     padding-right: var(--space-l);
     display: flex;
     flex-direction: column;
     gap: var(--space-xl);
 }
 
-.user-information--settings {
+.settings-panel__section {
     width: 100%;
     border: 2px solid var(--color-white-35);
     display: flex;
@@ -45,7 +40,7 @@
     border-bottom: 2px solid var(--color-white-35);
 }
 
-.image--settings {
+.settings-panel__avatar {
     height: 10rem;
     width: 10rem;
     background-color: var(--color-white-15);

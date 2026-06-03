@@ -4,7 +4,7 @@ import "./userPage.scss"
 import { useMyAnimeList } from "../../context/MyListContext";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
 import { useQuery } from "@tanstack/react-query";
-import AnimeCard from "../../components/animeCard/AnimeCard";
+import AnimeCard from "../../components/AnimeCard/AnimeCard";
 import { fetchMyFavoriteList } from "../../queries/user-page.query";
 import { ModalAddFavorites } from "../../components/modals/ModalAddFavorite/ModalAddFavorite";
 import { ModalRemoveFavorites } from "../../components/modals/ModalRemoveFavorite/ModalRemoveFavorite";
@@ -15,8 +15,6 @@ import { Link, Navigate } from "react-router-dom";
 import { useMyListStats } from "../../hooks/useMyListStats";
 import StatsCircle from "../../components/StatsCircle/StatsCircle";
 
-
-/*SDASD*/
 const UserPage = () => {
 
   const { user } = useAuth()
@@ -50,27 +48,28 @@ const UserPage = () => {
     ) : (
       <>
           <header className="user-page__header">
-            <div className="user-page__header--banner">
+            <div className="user-page__banner">
               <Link to="/settings-user" className="btn btn--secondary btn--small">Edit profile</Link>
             
-              <div className="user-page__header--banner-img--container">
-                <img className="banner-user--img" src={userData.avatar} alt={userData.avatar} />
+              <div className="user-page__banner-img">
+                <img className="user-page__avatar" src={userData.avatar} alt={userData.avatar} />
               </div>
             </div>
-            <div className="user-page__header-user-info">
+            
+            <div className="user-page__info">
               <h1 className="text-h1">{userData.username}</h1>
               <p className="text-p">{userData.description}</p>
 
-              <div className="user-page__social--info">
-                <div className="user-page__social--item">
+              <div className="user-page__social-stats">
+                <div className="user-page__social-stats-item">
                   <p className="text-h1">{userData.followersCount}</p>
                   <p className="text-details text-color--75">followers</p>
                 </div>
-                <div className="user-page__social--item">
+                <div className="user-page__social-stats-item">
                   <p className="text-h1">{userData.followingCount}</p>
                   <p className="text-details text-color--75">following</p>
                 </div>
-                <div className="user-page__social--item">
+                <div className="user-page__social-stats-item">
                   <p className="text-h1">{myList.length ?? 0}</p>
                   <p className="text-details text-color--75">items in list</p>
                 </div>
@@ -85,85 +84,82 @@ const UserPage = () => {
             </div>
           </div>
 
-          {category === "stats" ? (
-            <div className="container-stats">
-            
-              <div className="stats-status-recount">
+          <div className="user-page__content-area">
+            {category === "stats" ? (
+              <div className="user-page__stats-grid">
 
-                <div className="stats-status-recount--item">
-                  <p className="text-p text-color--75">Watched Episodes</p>
-                  <p className="text-h1">{stats.episodesWatched}</p>
-                  <p className="text-details text-color--50">In {stats.total} animes</p>
-                </div>
-                
-                <div className="stats-status-recount--item">
-                  <p className="text-p text-color--75">Time wasted</p>
-                  <p className="text-h1">{(stats.timeInHours).toFixed(2)} hours</p>
-                  <p className="text-details text-color--50">= {(stats.timeInDays).toFixed(2)} days</p>
+                <div className="user-page__stats-grid-line">
+                  <div className="stats-card">
+                    <p className="text-p text-color--75">Watched Episodes</p>
+                    <p className="text-h1">{stats.episodesWatched}</p>
+                    <p className="text-details text-color--50">In {stats.total} animes</p>
+                  </div>
+                  
+                  <div className="stats-card">
+                    <p className="text-p text-color--75">Time wasted</p>
+                    <p className="text-h1">{(stats.timeInHours).toFixed(2)} hours</p>
+                    <p className="text-details text-color--50">= {(stats.timeInDays).toFixed(2)} days</p>
+                  </div>
+
+                  <div className="stats-card">
+                    <p className="text-p text-color--75">Score medium</p>
+                    <p className="text-h1">{stats.scoreMedia} / 10</p>
+                    <p className="text-details text-color--50">in all the animes</p>
+                  </div>
+
+                  <div className="stats-card">
+                    <p className="text-p text-color--75">Watched Episodes</p>
+                    <p className="text-h1">{stats.episodesWatched}</p>
+                    <p className="text-details text-color--50">In {stats.total} animes</p>
+                  </div>
                 </div>
 
-                <div className="stats-status-recount--item">
-                  <p className="text-p text-color--75">Score medium</p>
-                  <p className="text-h1">{stats.scoreMedia} / 10</p>
-                  <p className="text-details text-color--50">in all the animes</p>
-                </div>
+                <div className="user-page__stats-grid-line">
+                  <div className="stats-card">
+                    <StatsCircle/>
+                  </div>
 
-                <div className="stats-status-recount--item">
-                  <p className="text-p text-color--75">Watched Episodes</p>
-                  <p className="text-h1">{stats.episodesWatched}</p>
-                  <p className="text-details text-color--50">In {stats.total} animes</p>
+                  <div className="stats-card">
+                    <p className="text-p text-color--75">Watched Episodes</p>
+                    <p className="text-h1">{stats.episodesWatched}</p>
+                    <p className="text-details text-color--50">In {stats.total} animes</p>
+                  </div>
                 </div>
-
               </div>
-
-              <div className="stats-status-recount">
-                <div className="stats-status-recount--item">
-                  <StatsCircle/>
+            ) : (
+              <div className="user-page__favorites">
+                <header className="user-page__favorites-header">
+                  <h2 className="text-h2">Your Favorites</h2>
+                  <button className="btn" onClick={() => setIsOpenRemoveFavorite(true)}>Edit favorites</button>
+                </header>
+                <div className="user-page__favorites-grid">
+                  {isLoadingFavorites ? (
+                    <LoadingComponent></LoadingComponent>
+                  ) : isErrorFavorites ? (
+                    <ErrorComponent text="An error has ocurred"></ErrorComponent>
+                  ) : (
+                    <>
+                      {myFavoriteList.map((anime: AnimeCardType) =>(
+                      <AnimeCard
+                        key={anime.id}
+                        anime={anime}
+                        variant="minimal"
+                      >
+                      </AnimeCard>
+                      ))}
+                      {myFavoriteList.length <= 4 && (
+                        <button className="favorite-add-btn" onClick={() => setIsOpenAddFavorite(true)}>
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white" className="size-6 icon-size-xl">
+                            <path fillRule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
+                          </svg>
+                        </button>
+                      )}
+                    </>
+                  )}
                 </div>
-
-                <div className="stats-status-recount--item">
-                  <p className="text-p text-color--75">Watched Episodes</p>
-                  <p className="text-h1">{stats.episodesWatched}</p>
-                  <p className="text-details text-color--50">In {stats.total} animes</p>
-                </div>
-
-              </div>
-
             </div>
-          ) : (
-            <div className="user-page__favorites-container">
-              <div className="user-page__favorites--header">
-                <h2 className="text-h2">Your Favorites</h2>
-                <button className="btn" onClick={() => setIsOpenRemoveFavorite(true)}>Edit favorites</button>
-              </div>
-              <div className="anime-favorites__container">
-                {isLoadingFavorites ? (
-                  <LoadingComponent></LoadingComponent>
-                ) : isErrorFavorites ? (
-                  <ErrorComponent text="An error has ocurred"></ErrorComponent>
-                ) : (
-                  <>
-                    {myFavoriteList.map((anime: AnimeCardType) =>(
-                    <AnimeCard
-                      key={anime.id}
-                      anime={anime}
-                      variant="minimal"
-                    >
-                    </AnimeCard>
-                    ))}
-                    {myFavoriteList.length <= 4 && (
-                      <button className="favorite--add_btn" onClick={() => setIsOpenAddFavorite(true)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white" className="size-6 icon-size-xl">
-                          <path fillRule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
-                        </svg>
-                      </button>
-                    )}
-                  </>
-                )}
-              </div>
+            )}
           </div>
-          )}
-          
 
           {isOpenAddFavorite && (
           <ModalAddFavorites

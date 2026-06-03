@@ -1,0 +1,32 @@
+@use "../mixin" as *;
+
+.cards__grid {
+    padding: var(--space-xl) var(--space-xxl);
+    width: 100%;
+    display: flex;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+    @include md{
+        gap: var(--space-l);
+        padding: var(--space-l) var(--space-xl);
+    }
+    @include sm{
+        gap: var(--space-m);
+        padding: var(--space-m) var(--space-m);
+    }
+    @include xs{
+        gap: var(--space-xs);
+        padding: var(--space-xs) var(--space-xs);
+    }
+}
+
+.cards__load-more {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: var(--space-xxl);
+    @include sm{
+        padding-bottom: var(--space-m);
+    }
+}

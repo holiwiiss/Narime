@@ -25,13 +25,13 @@ const RegisterPage = () => {
   return (
     <>
     <main className="register-page">
-      <section className="surface register-page__form-section">
-        <div className="register-page__form-section-text">
+      <section className="surface register-page__panel">
+        <div>
           <h1 className="text-h2">Start now</h1>
           <p className="text-p text-color--75">Don't miss the ultimate anime and series content management.</p>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="form">
 
+        <form onSubmit={handleSubmit(onSubmit)} className="form">
           <div className="form__group">
             <label htmlFor="username" className="text-details">Username*</label>
             <input
@@ -44,7 +44,7 @@ const RegisterPage = () => {
                   minLength:{value:3, message:'Minimum 3 characters'}
               })}
             ></input>
-            {errors.username && <span className="form__error">{errors.username.message}</span>}
+            {errors.username && <p className="form__error"  role="alert">{errors.username.message}</p>}
           </div>
 
           <div className="form__group">
@@ -57,7 +57,7 @@ const RegisterPage = () => {
                   required: 'This field is required', 
               })}
             ></input>
-            {errors.email && <span className="form__error">{errors.email.message}</span>}
+            {errors.email && <p className="form__error" role="alert">{errors.email.message}</p>}
           </div>
 
           <div className="form__group">
@@ -72,7 +72,7 @@ const RegisterPage = () => {
                 pattern: {value: /^(?=.*[A-Z])(?=.*\d).+$/, message: "Must contain one uppercase letter and one number"}
               })}
             ></input>
-            {errors.password && <span className="form__error">{errors.password.message}</span>}
+            {errors.password && <p className="form__error" role="alert">{errors.password.message}</p>}
           </div>
 
           <div className="form__group">
@@ -87,7 +87,7 @@ const RegisterPage = () => {
                   value === passwordValue || 'Passwords do not match',
               })}
             ></input>
-            {errors.passwordConfirm && (<span className="form__error">{errors.passwordConfirm.message}</span>)}  
+            {errors.passwordConfirm && (<p className="form__error" role="alert">{errors.passwordConfirm.message}</p>)}  
           </div>
 
           <div className="form__group">
@@ -102,19 +102,19 @@ const RegisterPage = () => {
             </label>
             {errors.confirmTerms && (<span className="form__error">{errors.confirmTerms.message}</span>)}  
           </div>
-          {isError && (<span className="form__error">An error occurred while creating the account</span>)}
-          {isLoading && (<p>Creating account...</p>)}
+          {isError && (<p className="form__error" role="alert">An error occurred while creating the account</p>)}
+          {isLoading && (<p aria-live="polite">Creating account...</p>)}
           <button disabled={isLoading} className="btn btn--big" type="submit">Sign up</button>
         </form>
         
-        <div className="login-page__form-separation">
-          <div className="login-page__form-separation-line"></div>
+        <div className="form__divider">
+          <div className="form__divider-line"></div>
           <p className="text-p text-color--50">or</p>
-          <div className="login-page__form-separation-line"></div>
+          <div className="form__divider-line"></div>
         </div>
 
         <button disabled={isLoading} className="btn btn--secondary btn--big"  onClick={registerWithGoogle}>Continue with Google</button>
-        <Link to="/login"><p className="text-details login-page__form-sing-up">Already have an account? Sign in here</p></Link>
+        <Link to="/login" className="text-details form__singup">Already have an account? Sign in here</Link>
       </section>
     </main>
     </>

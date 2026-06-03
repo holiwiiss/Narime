@@ -254,4 +254,12 @@ button {
     color:var(--color-red-primary);
 }
 
+.visually-hidden {
+    display: none;
+}
 
+.content-max {
+    max-width: var(--max-width-content);
+    width: 100%;
+    height: 100%;
+}

@@ -46,67 +46,69 @@ const SettingsUSer = () => {
 
   return (
     <>
-      <div className="all-content-max content-settings">
+      <div className="content-max settings-page">
         
-        <nav className="navigation-setting">
-
+        <nav className="settings-nav" aria-label="Settings navigation">
           <Link to="/user-page" className="text-details text-color--50">Go back</Link>
 
-          <div className="navigation-settings--item">
+          <div className="settings-nav__section">
             <p className="text-p text-color--50">Profile</p>
-            <div className="action-item">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white)" className="size-6 action-item__icon">
+
+            <button className="action-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white)" className="size-6 action-item__icon" aria-hidden="true">
                 <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clipRule="evenodd" />
               </svg>
               <p className="text-p">Public Profile</p>
-            </div>
+            </button>
 
-            <div className="action-item">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white)" className="size-6 action-item__icon">
+            <button className="action-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white)" className="size-6 action-item__icon" aria-hidden="true">
                 <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clipRule="evenodd" />
               </svg>
               <p className="text-p">Language</p>
-            </div>
+            </button>
 
-            <div className="action-item">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white)" className="size-6 action-item__icon">
+            <button className="action-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white)" className="size-6 action-item__icon" aria-hidden="true">
                 <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clipRule="evenodd" />
               </svg>
               <p className="text-p">Aparence</p>
-            </div>
-
+            </button>
           </div>
 
-          <div className="navigation-settings--item">
+          <div className="settings-nav__section">
             <p className="text-p text-color--50">Security</p>
-            <div className="action-item">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white)" className="size-6 action-item__icon">
+
+            <button className="action-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white)" className="size-6 action-item__icon" aria-hidden="true">
                 <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clipRule="evenodd" />
               </svg>
               <p className="text-p">Privacity</p>
-            </div>
+            </button>
 
-            <div className="action-item">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white)" className="size-6 action-item__icon">
+            <button className="action-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white)" className="size-6 action-item__icon" aria-hidden="true">
                 <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clipRule="evenodd" />
               </svg>
               <p className="text-p">Change Password</p>
-            </div>
+            </button>
           </div>
-
         </nav>
 
-        <div className="content-settings">
+        <div className="settings-panel">
           {isLoadingUser ? (
             <LoadingComponent/>
           ) : !isLoadingUser && isErrorUser ? (
-            <ErrorComponent text="Somehting went wrong" button={{ label: "Try again", action:{ type: "reload" }}} />
+            <ErrorComponent text="Something went wrong" button={{ label: "Try again", action:{ type: "reload" }}} />
           ) : (
             <>
-              <h1 className="text-h1">Edit Profile</h1>
-              <div className="user-information--settings">
+              <header>
+                <h1 className="text-h1">Edit Profile</h1>
+              </header>
+              
+              <div className="settings-panel__section">
                 <div className="user-setting-image">
-                  <img src={userData?.avatar} className="image--settings"></img>
+                  <img src={userData?.avatar} alt="User avatar" className="settings-panel__avatar"></img>
                   <div className="user-settings--text">
                     <button className="btn btn--secondary">Change image</button>
                     <p className="text-p text-color--75">At least 800 x 800 px recommended.<br/>
@@ -155,7 +157,7 @@ const SettingsUSer = () => {
                   </div>
                 </div>
 
-                <div className="user-settings-information">
+                <div className="settings-panel__section">
                   <div className="user-setting-personal-info">
                     <div className="user-setting-personal-info--header">
                       <p className="text-p">Language</p>
