@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { AnimeCardType, AnimeListResponse } from "../../services/anime-list/anime-list.type";
 import { searchAnime } from "../../services/anime-search/anime-search";
 import { addAnimeFavorite } from "../../firebase/services/user-information.firebase";
-import "../modals.scss"
+import "./modals.scss"
 import LoadingComponent from "../loading-component/loading-component";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
