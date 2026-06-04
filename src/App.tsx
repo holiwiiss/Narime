@@ -1,8 +1,6 @@
 import { Outlet } from "react-router-dom"
 import {Toaster } from "sonner";
 import './App.scss'
-import Topbar from "./components/Topbar/Topbar";
-
 
 function App() {
   
