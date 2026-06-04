@@ -1,5 +1,6 @@
 import { formatStatus } from "../../utils/format-status";
 import "./status-selector.scss"
+
 type Props = {
   value: string;
   onChange: (value: string) => void;

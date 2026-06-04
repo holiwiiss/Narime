@@ -1,0 +1,101 @@
+@use "../../../scss/mixin/" as *;
+
+.tab__buttons {
+    display: flex;
+    gap: var(--space-s);
+    width: 100%;
+    @include md{
+        gap: var(--space-xs);
+        overflow-x: auto;
+        white-space: nowrap;  
+        scrollbar-width: none; 
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
+
+// si se modifica el padding de arriba y abajo, modificar mas abajo tambien
+.tab-option {
+    display: flex;
+    height: 100%;
+    padding: var(--space-l) var(--space-l);
+
+    position: relative;
+    gap: var(--space-xs);
+
+    @include lg{
+        padding: var(--space-m) var(--space-m);
+    }
+    @include sm{
+        padding: var(--space-s) var(--space-s);
+    }
+    @include xs{
+        padding: var(--space-xs) var(--space-xs);
+    }
+}
+
+.tab-option--small{
+    padding: var(--space-m) var(--space-s);
+}
+
+.tab-option::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    right: 50%;
+    height: 5px;
+    background: var(--color-red-primary);
+    transition: left 0.25s ease, right 0.25s ease;
+    @include sm{
+        height: 3px;
+    }
+}
+
+.tab-option__count {
+    position: absolute;
+    inset: var(--space-m) 0 auto auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius-xxxl);
+    background-color: var(--color-white-35);
+    color: var(--color-white);
+    font-size: 9px;
+    font-weight: var(--font-semibold);
+    padding: 0;
+}
+
+//Aqui
+.tab-option__selected {
+    padding-bottom: calc(var(--space-m) - 4px);
+    @include sm{
+        padding-bottom:calc(var(--space-s) - 2px);
+    }
+}
+.tab-option__selected--small {
+    padding-bottom: var(--space-m);
+}
+.tab-option__selected .tab-option__count{
+    background-color: var(--color-red-primary);
+}
+
+.tab-option:hover::after {
+    left: 0;
+    right: 0;
+}
+.tab-option__selected::after {
+    left: 0;
+    right: 0;
+}
+.tab-option__selected--small::after {
+    left: 0;
+    right: 0;
+}
+
+.tab__buttons--my-list{
+    @include md{
+        border-bottom: 1px solid var(--color-white-20);
+    }
+}

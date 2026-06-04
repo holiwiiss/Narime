@@ -1,46 +1,13 @@
 import { useState } from "react"
 import { getAnimeGenres } from "../../services/anime-genres/anime-genres"
-import { useInfiniteQuery, useQuery, type InfiniteData, type QueryFunctionContext } from "@tanstack/react-query"
-import type { AnimeCardType, AnimeListResponse } from "../../services/anime-list/anime-list.type"
-import { discoverAnime } from "../../services/anime-search/anime-search"
 import CustomSelect from "../../components/custom-select/custom-select"
-import LoadingComponent from "../../components/loading-component/loading-component"
-import ErrorComponent from "../../components/error-component/error-component"
-import AnimeCard from "../../components/anime-card/anime-card"
-import { useAnimeModal } from "../../hooks/useAnimeModal"
-import { useMyListMap } from "../../hooks/useMyListMap"
-import ModalAddEditAnime from "../../components/modals/modal-add-edit"
-import type { AnimeGenreType } from "../../services/anime-genres/anime-genre.type"
 import "./discover.scss"
-
-type FiltersType = {
-  genre: AnimeGenreType | null, 
-  type:string | null,
-  score: number | null, 
-  sort: string | null
-  order:string | null, 
-  status: string | null, 
-}
-export const fetchAnimesDiscove = async ({pageParam, queryKey}: QueryFunctionContext <[string, FiltersType], number>) => {
-  const [, filterParam] = queryKey
-  const data:AnimeListResponse = await discoverAnime(filterParam.genre?.id ?? null, filterParam.type, filterParam.score,filterParam.sort, filterParam.order, filterParam.status, pageParam)
-  const currentPage = data.pagination.currentPage
-  const nextPage = currentPage >= data.pagination.lastVisiblePage ? undefined : currentPage + 1
-
-  return {
-    animes: data.animes,
-    nextPage: nextPage,
-  }
-}
-
-const TYPE_LIST = ["TV", "OVA", "Movie", "Special", "ONA"]
-const STATUS_LIST = ["airing", "complete", "upcoming"]
-const SCORE_LIST = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
-const SORT_LIST = ["asc", "desc"]
+import { SCORE_LIST, SORT_LIST, STATUS_LIST, TYPE_LIST, type FiltersType } from "./discover.type"
+import { useDiscoverAnimes } from "./use-discover"
+import { useQuery } from "@tanstack/react-query"
+import AnimeGrid from "../../components/anime-grid/anime-grid"
 
 const DiscoverPage = () => {
-  const  { getUserListData } = useMyListMap()
-  const modalAddEdit = useAnimeModal();
 
   const [filters, setFilters] = useState<FiltersType>({
     genre: null,
@@ -50,31 +17,13 @@ const DiscoverPage = () => {
     status: null,
     sort: null,
   })
-  
+
   const { data: genresList = [] } = useQuery({
     queryKey: ["animeGenres"],
     queryFn: getAnimeGenres,
   })
 
-  const {isLoading: isLoadingAnimes, isError:isErrorAnimes, data: discoverList, fetchNextPage, hasNextPage } =
-    useInfiniteQuery<
-      { animes: AnimeCardType[]; nextPage?: number },
-      Error,
-      InfiniteData<{ animes: AnimeCardType[]; nextPage?: number }>,
-      [string, FiltersType],
-      number
-    >({
-      queryKey: ["discoverList", filters],
-      queryFn: fetchAnimesDiscove,
-      getNextPageParam: (lastPage) => lastPage.nextPage,
-      initialPageParam: 1,
-    })
-
-    const list = discoverList?.pages?.flatMap(page => page.animes) ?? []
-    const openAddEditModal = (anime: AnimeCardType) => {
-      const userData = getUserListData(anime.id);
-      modalAddEdit.openModal(anime.id, anime.episodes, anime.title, userData);
-    };
+  const {isLoadingAnimes, isErrorAnimes, discoverList, fetchNextPage, hasNextPage} = useDiscoverAnimes(filters);
 
   return (
     <main className="content-max">
@@ -89,24 +38,20 @@ const DiscoverPage = () => {
             onReset={() => setFilters((prev) => ({ ...prev, type: null }))}
             containerWidth= {"125px"}
             firstValue="Type"
-          ></CustomSelect>
+          />
 
           <CustomSelect
             options={STATUS_LIST}
             value={filters.status ?? ""}
-            onChange={(value) => {
-              setFilters((prev) =>({ ...prev, status: value }))
-              if(value==="upcoming"){
-                setFilters((prev) =>({ ...prev, score: 0 }))
-              }else {
-                setFilters((prev) =>({ ...prev, score: null }))
-              }
-            }}
-            
+            onChange={(value) =>setFilters((prev) => ({
+              ...prev,
+              status: value,
+              score: value === "upcoming" ? 0 : null
+            }))}
             onReset={() => setFilters((prev) => ({ ...prev, status: null, score: null }))}
             containerWidth= {"150px"}
             firstValue="Status"
-          ></CustomSelect>
+          />
 
           <CustomSelect
             options={SORT_LIST}
@@ -115,11 +60,9 @@ const DiscoverPage = () => {
             onReset={() => setFilters((prev) => ({ ...prev, sort: null }))}
             containerWidth= {"125px"}
             firstValue="Order"
-          ></CustomSelect>
+          />
         
-          {filters.status==="upcoming" ? (
-            <></>
-          ):(
+          {filters.status !== "upcoming" && (
             <CustomSelect
               options={SCORE_LIST}
               value={String(filters.score ?? "")}
@@ -127,7 +70,7 @@ const DiscoverPage = () => {
               onReset={() => setFilters((prev) => ({ ...prev, score: null }))}
               containerWidth= {"115px"}
               firstValue="Score"
-            ></CustomSelect>
+            />
           )}
           
           <CustomSelect
@@ -144,50 +87,19 @@ const DiscoverPage = () => {
           }}
           onReset={() => setFilters((prev) => ({ ...prev, genre: null }))}
           firstValue="Genres"
-          ></CustomSelect>
-        
+          />
         </section>
       </header>
 
-      <section aria-label="Anime results">
-      {isLoadingAnimes ? (
-        <LoadingComponent></LoadingComponent>
-      ) : !isLoadingAnimes && isErrorAnimes ? (
-        <ErrorComponent text="Something went wrong" button={{ label: "Try again", action:{ type: "reload" }}}/>
-      ): list.length > 0 ? (
-        <>
-        <ul className="cards__grid">
-          {list.map((anime:AnimeCardType ) => (
-            <AnimeCard
-              key={anime.id}
-              anime={anime}
-              userData={getUserListData(anime.id)}
-              onOpenModal={() => openAddEditModal(anime)}
-              fromState={{ from: "/discover", label: "Discover" }}
-            />
-          ))}
-        </ul>
-        {hasNextPage && (
-          <div className="cards__load-more">
-            <button className="btn" onClick={() => fetchNextPage ()}  aria-label="Load more anime" >Load more anime</button>
-          </div>
-          )}
-          </>
-      ):(
-        <ErrorComponent text="No animme found with the selected filters." />
-      )}
-      </section>
+      <AnimeGrid
+        animeList={discoverList}
+        isLoading={isLoadingAnimes}
+        isError={isErrorAnimes}
+        hasNextPage={hasNextPage}
+        fetchNextPage={fetchNextPage}
+        fromState={{from:'/discover', label:'Discover'}}
+      />
 
-      {modalAddEdit.isOpen && modalAddEdit.animeId &&(
-          <ModalAddEditAnime
-          animeId={modalAddEdit.animeId}
-          totalEpisodes = {modalAddEdit.animeEpisodes}
-          animeTitle={modalAddEdit.animeTitle}
-          action={modalAddEdit.action}
-          infoDocIdUserAnime = {modalAddEdit.infoDocIdFromUser}
-          onClose={modalAddEdit.closeModal}
-          />
-      )}
     </main>
   )
 }

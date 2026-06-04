@@ -12,6 +12,15 @@ import { useQuery } from "@tanstack/react-query";
 import CustomSelect from "../../components/custom-select/custom-select";
 import { fetchMyList } from "../../queries/my-list-information";
 import ModalAddEditAnime from "../../components/modals/modal-add-edit";
+import Tabs from "../../components/ui/tabs/tabs";
+
+const MYLIST_TABS: { value: "all" | AnimePersonalStatusType; label: string }[] = [
+  { value: "all", label: "All" },
+  { value: "watching", label: "Watching" },
+  { value: "completed", label: "Completed" },
+  { value: "dropped", label: "Dropped" },
+  { value: "planToWatch", label: "Plan To Watch" },
+]
 
 const MyListPage = () =>{
 
@@ -141,13 +150,13 @@ return(
   <>
   <div className="content-max">
     <div className="my-list__options tab__container my-list__options-real">
-      <div className="tab__buttons tab__buttons--my-list">
-        <button className={`text-p tab-option ${activeCategory === 'all' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("all")}>All</button>
-        <button className={`text-p tab-option ${activeCategory === 'watching' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("watching")}>Watching</button>
-        <button className={`text-p tab-option ${activeCategory === 'completed' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("completed")}>Completed</button>
-        <button className={`text-p tab-option ${activeCategory === 'dropped' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("dropped")}>Dropped</button>
-        <button className={`text-p tab-option ${activeCategory === 'planToWatch' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setActiveCategory("planToWatch")}>Plan to watch</button>
-      </div>
+      <Tabs
+          options={MYLIST_TABS}
+          activeValue={activeCategory}
+          onChange={(value) => setActiveCategory(value as "all" | AnimePersonalStatusType)}
+          variant="myList"
+        />
+
       <div className="my-list__filters">
 
       <CustomSelect

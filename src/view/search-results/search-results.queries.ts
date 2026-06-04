@@ -1,6 +1,7 @@
 import type { QueryFunctionContext } from "@tanstack/react-query";
-import type { AnimeListResponse } from "../services/anime-list/anime-list.type";
-import { searchAnime } from "../services/anime-search/anime-search";
+import type { AnimeListResponse } from "../../services/anime-list/anime-list.type";
+import { searchAnime } from "../../services/anime-search/anime-search";
+
 
 export const fetchAnimesSearch = async ({pageParam, queryKey}: QueryFunctionContext<[string, string], number>) => {
 

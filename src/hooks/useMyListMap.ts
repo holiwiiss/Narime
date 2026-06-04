@@ -6,9 +6,6 @@ import { useMyAnimeList } from "../context/my-list-context";
 export function useMyListMap() {
 
   const { myList } = useMyAnimeList()
-
-  // antes recorria muchas veces el array por render, ahora busco la clave que es el id del
-  // anime, y una vez obtenida obtengo los datos.
   const myListMap = useMemo(() => {
     const map = new Map<number, UserAnimeListFirestoreType>();
 

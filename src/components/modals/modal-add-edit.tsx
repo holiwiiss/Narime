@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-
-import "../modals.scss"
+import "./modals.scss"
 import { useForm, Controller , type SubmitHandler } from "react-hook-form";
-
 import { Link } from "react-router-dom";
 import type { AnimePersonalStatusType, UserAnimeEditDataType } from "../../firebase/services/firestore-service.type";
 import { useAuth } from "../../context/auth-context";
 import OptionsPopUp from "../options-pop-up/options-pop-up";
-import StatusSelector from "../status-selector/status-selector";
-import StarRating from "../star-rating/star-rating";
-import EpisodesInput from "../episodes-input/episodes-input";
+
+import StarRating from "../ui/star-rating/star-rating";
+import EpisodesInput from "../ui/episodes-input/episodes-input";
 import { useMyAnimeList } from "../../context/my-list-context";
+import IconDots from "../ui/icons/icon-dots";
+import StatusSelector from "../ui/status-selector/status-selector";
 
 type PropsModal = {
   animeId: number;
@@ -104,9 +104,7 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
               {action==="edit" && (
                 <>
                 <button className="icon-options-pop-up" onClick={() => setIsOptionsOpen(true)}>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white)" className="size-6 icon-size-m ">
-                    <path fillRule="evenodd" d="M10.5 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm0 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm0 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z" clipRule="evenodd" />
-                  </svg>
+                  <IconDots className="icon-size-m"/>
                 </button>
                 {isOptionsOpen && (<OptionsPopUp isOpen={isOptionsOpen} onClose={()=> setIsOptionsOpen(false)} onDelete={deleteAnime}/>)}
                 </>

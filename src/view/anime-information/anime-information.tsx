@@ -13,6 +13,13 @@ import { fetchAnimeInformation } from "../../queries/anime-information-page.quer
 import { calculateWidth } from "../../utils/calculate-width";
 import { formatStatus } from "../../utils/format-status";
 import ModalAddEditAnime from "../../components/modals/modal-add-edit";
+import Tabs from "../../components/ui/tabs/tabs";
+
+const ANIME_INFO_TABS: { value: "sinopsis" | "actors" | "trailer"; label: string }[] = [
+  { value: "sinopsis", label: "Synopsis" },
+  { value: "actors", label: "Character roast" },
+  { value: "trailer", label: "Trailer" },
+]
 
 const AnimePage = () => {
 
@@ -174,11 +181,12 @@ const AnimePage = () => {
 
           <section className="anime-page__details" aria-label="Anime details">
             <div className="tab__container">
-              <div className="tab__buttons">
-                <button className={`text-p tab-option tab-option--small ${activeCategory === 'sinopsis' ? "tab-option__selected--small" : "tab-option__unselected"}`} onClick={() => setActiveCategory("sinopsis")}>Synopsis</button>
-                <button className={`text-p tab-option tab-option--small ${activeCategory === 'actors' ? "tab-option__selected--small" : "tab-option__unselected"}`} onClick={() => setActiveCategory("actors")}>Character roster</button>
-                <button className={`text-p tab-option tab-option--small ${activeCategory === 'trailer' ? "tab-option__selected--small" : "tab-option__unselected"}`} onClick={() => setActiveCategory("trailer")}>Trailer</button>
-              </div>
+              <Tabs
+                options={ANIME_INFO_TABS}
+                activeValue={activeCategory}
+                onChange={(value) => setActiveCategory (value as "sinopsis" | "actors" | "trailer")}
+                variant="small"
+              />
             </div>
             
             <div className="anime-page__details-body">
