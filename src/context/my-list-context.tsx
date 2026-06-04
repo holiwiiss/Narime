@@ -1,13 +1,13 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, type ReactNode } from "react";
 import { useAuth } from "./auth-context";
 
 import type { AnimePersonalStatusType, UserAnimeListFirestoreType } from "../firebase/services/firestore-service.type";
 import { addAnimeToFirebase, deleteAnimeInformationFirebase, getAllAnimesFirebase, updateAnimeInformationFirebase } from "../firebase/services/list-methods.firebase";
 import { toast } from "sonner";
+import { useQuery } from "@tanstack/react-query";
 
 type MyListContextType = {
   myList: UserAnimeListFirestoreType[];
-  isLoading: boolean;
 
   addAnimeToMyList: (
     id: number,
@@ -38,63 +38,48 @@ const MyListContext = createContext<MyListContextType | undefined>(undefined);
 export function MyListProvider({ children }: ProviderProps) {
 
   const { user } = useAuth()
-  const [myList, setMyList] = useState<UserAnimeListFirestoreType[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
+  const { data: myList = [], refetch } = useQuery<UserAnimeListFirestoreType[]>({
+    queryKey: ["myList", user?.uid],
+    queryFn: () => getAllAnimesFirebase(user!.uid),
+    enabled: !!user,
+  })
 
-    if(user){
-      refetchMyList()
-    }else{
-      setMyList([])
-    }
-  }, [user])
-
-  const refetchMyList = async () =>{
-    if (!user) return;
-    setIsLoading(true);
-    const data = await getAllAnimesFirebase(user.uid);
-    setMyList(data);
-    setIsLoading(false);
-  }
-
-  const addAnimeToMyList = async (animeId: number, animeTitle: string, status: AnimePersonalStatusType, score: number | null, episodes: number) => {
-    
+  const addAnimeToMyList = useCallback(async (animeId: number, animeTitle: string, status: AnimePersonalStatusType, score: number | null, episodes: number) => {
     if(!user) return
-    
     try{
       await addAnimeToFirebase(animeId, animeTitle, status, score, episodes, user.uid)
-      await refetchMyList()
+      refetch()
       toast.success("Anime added to your list")
     }catch{
       toast.error("Something went wrong")
     }
-  };
+  }, [user, refetch]);
 
-  const editAnimeToMyList = async (docId: string, status: AnimePersonalStatusType, score: number | null, episodes: number) => {
+  const editAnimeToMyList = useCallback( async (docId: string, status: AnimePersonalStatusType, score: number | null, episodes: number) => {
     if(!user) return
     try{
       await updateAnimeInformationFirebase(docId, status, score, episodes)
-      await refetchMyList()
+      refetch()
       toast.success("Anime edited")
     }catch{
       toast.error("Something went wrong")
     }
-  }
+  }, [user, refetch])
 
-  const deleteAnimeToMyList = async (docId: string) => {
+  const deleteAnimeToMyList = useCallback(async (docId: string) => {
     if(!user) return 
     try{
       await deleteAnimeInformationFirebase(docId)
-      await refetchMyList()
+      refetch()
       toast.success("Anime remove correctly")
     }catch{
       toast.error("Something went wrong")
     }
-  }
+  }, [user, refetch])
 
   return (
-    <MyListContext.Provider value={{myList, isLoading, addAnimeToMyList, editAnimeToMyList, deleteAnimeToMyList }}>
+    <MyListContext.Provider value={{myList, addAnimeToMyList, editAnimeToMyList, deleteAnimeToMyList }}>
       {children}
     </MyListContext.Provider>
   );
