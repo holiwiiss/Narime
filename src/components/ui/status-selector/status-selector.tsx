@@ -1,4 +1,5 @@
-import { formatStatus } from "../../utils/format-status";
+
+import { formatStatus } from "../../../utils/format-status";
 import "./status-selector.scss"
 
 type Props = {

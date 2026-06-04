@@ -7,7 +7,7 @@ import { useUserData } from "../../hooks/useUserData";
 import { useState } from "react";
 import IconHome from "../ui/icons/icon-home";
 import IconDiscover from "../ui/icons/icon-discover";
-import IconMylist from "../ui/icons/icon-myList";
+import IconMylist from "../ui/icons/icon-my-list";
 import IconSearch from "../ui/icons/icon-search";
 
 const Topbar = () => {
