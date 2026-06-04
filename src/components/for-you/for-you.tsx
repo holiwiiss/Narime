@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useMyAnimeList } from "../../context/my-list-context";
-import { fetchMyList } from "../../queries/my-list-information";
+
 import LoadingComponent from "../loading-component/loading-component";
 import ErrorComponent from "../error-component/error-component";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
@@ -14,6 +14,7 @@ import { useAnimeModal } from "../../hooks/useAnimeModal";
 import type { UserAnimeListFirestoreType } from "../../firebase/services/firestore-service.type";
 import "./for-you.scss"
 import ModalAddEditAnime from "../modals/modal-add-edit";
+import { fetchMyList } from "../../view/my-list/my-list-information";
 
 const fecthAnimesRecommendations = async (animeId:number, getUserListData: (id: number) => UserAnimeListFirestoreType | undefined
 ) => {

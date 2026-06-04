@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import type { AnimePersonalStatusType, UserAnimeEditDataType } from "../../firebase/services/firestore-service.type";
 import { useAuth } from "../../context/auth-context";
 import OptionsPopUp from "../options-pop-up/options-pop-up";
-
 import StarRating from "../ui/star-rating/star-rating";
 import EpisodesInput from "../ui/episodes-input/episodes-input";
 import { useMyAnimeList } from "../../context/my-list-context";

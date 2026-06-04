@@ -10,8 +10,8 @@ type Props = {
   animeList: AnimeCardType[]
   isLoading: boolean
   isError: boolean
-  hasNextPage: boolean
-  fetchNextPage: () => void
+  hasNextPage?: boolean
+  fetchNextPage?: () => void
   fromState: { from: string; label: string }
   variant?: "default" | "minimal" | "directory" | "upcoming" | "mylist" | "recomendations";
 }
