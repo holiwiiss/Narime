@@ -1,14 +1,14 @@
 import { Outlet } from "react-router-dom"
 import {Toaster } from "sonner";
 import './App.scss'
+import Topbar from "./components/main-topbar/main-topbar";
 
 function App() {
   
-
   return (
     <>
-      <Topbar></Topbar>
-      <Outlet></Outlet>
+      <Topbar/>
+      <Outlet/>
       <Toaster position='bottom-center' theme="dark" richColors/>
     </>
   )
