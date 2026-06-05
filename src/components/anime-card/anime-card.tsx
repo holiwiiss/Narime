@@ -26,6 +26,12 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default", fromState}:
   const isMyList = variant === "mylist"
   const isRecommendations = variant ==="recomendations"
 
+  const showScore = !isRecommendations && !isMinimal
+  const showMeta = isDirectory || isUpcoming
+  const showEpisodes = !isMinimal && !isRecommendations && !isDirectory && !isUpcoming
+  const showProgressBar = !isMinimal && !isDirectory && !isUpcoming && !isRecommendations
+  const showButton = !!onOpenModal
+
   const navigate = useNavigate()
 
   return(
@@ -33,38 +39,30 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default", fromState}:
       <article className="anime-card" onClick={()=> navigate(`/anime/${anime.id}`, { state: fromState })}>
         <img className="anime-card-img" src={anime.image} alt={anime.title}></img>
         <header className="anime-card__header">
-
-        {isRecommendations || isMinimal? (
-          <></>
-        ): isMyList ? (
-          <div className="action-item anime-card__score">
-            <IconStar fill="var(--color-red-primary)" className="size-6 action-item__icon"/>
-            <p className="text-details">{userData?.scorePersonal ?? "N/A"}</p>
-          </div>
-        ) : (
-          <div className="action-item anime-card__score">
-            <IconStar className="size-6 action-item__icon"/>
-            <p className="text-details">{anime.score ?? "N/A"}</p>
-          </div>
-        )}
-        {!isMinimal && userData && (<span className="badge text-details" data-status={userData.statusPersonal}>{formatStatus(userData.statusPersonal)}</span>)}
+          {showScore && (
+            <div className="action-item anime-card__score">
+              <IconStar fill={isMyList ? "var(--color-red-primary)" : undefined} className="size-6 action-item__icon"/>
+              <p className="text-details">{isMyList ? userData?.scorePersonal ?? "N/A" : anime.score ?? "N/A"}</p>
+            </div>
+          )}
+          {!isMinimal && userData && (<span className="badge text-details" data-status={userData.statusPersonal}>{formatStatus(userData.statusPersonal)}</span>)}
         </header>
 
         <footer className="anime-card__footer">
           <div className="anime-card__options">
             <div className="anime-card__info">
-              {isRecommendations || isMinimal ? (
-                <></>
-              ): isDirectory || isUpcoming ? (
-                <p className="text-details">{anime.type} · {anime.year ?? "N/A"}</p>
-              ): (
-                <p className="text-details"> {!isMinimal && userData ? `${userData.episodesWatched} / ${anime.episodes} episodes` : `${anime.episodes} episodes`}</p>
+              {showMeta && <p className="text-details">{anime.type} · {anime.year ?? "N/A"}</p>}
+
+              {showEpisodes && (
+                <p className="text-details">
+                  {userData ? `${userData.episodesWatched} / ${anime.episodes} episodes` : `${anime.episodes} episodes`}
+                </p>
               )}
               <h2 className="text-card anime-card__title">{anime.title}</h2>
             </div>
               
             {onOpenModal && (
-              
+            
               <button className={`btn btn--small action-item ${userData ? "btn--secondary" : ""}`} onClick={(e) => {
               e.stopPropagation()
               onOpenModal(anime.id)
@@ -78,11 +76,12 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default", fromState}:
               </button>
             )}
           </div>
-          {isMinimal || isDirectory || isUpcoming || isRecommendations ? (<></>):(
+          {showProgressBar && (
             <div className="anime-card__progressbar">
               {userData && (
                 <div className="anime-card__progressbar-content" 
-                style={{ width: `${calculateWidth(anime.episodes ?? 1, userData.episodesWatched)}%`}}></div>
+                  style={{ width: `${calculateWidth(anime.episodes ?? 1, userData.episodesWatched)}%`}}
+                />
               )}
             </div>
           )}
