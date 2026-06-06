@@ -1,42 +1,12 @@
-import { createContext, useCallback, useContext, type ReactNode } from "react";
-import { useAuth } from "./auth-context";
-
+import {useCallback, type ReactNode } from "react";
 import type { AnimePersonalStatusType, UserAnimeListFirestoreType } from "../firebase/services/firestore-service.type";
 import { addAnimeToFirebase, deleteAnimeInformationFirebase, getAllAnimesFirebase, updateAnimeInformationFirebase } from "../firebase/services/list-methods.firebase";
 import { toast } from "sonner";
 import { useQuery } from "@tanstack/react-query";
+import { useAuth } from "../hooks/useAuth";
+import { MyListContext } from "./my-list-context-value";
 
-type MyListContextType = {
-  myList: UserAnimeListFirestoreType[];
-
-  addAnimeToMyList: (
-    id: number,
-    animeTitle: string,
-    status: AnimePersonalStatusType,
-    score: number | null,
-    episodes: number,
-  ) => void;
-
-  editAnimeToMyList: (
-    docId: string,
-    status: AnimePersonalStatusType,
-    score: number | null,
-    episodes: number,
-  ) => void;
-
-  deleteAnimeToMyList: (
-    docId: string,
-  ) => void;
-};
-
-type ProviderProps = {
-  children: ReactNode;
-};
-
-const MyListContext = createContext<MyListContextType | undefined>(undefined);
-
-export function MyListProvider({ children }: ProviderProps) {
-
+export function MyListProvider({ children }: { children: ReactNode }) {
   const { user } = useAuth()
 
   const { data: myList = [], refetch } = useQuery<UserAnimeListFirestoreType[]>({
@@ -83,12 +53,4 @@ export function MyListProvider({ children }: ProviderProps) {
       {children}
     </MyListContext.Provider>
   );
-}
-
-export function useMyAnimeList() {
-  const context = useContext(MyListContext);
-  if (!context) {
-    throw new Error("Algo estas haciendo mal");
-  }
-  return context;
 }

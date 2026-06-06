@@ -30,7 +30,7 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default", fromState}:
   const showMeta = isDirectory || isUpcoming
   const showEpisodes = !isMinimal && !isRecommendations && !isDirectory && !isUpcoming
   const showProgressBar = !isMinimal && !isDirectory && !isUpcoming && !isRecommendations
-  const showButton = !!onOpenModal
+  // const showButton = !!onOpenModal
 
   const navigate = useNavigate()
 

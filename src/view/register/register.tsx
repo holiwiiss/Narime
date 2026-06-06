@@ -12,11 +12,9 @@ const RegisterPage = () => {
   const {
     register,
     handleSubmit,
-    watch,
+    getValues,
     formState: { errors },
   } = useForm<RegisterFormInputs>();
-
-  const passwordValue = watch("password");
 
   const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {   
     registerWithEmail(data.email, data.password, data.username)
@@ -84,7 +82,7 @@ const RegisterPage = () => {
               {...register('passwordConfirm', { 
                   required: 'This field is required', 
                   validate: (value) =>
-                  value === passwordValue || 'Passwords do not match',
+                  value === getValues("password") || 'Passwords do not match',
               })}
             ></input>
             {errors.passwordConfirm && (<p className="form__error" role="alert">{errors.passwordConfirm.message}</p>)}  

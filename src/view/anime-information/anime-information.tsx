@@ -45,7 +45,7 @@ const AnimePage = () => {
   const animeInfo: AnimeInformationType | undefined = data?.info 
   const animeCharacters: AnimeCharactersType[] | undefined = data?.characters
 
-  const openAddEditModal = (anime: any) => {
+  const openAddEditModal = (anime: AnimeInformationType) => {
       const userData = getUserListData(anime.id);
       modalAddEdit.openModal(anime.id, anime.episodes, anime.title, userData);
   };

@@ -29,7 +29,7 @@ const MenuSetting = ({ isOpen, onClose }: Props) => {
     }
 
     return () => document.removeEventListener("mousedown", handleClickOutside)
-  }, [isOpen])
+  }, [isOpen, onClose])
 
   const handleLogOut = () => {
     onClose();

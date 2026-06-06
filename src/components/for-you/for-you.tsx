@@ -1,6 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import { useMyAnimeList } from "../../context/my-list-context";
-
 import LoadingComponent from "../loading-component/loading-component";
 import ErrorComponent from "../error-component/error-component";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
@@ -15,11 +13,28 @@ import type { UserAnimeListFirestoreType } from "../../firebase/services/firesto
 import "./for-you.scss"
 import ModalAddEditAnime from "../modals/modal-add-edit";
 import { fetchMyList } from "../../view/my-list/my-list-information";
+import { useMyAnimeList } from "../../hooks/useMyList";
 
 const fecthAnimesRecommendations = async (animeId:number, getUserListData: (id: number) => UserAnimeListFirestoreType | undefined
 ) => {
   const data = await getRecomendationsAnimes(animeId)
-  return data.filter((a:any)=> !getUserListData(a.id)) 
+  return data.filter(a=> !getUserListData(a.id)) 
+}
+
+function getRandomAnime(myList: UserAnimeListFirestoreType[]) {
+  const scoreCompleted = myList.filter((a: UserAnimeListFirestoreType)  => a.scorePersonal && a.statusPersonal === "completed")
+  const betterScore = scoreCompleted.filter((a: UserAnimeListFirestoreType)  => a.scorePersonal && a.scorePersonal > 7)
+  const betterScoreID = betterScore.map((a: UserAnimeListFirestoreType)  => ({ id: a.animeId, title: a.animeTitle }))
+
+  if (betterScoreID.length > 0) {
+    const randomNumber = Math.floor(Math.random() * betterScoreID.length)
+    return { id: betterScoreID[randomNumber].id, title: betterScoreID[randomNumber].title }
+  } else if (scoreCompleted.length > 0) {
+    const randomNumber = Math.floor(Math.random() * scoreCompleted.length)
+    return { id: scoreCompleted[randomNumber].animeId, title: scoreCompleted[randomNumber].animeTitle }
+  } else {
+    return { id: 16498, title: "Unknown" }
+  }
 }
 
 const ForYou = () => {
@@ -29,28 +44,14 @@ const ForYou = () => {
   const modalAddEdit = useAnimeModal();
 
   const myListWatching = useMemo(() => {
-    return myList.filter((a:any) => a.statusPersonal === "watching").slice(0, 5)
+    return myList.filter((a: UserAnimeListFirestoreType) => a.statusPersonal === "watching").slice(0, 5)
   }, [myList])
 
   const watchingIds = useMemo(() => {
-    return myListWatching.map((a:any) => a.animeId)
+    return myListWatching.map((a: UserAnimeListFirestoreType) => a.animeId)
   }, [myListWatching])
 
-  const randomId = useMemo(() => {
-    const scoreCompleted = myList.filter((a:any) => a.scorePersonal && a.statusPersonal === "completed")
-    const betterScore = scoreCompleted.filter((a:any)=>  a.scorePersonal && a.scorePersonal > 7)
-    const betterScoreID = betterScore.map((a:any)=> ({ id: a.animeId, title: a.animeTitle }))
-
-    if (betterScoreID.length > 0) {
-      const randomNumber = Math.floor(Math.random() * betterScoreID.length)
-      return ({id: betterScoreID[randomNumber].id, title: betterScoreID[randomNumber].title})
-    } else if (scoreCompleted.length > 0) {
-      const randomNumber = Math.floor(Math.random() * scoreCompleted.length)
-      return ({id: scoreCompleted[randomNumber].animeId, title: scoreCompleted[randomNumber].animeTitle})
-    } else {
-      return { id: 16498, title: "Unknown" }
-    }
-  }, [])
+  const randomId = useMemo(() => getRandomAnime(myList), [myList])
   
   const {isLoading: isLoadingWatching, isError: isErrorWatching, data: myAnimeListWatching} = useQuery({
     queryKey:["myAnimeListWatching", watchingIds],
@@ -79,7 +80,7 @@ const ForYou = () => {
         <>
         <div className="header-for-you">
           <h1 className="text-h1 para-ti__title">Currently watching...</h1>
-          <span className="text-details text-color--75">(showing {myAnimeListWatching.length} of {myList.filter((a:any )=> a.statusPersonal === "watching").length})</span>
+          <span className="text-details text-color--75">(showing {myAnimeListWatching.length} of {myList.filter((a: UserAnimeListFirestoreType) => a.statusPersonal === "watching").length})</span>
         </div>
         <section className="cards__grid">
           {myAnimeListWatching.map((anime: AnimeCardType) => (

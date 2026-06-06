@@ -15,7 +15,7 @@ import { useMyList } from "./use-my-list";
 const MyListPage = () =>{
 
   const { myList } = useMyAnimeList()
-  const { myListMap, getUserListData } = useMyListMap()
+  const {getUserListData } = useMyListMap()
   const {isLoading, isError, myAnimeList} = useMyList(myList)
   const {orderByStatus, orderByAlphabetical, orderByScore, orderByEpisodesWatched} = useMyListOrder(myAnimeList, getUserListData)
   
@@ -44,7 +44,7 @@ const MyListPage = () =>{
     }
 
     return definitiveList
-  }, [myAnimeList, activeCategory, myListMap, searchAnime, selectedFilter, orderByStatus, orderByAlphabetical, orderByScore, orderByEpisodesWatched]);
+  }, [myAnimeList, activeCategory, searchAnime, selectedFilter, getUserListData, orderByStatus, orderByAlphabetical, orderByScore, orderByEpisodesWatched]);
 
 return(
   <main className="content-max">

@@ -25,14 +25,14 @@ export const useAuthForms = () => {
   const registerWithEmail = async (email:string , password:string, username: string) => {
     setIsLoading(true)
     setIsError(false)
-    try{
+    try {
       const user = await registerFirebase(email, password);
       toast.success("user create correctly")
       if(user){
         await registerInFirestore(user, email, username)
         navigate("/")
       }
-    }catch(e){
+    }catch {
       toast.error("Something went wrong")
       setIsError(true)
     }finally{
@@ -50,10 +50,10 @@ export const useAuthForms = () => {
         await registerInFirestore(user, user.email ?? "", user.displayName ?? "User");
         navigate("/")
       }
-    }catch(e){
+    } catch {
       setIsError(true)
       toast.error("Something went wrong")
-    }finally{
+    } finally {
       setIsLoading(false)
     }
   }
@@ -65,10 +65,10 @@ export const useAuthForms = () => {
       await loginFirebase(email, password)
       toast.success("user login correctly")
       navigate("/")
-    }catch{
+    } catch {
       setIsError(true)
       toast.error("Something went wrong")
-    }finally{
+    } finally {
       setIsLoading(false)
     }
   }

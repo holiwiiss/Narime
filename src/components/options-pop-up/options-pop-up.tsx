@@ -24,7 +24,7 @@ const OptionsPopUp = ({ isOpen, onClose, onDelete }: Props) => {
       }
   
       return () => document.removeEventListener("mousedown", handleClickOutside)
-    }, [isOpen])
+    }, [isOpen, onClose])
   
     return(
       <div className="surface container--option-delete" ref={optionsRef}>

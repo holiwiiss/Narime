@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./modals.scss"
-import { useForm, Controller , type SubmitHandler } from "react-hook-form";
+import { useForm, useWatch, Controller , type SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
 import type { AnimePersonalStatusType, UserAnimeEditDataType } from "../../firebase/services/firestore-service.type";
 import { useAuth } from "../../context/auth-context";
@@ -35,7 +35,6 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
 
   const {
     handleSubmit,
-    watch,
     reset,
     control,
   } = useForm<PopUpFormInputs>({
@@ -46,7 +45,9 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
       episodes: 1,
     }
   });
-  
+
+  const statusValue = useWatch({ control, name: "status" })
+
   const onSubmit: SubmitHandler<PopUpFormInputs> = (data) => {
     sendAction(data)
   }
@@ -62,8 +63,6 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
     }
 
   }, [action, infoDocIdUserAnime, animeId, reset])
-  
-  const statusValue = watch("status");
 
   const sendAction = (data:PopUpFormInputs) =>{
     if(data.status === "completed") data.episodes = totalEpisodes
@@ -73,14 +72,14 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
       addAnimeToMyList(animeId, animeTitle, data.status, data.score, data.episodes);
     } else {
       if(!infoDocIdUserAnime) return
-      editAnimeToMyList(infoDocIdUserAnime?.docId, data.status, data.score, data.episodes)
+      editAnimeToMyList(infoDocIdUserAnime.docId, data.status, data.score, data.episodes)
     }
     onClose();
   }
 
   const deleteAnime = () => {
     if(!infoDocIdUserAnime) return
-    deleteAnimeToMyList(infoDocIdUserAnime?.docId)
+    deleteAnimeToMyList(infoDocIdUserAnime.docId)
     onClose();
   }
 
@@ -127,7 +126,7 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
 
               {statusValue !=="planToWatch" && ( 
                 <div className="form__group">     
-                <label htmlFor="score-value" className="text-details">Personal Score</label>
+                <label htmlFor="score-selector" className="text-details">Personal Score</label>
                 <Controller
                   name="score"
                   control={control}

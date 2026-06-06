@@ -35,7 +35,7 @@ export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal)
         try {
           const result: AnimeListResponse = await searchAnime(query, 1, 5);
           setSearchList(result.animes);
-        } catch (e) {
+        } catch {
           setIsError(true)
         }finally{
           setIsLoading(false)

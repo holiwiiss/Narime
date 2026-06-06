@@ -65,7 +65,7 @@ const SearchAnimeComponent = ({ isOpen, onClose }: Props) => {
         const result: AnimeListResponse = await searchAnime(query, 1, 5);
         setSearchList(result.animes);
         setTotalItems(result.pagination.totalItems);
-      } catch (e) {
+      } catch {
         setIsError('There was an error loading the data');
       }finally{
         setIsLoading(false)

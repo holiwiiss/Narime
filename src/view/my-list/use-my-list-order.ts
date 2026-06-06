@@ -36,7 +36,7 @@ export const useMyListOrder = (myAnimeList: AnimeCardType[], getUserListData: Ge
       const epB = getUserListData(b.id)?.episodesWatched ?? 0
       return epB - epA
     })
-  },[myAnimeList])
+  },[myAnimeList, getUserListData])
 
   return {orderByStatus, orderByAlphabetical, orderByScore, orderByEpisodesWatched}
 
