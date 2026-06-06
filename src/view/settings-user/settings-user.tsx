@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom"
 import "./settings-user.scss"
 import { useAuth } from "../../context/auth-context"
-import { useUserData } from "../../hooks/useUserData"
+import { useUserData } from "../../hooks/use-user-data"
 import { useState } from "react"
 import { updateBiografi, updateUsername } from "../../firebase/services/user-information.firebase"
 import { toast } from "sonner"

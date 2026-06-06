@@ -10,9 +10,9 @@ import { ModalAddFavorites } from "../../components/modals/modal-add-favorite";
 import { ModalRemoveFavorites } from "../../components/modals/modal-remove-favorite";
 import LoadingComponent from "../../components/loading-component/loading-component";
 import ErrorComponent from "../../components/error-component/error-component";
-import { useUserData } from "../../hooks/useUserData";
+import { useUserData } from "../../hooks/use-user-data";
 import { Link, Navigate } from "react-router-dom";
-import { useMyListStats } from "../../hooks/useMyListStats";
+import { useMyListStats } from "../../hooks/use-my-list-stats";
 import StatsCircle from "../../components/stats-circle/stats-circle";
 
 const UserPage = () => {

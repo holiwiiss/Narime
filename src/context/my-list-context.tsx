@@ -3,7 +3,7 @@ import type { AnimePersonalStatusType, UserAnimeListFirestoreType } from "../fir
 import { addAnimeToFirebase, deleteAnimeInformationFirebase, getAllAnimesFirebase, updateAnimeInformationFirebase } from "../firebase/services/list-methods.firebase";
 import { toast } from "sonner";
 import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../hooks/use-auth";
 import { MyListContext } from "./my-list-context-value";
 
 export function MyListProvider({ children }: { children: ReactNode }) {

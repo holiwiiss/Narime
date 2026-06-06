@@ -1,5 +1,5 @@
-import { useAnimeModal } from "../../hooks/useAnimeModal"
-import { useMyListMap } from "../../hooks/useMyListMap"
+import { useAnimeModal } from "../../hooks/use-anime-modal"
+import { useMyListMap } from "../../hooks/use-my-list-map"
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type"
 import AnimeCard from "../anime-card/anime-card"
 import ErrorComponent from "../error-component/error-component"

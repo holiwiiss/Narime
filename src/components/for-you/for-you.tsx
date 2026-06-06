@@ -6,14 +6,14 @@ import AnimeCard from "../anime-card/anime-card";
 import type { AnimeRecomendationCardType } from "../../services/anime-recommendations/anime-recommendations.type";
 import { getRecomendationsAnimes } from "../../services/anime-recommendations/anime-recommendations";
 import { useMemo } from "react";
-import { useMyListMap } from "../../hooks/useMyListMap";
-import { useAnimeModal } from "../../hooks/useAnimeModal";
+import { useMyListMap } from "../../hooks/use-my-list-map";
+import { useAnimeModal } from "../../hooks/use-anime-modal";
 
 import type { UserAnimeListFirestoreType } from "../../firebase/services/firestore-service.type";
 import "./for-you.scss"
 import ModalAddEditAnime from "../modals/modal-add-edit";
 import { fetchMyList } from "../../view/my-list/my-list-information";
-import { useMyAnimeList } from "../../hooks/useMyList";
+import { useMyAnimeList } from "../../hooks/use-my-list";
 
 const fecthAnimesRecommendations = async (animeId:number, getUserListData: (id: number) => UserAnimeListFirestoreType | undefined
 ) => {

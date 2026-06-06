@@ -3,9 +3,9 @@ import type { AnimeCharactersType, AnimeInformationType } from "../../services/a
 import { Link, useLocation, useParams } from "react-router-dom";
 import ErrorComponent from "../../components/error-component/error-component";
 import LoadingComponent from "../../components/loading-component/loading-component";
-import { useMyListMap } from "../../hooks/useMyListMap";
+import { useMyListMap } from "../../hooks/use-my-list-map";
 import type { UserAnimeListFirestoreType } from "../../firebase/services/firestore-service.type";
-import { useAnimeModal } from "../../hooks/useAnimeModal";
+import { useAnimeModal } from "../../hooks/use-anime-modal";
 import { useQuery } from "@tanstack/react-query";
 import { formatDate, formatNumber } from "../../utils/format";
 import { useState } from "react";

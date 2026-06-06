@@ -3,7 +3,7 @@ import type { SubmitHandler } from "react-hook-form";
 import type { RegisterFormInputs } from "../../types/authTyping";
 import "./register.scss";
 import { Link} from "react-router-dom";
-import { useAuthForms } from "../../hooks/useAuthForms";
+import { useAuthForms } from "../../hooks/use-auth-forms";
 
 const RegisterPage = () => {
   

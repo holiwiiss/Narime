@@ -1,4 +1,4 @@
-import { useMyListStats } from "../../hooks/useMyListStats"
+import { useMyListStats } from "../../hooks/use-my-list-stats"
 import "./stats-circle.scss"
 
 const StatsCircle = () => {

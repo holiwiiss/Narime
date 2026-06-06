@@ -2,13 +2,13 @@ import { Link, NavLink } from "react-router-dom";
 import "./main-topbar.scss"
 import MenuSetting from "../menu-settings/menu-settings";
 import SearchAnimeComponent from "../search-anime.scss/search-anime";
-import { useUserData } from "../../hooks/useUserData";
+import { useUserData } from "../../hooks/use-user-data";
 import { useState } from "react";
 import IconHome from "../ui/icons/icon-home";
 import IconDiscover from "../ui/icons/icon-discover";
 import IconMylist from "../ui/icons/icon-my-list";
 import IconSearch from "../ui/icons/icon-search";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../hooks/use-auth";
 
 const Topbar = () => {
   const { user } = useAuth()

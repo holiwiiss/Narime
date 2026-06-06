@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import type { AnimePersonalStatusType} from "../../firebase/services/firestore-service.type";
 import { useMyAnimeList } from "../../context/my-list-context";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
-import { useMyListMap } from "../../hooks/useMyListMap";
+import { useMyListMap } from "../../hooks/use-my-list-map";
 import "./my-list.scss"
 import CustomSelect from "../../components/custom-select/custom-select";
 import Tabs from "../../components/ui/tabs/tabs";
