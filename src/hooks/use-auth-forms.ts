@@ -41,6 +41,8 @@ export const useAuthForms = () => {
   }
 
   const registerWithGoogle = async () => {
+    if (isLoading) return
+    
     setIsLoading(true)
     setIsError(false)
     try{
