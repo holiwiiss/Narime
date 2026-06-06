@@ -23,7 +23,7 @@ import { mapJikanAnimeSearch } from "./anime-search.mapper";
  * 
  */
 
-export async function searchAnime(animeName:string, page:number, animeLimit: number): Promise<AnimeListResponse> {
+export async function searchAnime(animeName:string, page:number, animeLimit: number, signal?: AbortSignal): Promise<AnimeListResponse> {
   
   const {data} = await jikanApiUrl.get<{ data: JikanAnimeListType[], pagination: JikanPaginationType}>('/anime', {
     params:{
@@ -32,7 +32,8 @@ export async function searchAnime(animeName:string, page:number, animeLimit: num
       order_by: "popularity",
       limit: animeLimit,
       sfw: true,
-    }
+    },
+    signal
   })
 
   return{

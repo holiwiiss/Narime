@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import "./modals.scss"
-import { useForm, useWatch, Controller , type SubmitHandler } from "react-hook-form";
+import { useForm, useWatch, Controller} from "react-hook-form";
 import { Link } from "react-router-dom";
 import type { AnimePersonalStatusType, UserAnimeEditDataType } from "../../firebase/services/firestore-service.type";
-import { useAuth } from "../../context/auth-context";
+
 import OptionsPopUp from "../options-pop-up/options-pop-up";
 import StarRating from "../ui/star-rating/star-rating";
 import EpisodesInput from "../ui/episodes-input/episodes-input";
-import { useMyAnimeList } from "../../context/my-list-context";
+
 import IconDots from "../ui/icons/icon-dots";
 import StatusSelector from "../ui/status-selector/status-selector";
+import { useAuth } from "../../hooks/use-auth";
+import { useMyAnimeList } from "../../hooks/use-my-list";
 
 type PropsModal = {
   animeId: number;
@@ -48,10 +50,6 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
 
   const statusValue = useWatch({ control, name: "status" })
 
-  const onSubmit: SubmitHandler<PopUpFormInputs> = (data) => {
-    sendAction(data)
-  }
-
   useEffect(() => {
     if (action === "edit" && infoDocIdUserAnime) {
       reset({
@@ -64,22 +62,22 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
 
   }, [action, infoDocIdUserAnime, animeId, reset])
 
-  const sendAction = (data:PopUpFormInputs) =>{
+  const sendAction = async (data:PopUpFormInputs) =>{
     if(data.status === "completed") data.episodes = totalEpisodes
     if(data.status === "planToWatch") data.episodes = 1
 
     if(action === "add"){
-      addAnimeToMyList(animeId, animeTitle, data.status, data.score, data.episodes);
+      await addAnimeToMyList(animeId, animeTitle, data.status, data.score, data.episodes);
     } else {
       if(!infoDocIdUserAnime) return
-      editAnimeToMyList(infoDocIdUserAnime.docId, data.status, data.score, data.episodes)
+      await editAnimeToMyList(infoDocIdUserAnime.docId, data.status, data.score, data.episodes)
     }
     onClose();
   }
 
-  const deleteAnime = () => {
+  const deleteAnime = async () => {
     if(!infoDocIdUserAnime) return
-    deleteAnimeToMyList(infoDocIdUserAnime.docId)
+    await deleteAnimeToMyList(infoDocIdUserAnime.docId)
     onClose();
   }
 
@@ -90,7 +88,7 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
           <>
             <h2 className="text-h2">You're not logged in</h2>
             <p className="text-p text-color--75">Sign in to start saving your progress</p>
-            <Link to="/login" className="bton">Sign in</Link>
+            <Link to="/login" className="btn">Sign in</Link>
           </>
         ):(
           <>
@@ -108,7 +106,7 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
                 </>
               )}
             </div>
-            <form onSubmit={handleSubmit(onSubmit)} className="form"> 
+            <form onSubmit={handleSubmit(sendAction)} className="form"> 
               <div className="form__group">
                 <label htmlFor="status-selector" className="text-details">Status</label>
                 <Controller

@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
-import type { AnimeCardType, AnimeListResponse } from "../../services/anime-list/anime-list.type";
-import { searchAnime } from "../../services/anime-search/anime-search";
+import { useState } from "react";
+import type { AnimeCardType} from "../../services/anime-list/anime-list.type";
 import { addAnimeFavorite } from "../../firebase/services/user-information.firebase";
 import "./modals.scss"
 import LoadingComponent from "../loading-component/loading-component";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
+import { useDebounce } from "../../hooks/use-debounce";
+import { useAnimeSearch } from "../../hooks/use-anime-search";
 
 type PropsModal = {
   listFavoriteId: number[],
@@ -15,50 +16,24 @@ type PropsModal = {
 
 export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal) => {
   const [inputValue, setInputValue] = useState("");
-  const [searchList, setSearchList] = useState<AnimeCardType[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isError, setIsError] = useState<boolean>(false)
   const queryClient = useQueryClient()
-
-  useEffect(() => {
-    setIsLoading(true)
-    setIsError(false)
-      if (!inputValue) {
-        setSearchList([]);
-        setIsLoading(false)
-        return;
-      }
-    
-      const timeout = setTimeout(async () => {
-        setSearchList([])
-        const query = encodeURIComponent(inputValue);
-        try {
-          const result: AnimeListResponse = await searchAnime(query, 1, 5);
-          setSearchList(result.animes);
-        } catch {
-          setIsError(true)
-        }finally{
-          setIsLoading(false)
-        }
-      }, 300);
+  const debounceInput = useDebounce(inputValue, 300)
+  const { isLoading, isError, searchList } = useAnimeSearch(debounceInput)
   
-      return () =>{clearTimeout(timeout);} 
-    }, [inputValue]);
-
-    const isInList = (animeId:number) =>{
+  const isInList = (animeId:number) =>{
     return listFavoriteId.includes(animeId)
   }
 
-  const addToFavorite = async (animeId: number, userId: string) => {
+  const addToFavorite = async (animeId: number) => {
       try{
         await addAnimeFavorite(animeId, userId)
         queryClient.invalidateQueries({ queryKey: ["userData"] })
         queryClient.invalidateQueries({ queryKey: ["myFavoriteList"] }) 
         toast.success("Anime added to your favorites")
+        onClose()
       }catch{
         toast.error("Something went wrong")
       }
-    onClose()
   }
 
   return (
@@ -85,36 +60,21 @@ export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal)
             ) : searchList.length === 0 ? (
               <p className="text-p text-color--75">Not found anime</p>
             ) : (
-              searchList.map((anime: AnimeCardType) =>
-                !isInList(anime.id) ? (
+              <>
+                {searchList.map((anime: AnimeCardType) => (
                   <div key={anime.id} className="anime-favorite__card">
                     <div className="anime-favorite__card-header">
-                    <img
-                      className="anime-search__card-img"
-                      src={anime.image}
-                    />
-                    <p className="text-p anime-search__card-tittle">{anime.title}</p>
+                      <img className="anime-search__card-img" src={anime.image} alt={anime.title} />
+                      <p className="text-p anime-search__card-tittle">{anime.title}</p>
                     </div>
-                    <button
-                      className="btn"
-                      onClick={() => addToFavorite(anime.id, userId)}
-                    >
-                      Add
-                    </button>
+                    {isInList(anime.id) ? (
+                      <span className="text-details text-color--75">Already in your favorites</span>
+                    ) : (
+                      <button className="btn" onClick={() => addToFavorite(anime.id)}>Add</button>
+                    )}
                   </div>
-                ) : (
-                  <div key={anime.id} className="anime-favorite__card">
-                    <div className="anime-favorite__card-header">
-                    <img
-                      className="anime-search__card-img"
-                      src={anime.image}
-                    />
-                    <p className="text-p anime-search__card-tittle">{anime.title}</p>
-                    </div>
-                    <span className="text-details text-color--75">Already in your favorites</span>
-                  </div>
-                ),
-              )
+                ))}
+              </>
             )}
           </div>
 
@@ -122,7 +82,7 @@ export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal)
             className="btn btn--secondary"
             onClick={onClose}
           >
-            Close{" "}
+            Close
           </button>
         </div>
       </div>

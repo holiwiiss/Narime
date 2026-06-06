@@ -5,7 +5,7 @@ import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
 import AnimeCard from "../anime-card/anime-card";
 import type { AnimeRecomendationCardType } from "../../services/anime-recommendations/anime-recommendations.type";
 import { getRecomendationsAnimes } from "../../services/anime-recommendations/anime-recommendations";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useMyListMap } from "../../hooks/use-my-list-map";
 import { useAnimeModal } from "../../hooks/use-anime-modal";
 
@@ -38,7 +38,6 @@ function getRandomAnime(myList: UserAnimeListFirestoreType[]) {
 }
 
 const ForYou = () => {
-  
   const {myList} = useMyAnimeList()
   const  { getUserListData } = useMyListMap()
   const modalAddEdit = useAnimeModal();
@@ -65,10 +64,10 @@ const ForYou = () => {
     enabled: myList.length > 0
   })
 
-  const openAddEditModal = (anime: AnimeCardType) => {
+  const openAddEditModal = useCallback((anime: AnimeCardType) => {
     const userData = getUserListData(anime.id);
     modalAddEdit.openModal(anime.id, anime.episodes, anime.title, userData);
-  };
+  }, [getUserListData, modalAddEdit]);
 
   return (
     <>
@@ -94,10 +93,7 @@ const ForYou = () => {
           ))}
         </section>
         </>
-      ) : (
-        <>
-        </>
-      )}
+      ) : ( null )}
 
       { isLoadingRecommendations ? (
         <LoadingComponent></LoadingComponent>

@@ -12,17 +12,17 @@ type PropsModal = {
 export const ModalRemoveFavorites = ({listFavoriteInformation, userId, onClose}:PropsModal) => {
   const queryClient = useQueryClient()
 
-  const deleteToFavorite = async (animeId: number, userId: string) => {
-      try{
-        await removeAnimeFavorite(animeId, userId)
-        queryClient.invalidateQueries({ queryKey: ["userData"] })
-        queryClient.invalidateQueries({ queryKey: ["myFavoriteList"] })
-        toast.success("Anime remove from your favorites")
-      }catch{
-        toast.error("Something went wrong")
-      }
+  const deleteToFavorite = async (animeId: number) => {
+    try{
+      await removeAnimeFavorite(animeId, userId)
+      queryClient.invalidateQueries({ queryKey: ["userData"] })
+      queryClient.invalidateQueries({ queryKey: ["myFavoriteList"] })
+      toast.success("Anime remove from your favorites")
       onClose()
-    }
+    }catch{
+      toast.error("Something went wrong")
+    } 
+  }
 
   return (
     <div className="bg-popup">
@@ -32,12 +32,12 @@ export const ModalRemoveFavorites = ({listFavoriteInformation, userId, onClose}:
           {listFavoriteInformation.map((anime: AnimeCardType) => (
             <div key={anime.id} className="anime-favorite__card">
               <div className="anime-favorite__card-header">
-              <img className="anime-search__card-img" src={anime.image} />
+              <img className="anime-search__card-img" src={anime.image} alt={anime.title}/>
               <p className="text-p anime-search__card-tittle">{anime.title}</p>
               </div>
               <button
                 className="btn"
-                onClick={() => deleteToFavorite(anime.id, userId)}
+                onClick={() => deleteToFavorite(anime.id)}
               >
                 Remove
               </button>
@@ -49,7 +49,7 @@ export const ModalRemoveFavorites = ({listFavoriteInformation, userId, onClose}:
           className="btn btn--secondary"
           onClick={onClose}
         >
-          Close{" "}
+          Close
         </button>
       </div>
     </div>

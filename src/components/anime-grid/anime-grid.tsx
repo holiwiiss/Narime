@@ -1,3 +1,4 @@
+import { useCallback } from "react"
 import { useAnimeModal } from "../../hooks/use-anime-modal"
 import { useMyListMap } from "../../hooks/use-my-list-map"
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type"
@@ -14,20 +15,21 @@ type Props = {
   fetchNextPage?: () => void
   fromState: { from: string; label: string }
   variant?: "default" | "minimal" | "directory" | "upcoming" | "mylist" | "recomendations";
+  emptyText?: string
 }
 
-const AnimeGrid = ({ animeList, isLoading, isError, hasNextPage, fetchNextPage, fromState, variant }: Props) => {
+const AnimeGrid = ({ animeList, isLoading, isError, hasNextPage, fetchNextPage, fromState, variant, emptyText }: Props) => {
   const { getUserListData } = useMyListMap()
   const modalAddEdit = useAnimeModal()
 
-  const openAddEditModal = (anime: AnimeCardType) => {
+  const openAddEditModal = useCallback((anime: AnimeCardType) => {
     const userData = getUserListData(anime.id)
     modalAddEdit.openModal(anime.id, anime.episodes, anime.title, userData)
-  }
+  }, [getUserListData, modalAddEdit])
 
   if (isLoading) return <LoadingComponent />
   if (isError) return <ErrorComponent text="Something went wrong" button={{ label: "Try again", action: { type: "reload" }}} />
-  if (animeList.length === 0) return <ErrorComponent text="Something went wrong" />
+  if (animeList.length === 0) return <ErrorComponent  text={emptyText ?? "No anime found"} />
 
   return (
     <>

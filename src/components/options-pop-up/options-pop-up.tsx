@@ -12,27 +12,26 @@ const OptionsPopUp = ({ isOpen, onClose, onDelete }: Props) => {
   const optionsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-      
-      const handleClickOutside = (event: MouseEvent) => {
-        if (optionsRef.current && !optionsRef.current.contains(event.target as Node)) {
-          onClose();
-        }
+    const handleClickOutside = (event: MouseEvent) => {
+      if (optionsRef.current && !optionsRef.current.contains(event.target as Node)) {
+        onClose();
       }
+    }
   
-      if (isOpen) {
-        document.addEventListener("mousedown", handleClickOutside)
-      }
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside)
+    }
   
-      return () => document.removeEventListener("mousedown", handleClickOutside)
-    }, [isOpen, onClose])
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [isOpen, onClose])
   
-    return(
-      <div className="surface container--option-delete" ref={optionsRef}>
-        <button className="action-item" onClick={onDelete}>
-          <IconTrash className="size-6 action-item__icon"/>
-          Remove anime from list
-        </button>
-      </div>
+  return(
+    <div className="surface container--option-delete" ref={optionsRef}>
+      <button className="action-item" onClick={onDelete}>
+        <IconTrash className="size-6 action-item__icon"/>
+        Remove anime from list
+      </button>
+    </div>
   )
 };
 
