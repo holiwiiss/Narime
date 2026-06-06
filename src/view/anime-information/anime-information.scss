@@ -334,6 +334,7 @@
         object-fit: cover;
         object-position: center;
         border-radius: var(--border-radius-xs);
+        border: solid 1px var(--color-white-35);
         @include md{
             width: 35px;
         }

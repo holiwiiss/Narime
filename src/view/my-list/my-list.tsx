@@ -11,9 +11,10 @@ import { useMyListOrder } from "./use-my-list-order";
 import { MYLIST_TABS, ORDER_MYLIST } from "./my-list.type";
 import { useMyList } from "./use-my-list";
 import { useMyAnimeList } from "../../hooks/use-my-list";
+import { useMyListStats } from "../../hooks/use-my-list-stats";
 
 const MyListPage = () =>{
-
+  const { stats } = useMyListStats()
   const { myList } = useMyAnimeList()
   const {getUserListData } = useMyListMap()
   const {isLoading, isError, myAnimeList} = useMyList(myList)
@@ -22,6 +23,11 @@ const MyListPage = () =>{
   const [activeCategory, setActiveCategory] = useState <"all" | AnimePersonalStatusType>("all");
   const [searchAnime, setSearchAnime] = useState<string | null>(null)
   const [selectedFilter, setSelectedFilter] = useState("");
+
+  const tabsWithCount = MYLIST_TABS.map(tab => ({
+  ...tab,
+  count: stats[tab.value === "all" ? "total" : tab.value] as number
+  }))
 
   const listToShow = useMemo(() => {
     let definitiveList: AnimeCardType[] = []
@@ -50,7 +56,7 @@ return(
   <main className="content-max">
     <div className="my-list__options tab__container my-list__options-real">
       <Tabs
-          options={MYLIST_TABS}
+          options={tabsWithCount}
           activeValue={activeCategory}
           onChange={(value) => setActiveCategory(value as "all" | AnimePersonalStatusType)}
           variant="myList"

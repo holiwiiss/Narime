@@ -58,7 +58,7 @@ const Topbar = () => {
         <div className="topbar--user-search">
           {userData ? (
               <>
-              <button className="icon-user-profile" onClick={() => setIsOptionsOpen(true)}><img className="icon-size-xl user-avatar-img" src={userData.avatar} alt="user avatar"></img></button>
+              <button onClick={() => setIsOptionsOpen(true)}><img className="icon-size-xxl icon-user-profile" src={userData.avatar} alt="user avatar"></img></button>
               {isOptionsOpen && <MenuSetting isOpen={isOptionsOpen} onClose={()=> setIsOptionsOpen(false)}/>}
             </>
           ) : (

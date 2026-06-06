@@ -108,10 +108,10 @@ button {
 }
 
 .btn:hover {
-  background: var(--color-white-35);
-  border: 2px solid var(--color-white-35);
-  backdrop-filter: blur(5px);
-  filter: brightness(0.85);
+    background: var(--color-white-35);
+    border: 2px solid var(--color-white-35);
+    backdrop-filter: blur(5px);
+    filter: brightness(0.85);
 }
 
 .btn--big {
@@ -190,6 +190,11 @@ button {
 .icon-size-xl{
     height: var(--space-xl);
     width: var(--space-xl);
+}
+
+.icon-size-xxl{
+    height: var(--space-xxl);
+    width: var(--space-xxl);
 }
 
 /*              FONTS STANDARS              */

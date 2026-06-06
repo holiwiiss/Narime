@@ -1,7 +1,7 @@
 import "./tabs.scss"
 
 type Props = {
-  options: { value: string; label: string }[]
+  options: { value: string; label: string; count?: number }[]
   activeValue: string
   onChange: (value: string) => void
   variant?: "default" | "small" | "myList"
@@ -21,6 +21,9 @@ const Tabs = ({ options, activeValue, onChange, variant = "default" }: Props) =>
           onClick={() => onChange(option.value)}
         >
           {option.label}
+          {option.count !== undefined && (
+            <span className="text-details text-color--75 tab-option__count">{option.count}</span>
+          )}
         </button>
       ))}
     </div>

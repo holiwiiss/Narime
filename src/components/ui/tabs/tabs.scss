@@ -18,6 +18,7 @@
 // si se modifica el padding de arriba y abajo, modificar mas abajo tambien
 .tab-option {
     display: flex;
+    align-items: center;
     height: 100%;
     padding: var(--space-l) var(--space-l);
 
@@ -54,22 +55,18 @@
 }
 
 .tab-option__count {
-    position: absolute;
-    inset: var(--space-m) 0 auto auto;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: var(--border-radius-xxxl);
-    background-color: var(--color-white-35);
-    color: var(--color-white);
-    font-size: 9px;
-    font-weight: var(--font-semibold);
-    padding: 0;
+    background-color: var(--color-white-20);
+    height: 18px;
+    width: 18px;
 }
 
 //Aqui
 .tab-option__selected {
-    padding-bottom: calc(var(--space-m) - 4px);
+    padding-bottom: calc(var(--space-m) + 7px);
     @include sm{
         padding-bottom:calc(var(--space-s) - 2px);
     }

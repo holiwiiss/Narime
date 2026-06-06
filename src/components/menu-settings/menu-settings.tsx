@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUserData } from "../../hooks/use-user-data";
 import { logOutFirebase } from "../../firebase/services/auth-service.firebase";
 import "./menu-settings.scss"
@@ -15,6 +15,7 @@ type Props = {
 const MenuSetting = ({ isOpen, onClose }: Props) => {
   const menuRef = useRef<HTMLDivElement>(null);
   const {userData} = useUserData()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -40,14 +41,13 @@ const MenuSetting = ({ isOpen, onClose }: Props) => {
   const handleLogOut = () => {
     onClose();
     logOutFirebase();
+    navigate("/login" , { replace: true });
   }
 
   return (
     <div className="surface menu-settings__container" ref={menuRef}>
       <div className="menu--settings--user-info">
-        <div className="menu--settings-img-cont">
-          <img className="icon-size-xl" src={userData?.avatar} alt={userData?.username ?? "User avatar"}></img>
-        </div>
+        <img className="icon-size-xl menu--settings-img-cont" src={userData?.avatar} alt={userData?.username ?? "User avatar"}></img>
         <p className="text-p">{userData?.username}</p>
       </div>
 
