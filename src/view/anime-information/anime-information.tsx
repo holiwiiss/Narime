@@ -7,7 +7,7 @@ import { useMyListMap } from "../../hooks/use-my-list-map";
 import type { UserAnimeListFirestoreType } from "../../firebase/services/firestore-service.type";
 import { useAnimeModal } from "../../hooks/use-anime-modal";
 import { useQuery } from "@tanstack/react-query";
-import { formatDate, formatNumber } from "../../utils/format";
+import { formatDate, formatNumber, formatSynopsis } from "../../utils/format";
 import { useState } from "react";
 import { fetchAnimeInformation } from "../../queries/anime-information-page.queries";
 import { calculateWidth } from "../../utils/calculate-width";
@@ -20,6 +20,8 @@ const ANIME_INFO_TABS: { value: "sinopsis" | "actors" | "trailer"; label: string
   { value: "actors", label: "Character roast" },
   { value: "trailer", label: "Trailer" },
 ]
+
+
 
 const AnimePage = () => {
 
@@ -190,19 +192,29 @@ const AnimePage = () => {
             </div>
             
             <div className="anime-page__details-body">
-              <div className="anime-page__synopsis">
+              <div className="anime-page__tabs-info">
                 {activeCategory === "sinopsis" ? (
-                  <p className="text-p text-color--75">{animeInfo.synopsis}</p>
+                  <div className="anime-page__synopsis-text">
+                    {formatSynopsis(animeInfo.synopsis).map((paragraph, index) => (
+                      <p key={index} className="text-p text-color--75">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
                 ) : activeCategory==="actors" ? (
                   <>
                     <div className="anime-page__characters">
+                      {animeCharacters?.length === 0 && (
+                        <ErrorComponent text="Not found characters" />
+                      )}
+
                       {visibleCharacters?.map((person: AnimeCharactersType) => (
                         
                         <article key={person.characterName} className="character-card">
                           <img className="character-card__img" src={person.characterImage} alt={person.characterName}/>
                         
                           <div className="character-card__header">
-                            <span className="text-details badge">{person.role}</span>
+                            <span className="text-details badge text-shadow">{person.role}</span>
                           </div>
                         
                           <div className="character-card__footer">

@@ -254,6 +254,12 @@ button {
     color:var(--color-red-primary);
 }
 
+.text-shadow {
+    text-shadow:  -1px -1px 2px #585858,
+   1px -1px 2px #585858,
+  -1px  1px 2px #585858,
+   1px  1px 2px #585858;
+}
 .visually-hidden {
     display: none;
 }

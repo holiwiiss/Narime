@@ -27,7 +27,7 @@ const OptionsPopUp = ({ isOpen, onClose, onDelete }: Props) => {
   
   return(
     <div className="surface container--option-delete" ref={optionsRef}>
-      <button className="action-item" onClick={onDelete}>
+      <button className="action-item text-p option--items" onClick={onDelete}>
         <IconTrash className="size-6 action-item__icon"/>
         Remove anime from list
       </button>

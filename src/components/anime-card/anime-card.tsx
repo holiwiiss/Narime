@@ -45,7 +45,7 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default", fromState}:
               <p className="text-details">{isMyList ? userData?.scorePersonal ?? "N/A" : anime.score ?? "N/A"}</p>
             </div>
           )}
-          {!isMinimal && userData && (<span className="badge text-details" data-status={userData.statusPersonal}>{formatStatus(userData.statusPersonal)}</span>)}
+          {!isMinimal && userData && (<span className="badge text-details text-shadow" data-status={userData.statusPersonal}>{formatStatus(userData.statusPersonal)}</span>)}
         </header>
 
         <footer className="anime-card__footer">

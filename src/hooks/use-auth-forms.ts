@@ -27,10 +27,10 @@ export const useAuthForms = () => {
     setIsError(false)
     try {
       const user = await registerFirebase(email, password);
-      toast.success("user create correctly")
       if(user){
         await registerInFirestore(user, email, username)
         navigate("/")
+        toast.success("user create correctly")
       }
     }catch {
       toast.error("Something went wrong")
@@ -45,10 +45,10 @@ export const useAuthForms = () => {
     setIsError(false)
     try{
       const user = await loginWithGoogle();
-      toast.success("user create correctly")
       if (user) {
         await registerInFirestore(user, user.email ?? "", user.displayName ?? "User");
         navigate("/")
+        toast.success("user create correctly")
       }
     } catch {
       setIsError(true)
