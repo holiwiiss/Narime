@@ -28,7 +28,7 @@
     cursor: pointer;
     position: relative;
     flex: 1;
-    border-radius: var(--border-radius-m);
+    border-radius: var(--border-radius-s);
     border: 1px solid rgb(52, 52, 52);
     background-size: cover;
     background-position: center;
@@ -92,6 +92,7 @@
 .anime-card__score {
     background-color: var(--color-black-75);
     border-radius: var(--border-radius-s);
+    border: 2px solid var(--color-white-15);
     padding: var(--space-xxs) var(--space-xs);
     gap: var(--space-xxs);
     @include sm{
@@ -100,16 +101,28 @@
     }
 }
 
-.anime-card__user-status {
-    padding: var(--space-xxs) var(--space-s);
-    background-color: var(--color-black-25);
-    border: solid 1px var(--color-white-75);
-    border-radius: var(--border-radius-s);
-    backdrop-filter: blur(5px);
-     @include sm{
-        padding: var(--space-xxs);
-        border-radius: var(--border-radius-xs);
-    }
+[data-status="completed"] {
+    background-color: var(--color-completed-bg);
+    border: solid 2px var(--color-completed-border);
+    color: var(--color-completed);
+}
+
+[data-status="watching"] {
+    background-color: var(--color-watching-bg);
+    border: solid 2px var(--color-watching-border);
+    color: var(--color-watching)
+}
+
+[data-status="dropped"] {
+    background-color: var(--color-dropped-bg);
+    border: solid 2px var(--color-dropped-border);
+    color: var(--color-dropped);
+}
+
+[data-status="planToWatch"] {
+    background-color: var(--color-planToWatch-bg);
+    border: solid 2px var(--color-planToWatch-border);
+    color: var(--color-planToWatch);
 }
 
 .anime-card__footer {

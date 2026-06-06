@@ -10,7 +10,7 @@
 .donut-chart {
     position: absolute;
     inset: 0 auto auto 0;
-    width: calc(50% - 16px);
+    width: calc(60% - 16px);
     aspect-ratio: 1 / 1;
     border-radius: 50%;
     display: flex;
@@ -21,7 +21,7 @@
     &__hole {
         width: 85%;
         height: 85%;
-        background-color: var(--color-black-bg);
+        background-color: #1B161A;
         border-radius: 50%;
         display: flex;
         flex-direction: row;
@@ -34,7 +34,7 @@
 }
 
 .donut-legend {
-    width: calc(50% - 16px);
+    width: calc(30% - 16px);
     display: flex;
     flex-direction: column;
     gap: var(--space-s);

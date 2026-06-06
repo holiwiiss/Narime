@@ -42,25 +42,23 @@ const UserPage = () => {
     <section className="user-page__content">
     
     {isLoadingUser || !userData || !user ? (
-      <LoadingComponent></LoadingComponent>
+      <LoadingComponent/>
     ) : isErrorUser  ? (
       <ErrorComponent text="An error has ocurred"></ErrorComponent>
     ) : (
       <>
-          <header className="user-page__header">
-            <div className="user-page__banner">
-              <Link to="/settings-user" className="btn btn--secondary btn--small">Edit profile</Link>
-            
-              <div className="user-page__banner-img">
-                <img className="user-page__avatar" src={userData.avatar} alt={userData.avatar} />
-              </div>
-            </div>
-            
-            <div className="user-page__info">
-              <h1 className="text-h1">{userData.username}</h1>
-              <p className="text-p text-color--75">{userData.description}</p>
+        <div className="user-page__banner">
+          <img className="user-page__avatar" src={userData.avatar} alt={userData.avatar} />
+        </div>
 
-              <div className="user-page__social-stats">
+          <header className="user-page__header">
+            <div className="user-page__edit">
+              <h1 className="text-h1">{userData.username}</h1>
+              <Link to="/settings-user" className="btn btn--secondary btn--small">Edit profile</Link>
+            </div>
+            <p className="text-p text-color--75 user-page__biography">{userData.description}</p>
+
+            <div className="user-page__social-stats">
                 <div className="user-page__social-stats-item">
                   <p className="text-h1">{userData.followersCount}</p>
                   <p className="text-details text-color--75">followers</p>
@@ -73,11 +71,10 @@ const UserPage = () => {
                   <p className="text-h1">{myList.length ?? 0}</p>
                   <p className="text-details text-color--75">items in list</p>
                 </div>
-              </div>
             </div>
           </header>
 
-          <div className="my-list__options tab__container">
+          <div className="my-list__options tab__container user-page__tab">
             <div className="tab__buttons">
               <button className={`text-p tab-option ${category === 'stats' ? "tab-option__selected" : "tab-option__unselected"}`} onClick={() => setCategory("stats")}>Stats</button>
               <button className={`text-p tab-option ${category === 'favorites' ? "tab-option__selected" : "tab-option__unselected"}`}  onClick={() => setCategory("favorites")}>Favorites</button>
@@ -86,6 +83,7 @@ const UserPage = () => {
 
           <div className="user-page__content-area">
             {category === "stats" ? (
+
               <div className="user-page__stats-grid">
 
                 <div className="user-page__stats-grid-line">
@@ -96,7 +94,7 @@ const UserPage = () => {
                   </div>
                   
                   <div className="stats-card">
-                    <p className="text-p text-color--75">Time wasted</p>
+                    <p className="text-p text-color--75">Time watched</p>
                     <p className="text-h1">{(stats.timeInHours).toFixed(2)} hours</p>
                     <p className="text-details text-color--50">= {(stats.timeInDays).toFixed(2)} days</p>
                   </div>
@@ -108,8 +106,8 @@ const UserPage = () => {
                   </div>
 
                   <div className="stats-card">
-                    <p className="text-p text-color--75">Watched Episodes</p>
-                    <p className="text-h1">{stats.episodesWatched}</p>
+                    <p className="text-p text-color--75">Watched Anime Films</p>
+                    <p className="text-h1">15</p>
                     <p className="text-details text-color--50">In {stats.total} animes</p>
                   </div>
                 </div>
@@ -120,8 +118,8 @@ const UserPage = () => {
                   </div>
 
                   <div className="stats-card">
-                    <p className="text-p text-color--75">Watched Episodes</p>
-                    <p className="text-h1">{stats.episodesWatched}</p>
+                    <p className="text-p text-color--75">Your better scored anime is</p>
+                    <p className="text-h1">FullMetal Alchemist: Brotherhood</p>
                     <p className="text-details text-color--50">In {stats.total} animes</p>
                   </div>
                 </div>

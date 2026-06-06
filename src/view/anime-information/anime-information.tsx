@@ -21,8 +21,6 @@ const ANIME_INFO_TABS: { value: "sinopsis" | "actors" | "trailer"; label: string
   { value: "trailer", label: "Trailer" },
 ]
 
-
-
 const AnimePage = () => {
 
   const [activeCategory, setActiveCategory] = useState <"sinopsis" | "actors" | "trailer">("sinopsis")

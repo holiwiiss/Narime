@@ -16,10 +16,7 @@ const SettingsUSer = () => {
 
   const { user } = useAuth()
   const { isLoadingUser, isErrorUser, userData} = useUserData()
-  
-  const [isEditingPersonalInfo, setIsEditingPersonalInfo] = useState<boolean>(false);
   const [newUsername, setNewUsername] = useState<string>("")
-  const [isEditingBio, setIsEditingBio] = useState<boolean>(false);
   const [newBiography, setNewBiography] = useState<string>("")
 
   const handleUpdateUserInfo = async (userId:string) =>{
@@ -27,7 +24,6 @@ const SettingsUSer = () => {
       await updateUsername(userId, newUsername)
       await queryClient.invalidateQueries({ queryKey: ["userData"] })
       toast.success("Username updated")
-      setIsEditingPersonalInfo(false)
     }catch{
       toast.error("Something went wrong")
     }
@@ -38,7 +34,6 @@ const SettingsUSer = () => {
       await updateBiografi(userId, newBiography)
       await queryClient.invalidateQueries({ queryKey: ["userData"] })
       toast.success("Biography updated")
-      setIsEditingBio(false)
     }catch{
       toast.error("Something went wrong")
     }
@@ -49,7 +44,6 @@ const SettingsUSer = () => {
   return (
     <>
       <div className="content-max settings-page">
-      
         <SettingsLeftbar/>
 
         <div className="settings-panel">
@@ -62,7 +56,7 @@ const SettingsUSer = () => {
               <header>
                 <h1 className="text-h1">Edit Profile</h1>
               </header>
-              
+
               <div className="settings-panel__section">
                 <div className="user-setting-image">
                   <img src={userData?.avatar} alt="User avatar" className="settings-panel__avatar"></img>
@@ -72,53 +66,32 @@ const SettingsUSer = () => {
                       JPG or PNG is allowes</p>
                   </div>
                 </div>
-
+                
                 <div className="user-settings-information">
                   <div className="user-setting-personal-info">
-                    <div className="user-setting-personal-info--header">
-                      <p className="text-p">Personal information</p>
-                      {!isEditingPersonalInfo ? (<button className="btn btn--secondary" onClick={() => setIsEditingPersonalInfo(true)}>Edit</button>): (
-                        <button className="text-p text-color--75" onClick={() => setIsEditingPersonalInfo(false)}> Close</button>
-                      )}
-                    </div>
+                    <p className="text-p">Personal information</p>
                     <div className="user-setting-personal-info--content">
                       <div className="user-setting-personal-info--row">
                         <p className="text-details text-color--50">Username</p>
-                        {!isEditingPersonalInfo ? (<p className="text-p text-color--75">{userData?.username}</p>
-                        ) : (
-                          <input type="text" className="text-p input" placeholder={userData?.username} onChange={(event) => setNewUsername(event.currentTarget.value)}></input>
-                        )}
+                        <input type="text" className="text-p input" value={userData?.username} onChange={(event) => setNewUsername(event.currentTarget.value)}></input>
                       </div>
                       <div className="user-setting-personal-info--row">
                         <p className="text-details text-color--50">Email</p>
                         <p className="text-p text-color--75">{userData?.email}</p>
                       </div>
                     </div>
-                    {isEditingPersonalInfo && (<button className="btn btn-save-settings" onClick={() => handleUpdateUserInfo(user.uid)}>Save changes</button> )}
+                    <button className="btn btn-save-settings" onClick={() => handleUpdateUserInfo(user.uid)}>Upload changes</button>
                   </div>
 
                   <div className="user-setting-personal-info">
-                    <div className="user-setting-personal-info--header">
-                      <p className="text-p">Biography</p>
-                      {!isEditingBio ? (<button className="btn btn--secondary" onClick={() => setIsEditingBio(true)}>Edit</button>):(
-                        <button className="text-p text-color--75" onClick={() => setIsEditingBio(false)}> Close</button>
-                      )}
-                    </div>
-                    <div className="user-setting-personal-info--content">
-                      {!isEditingBio ? (<p className="text-p text-color--75">{userData?.description}</p>
-                      ):(
-                        <textarea  className="text-p input biography-input" placeholder={userData?.description} onChange={(event) => setNewBiography(event.currentTarget.value)}></textarea>
-                      )}
-                    </div>
-                    {isEditingBio && (<button className="btn btn-save-settings" onClick={() => handleUpdateUserBio(user.uid)}>Save changes</button>)}
+                    <p className="text-p">Biography</p>
+                    <textarea  className="text-p input biography-input" value={userData?.description} onChange={(event) => setNewBiography(event.currentTarget.value)}></textarea>
+                    <button className="btn btn-save-settings" onClick={() => handleUpdateUserBio(user.uid)}>Save changes</button>
                   </div>
-                </div>
 
-                <div className="settings-panel__section">
                   <div className="user-setting-personal-info">
                     <div className="user-setting-personal-info--header">
                       <p className="text-p">Language</p>
-                      <button className="btn btn--secondary">Edit</button>
                     </div>
                   </div>
                 </div>

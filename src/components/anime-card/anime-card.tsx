@@ -45,7 +45,7 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default", fromState}:
               <p className="text-details">{isMyList ? userData?.scorePersonal ?? "N/A" : anime.score ?? "N/A"}</p>
             </div>
           )}
-          {!isMinimal && userData && (<span className="badge text-details text-shadow" data-status={userData.statusPersonal}>{formatStatus(userData.statusPersonal)}</span>)}
+          {!isMinimal && userData && (<span className="badge text-details" data-status={userData.statusPersonal}>{formatStatus(userData.statusPersonal)}</span>)}
         </header>
 
         <footer className="anime-card__footer">
@@ -75,6 +75,7 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default", fromState}:
                 <span className="text-btn action-item__text">{userData ? "Edit" : "Add"}</span>
               </button>
             )}
+            
           </div>
           {showProgressBar && (
             <div className="anime-card__progressbar">

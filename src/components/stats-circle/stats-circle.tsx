@@ -14,14 +14,14 @@ const StatsCircle = () => {
   const droppedTotal = completedTotal + dropped
 
   const gradient = `conic-gradient(
-    var(--color-watching) 0deg,
-    var(--color-watching) ${watchingTotal}deg,
-    var(--color-completed) ${watchingTotal}deg ${completedTotal}deg,
-    var(--color-dropped) ${completedTotal}deg ${droppedTotal}deg,
-    var(--color-plan-to-watch) ${droppedTotal}deg 180deg,
-    var(--color-white-10) 180deg, 
-    var(--color-white-10) 270deg, 
-    var(--color-white-10) 270deg
+    var(--color-watching-border) 0deg,
+    var(--color-watching-border) ${watchingTotal}deg,
+    var(--color-completed-border) ${watchingTotal}deg ${completedTotal}deg,
+    var(--color-dropped-border) ${completedTotal}deg ${droppedTotal}deg,
+    var(--color-planToWatch) ${droppedTotal}deg 180deg,
+    #1B161A 180deg, 
+    #1B161A 270deg, 
+    #1B161A 270deg
   ) `
 
   return (
@@ -35,22 +35,22 @@ const StatsCircle = () => {
 
       <div className="donut-legend">
         <div className="donut-legend__item">
-          <span className="donut-legend__dot icon-size-m" style={{ backgroundColor: "var(--color-watching)" }}></span>
+          <span className="donut-legend__dot icon-size-m" style={{ backgroundColor: "var(--color-watching-border)" }}></span>
           <p className="text-h2">{stats.watching}</p>
           <p className="text-details text-color--50">Watching</p>
         </div>
         <div className="donut-legend__item">
-          <span className="donut-legend__dot icon-size-m" style={{ backgroundColor: "var(--color-completed)" }}></span>
+          <span className="donut-legend__dot icon-size-m" style={{ backgroundColor: "var(--color-completed-border)" }}></span>
           <p className="text-h2">{stats.completed}</p>
           <p className="text-details text-color--50">Completed</p>
         </div>
         <div className="donut-legend__item">
-          <span className="donut-legend__dot icon-size-m" style={{ backgroundColor: "var(--color-dropped)" }}></span>
+          <span className="donut-legend__dot icon-size-m" style={{ backgroundColor: "var(--color-dropped-border)" }}></span>
           <p className="text-h2">{stats.dropped}</p>
           <p className="text-details text-color--50">Dropped</p>
         </div>
         <div className="donut-legend__item">
-          <span className="donut-legend__dot icon-size-m" style={{ backgroundColor: "var(--color-plan-to-watch)" }}></span>
+          <span className="donut-legend__dot icon-size-m" style={{ backgroundColor: "var(--color-planToWatch)" }}></span>
           <p className="text-h2">{stats.planToWatch}</p>
           <p className="text-details text-color--50">Plan to watch</p>
         </div>

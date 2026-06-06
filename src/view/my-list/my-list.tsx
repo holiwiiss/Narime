@@ -79,6 +79,7 @@ return(
         isError={isError}
         fromState={{ from: "/my-list", label: "My List" }}
         variant="mylist"
+        emptyText="Your list is empty"
       />
   </main>
 )}
