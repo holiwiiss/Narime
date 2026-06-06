@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom"
 import "./settings-user.scss"
-import { useAuth } from "../../context/auth-context"
+
 import { useUserData } from "../../hooks/use-user-data"
 import { useState } from "react"
 import { updateBiografi, updateUsername } from "../../firebase/services/user-information.firebase"
@@ -9,6 +9,7 @@ import { useQueryClient } from "@tanstack/react-query"
 import LoadingComponent from "../../components/loading-component/loading-component"
 import ErrorComponent from "../../components/error-component/error-component"
 import SettingsLeftbar from "../../components/ui/settings-leftbar/settings-leftbar"
+import { useAuth } from "../../hooks/use-auth"
 
 const SettingsUSer = () => {
   const queryClient = useQueryClient()

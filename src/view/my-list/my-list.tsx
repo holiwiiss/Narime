@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import type { AnimePersonalStatusType} from "../../firebase/services/firestore-service.type";
-import { useMyAnimeList } from "../../context/my-list-context";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
 import { useMyListMap } from "../../hooks/use-my-list-map";
 import "./my-list.scss"
@@ -11,6 +10,7 @@ import AnimeGrid from "../../components/anime-grid/anime-grid";
 import { useMyListOrder } from "./use-my-list-order";
 import { MYLIST_TABS, ORDER_MYLIST } from "./my-list.type";
 import { useMyList } from "./use-my-list";
+import { useMyAnimeList } from "../../hooks/use-my-list";
 
 const MyListPage = () =>{
 

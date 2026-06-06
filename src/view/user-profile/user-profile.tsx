@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { useAuth } from "../../context/auth-context";
 import "./user-profile.scss"
-import { useMyAnimeList } from "../../context/my-list-context";
 import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
 import { useQuery } from "@tanstack/react-query";
 import AnimeCard from "../../components/anime-card/anime-card";
@@ -14,6 +12,8 @@ import { useUserData } from "../../hooks/use-user-data";
 import { Link, Navigate } from "react-router-dom";
 import { useMyListStats } from "../../hooks/use-my-list-stats";
 import StatsCircle from "../../components/stats-circle/stats-circle";
+import { useMyAnimeList } from "../../hooks/use-my-list";
+import { useAuth } from "../../hooks/use-auth";
 
 const UserPage = () => {
 

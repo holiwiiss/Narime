@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
-import { useAuth } from "../context/auth-context"
 import { getUserInformation } from "../firebase/services/user-information.firebase"
+import { useAuth } from "./use-auth"
 
 export const useUserData = () => {
   const { user } = useAuth()

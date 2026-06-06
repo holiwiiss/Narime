@@ -1,5 +1,6 @@
 import { Navigate } from "react-router-dom"
-import { useAuth } from "../context/auth-context"
+import { useAuth } from "../hooks/use-auth"
+
 
 const PublicRoute = ({ children }: { children: React.ReactNode }) => {
   const { user } = useAuth()
