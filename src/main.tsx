@@ -15,6 +15,7 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import UserPage from './view/user-profile/user-profile.tsx'
 import DiscoverPage from './view/discover/discover.tsx'
 import SettingsUSer from './view/settings-user/settings-user.tsx'
+import Landing from './components/ui/landing/landing.tsx'
 //import PublicRoute from './router/PublicRoute.tsx'
 
 const router = createBrowserRouter([
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <DirectoryPage/>
+        element: <Landing/>
       },
       {
         path:'/directory',

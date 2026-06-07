@@ -29,9 +29,11 @@
     }
 }
 .topbar--logo {
+    display: flex;
+    align-items: center;
     height: 50px;
     width: 15%;
-    border: 1px solid red;
+    gap: var(--space-s);
 }
 
 .nav--option--active {

@@ -10,6 +10,7 @@ import IconMylist from "../ui/icons/icon-my-list";
 import IconSearch from "../ui/icons/icon-search";
 import { useAuth } from "../../hooks/use-auth";
 import IconUser from "../ui/icons/icon-user";
+import narimeLogo from "../../assets/images/narime-logo.png"
 
 const Topbar = () => {
   const { user } = useAuth()
@@ -20,10 +21,13 @@ const Topbar = () => {
   return (
     <div className="topbar">
       <div className="topbar--max">
-        <img src="#" className="topbar--logo" alt="logo narime"></img>
+        <Link to="/" className="topbar--logo">
+          <img src={narimeLogo} className="topbar--logo-img icon-size-xxl" alt="logo narime"></img>
+          <p className="text-h1 text-color--75">Narime</p>
+        </Link>
 
         <nav className="topbar--nav">
-          <NavLink to='/' className={({ isActive }) => `action-item nav--option ${isActive ? "nav--option--active" : ""}`}>
+          <NavLink to='/directory' className={({ isActive }) => `action-item nav--option ${isActive ? "nav--option--active" : ""}`}>
             <IconHome className="size-6 action-item__icon"/>
             <span className="text-p text-color--75 action-item__text">Home</span>
           </NavLink>

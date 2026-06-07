@@ -115,7 +115,7 @@ button {
 }
 
 .btn--big {
-    padding: var(--space-s) var(--space-m) ;
+    padding: var(--space-s) var(--space-xl) ;
 }
 .btn--small{
     padding:  var(--space-xs) var(--space-s);
@@ -227,6 +227,12 @@ button {
 .text-h2 {
     font-family: var(--font-primary);
     font-size: var(--font-size-6);
+    color: var(--color-white);
+    font-weight: var(--font-medium);
+}
+.text-h3 {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-5);
     color: var(--color-white);
     font-weight: var(--font-medium);
 }
