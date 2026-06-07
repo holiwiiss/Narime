@@ -1,7 +1,6 @@
 .landing-header {
     display: flex;
     flex-direction: column;
-    border: solid 2px red;
     width: 100%;
     max-width: var(--max-width-content);
     height: 100dvh;
@@ -29,9 +28,19 @@
 }
 
 .landing-header__img {
-    border: solid 2px pink;
     margin-top: var(--space-xxl);
     flex:1;
+    background-image: 
+        linear-gradient(
+            to right,
+            var(--color-menu-bg) 0%,
+            rgba(0,0,0,0) 20%,
+            rgba(0,0,0,0) 80%,
+            var(--color-menu-bg) 100%
+        ),
+        url('../../../assets/images/anime-cards.png');
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .landing-main {
@@ -39,6 +48,7 @@
     display: flex;
     flex-direction: column;
     padding: 0 var(--space-xxl);
+    max-width: var(--max-width-content);
 }
 
 .landing-features {
@@ -88,10 +98,10 @@
     flex-direction: column;
     width: calc(25% - var(--space-m) / 2);
     gap: var(--space-m);
-    
 
     &--item{
         display: flex;
+        position:relative;
         flex-direction: column;
         gap: var(--space-s);
         background-color: var(--color-white-10);
@@ -99,17 +109,35 @@
         padding: var(--space-xl) var(--space-l);
         border-radius: var(--border-radius-m);
         cursor: pointer;
+        overflow: hidden;
+        transition: height 0.3s ease, padding 0.3s ease;
     }
+}
+.landing-screens--options--item:before{
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 5px;
+    background-color: var(--color-red-primary);
+
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.landing--item-active::before {
+    transform: scaleX(1);
 }
 
 .landing-screens__image {
     width: calc(75% - var(--space-m) / 2);
+    aspect-ratio: 16 / 9;
     border: solid 2px var(--color-white-20);
     border-radius: var(--border-radius-m);
 }
 
 .landing-end{
-    border: solid 2px red;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -118,4 +146,15 @@
     min-height: 100dvh;
     gap: var(--space-l);
     text-align: center;
+}
+
+.landing-end::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("../../../assets/images/bg_landing.jpg");
+    background-position: center;
+    background-size: cover;
+    opacity: 0.2;
+    z-index: -1;
 }
