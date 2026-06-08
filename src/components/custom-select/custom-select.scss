@@ -32,7 +32,8 @@
     inset: 106% 0 auto 0;
     height: auto;
     z-index: 3;
-    overflow: hidden;
+    overflow-y: auto;
+    max-height: 500px;
     @include xs{
       font-size: var(--font-size-1);
     }

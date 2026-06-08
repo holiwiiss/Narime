@@ -8,7 +8,32 @@
     width: calc(50% - 6px);
 }
 
+.status-selector__btn[data-status="watching"] { 
+    background-color: var(--color-watching-bg); 
+    border: 2px solid var(--color-watching-border);
+    color: var(--color-watching);
+}
+
+.status-selector__btn[data-status="completed"] { 
+    background-color: var(--color-completed-bg); 
+    border: 2px solid var(--color-completed-border);
+    color: var(--color-completed);
+}
+
+.status-selector__btn[data-status="dropped"] { 
+    background-color: var(--color-dropped-bg); 
+    border: 2px solid var(--color-dropped-border);
+    color: var(--color-dropped);
+}
+
+.status-selector__btn[data-status="planToWatch"] { 
+    background-color: var(--color-planToWatch-bg); 
+    border: 2px solid var(--color-planToWatch-border);
+    color: var(--color-planToWatch);
+}
+
 .status-selector__btn--active {
-    background-color: var(--color-red-primary);
-    border: none;
+    background-color: var(--color-red-primary) !important;
+    border: none !important;
+    color: var(--color-white) !important;
 }

@@ -1,8 +1,12 @@
 .episodes--wrapper {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     flex:1;
+}
+.input--wrapper {
+    display: flex;
+    align-items: center;
 }
 .btn--episodes-input {
     height: 36.8px;
@@ -19,4 +23,6 @@
 }
 .input--episodes {
     border-radius: 0;
+    border: 2px solid var(--color-white-20);
+    height: 36.8px;
 }

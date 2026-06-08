@@ -15,8 +15,9 @@ const StatusSelector = ({ value, onChange, id }: Props) => {
     <div className="status-selector" id={id}>
       {statusList.map(status => (
         <button
+          data-status={status}
           key={status}
-          type="button" // importante para que no haga submit
+          type="button"
           className={`btn btn--secondary status-selector__btn ${value === status ? "status-selector__btn--active" : ""}`}
           onClick={() => onChange(status)}
         >

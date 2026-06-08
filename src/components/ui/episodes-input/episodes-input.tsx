@@ -10,7 +10,7 @@ type Props = {
 const EpisodesInput = ({ value, onChange, max, id }: Props) => {
   return (
     <div className="episodes--wrapper">
-        <div>
+        <div className="input--wrapper">
         <button type="button" className="btn btn--secondary btn--episodes-input btn-left" onClick={() => onChange(Math.max(1, value - 1))}>
           -
         </button>

@@ -12,6 +12,7 @@ import IconDots from "../ui/icons/icon-dots";
 import StatusSelector from "../ui/status-selector/status-selector";
 import { useAuth } from "../../hooks/use-auth";
 import { useMyAnimeList } from "../../hooks/use-my-list";
+import { calculateWidth } from "../../utils/calculate-width";
 
 type PropsModal = {
   animeId: number;
@@ -34,6 +35,7 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
   const { user } = useAuth()
   const { addAnimeToMyList, editAnimeToMyList, deleteAnimeToMyList } = useMyAnimeList()
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+  
 
   const {
     handleSubmit,
@@ -49,7 +51,7 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
   });
 
   const statusValue = useWatch({ control, name: "status" })
-
+  const episodesValue = useWatch({ control, name: "episodes" }) 
   useEffect(() => {
     if (action === "edit" && infoDocIdUserAnime) {
       reset({
@@ -156,11 +158,16 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
                   />
                   <p className="text-details text-color--75"> / {totalEpisodes} episodes</p>
                   </div>
+                  <div className="progress-bar-popup">
+                    <div className="progress-bar-popup-status"
+                      style={{ width: `${calculateWidth(totalEpisodes, episodesValue)}%`}}
+                    ></div>
+                  </div>
                 </div>
               )}
-              <div className=" form__group btn--popup-container">
-                <button type="submit" className="btn">Save</button>
-                <button type="button" className="btn btn--secondary" onClick={onClose}>Close</button>
+              <div className="form__group btn--popup-container">
+                <button type="button" className="btn btn--secondary btn--popup" onClick={onClose}>Close</button>
+                <button type="submit" className="btn btn--popup">Save</button>
               </div>
             </form>
           </>

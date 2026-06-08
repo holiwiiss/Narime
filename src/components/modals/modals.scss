@@ -20,6 +20,8 @@
         width: 75%;
         padding: var(--space-l);
     }
+    transition: height 0.2s ease;
+    min-height: 200px;
 }
 .popup_ad {
     min-height: 670px;
@@ -32,7 +34,7 @@
 
 .episodes-row {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     width: 100%;
     gap:var(--space-xxs)
 }
@@ -63,11 +65,27 @@
     border-radius: var(--border-radius-xs);
 }
 
+.progress-bar-popup {
+    height: 9px;
+    border: 2px solid var(--color-black-bg) ;
+    background-color: var(--color-white-15);
+    border-radius: var(--border-radius-xs);
+    overflow: hidden;
+    &-status{
+        background-color: var(--color-red-primary);
+        height: 100%;
+    }
+}
+
+
 .btn--popup-container {
     margin-top: var(--space-s);
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: var(--space-s);
+}
+.btn--popup {
+    width: calc(50% - var(--space-s) / 2);
 }
 
 .popUp__container-header--title {
