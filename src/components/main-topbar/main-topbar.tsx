@@ -23,7 +23,7 @@ const Topbar = () => {
       <div className="topbar--max">
         <Link to="/" className="topbar--logo">
           <img src={narimeLogo} className="topbar--logo-img icon-size-xxl" alt="logo narime"></img>
-          <p className="text-h1 text-color--75">Narime</p>
+          <p className="text-h1 text-color--75 topbar--logo-txt">Narime</p>
         </Link>
 
         <nav className="topbar--nav">

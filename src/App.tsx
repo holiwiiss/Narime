@@ -8,9 +8,11 @@ function App() {
   
   return (
     <>
-      <Topbar/>
-      <Outlet/>
       <Toaster position='bottom-center' theme="dark" richColors/>
+      <Topbar/>
+      <main className="content-max">  
+        <Outlet/>
+      </main>
       <Footer/>
     </>
   )

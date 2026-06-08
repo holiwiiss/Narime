@@ -26,7 +26,7 @@ const DiscoverPage = () => {
   const {isLoadingAnimes, isErrorAnimes, discoverList, fetchNextPage, hasNextPage} = useDiscoverAnimes(filters);
 
   return (
-    <main className="content-max">
+    <section className="discover-content-page">
       <header className="discover__header">
         <h1 className="text-h1">Discover</h1>
 
@@ -100,7 +100,7 @@ const DiscoverPage = () => {
         fromState={{from:'/discover', label:'Discover'}}
       />
 
-    </main>
+    </section>
   )
 }
 

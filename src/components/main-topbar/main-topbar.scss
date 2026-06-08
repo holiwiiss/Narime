@@ -35,7 +35,11 @@
     width: 15%;
     gap: var(--space-s);
 }
-
+.topbar--logo-txt{
+    @include sm{
+        display: none;
+    }
+}
 .nav--option--active {
     svg { fill: var(--color-white); }
     .action-item__text { color: var(--color-white); }

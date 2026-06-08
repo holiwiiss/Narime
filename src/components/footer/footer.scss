@@ -1,3 +1,5 @@
+@use "../../scss/mixin/" as *;
+
 .footer {
     max-width: var(--max-width-content);
     width: 100%;
@@ -6,14 +8,21 @@
     align-items: center;
     padding: var(--space-xxl) var(--space-xxl);
     gap: var(--space-l);
+    @include md{
+        flex-direction: column;
+    }
 }
 
 .footer--left {
     display: flex;
+    @include sm{
+        flex-direction: column;
+    }
 }
 .footer--logo{
     display: flex;
     align-items: center;
+    justify-content: center;
     padding-right: var(--space-l);
 }
 .footer--info {
