@@ -40,7 +40,7 @@ const SearchAnimeComponent = ({ isOpen, onClose }: Props) => {
 
   return (
     <div className={`search-input-wrap ${isOpen ? 'open' : ''}`} ref={wrapperRef}>
-      <label htmlFor="anime-search" className="visually-hiden">Search anime</label>
+      <label htmlFor="anime-search" className="visually-hidden">Search anime</label>
       <input
         id="anime-search"
         ref={inputRef}
