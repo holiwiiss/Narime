@@ -8,7 +8,6 @@ import { getRecomendationsAnimes } from "../../services/anime-recommendations/an
 import { useCallback, useMemo } from "react";
 import { useMyListMap } from "../../hooks/use-my-list-map";
 import { useAnimeModal } from "../../hooks/use-anime-modal";
-
 import type { UserAnimeListFirestoreType } from "../../firebase/services/firestore-service.type";
 import "./for-you.scss"
 import ModalAddEditAnime from "../modals/modal-add-edit";
@@ -103,14 +102,14 @@ const ForYou = () => {
         <>
           {randomId.title !== "Unknown" ? (<h2 className="text-h2 para-ti__subtitle">Because you liked {randomId.title}</h2>): (<h2 className="text-h2 para-ti__subtitle">Recommendations to get started</h2>)}
           <section className="cards__grid">
-          {recommendationsList.map((anime: AnimeRecomendationCardType) => (
-                      <AnimeCard
-                        key={anime.id}
-                        anime={anime}
-                        variant="recomendations"
-                      />
-          ))}
-        </section>
+            {recommendationsList.map((anime: AnimeRecomendationCardType) => (
+              <AnimeCard
+                key={anime.id}
+                anime={anime}
+                variant="recomendations"
+              />
+            ))}
+          </section>
         </>
       ) : (
         <>

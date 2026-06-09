@@ -13,19 +13,19 @@
     }
 }
 
-.footer--left {
+.footer__left {
     display: flex;
     @include sm{
         flex-direction: column;
     }
 }
-.footer--logo{
+.footer__logo{
     display: flex;
     align-items: center;
     justify-content: center;
     padding-right: var(--space-l);
 }
-.footer--info {
+.footer__info {
     padding: var(--space-l) var(--space-l);
     border-left: solid 2px var(--color-white-20);
     display: flex;
@@ -37,6 +37,6 @@
     display: flex;
     gap: var(--space-m);
 }
-.footer-nav--item{
+.footer-nav__item{
     text-decoration: underline;
 }

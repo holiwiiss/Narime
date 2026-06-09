@@ -84,27 +84,31 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
   }
 
   return (
-    <div className="bg-popup">
-      <div className="surface popup__container">
+    <div role="presentation" className="bg-popup">
+      <div role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title" 
+        className="surface popup__container"
+      >
         {!user ? (
-          <>
-            <h2 className="text-h2">You're not logged in</h2>
+          <div role="dialog" aria-modal="true" aria-labelledby="guest-title">
+            <h2 id="guest-title" className="text-h2">You're not logged in</h2>
             <p className="text-p text-color--75">Sign in to start saving your progress</p>
             <Link to="/login" className="btn">Sign in</Link>
-          </>
+          </div>
         ):(
           <>
-            <div className="popUp__container--header">
-              <div className="popUp__container-header--title">
+            <div className="popup__header">
+              <div className="popup__header--title">
                 <p className="text-p text-color--75">{action === "add" ? "Adding to my list" : "Editing"}</p>
-                <h3 className="text-h2">{animeTitle}</h3>
+                <h2 id="modal-title" className="text-h2">{animeTitle}</h2>
               </div>
               {action==="edit" && (
                 <>
-                <button className="icon-options-pop-up" onClick={() => setIsOptionsOpen(true)}>
-                  <IconDots className="icon-size-m"/>
-                </button>
-                {isOptionsOpen && (<OptionsPopUp isOpen={isOptionsOpen} onClose={()=> setIsOptionsOpen(false)} onDelete={deleteAnime}/>)}
+                  <button aria-label="More options" className="popup__options-btn" onClick={() => setIsOptionsOpen(true)}>
+                    <IconDots className="icon-size-m"/>
+                  </button>
+                  {isOptionsOpen && (<OptionsPopUp isOpen={isOptionsOpen} onClose={()=> setIsOptionsOpen(false)} onDelete={deleteAnime}/>)}
                 </>
               )}
             </div>
@@ -143,7 +147,7 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
               {(statusValue === "watching" || statusValue === "dropped") && (
                 <div className="form__group">
                   <label htmlFor="episodes-selector" className="text-details">Episodes</label>
-                  <div className="episodes-row">
+                  <div className="popup__episodes-row">
                   <Controller
                     name="episodes"
                     control={control}
@@ -158,8 +162,8 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
                   />
                   <p className="text-details text-color--75"> / {totalEpisodes} episodes</p>
                   </div>
-                  <div className="progress-bar-popup">
-                    <div className="progress-bar-popup-status"
+                  <div className="popup__progress">
+                    <div className="popup__progress-fill"
                       style={{ width: `${calculateWidth(totalEpisodes, episodesValue)}%`}}
                     ></div>
                   </div>

@@ -45,28 +45,27 @@ const MenuSetting = ({ isOpen, onClose }: Props) => {
   }
 
   return (
-    <div className="surface menu-settings__container" ref={menuRef}>
-      <div className="menu--settings--user-info">
-        <img className="icon-size-xl menu--settings-img-cont" src={userData?.avatar} alt={userData?.username ?? "User avatar"}></img>
-        <p className="text-p">{userData?.username}</p>
+    <div role="menu" aria-label="User menu" className="surface menu-settings__container" ref={menuRef}>
+      <div className="menu-settings__user-info">
+        <img className="icon-size-xl menu-settings__avatar" src={userData?.avatar} alt={userData?.username ?? "User avatar"}></img>
+        <p className="text-p">{userData?.username ?? "User"}</p>
       </div>
 
-      <Link className="text-btn text-color--75 action-item menu--settings--item" to="/user-page" onClick={onClose}> 
+      <Link role="menuitem" className="text-btn text-color--75 action-item menu-settings__item" to="/user-page" onClick={onClose}> 
         <IconProfile className="size-6 action-item__icon"/>
         Profile
       </Link>
 
-      <Link className="text-btn text-color--75 action-item menu--settings--item" to="/settings-user" onClick={onClose}> 
+      <Link role="menuitem" className="text-btn text-color--75 action-item menu-settings__item" to="/settings-user" onClick={onClose}> 
         <IconSettings className="size-6 action-item__icon"/>
         Settings
       </Link>
 
-      <button className="text-btn text-color--75 action-item menu--settings--item" onClick={() => handleLogOut()}>
+      <button role="menuitem" className="text-btn text-color--75 action-item menu-settings__item" onClick={() => handleLogOut()}>
         <IconLogout className="size-6 action-item__icon"/>
         Sign out
       </button>
     </div>
-    
   );
 };
 

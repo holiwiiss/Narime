@@ -37,55 +37,54 @@ export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal)
   }
 
   return (
-    <>
-      <div className="bg-popup">
-        <div className="surface popup__container popup_ad">
-          <h3 className="text-h2">Add to favorites</h3>
-          <input
-            className="text-p input"
-            type="text"
-            value={inputValue}
-            onInput={(event: React.InputEvent<HTMLInputElement>) =>
-              setInputValue(event.currentTarget.value)
-            }
-            placeholder="Search an anime..."
-          ></input>
-          <div className="container-info-favorites">
-            {isLoading ? (
-              <LoadingComponent size="small"/>
-            ) : isError ? (
-              <h1 className="text-h2 text-color--75" >Something went wrong</h1>
-            ) : inputValue==="" && searchList.length === 0 ? (
-              <p className="text-p text-color--75">Start searching</p>
-            ) : searchList.length === 0 ? (
-              <p className="text-p text-color--75">Not found anime</p>
-            ) : (
-              <>
-                {searchList.map((anime: AnimeCardType) => (
-                  <div key={anime.id} className="anime-favorite__card">
-                    <div className="anime-favorite__card-header">
-                      <img className="anime-search__card-img" src={anime.image} alt={anime.title} />
-                      <p className="text-p anime-search__card-tittle">{anime.title}</p>
-                    </div>
-                    {isInList(anime.id) ? (
-                      <span className="text-details text-color--75">Already in your favorites</span>
-                    ) : (
-                      <button className="btn" onClick={() => addToFavorite(anime.id)}>Add</button>
-                    )}
+    <div className="bg-popup" role="presentation">
+      <div role="dialog" aria-modal="true" aria-labelledby="modal-title" className="surface popup__container popup--add">
+        <h2 id="modal-title" className="text-h2">Add to favorites</h2>
+        <label htmlFor="anime-search" className="visually-hidden">Search anime</label>
+        <input
+          className="text-p input"
+          type="text"
+          value={inputValue}
+          onInput={(event: React.InputEvent<HTMLInputElement>) =>
+            setInputValue(event.currentTarget.value)
+          }
+          placeholder="Search an anime..."
+        ></input>
+        <div className="popup__results">
+          {isLoading ? (
+            <LoadingComponent size="small"/>
+          ) : isError ? (
+            <p className="text-h2 text-color--75" role="alert">Something went wrong</p>
+          ) : inputValue==="" && searchList.length === 0 ? (
+            <p className="text-p text-color--75">Start searching</p>
+          ) : searchList.length === 0 ? (
+            <p className="text-p text-color--75" role="alert">Not found anime</p>
+          ) : (
+            <ul>
+              {searchList.map((anime: AnimeCardType) => (
+                <li key={anime.id} className="anime-favorite__card">
+                  <div className="anime-favorite__card-header">
+                    <img className="anime-search__card-img" src={anime.image} alt={anime.title} />
+                    <p className="text-p anime-search__card-tittle">{anime.title}</p>
                   </div>
-                ))}
-              </>
-            )}
-          </div>
-
-          <button
-            className="btn btn--secondary"
-            onClick={onClose}
-          >
-            Close
-          </button>
+                  {isInList(anime.id) ? (
+                    <span className="text-details text-color--75">Already in your favorites</span>
+                  ) : (
+                    <button className="btn" onClick={() => addToFavorite(anime.id)}>Add</button>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
+
+        <button
+          className="btn btn--secondary"
+          onClick={onClose}
+        >
+          Close
+        </button>
       </div>
-    </>
+    </div>
   );
 };

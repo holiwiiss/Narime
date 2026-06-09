@@ -35,12 +35,12 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default", fromState}:
   const navigate = useNavigate()
 
   return(
-    <div className="anime-card-wrapper">
+    <li className="anime-card-wrapper">
       <article className="anime-card" onClick={()=> navigate(`/anime/${anime.id}`, { state: fromState })}>
         <img className="anime-card-img" src={anime.image} alt={anime.title}></img>
         <header className="anime-card__header">
           {showScore && (
-            <div className="action-item anime-card__score">
+            <div aria-label={`Score: ${anime.score}`} className="action-item anime-card__score">
               <IconStar fill={isMyList ? "var(--color-red-primary)" : undefined} className="size-6 action-item__icon"/>
               <p className="text-details">{isMyList ? userData?.scorePersonal ?? "N/A" : anime.score ?? "N/A"}</p>
             </div>
@@ -88,8 +88,7 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default", fromState}:
           )}
         </footer>
       </article>
-      {variant==="default"  && (<p className="text-details">{anime.type} · {anime.year ?? "N/A"}</p>)}
-    </div>
+    </li>
   )
 };
 

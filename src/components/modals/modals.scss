@@ -23,23 +23,8 @@
     transition: height 0.2s ease;
     min-height: 200px;
 }
-.popup_ad {
-    min-height: 670px;
-    max-height: 680px;
-}
-.popup__delete-anime {
-    width: 100%;
-    text-align: center;
-}
 
-.episodes-row {
-    display: flex;
-    align-items: flex-end;
-    width: 100%;
-    gap:var(--space-xxs)
-}
-
-.popUp__container--header {
+.popup__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -47,36 +32,41 @@
     gap: var(--space-s);
 }
 
-.container-info-favorites{
+.popup__header--title {
     display: flex;
-    flex: 1;
     flex-direction: column;
 }
 
-.icon-options-pop-up {
+.popup__options-btn {
     display: flex;
     align-items: center;
     height: var(--space-xl);
     width: var(--space-xl);
     padding: var(--space-xs);
 }
-.icon-options-pop-up:hover {
+.popup__options-btn:hover {
     background-color: var(--color-white-35);
     border-radius: var(--border-radius-xs);
 }
 
-.progress-bar-popup {
+.popup__episodes-row {
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    gap:var(--space-xxs)
+}
+
+.popup__progress {
     height: 9px;
     border: 2px solid var(--color-black-bg) ;
     background-color: var(--color-white-15);
     border-radius: var(--border-radius-xs);
     overflow: hidden;
-    &-status{
+    &-fill{
         background-color: var(--color-red-primary);
         height: 100%;
     }
 }
-
 
 .btn--popup-container {
     margin-top: var(--space-s);
@@ -88,8 +78,14 @@
     width: calc(50% - var(--space-s) / 2);
 }
 
-.popUp__container-header--title {
+.popup--add {
+    min-height: 670px;
+    max-height: 680px;
+}
+
+.popup__results{
     display: flex;
+    flex: 1;
     flex-direction: column;
 }
 
@@ -111,4 +107,9 @@
 .anime-favorite__card:hover {
     cursor: pointer;
     background-color: var(--color-white-20);
+}
+
+.popup__delete-anime {
+    width: 100%;
+    text-align: center;
 }

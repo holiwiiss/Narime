@@ -5,14 +5,14 @@
     gap: var(--space-xs);
     width: 250px;
 }
-.menu--settings-img-cont {
+.menu-settings__avatar {
     background-color: var(--color-white-50);
     border-radius: var(--border-radius-xxxl);
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.menu--settings--user-info {
+.menu-settings__user-info {
     display: flex;
     align-items: center;
     padding-bottom: var(--space-s);
@@ -20,11 +20,11 @@
     border-bottom: 1px solid var(--color-white-35);
 }
 
-.menu--settings--item {
+.menu-settings__item {
     padding: var(--space-xs);
 }
 
-.menu--settings--item:hover {
+.menu-settings__item:hover {
     background-color: var(--color-white-20);
     border-radius: var(--border-radius-xs);
 }

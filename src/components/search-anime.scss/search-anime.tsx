@@ -40,7 +40,9 @@ const SearchAnimeComponent = ({ isOpen, onClose }: Props) => {
 
   return (
     <div className={`search-input-wrap ${isOpen ? 'open' : ''}`} ref={wrapperRef}>
+      <label htmlFor="anime-search" className="visually-hiden">Search anime</label>
       <input
+        id="anime-search"
         ref={inputRef}
         autoFocus
         type="text"
@@ -50,12 +52,11 @@ const SearchAnimeComponent = ({ isOpen, onClose }: Props) => {
         onInput={(event: React.InputEvent<HTMLInputElement>) =>
           setInputValue(event.currentTarget.value)
         }
-        onFocus={() => inputValue}
         placeholder="Search an anime..."
       ></input>
 
       {debounceInput.length > 0 && (
-        <div className="surface all-search__content">
+        <div role="listbox" aria-label="Search results" className="surface all-search__content">
           {isLoading ? (
             <LoadingComponent size="small" />
           ) : isError ? (
@@ -65,12 +66,11 @@ const SearchAnimeComponent = ({ isOpen, onClose }: Props) => {
           ) : (
             <>
             {searchList.map((anime: AnimeCardType) => (
-              <Link to={`/anime/${anime.id}`} key={anime.id} className="anime-search__card" onClick={() => onClose()}>
+              <Link role="option" to={`/anime/${anime.id}`} key={anime.id} className="anime-search__card" onClick={() => onClose()}>
                 <img className="anime-search__card-img" src={anime.image} alt={anime.title}/>
                 <p className="text-p anime-search__card-tittle">{anime.title}</p>
               </Link>
             ))}
-
             <Link to={`/search/anime?q=${debounceInput}`} className="btn btn--small btn-search-more" onClick={() => onClose()}> View More ({totalItems})</Link>
             </>
           )}

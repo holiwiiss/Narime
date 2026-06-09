@@ -12,7 +12,7 @@ const Landing = () => {
   
   return(
     <>
-      <header className="landing-header">
+      <section className="landing-header">
         <div className="landing-header__text">
           <p className="text-p text-color--primary">- YOUR ANIME TRACK</p>
           <h1 className="text-h1 landing-header__title">YOUR ANIME. YOUR HISTORY. IN ONLY <span className=" text-h1 landing-header__title text-color--primary"> ONE PLACE </span></h1>
@@ -25,7 +25,7 @@ const Landing = () => {
         </div>
 
         <div className="landing-header__img"></div>
-      </header>
+      </section>
 
       <main className="landing-main">
 
@@ -84,7 +84,7 @@ const Landing = () => {
                 <p className={`text-p text-color--75 ${activeBtn !== "profile" ? "visually-hidden" : ""}`}>View your stats, scores, and favorite series at a glance.</p>
               </li>
             </ul>
-            <img src={currentImage} className="landing-screens__image"/>
+            <img src={currentImage} className="landing-screens__image" alt={`${activeBtn} screen preview`}/>
           </div>
         </section>
       </main>

@@ -8,7 +8,7 @@ const LoadingComponent = ({size}:LoadingProp) => {
   return(     
     <div className="loading-component__container">
       <div className="loading-component__spinner"></div>
-      <h1 className={`loading-component__face ${size ? `loading-component__face--${size}` : ""}`}>༼ つ ◕_◕ ༽つ</h1>
+      <h2 className={`loading-component__face ${size ? `loading-component__face--${size}` : ""}`}>༼ つ ◕_◕ ༽つ</h2>
     </div>
   )
 }

@@ -31,7 +31,7 @@ const DirectoryPage = () => {
           isError={isError}
           hasNextPage={hasNextPage}
           fetchNextPage={fetchNextPage}
-          fromState={{from: "/", label: "Directory" }}
+          fromState={{from: "/directory", label: "Directory" }}
           variant={category === 'upcoming' ? "upcoming" : "directory"}
         />
       )}

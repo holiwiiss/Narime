@@ -25,7 +25,7 @@ const ErrorComponent = ({text, button, size}:ErrorProp) => {
   };
   return(
     <div className="error-component__container">
-      <h1 className={`error-component__sad-face ${size ? `error-component__sad-face--${size}`: ""}`}>(⁠╥⁠﹏⁠╥⁠)</h1>
+      <p className={`error-component__sad-face ${size ? `error-component__sad-face--${size}`: ""}`}>(⁠╥⁠﹏⁠╥⁠)</p>
       <h2 className={`text-h1 error-component__text ${size ? ` error-component__text--${size}`: ""}`}>{text}</h2>
       {button && (
         <button className="btn" onClick={reloadPage}>
