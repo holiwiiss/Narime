@@ -25,21 +25,24 @@
 }
 
 .popup__add-edit {
-    min-height: 480px;
-    
+    min-height: 520px;
 }
 
 .popup__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
+    
     gap: var(--space-s);
 }
 
 .popup__header--title {
     display: flex;
     flex-direction: column;
+}
+
+.popup__options-content {
+    position: relative;
 }
 
 .popup__options-btn {
@@ -60,16 +63,15 @@
     flex-direction: column;
     gap: var(--space-s);
 }
+
 .popup__options-btn:hover {
     background-color: var(--color-white-35);
     border-radius: var(--border-radius-xs);
 }
 
-.popup__episodes-row {
-    display: flex;
-    align-items: flex-end;
+.text-episodes-popup {
     width: 100%;
-    gap:var(--space-xxs)
+    text-align: right;
 }
 
 .popup__progress {
@@ -81,6 +83,7 @@
     &-fill{
         background-color: var(--color-red-primary);
         height: 100%;
+        transition: width 0.2s linear;
     }
 }
 

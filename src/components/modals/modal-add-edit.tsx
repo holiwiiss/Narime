@@ -104,12 +104,12 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
                 <h2 id="modal-title" className="text-h2">{animeTitle}</h2>
               </div>
               {action==="edit" && (
-                <>
+                <div className="popup__options-content">
                   <button aria-label="More options" className="popup__options-btn" onClick={() => setIsOptionsOpen(true)}>
                     <IconDots className="icon-size-m"/>
                   </button>
                   {isOptionsOpen && (<OptionsPopUp isOpen={isOptionsOpen} onClose={()=> setIsOptionsOpen(false)} onDelete={deleteAnime}/>)}
-                </>
+                </div>
               )}
             </div>
             <form onSubmit={handleSubmit(sendAction)} className="form popup__form"> 
@@ -161,12 +161,15 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
                       />
                     )}
                   />
-                  <p className="text-details text-color--75"> / {totalEpisodes} episodes</p>
                   </div>
-                  <div className="popup__progress">
-                    <div className="popup__progress-fill"
-                      style={{ width: `${calculateWidth(totalEpisodes, episodesValue)}%`}}
-                    ></div>
+
+                  <div className="popup__episodes-bar form__group">
+                    <p className="text-details text-color--75 text-episodes-popup">{episodesValue} / {totalEpisodes} episodes</p>
+                    <div className="popup__progress">
+                      <div className="popup__progress-fill"
+                        style={{ width: `${calculateWidth(totalEpisodes, episodesValue)}%`}}
+                      ></div>
+                    </div>
                   </div>
                 </div>
               )}

@@ -132,6 +132,11 @@ button {
         box-shadow: none;
         background-color: var(--color-red-primary2);
     }
+    &:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
 }
 
 .btn--big {

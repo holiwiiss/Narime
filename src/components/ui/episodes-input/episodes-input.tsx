@@ -11,7 +11,12 @@ const EpisodesInput = ({ value, onChange, max, id }: Props) => {
   return (
     <div className="episodes--wrapper">
         <div className="input--wrapper">
-        <button aria-label="Decrease episodes" type="button" className="btn btn--secondary btn--episodes-input btn-left" onClick={() => onChange(Math.max(1, value - 1))}>
+        <button aria-label="Decrease episodes" 
+          type="button" 
+          className="btn btn--secondary btn--episodes-input btn-left" 
+          onClick={() => onChange(Math.max(1, value - 1))}
+          disabled={value === 1}
+        >
           -
         </button>
         <input
@@ -22,17 +27,18 @@ const EpisodesInput = ({ value, onChange, max, id }: Props) => {
           onChange={(e) => onChange(Number(e.target.value))}
           min={1}
           max={max}
+          
         />
         <button
           aria-label="Increase episodes"
           type="button"
           className="btn btn--episodes-input btn-right"
           onClick={() => onChange(Math.min(max, value + 1))}
+          disabled={value >= max}
         >
           +
         </button>
         </div>
-        <p className="text-details text-color--75">{value}</p>
     </div>
   );
 };
