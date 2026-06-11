@@ -7,6 +7,7 @@
     max-width: var(--max-width-content);
     height: 100dvh;
     flex-shrink: 0; 
+    animation: page-in 1s ease both;
     
     &__text {
         margin-top: var(--space-xxxl);
@@ -21,7 +22,7 @@
     }
 
     @include sm{
-         padding: 0 var(--space-m);
+        padding: 0 var(--space-m);
     }
     @include xs{
         padding: 0 var(--space-xs);

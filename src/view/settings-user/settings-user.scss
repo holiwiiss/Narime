@@ -1,3 +1,7 @@
+.settings-page{
+    animation: page-in 0.25s ease both;
+}
+
 .settings-panel {
     padding: var(--space-xl);
     padding-left:calc(260px + var(--space-xl));

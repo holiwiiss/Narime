@@ -1,4 +1,14 @@
 @use "../../scss/mixin/" as *;
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
 
 .bg-popup {
     position: fixed;
@@ -10,6 +20,7 @@
     align-items: center;
     justify-content: center;
     z-index: 10;
+    animation: modal-in 0.2s ease both;
 }
 
 .popup__container {
