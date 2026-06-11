@@ -34,17 +34,21 @@ const AnimeGrid = ({ animeList, isLoading, isError, hasNextPage, fetchNextPage, 
   return (
     <>
       <ul className="cards__grid">
-        {animeList.map((anime: AnimeCardType, index ) => (
+        {animeList.map((anime: AnimeCardType, index ) => {
+          const pageSize = 25
+          const indexInBatch = index % pageSize
+          return(
           <AnimeCard
             key={anime.id}
             anime={anime}
-            index={index}
+            index={indexInBatch}
             userData={getUserListData(anime.id)}
             onOpenModal={() => openAddEditModal(anime)}
             fromState={fromState}
             variant={variant}
           />
-        ))}
+          )
+        })}
       </ul>
       {hasNextPage && (
         <div className="cards__load-more">
