@@ -30,7 +30,7 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default", fromState}:
   const showMeta = isDirectory || isUpcoming
   const showEpisodes = !isMinimal && !isRecommendations && !isDirectory && !isUpcoming
   const showProgressBar = !isMinimal && !isDirectory && !isUpcoming && !isRecommendations
-  // const showButton = !!onOpenModal
+
 
   const navigate = useNavigate()
 
@@ -63,7 +63,7 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default", fromState}:
               
             {onOpenModal && (
             
-              <button className={`btn btn--small action-item ${userData ? "btn--secondary" : ""}`} onClick={(e) => {
+              <button className={`btn btn--small action-item anime-card__button ${userData ? "btn--secondary" : ""}`} onClick={(e) => {
               e.stopPropagation()
               onOpenModal(anime.id)
               }}>

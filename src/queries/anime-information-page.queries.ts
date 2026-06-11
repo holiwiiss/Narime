@@ -2,13 +2,21 @@ import { getAnimeCharacters, getAnimeInformation } from "../services/anime-infor
 
 export const fetchAnimeInformation = async (animeID:number) => {
 
-  const [info, characters] = await Promise.all([
-    getAnimeInformation(animeID),
-    getAnimeCharacters(animeID)
-  ]);
+ try {
+    const [info, characters] = await Promise.all([
+      getAnimeInformation(animeID),
+      getAnimeCharacters(animeID)
+    ]);
 
-  return {
-    info,
-    characters,
+    return {
+      info,
+      characters,
+    };
+  } catch (error) {
+    console.error("fetchAnimeInformation error", error);
+    throw error;
   }
+
+
+ 
 }

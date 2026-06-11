@@ -179,3 +179,15 @@
     height: 100%;
     background-color: var(--color-red-primary);
 }
+
+.anime-card__button {
+    width: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: width 0.2s ease, opacity 0.2s ease;
+}
+
+.anime-card:hover .anime-card__button {
+    width: 80px; 
+    opacity: 1;
+}

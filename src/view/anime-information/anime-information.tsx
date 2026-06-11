@@ -29,6 +29,7 @@ const AnimePage = () => {
   const modalAddEdit = useAnimeModal()
   const { id } = useParams();
   const animeID = Number(id);
+  console.log(animeID + "aaa")
 
   const location = useLocation()
   const from = location.state?.from ?? "/"
@@ -37,7 +38,7 @@ const AnimePage = () => {
   const { getUserListData } = useMyListMap()
   const userData: UserAnimeListFirestoreType | undefined = getUserListData(animeID)
 
-  const {isLoading, isError, data } = useQuery({
+  const {isLoading, isError, data} = useQuery({
     queryKey:["animeInfo", animeID],
     queryFn:() => fetchAnimeInformation(animeID),
   })

@@ -88,7 +88,7 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
       <div role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title" 
-        className="surface popup__container"
+        className="surface popup__container popup__add-edit"
       >
         {!user ? (
           <div role="dialog" aria-modal="true" aria-labelledby="guest-title">
@@ -112,7 +112,8 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
                 </>
               )}
             </div>
-            <form onSubmit={handleSubmit(sendAction)} className="form"> 
+            <form onSubmit={handleSubmit(sendAction)} className="form popup__form"> 
+              <div className="popup__form-inputs">
               <div className="form__group">
                 <label htmlFor="status-selector" className="text-details">Status</label>
                 <Controller
@@ -169,6 +170,7 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
                   </div>
                 </div>
               )}
+              </div>
               <div className="form__group btn--popup-container">
                 <button type="button" className="btn btn--secondary btn--popup" onClick={onClose}>Close</button>
                 <button type="submit" className="btn btn--popup">Save</button>

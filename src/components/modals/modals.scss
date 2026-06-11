@@ -24,6 +24,11 @@
     min-height: 200px;
 }
 
+.popup__add-edit {
+    min-height: 480px;
+    
+}
+
 .popup__header {
     display: flex;
     justify-content: space-between;
@@ -43,6 +48,17 @@
     height: var(--space-xl);
     width: var(--space-xl);
     padding: var(--space-xs);
+}
+.popup__form{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.popup__form-inputs{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
 }
 .popup__options-btn:hover {
     background-color: var(--color-white-35);
