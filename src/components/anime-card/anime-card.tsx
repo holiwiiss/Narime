@@ -12,13 +12,14 @@ import IconStar from "../ui/icons/icon-star";
 
 type PropsAnimeCard = {
   anime: AnimeCardType | AnimeRecomendationCardType;
+  index?: number
   userData?: UserAnimeListFirestoreType;
   onOpenModal?: (animeId: number) => void;
   variant?: "default" | "minimal" | "directory" | "upcoming" | "mylist" | "recomendations";
   fromState?: { from: string; label: string }; 
 }
 
-const AnimeCard = ({anime, userData, onOpenModal, variant="default", fromState}: PropsAnimeCard) => {
+const AnimeCard = ({anime, index =0, userData, onOpenModal, variant="default", fromState}: PropsAnimeCard) => {
 
   const isMinimal = variant === "minimal"
   const isDirectory = variant === "directory"
@@ -35,7 +36,7 @@ const AnimeCard = ({anime, userData, onOpenModal, variant="default", fromState}:
   const navigate = useNavigate()
 
   return(
-    <li className="anime-card-wrapper">
+    <li className="anime-card-wrapper" style={{ '--delay': `${index * 0.05}s` } as React.CSSProperties}>
       <article className="anime-card" onClick={()=> navigate(`/anime/${anime.id}`, { state: fromState })}>
         <img className="anime-card-img" src={anime.image} alt={anime.title}></img>
         <header className="anime-card__header">

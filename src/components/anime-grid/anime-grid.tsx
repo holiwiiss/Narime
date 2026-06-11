@@ -34,10 +34,11 @@ const AnimeGrid = ({ animeList, isLoading, isError, hasNextPage, fetchNextPage, 
   return (
     <>
       <ul className="cards__grid">
-        {animeList.map((anime: AnimeCardType) => (
+        {animeList.map((anime: AnimeCardType, index ) => (
           <AnimeCard
             key={anime.id}
             anime={anime}
+            index={index}
             userData={getUserListData(anime.id)}
             onOpenModal={() => openAddEditModal(anime)}
             fromState={fromState}

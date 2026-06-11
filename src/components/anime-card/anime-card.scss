@@ -1,5 +1,16 @@
 @use "../../scss/mixin" as *;
 
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .anime-card-wrapper {
     // Quiero 5 tarjetas por fila, pues 100%/ 5 = 20% - 128 ya que el gap es de 32px,
     // 32 x 4 = 192, cuatro espacios  intermedios entre tarjetas /5 tarjetas a las que dividir el espacio
@@ -8,6 +19,8 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-s);
+    animation: card-in 0.3s ease both;
+    animation-delay: var(--delay, 0s);
 
     @include lg{
         width:calc((100% - 96px) / 4);
