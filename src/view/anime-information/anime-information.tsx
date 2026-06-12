@@ -14,6 +14,7 @@ import { calculateWidth } from "../../utils/calculate-width";
 import { formatStatus } from "../../utils/format-status";
 import ModalAddEditAnime from "../../components/modals/modal-add-edit";
 import Tabs from "../../components/ui/tabs/tabs";
+import { truncateWords } from "../../utils/truncate-word";
 
 const ANIME_INFO_TABS: { value: "sinopsis" | "actors" | "trailer"; label: string }[] = [
   { value: "sinopsis", label: "Synopsis" },
@@ -66,7 +67,6 @@ const AnimePage = () => {
       {!animeInfo ? (
         <h1>No anime found</h1>
       ) : (
-        <>
         <main className="anime-page">
 
           <div className="anime-page__container">
@@ -90,7 +90,7 @@ const AnimePage = () => {
                     </svg>
                   </li>
                   <li className="breadcrumbs__item">
-                    <p className="text-details text-color--75">{animeInfo.title}</p>
+                    <p className="text-details text-color--75"> {truncateWords(animeInfo.title, 3)}</p>
                   </li>
                 </ol>
               </nav>
@@ -99,7 +99,7 @@ const AnimePage = () => {
                 <div className="anime-page__info-texts">
                   <h1 className="text-h1 anime-page__info-title">{animeInfo.title}</h1>
                   <p className="text-p text-color--primary">{animeInfo.titleEnglish}</p>
-                  <p className="text-p text-color--50">{formatDate(animeInfo.aired[0])} - {formatDate(animeInfo.aired[1])}</p>
+                  <p className="text-details text-color--50">{formatDate(animeInfo.aired[0])} - {formatDate(animeInfo.aired[1])}</p>
                 </div>
                 <div className="anime-page__info-user-options">
                   {userData && (
@@ -122,31 +122,31 @@ const AnimePage = () => {
                     </svg>
                   ):(
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--color-white)" className="size-6 icon-size-m" aria-hidden="true">
-                    <path fillRule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
+                      <path fillRule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
                     </svg>
                   )}
                 </button>
                 <div className="anime-page__stats-global">
                   <div className="anime-page__stat-item">
                     <p className="text-h1">{animeInfo.score ?? "N/A"}</p>
-                    <p className="text-details text-color--75 anime-page__content-item-label">Global Score</p>
+                    <p className="anime-page__more-info-item-title anime-page__content-item-label">Global score</p>
                   </div>
 
                   {userData && userData.scorePersonal && (
                     <div className="anime-page__stat-item">
                       <p className="text-h1">{userData.scorePersonal}</p>
-                      <p className="text-details text-color--75 anime-page__content-item-label">Your Score</p>
+                      <p className="anime-page__more-info-item-title anime-page__content-item-label">YOUR SCORE</p>
                     </div>
                   )}
 
                   <div className="anime-page__stat-item">
                     <p className="text-h1"># {animeInfo.rank ?? "N/A"}</p>
-                    <p className="text-details text-color--75 anime-page__content-item-label">Ranked</p>
+                    <p className="anime-page__more-info-item-title anime-page__content-item-label">RANKED</p>
                   </div>
 
                   <div className="anime-page__stat-item">
                     <p className="text-h1">{formatNumber(animeInfo.members)}</p>
-                    <p className="text-details text-color--75 anime-page__content-item-label">Watching</p>
+                    <p className="anime-page__more-info-item-title anime-page__content-item-label">WATCHING</p>
                   </div> 
                 </div>
                 {userData && (
@@ -288,7 +288,7 @@ const AnimePage = () => {
             
         </section>
       </main>
-</>
+
 )}
 
       {modalAddEdit.isOpen && modalAddEdit.animeId &&(

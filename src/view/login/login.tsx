@@ -22,15 +22,9 @@ const LoginPage = () => {
   return (
     <>
     <div className="login-page--background">
-      <main className="login-page">
+      <div className="login-page">
         
         <section className="login-page__hero">
-          <header className="login-page__header">
-            <Link to="/">
-              <img src="#" alt="Narime logo" className="login-page__logo"></img>
-            </Link>
-          </header>
-
           <div className="login-page__content">
             <h1 className="text-h1"> EVERY STORY MATTERS, YOURS TOO </h1>
             <p className="text-p"> Narime allows you to create smart lists, dynamic rankings, and personalized recommendations.</p>
@@ -71,7 +65,7 @@ const LoginPage = () => {
               ></input>
               {errors.password && <p className="form__error" role="alert">{errors.password.message}</p>}
             </div>
-            <Link to="" className="text-details login-page__forget-password">Forget your password?</Link>
+            <Link to="" className="text-details login-page__forget-password">Forgot your password?</Link>
             
             {isError && (<p className="form__error" role="alert">An error occurred while signing in</p>)}
             {isLoading && (<p aria-live="polite">Signing in...</p>)}
@@ -90,7 +84,7 @@ const LoginPage = () => {
           <Link to="/register" className="text-details form__singup">Don't have an account? Register here</Link>
         </section>
 
-      </main>
+      </div>
     </div>
     </>
   );

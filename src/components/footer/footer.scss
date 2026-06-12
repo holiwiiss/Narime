@@ -11,6 +11,13 @@
     border-top: 2px solid var(--color-white-15);
     @include md{
         flex-direction: column;
+        padding: var(--space-l) var(--space-xl);
+    }
+    @include sm{
+        padding: var(--space-m) var(--space-m);
+    }
+    @include xs{
+        padding: var(--space-xs) var(--space-xs);
     }
 }
 

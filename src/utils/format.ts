@@ -6,7 +6,12 @@ export const formatNumber = (num: number) => {
 };
 
 export const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("es-ES");
+  const date = new Date(dateString);
+  const day = date.getDate();
+  const month = date.toLocaleString("en-US", { month: "long" });
+  const year = date.getFullYear();
+
+  return `${day} of ${month}, ${year}`;
 };
 
 export const formatSynopsis = (synopsis: string): string[] => {

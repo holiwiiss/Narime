@@ -10,7 +10,7 @@ export const fetchMyList = async (myList: UserAnimeListFirestoreType[]) => {
   for (const anime of myList) {
     const data = await getAnimeInformationTypeList(anime.animeId);
     results.push(data);
-    await delay(400); 
+    await delay(100); 
   }
   
   return results;

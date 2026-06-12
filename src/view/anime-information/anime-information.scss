@@ -4,6 +4,7 @@
     width: 100%;
     max-width: var(--max-width-content);
     padding: var(--space-xxl) var(--space-xxl);
+    animation: page-in 0.5s ease both;
     
     @include md{
         padding: var(--space-l) var(--space-xl);
@@ -385,6 +386,7 @@
 
         &-title {
             letter-spacing: 2px;
+            font-family: var(--font-primary);
             color: var(--color-white-50);
             font-size: var(--font-size-2);
             font-weight: var(--font-light);

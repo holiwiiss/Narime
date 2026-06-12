@@ -21,8 +21,7 @@ const RegisterPage = () => {
   }
 
   return (
-    <>
-    <main className="register-page">
+    <div className="register-page">
       <section className="surface register-page__panel">
         <div>
           <h1 className="text-h2">Start now</h1>
@@ -114,8 +113,7 @@ const RegisterPage = () => {
         <button disabled={isLoading} className="btn btn--secondary btn--big"  onClick={registerWithGoogle}>Continue with Google</button>
         <Link to="/login" className="text-details form__singup">Already have an account? Sign in here</Link>
       </section>
-    </main>
-    </>
+    </div>
   );
 };
 

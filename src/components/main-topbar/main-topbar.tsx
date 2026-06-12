@@ -29,12 +29,12 @@ const Topbar = () => {
         <nav className="topbar--nav">
           <NavLink to='/directory' className={({ isActive }) => `action-item nav--option ${isActive ? "nav--option--active" : ""}`}>
             <IconHome className="size-6 action-item__icon"/>
-            <span className="text-p text-color--75 action-item__text">Home</span>
+            <span className="text-p text-color--75 action-item__text">Explore</span>
           </NavLink>
 
           <NavLink to='/discover' className={({ isActive }) => `action-item nav--option ${isActive ? "nav--option--active" : ""}`}>
             <IconDiscover className="size-6 action-item__icon"/>
-            <span className="text-p text-color--75 action-item__text">Discover</span>
+            <span className="text-p text-color--75 action-item__text">Filter</span>
           </NavLink>
 
           {user && 

@@ -17,16 +17,23 @@
         gap: var(--space-s);
         text-align: center;
     }
-    &__title {
-        font-size:var(--font-size-9);
-    }
-
     @include sm{
         padding: 0 var(--space-m);
     }
     @include xs{
         padding: 0 var(--space-xs);
     }
+}
+
+.landing-header__title {
+    font-size:var(--font-size-9);
+}
+
+.landing-h2 {
+    font-size:var(--font-size-8);
+}
+.landing-h3 {
+     font-size:var(--font-size-7);
 }
 
 .landing-header__cta {

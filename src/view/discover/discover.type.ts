@@ -10,6 +10,6 @@ export type FiltersType = {
 }
 
 export const TYPE_LIST = ["TV", "OVA", "Movie", "Special", "ONA"]
-export const STATUS_LIST = ["airing", "complete", "upcoming"]
+export const STATUS_LIST = ["Airing", "Complete", "Upcoming"]
 export const SCORE_LIST = ["9", "8", "7", "6", "5", "4", "3", "2", "1", "0"]
-export const SORT_LIST = ["asc", "desc"]
+export const SORT_LIST = ["Asc", "Desc"]
