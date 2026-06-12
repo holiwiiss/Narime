@@ -54,28 +54,28 @@ const Landing = () => {
           </header>
           <div className="landing-features__content">
             <div className="landing-features__content--item">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="var(--color-white)" className="size-6 icon-size-xl">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="var(--color-white-75)" className="size-6 icon-size-xl">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
               </svg>
               <h3 className="text-h3 landing-h3"><span className="text-h3 landing-h3 text-color--primary">Track</span> your progress</h3>
               <p className="text-p">Mark episodes as watched, update statuses, and rate each anime as you go.</p>
             </div>
             <div className="landing-features__content--item">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="var(--color-white)" className="size-6 icon-size-xl">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="var(--color-white-75)" className="size-6 icon-size-xl">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
               </svg>
               <h3 className="text-h3 landing-h3"><span className="text-h3 landing-h3 text-color--primary">Your list</span>, organized</h3>
               <p className="text-p">Easily manage what you're watching, completed, dropped, or plan to watch.</p>
             </div>
             <div className="landing-features__content--item">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="var(--color-white)" className="size-6 icon-size-xl">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="var(--color-white-75)" className="size-6 icon-size-xl">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
               </svg>
               <h3 className="text-h3 landing-h3"><span className="text-h3 landing-h3 text-color--primary">Discover</span> more anime</h3>
               <p className="text-p">Browse titles by season, popularity, rating, and find new stories to add to your list.</p>
             </div>
             <div className="landing-features__content--item">
-              <IconUser fill="var(--color-white)" className="icon-size-xl"/>
+              <IconUser fill="var(--color-white-75)" className="icon-size-xl"/>
               <h3 className="text-h3 landing-h3"><span className="text-h3 landing-h3 text-color--primary">Your profile</span> of fan</h3>
               <p className="text-p">Check your stats, favorites, and your full anime history all in one place.</p>
             </div>
