@@ -101,6 +101,7 @@
     flex-direction: column;
     gap: var(--space-l);
     padding: var(--space-l) 0;
+    animation: page-in 0.25s ease both;
 }
 
 .user-page__stats-grid-line {

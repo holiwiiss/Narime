@@ -50,9 +50,6 @@ const Topbar = () => {
                 {!isSearchOpen && (
                   <span className="text-p text-color--75 action-item__text">Search</span>
                 )}
-              </div>
-
-              <div className={`search-input-wrap ${isSearchOpen ? 'open' : ''}`}>
                 <SearchAnimeComponent isOpen={isSearchOpen}  onClose={() => setIsSearchOpen(false)}  />
               </div>
             </div>

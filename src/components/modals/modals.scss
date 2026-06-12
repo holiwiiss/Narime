@@ -36,6 +36,7 @@
 }
 
 .popup__add-edit {
+    height: 520px;
     min-height: 520px;
 }
 
@@ -142,4 +143,21 @@
 .popup__delete-anime {
     width: 100%;
     text-align: center;
+}
+
+.popup__guest {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-xxl);
+    &-btns {
+        display: flex;
+        gap:  var(--space-s);
+    }
+    &-btn {
+        display: flex;
+        justify-content: center;
+        width: calc(50% - var(--space-s));
+    }
 }

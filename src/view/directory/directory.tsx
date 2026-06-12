@@ -13,7 +13,7 @@ const DirectoryPage = () => {
   const {isLoading, isError, animeList, fetchNextPage, hasNextPage} = useDirectoryAnimes(category)
 
   return (
-    <section className="content-max" aria-labelledby="directory-title">
+    <section className="content-max directory-page" aria-labelledby="directory-title">
       <h1 id="directory-title" className="visually-hidden">Directory Anime</h1> 
       <nav className="my-list__options tab__container" aria-label="Category filters">
         <Tabs

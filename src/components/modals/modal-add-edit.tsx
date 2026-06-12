@@ -85,19 +85,29 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
 
   return (
     <div role="presentation" className="bg-popup">
-      <div role="dialog"
-        aria-modal="true"
-        aria-labelledby="modal-title" 
-        className="surface popup__container popup__add-edit"
-      >
         {!user ? (
-          <div role="dialog" aria-modal="true" aria-labelledby="guest-title">
-            <h2 id="guest-title" className="text-h2">You're not logged in</h2>
-            <p className="text-p text-color--75">Sign in to start saving your progress</p>
-            <Link to="/login" className="btn">Sign in</Link>
+          <div role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title" 
+            className="surface popup__container"
+          >
+            <div role="dialog" aria-modal="true" aria-labelledby="guest-title" className="popup__guest">
+              <div>
+                <h2 id="guest-title" className="text-h2">You're not logged in</h2>
+                <p className="text-p text-color--75">Sign in to start saving your progress</p>
+              </div>
+              <div className="popup__guest-btns">
+                <button className="btn btn--secondary popup__guest-btn" onClick={onClose}>Close</button>
+                <Link to="/login" className="btn popup__guest-btn">Sign in</Link>
+              </div>
+            </div>
           </div>
         ):(
-          <>
+          <div role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title" 
+            className="surface popup__container popup__add-edit"
+          >
             <div className="popup__header">
               <div className="popup__header--title">
                 <p className="text-p text-color--75">{action === "add" ? "Adding to my list" : "Editing"}</p>
@@ -179,9 +189,8 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
                 <button type="submit" className="btn btn--popup">Save</button>
               </div>
             </form>
-          </>
+          </div>
         )}
-      </div>
     </div>
   );
 };

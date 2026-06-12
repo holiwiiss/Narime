@@ -54,7 +54,7 @@ const UserPage = () => {
           <header className="user-page__header">
             <div className="user-page__edit">
               <h1 className="text-h1">{userData.username}</h1>
-              <Link to="/settings-user" className="btn btn--secondary btn--small">Edit profile</Link>
+              <Link to="/settings-user" className="btn btn--secondary">Edit profile</Link>
             </div>
             <p className="text-p text-color--75 user-page__biography">{userData.description}</p>
 
@@ -128,7 +128,7 @@ const UserPage = () => {
               <div className="user-page__favorites">
                 <header className="user-page__favorites-header">
                   <h2 className="text-h2">Your Favorites</h2>
-                  <button className="btn" onClick={() => setIsOpenRemoveFavorite(true)}>Edit favorites</button>
+                  <button className="btn btn--secondary" onClick={() => setIsOpenRemoveFavorite(true)}>Edit favorites</button>
                 </header>
                 <div className="user-page__favorites-grid">
                   {isLoadingFavorites ? (

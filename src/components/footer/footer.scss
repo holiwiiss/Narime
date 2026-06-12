@@ -48,3 +48,16 @@
 .footer-nav__item{
     text-decoration: underline;
 }
+.footer-social{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+}
+.footer-social__icons {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-l);
+}
+.footer-social__icons-item {
+    cursor: pointer;
+}

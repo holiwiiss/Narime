@@ -92,7 +92,7 @@ const DiscoverPage = () => {
               options={SCORE_LIST}
               value={String(filters.score ?? "")}
               onChange={(value) => updateFilter("score", value)}
-              onReset={() => updateFilter("sort", null)}
+              onReset={() => updateFilter("score", null)}
               containerWidth= {"115px"}
               firstValue="Score"
             />

@@ -19,6 +19,12 @@ const SearchAnimeComponent = ({ isOpen, onClose }: Props) => {
   const [inputValue, setInputValue] = useState("");
   const debounceInput = useDebounce(inputValue, 300)
   const { isLoading, isError, searchList, totalItems } = useAnimeSearch(debounceInput)
+  
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
