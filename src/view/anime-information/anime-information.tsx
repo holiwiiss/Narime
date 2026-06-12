@@ -33,7 +33,7 @@ const AnimePage = () => {
   console.log(animeID + "aaa")
 
   const location = useLocation()
-  const from = location.state?.from ?? "/"
+  const from = location.state?.from ?? "/directory"
   const fromLabel = location.state?.label ?? "Directory"
 
   const { getUserListData } = useMyListMap()
