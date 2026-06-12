@@ -5,11 +5,23 @@ import "./landing.scss"
 import { useState } from "react"
 import IconUser from "../icons/icon-user"
 import { Link } from "react-router-dom"
+import FakeAnimeCard from "../../anime-card/fake-anime-card"
 
 const Landing = () => {
   const [activeBtn, setActiveBtn] = useState<string>("directory")
   const [currentImage, setCurrentImage] = useState(directoryImg)
   
+  const CARDS = [
+    { image: "https:\/\/cdn.myanimelist.net\/images\/anime\/1025\/147458l.webp", title: "Kusuriya no Hitorigoto 2nd Season", score: 8.91, year: 2025, type: "TV" },
+    { image: "https:\/\/cdn.myanimelist.net\/images\/anime\/1122\/96435l.webp", title: "Koe no Katachi", score: 8.93, year: 2016, type: "Movie" },
+    { image: "https:\/\/cdn.myanimelist.net\/images\/anime\/1726\/155542l.webp", title: "Tongari Boushi no Atelier", score: 8.7, year: 2026, type: "TV" },
+    { image: "https:\/\/cdn.myanimelist.net\/images\/anime\/1763\/150638l.webp", title: "Chainsaw Man Movie: Reze-hen", score: 9.07, year: 2025, type: "Movie" },
+    { image: "https:\/\/cdn.myanimelist.net\/images\/anime\/1795\/95088l.webp", title: "Violet Evergarden", score: 8.69, year: 2018, type: "TV" },
+    { image: "https:\/\/cdn.myanimelist.net\/images\/anime\/1405\/143284l.webp", title: "Shigatsu wa Kimi no Uso", score: 8.64, year: 2024, type: "TV" },
+    { image: "https:\/\/cdn.myanimelist.net\/images\/anime\/1908\/120036l.webp", title: "Kimetsu no Yaiba: Yuukaku-hen", score: 8.69, year: 2021, type: "TV" },
+    { image: "https:\/\/cdn.myanimelist.net\/images\/anime\/1791\/154233l.webp", title: "Ikoku Nikki", score: 8.74, year: 2026, type: "TV" },
+  ]
+
   return(
     <>
       <section className="landing-header">
@@ -24,7 +36,13 @@ const Landing = () => {
           <Link to="/directory" className="btn btn--big btn--secondary text-btn">Explore</Link>
         </div>
 
-        <div className="landing-header__img"></div>
+        <div className="landing-carousel">
+          <div className="landing-carousel__track">
+            {[...CARDS, ...CARDS].map((card, i) => (
+              <FakeAnimeCard key={i} {...card} />
+            ))}
+          </div>
+        </div>
       </section>
 
       <main className="landing-main">

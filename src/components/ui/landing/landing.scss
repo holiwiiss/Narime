@@ -33,7 +33,7 @@
     font-size:var(--font-size-8);
 }
 .landing-h3 {
-     font-size:var(--font-size-7);
+    font-size:var(--font-size-7);
 }
 
 .landing-header__cta {
@@ -43,21 +43,32 @@
     gap: var(--space-l)
 }
 
-.landing-header__img {
+.landing-carousel {
     margin-top: var(--space-xxl);
-    flex:1;
-    background-image: 
-        linear-gradient(
-            to right,
-            var(--color-menu-bg) 0%,
-            rgba(0,0,0,0) 20%,
-            rgba(0,0,0,0) 80%,
-            var(--color-menu-bg) 100%
-        ),
-        url('../../../assets/images/anime-cards.png');
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
+    flex: 1;
+    overflow: hidden;
+    width: 100%;
+    mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 10%,
+        black 90%,
+        transparent
+    ); 
+    
+}
+
+.landing-carousel__track {
+    display: flex;
+    gap: var(--space-m);
+    animation: scroll 30s linear infinite;
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 .landing-main {
