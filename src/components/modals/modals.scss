@@ -35,10 +35,7 @@
     min-height: 200px;
 }
 
-.popup__add-edit {
-    height: 520px;
-    min-height: 520px;
-}
+
 
 .popup__header {
     display: flex;
@@ -68,7 +65,9 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    min-height: 342px;
 }
+
 .popup__form-inputs{
     flex: 1;
     display: flex;
@@ -160,4 +159,12 @@
         justify-content: center;
         width: calc(50% - var(--space-s));
     }
+}
+
+.popup__title {
+    display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;  
+    line-clamp: 2;  
+    overflow: hidden;  
 }

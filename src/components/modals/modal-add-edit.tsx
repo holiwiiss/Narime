@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./modals.scss"
 import { useForm, useWatch, Controller} from "react-hook-form";
 import { Link } from "react-router-dom";
@@ -35,12 +35,13 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
   const { user } = useAuth()
   const { addAnimeToMyList, editAnimeToMyList, deleteAnimeToMyList } = useMyAnimeList()
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+  const prevStatusRef = useRef<AnimePersonalStatusType | null>(null)
   
-
   const {
     handleSubmit,
     reset,
     control,
+    setValue
   } = useForm<PopUpFormInputs>({
     defaultValues: {
       animeId,
@@ -52,6 +53,7 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
 
   const statusValue = useWatch({ control, name: "status" })
   const episodesValue = useWatch({ control, name: "episodes" }) 
+  
   useEffect(() => {
     if (action === "edit" && infoDocIdUserAnime) {
       reset({
@@ -63,6 +65,27 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
     }
 
   }, [action, infoDocIdUserAnime, animeId, reset])
+
+  useEffect(() => {
+    if (
+      totalEpisodes > 0 &&
+      episodesValue === totalEpisodes &&
+      statusValue === "watching" &&
+      prevStatusRef.current === "watching"
+    ) {
+      setValue("status", "completed")
+    }
+  }, [episodesValue, totalEpisodes, statusValue, setValue])
+
+  useEffect(() => {
+    if (prevStatusRef.current === "completed" && statusValue === "watching") {
+      setValue("episodes", 1)
+    }
+    if (prevStatusRef.current !== "completed" && statusValue === "completed" && totalEpisodes > 0) {
+      setValue("episodes", totalEpisodes)
+    }
+    prevStatusRef.current = statusValue
+  }, [statusValue])
 
   const sendAction = async (data:PopUpFormInputs) =>{
     if(data.status === "completed") data.episodes = totalEpisodes
@@ -111,7 +134,7 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
             <div className="popup__header">
               <div className="popup__header--title">
                 <p className="text-p text-color--75">{action === "add" ? "Adding to my list" : "Editing"}</p>
-                <h2 id="modal-title" className="text-h2">{animeTitle}</h2>
+                <h2 id="modal-title" className="text-h2 popup__title">{animeTitle}</h2>
               </div>
               {action==="edit" && (
                 <div className="popup__options-content">
@@ -172,17 +195,18 @@ const ModalAddEditAnime = ({animeId, totalEpisodes, animeTitle, action, infoDocI
                     )}
                   />
                   </div>
+                </div>
+              )}
 
-                  <div className="popup__episodes-bar form__group">
+                <div className="popup__episodes-bar form__group">
                     <p className="text-details text-color--75 text-episodes-popup">{episodesValue} / {totalEpisodes} episodes</p>
                     <div className="popup__progress">
                       <div className="popup__progress-fill"
                         style={{ width: `${calculateWidth(totalEpisodes, episodesValue)}%`}}
                       ></div>
                     </div>
-                  </div>
                 </div>
-              )}
+
               </div>
               <div className="form__group btn--popup-container">
                 <button type="button" className="btn btn--secondary btn--popup" onClick={onClose}>Close</button>

@@ -24,10 +24,13 @@ const EpisodesInput = ({ value, onChange, max, id }: Props) => {
           className="text-p input input--episodes"
           type="number"
           value={value}
-          onChange={(e) => onChange(Number(e.target.value))}
+          onChange={(e) => {
+            const parsed = Number(e.target.value)
+            const clamped = Math.min(max, Math.max(1, parsed))
+            onChange(clamped)
+          }}
           min={1}
           max={max}
-          
         />
         <button
           aria-label="Increase episodes"

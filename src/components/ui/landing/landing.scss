@@ -1,6 +1,7 @@
 @use "../../../scss/mixin" as *;
 
 .landing-header {
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -46,13 +47,16 @@
 .landing-carousel {
     margin-top: var(--space-xxl);
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     overflow: hidden;
     width: 100%;
     mask-image: linear-gradient(
         to right,
         transparent,
-        black 10%,
-        black 90%,
+        var(--color-menu-bg) 10%,
+        var(--color-menu-bg) 90%,
         transparent
     ); 
     
@@ -64,6 +68,7 @@
     animation: scroll 30s linear infinite;
     width: 100%;
     height: 100%;
+    max-height: 500px;
 }
 
 @keyframes scroll {
@@ -72,6 +77,7 @@
 }
 
 .landing-main {
+    margin: 0 auto;
     width: 100%;
     display: flex;
     flex-direction: column;

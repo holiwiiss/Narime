@@ -1,8 +1,6 @@
 @use "../../scss/mixin/" as *;
 
 .anime-page {
-    width: 100%;
-    max-width: var(--max-width-content);
     padding: var(--space-xxl) var(--space-xxl);
     animation: page-in 0.5s ease both;
     

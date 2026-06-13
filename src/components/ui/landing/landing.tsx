@@ -45,7 +45,7 @@ const Landing = () => {
         </div>
       </section>
 
-      <main className="landing-main">
+      <div className="landing-main">
 
         <section className="landing-features">
           <header className="landing-section__header">
@@ -105,7 +105,7 @@ const Landing = () => {
             <img src={currentImage} className="landing-screens__image" alt={`${activeBtn} screen preview`}/>
           </div>
         </section>
-      </main>
+      </div>
       <section className="landing-end">
           <h2 className="text-h1 landing-header__title">Take Your anime to the <span className="text-h1 landing-header__title text-color--primary">next level.</span></h2>
           <p className="text-p text-color--75">No hassle. Start managing your list in under a minute. Begin building your history, discover <br/> new series, and keep all your progress perfectly organized.</p>

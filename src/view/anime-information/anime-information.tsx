@@ -67,7 +67,7 @@ const AnimePage = () => {
       {!animeInfo ? (
         <h1>No anime found</h1>
       ) : (
-        <main className="anime-page">
+        <div className="anime-page content-max">
 
           <div className="anime-page__container">
 
@@ -287,7 +287,7 @@ const AnimePage = () => {
               
             
         </section>
-      </main>
+      </div>
 
 )}
 

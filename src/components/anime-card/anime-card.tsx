@@ -28,8 +28,7 @@ const AnimeCard = ({anime, index =0, userData, onOpenModal, variant="default", f
   const isRecommendations = variant ==="recomendations"
 
   const showScore = !isRecommendations && !isMinimal
-  const showMeta = isDirectory || isUpcoming
-  const showEpisodes = !isMinimal && !isRecommendations && !isDirectory && !isUpcoming
+  const showMeta = !isMinimal && !isRecommendations 
   const showProgressBar = !isMinimal && !isDirectory && !isUpcoming && !isRecommendations
 
 
@@ -52,13 +51,13 @@ const AnimeCard = ({anime, index =0, userData, onOpenModal, variant="default", f
         <footer className="anime-card__footer">
           <div className="anime-card__options">
             <div className="anime-card__info">
-              {showMeta && <p className="text-details">{anime.type} · {anime.year ?? "N/A"}</p>}
-
-              {showEpisodes && (
+              {showMeta && (
                 <p className="text-details">
-                  {userData ? `${userData.episodesWatched} / ${anime.episodes} episodes` : `${anime.episodes} episodes`}
+                  {anime.type} ·
+                  {userData ? ` ${userData.episodesWatched} / ${anime.episodes} episodes` : ` ${anime.episodes} episodes`}
                 </p>
               )}
+            
               <h2 className="text-card anime-card__title">{anime.title}</h2>
             </div>
               
