@@ -101,7 +101,6 @@
     }
 }
 
-
 .anime-page__info-user-options {
     display: flex;
     align-items: center;
@@ -111,24 +110,6 @@
     }
     @include xs{
         flex-direction: column;
-    }
-}
-
-.anime-page__status{
-    &-label {
-        white-space: nowrap;
-        @include sm{
-            display: none;
-        }
-    }
-    &-value {
-        padding: var(--space-xs) var(--space-s);
-        background-color: var(--color-white-15);
-        border: solid 1px var(--color-white-20);
-        border-radius: var(--border-radius-xl);
-        @include sm{
-            padding: var(--space-xxs) var(--space-xs);
-        }
     }
 }
 

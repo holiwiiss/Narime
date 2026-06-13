@@ -12,6 +12,7 @@ import { MYLIST_TABS, ORDER_MYLIST } from "./my-list.type";
 import { useMyList } from "./use-my-list";
 import { useMyAnimeList } from "../../hooks/use-my-list";
 import { useMyListStats } from "../../hooks/use-my-list-stats";
+import ErrorComponent from "../../components/error-component/error-component";
 
 const MyListPage = () =>{
   const { stats } = useMyListStats()
@@ -23,6 +24,8 @@ const MyListPage = () =>{
   const [activeCategory, setActiveCategory] = useState <"all" | AnimePersonalStatusType>("all");
   const [searchAnime, setSearchAnime] = useState<string | null>(null)
   const [selectedFilter, setSelectedFilter] = useState("");
+
+  
 
   const tabsWithCount = MYLIST_TABS.map(tab => ({
   ...tab,
@@ -51,6 +54,15 @@ const MyListPage = () =>{
 
     return definitiveList
   }, [myAnimeList, activeCategory, searchAnime, selectedFilter, getUserListData, orderByStatus, orderByAlphabetical, orderByScore, orderByEpisodesWatched]);
+
+  const isEmpty =!searchAnime && listToShow.length === 0
+  const isSearchEmpty = searchAnime && listToShow.length === 0
+
+  const emptyState = isEmpty ? (
+    <ErrorComponent text="Your list is empty" button={{ label: "Search Anime", action: { type: "navigate", href:"/directory" }}} />
+  ) : isSearchEmpty ? (
+    <ErrorComponent text={`No anime found for "${searchAnime}"`} />
+  ) : undefined
 
 return(
   <main className="content-max">
@@ -85,7 +97,7 @@ return(
         isError={isError}
         fromState={{ from: "/my-list", label: "My List" }}
         variant="mylist"
-        emptyText="Your list is empty"
+        emptyState={emptyState}
       />
   </main>
 )}

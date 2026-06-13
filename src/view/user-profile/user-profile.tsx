@@ -39,7 +39,7 @@ const UserPage = () => {
 
   return(
   <>
-    <section className="user-page__content">
+    <section className="user-page__content content-max">
     
     {isLoadingUser || !userData || !user ? (
       <LoadingComponent/>
@@ -158,28 +158,23 @@ const UserPage = () => {
             </div>
             )}
           </div>
-
-          {isOpenAddFavorite && (
-          <ModalAddFavorites
-            listFavoriteId = {list}
-            userId={user.uid}
-            onClose={() => setIsOpenAddFavorite(false)}
-          ></ModalAddFavorites>
-        )} 
-
-        {isOpenRemoveFavorite && (
-          <ModalRemoveFavorites
-            listFavoriteInformation={myFavoriteList}
-            userId={user.uid}
-            onClose={() => setIsOpenRemoveFavorite(false)}
-          >
-          </ModalRemoveFavorites>
-        )}    
-
-        
       </>
     )}
     </section>
+    {isOpenAddFavorite && (
+      <ModalAddFavorites
+        listFavoriteId = {list}
+        userId={user.uid}
+        onClose={() => setIsOpenAddFavorite(false)}
+      />
+    )} 
+    {isOpenRemoveFavorite && (
+      <ModalRemoveFavorites
+        listFavoriteInformation={myFavoriteList}
+        userId={user.uid}
+        onClose={() => setIsOpenRemoveFavorite(false)}
+      />
+    )} 
   </>);
 };
 

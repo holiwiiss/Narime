@@ -1,4 +1,5 @@
 @use "../../scss/mixin/" as *;
+
 @keyframes modal-in {
   from {
     opacity: 0;
@@ -34,8 +35,6 @@
     transition: height 0.2s ease;
     min-height: 200px;
 }
-
-
 
 .popup__header {
     display: flex;

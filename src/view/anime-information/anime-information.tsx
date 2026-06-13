@@ -104,8 +104,7 @@ const AnimePage = () => {
                 <div className="anime-page__info-user-options">
                   {userData && (
                     <>
-                      <p className="text-p text-color--50 anime-page__status-label">Your status:</p>
-                      <span className="text-p text-color--75 anime-page__status-value">{formatStatus(userData.statusPersonal)}</span>
+                      <span className="text-p text-color--75 badge" data-status={userData.statusPersonal}>{formatStatus(userData.statusPersonal)}</span>
                     </>
                   )}
                 </div>

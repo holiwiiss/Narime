@@ -15,7 +15,7 @@ type PropsModal = {
 }
 
 export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal) => {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState("A");
   const queryClient = useQueryClient()
   const debounceInput = useDebounce(inputValue, 300)
   const { isLoading, isError, searchList } = useAnimeSearch(debounceInput)

@@ -15,12 +15,14 @@ type Props = {
   fetchNextPage?: () => void
   fromState: { from: string; label: string }
   variant?: "default" | "minimal" | "directory" | "upcoming" | "mylist" | "recomendations";
+  emptyState?: React.ReactNode
   emptyText?: string
 }
 
-const AnimeGrid = ({ animeList, isLoading, isError, hasNextPage, fetchNextPage, fromState, variant, emptyText }: Props) => {
+const AnimeGrid = ({ animeList, isLoading, isError, hasNextPage, fetchNextPage, fromState, variant,emptyState, emptyText }: Props) => {
   const { getUserListData } = useMyListMap()
   const modalAddEdit = useAnimeModal()
+  
 
   const openAddEditModal = useCallback((anime: AnimeCardType) => {
     const userData = getUserListData(anime.id)
@@ -29,7 +31,7 @@ const AnimeGrid = ({ animeList, isLoading, isError, hasNextPage, fetchNextPage, 
 
   if (isLoading) return <LoadingComponent />
   if (isError) return <ErrorComponent text="Something went wrong" button={{ label: "Try again", action: { type: "reload" }}} />
-  if (animeList.length === 0) return <ErrorComponent  text={emptyText ?? "No anime found"} />
+  if (animeList.length === 0) return emptyState ?? <ErrorComponent  text={emptyText ?? "No anime found"} />
 
   return (
     <>
