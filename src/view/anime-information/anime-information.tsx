@@ -15,6 +15,7 @@ import { formatStatus } from "../../utils/format-status";
 import ModalAddEditAnime from "../../components/modals/modal-add-edit";
 import Tabs from "../../components/ui/tabs/tabs";
 import { truncateWords } from "../../utils/truncate-word";
+import Review from "../../components/reviews/review";
 
 const ANIME_INFO_TABS: { value: "sinopsis" | "actors" | "trailer"; label: string }[] = [
   { value: "sinopsis", label: "Synopsis" },
@@ -58,6 +59,13 @@ const AnimePage = () => {
   } else {
     visibleCharacters = animeCharacters?.slice(0, 15)
   }
+
+  const CARDS = [
+    {username: "Evoo", avatar: "https://i.pinimg.com/736x/2f/49/df/2f49dfa3f97e24eec56d24e9d704c43b.jpg" , review: "I really enjoyed this. The quality was good and it kept me interested from start to finish.", status: "completed", score:9},
+    {username: "Holiwiis", avatar: "https://i.pinimg.com/1200x/92/41/92/924192b2cdbec6802e7fe4229e2e1bd9.jpg" , review: "A very enjoyable experience overall. I liked it and would recommend it to others.", status: "completed", score:10},
+    {username: "Inoos", avatar: "https://i.pinimg.com/736x/27/ac/79/27ac796cfd2503506d53c20d93353448.jpg" , review: "This was better than I expected. It was interesting, well made, and worth checking out.", status: "watching", score:8},
+     {username: "Argüiñan0", avatar: "https://i.pinimg.com/736x/2d/e3/0d/2de30d1a61362c24cf88deda925d610e.jpg" , review: "I liked this a lot. Everything was easy to follow and enjoyable.", status: "completed", score:10},
+  ]
 
   if (isLoading) return <LoadingComponent />
   if (isError) return <ErrorComponent text="Something went wrong loading the anime data" />
@@ -180,7 +188,9 @@ const AnimePage = () => {
                 <h2 className="text-h2">Highligth reviews</h2>
                 <div className="review_carousel">
                   <div className="review_carousel_track">
-
+                     {[...CARDS, ...CARDS].map((card, i) => (
+                      <Review key={i} {...card} />
+                    ))}
                   </div>
                 </div>
               </div>

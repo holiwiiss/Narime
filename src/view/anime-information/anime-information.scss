@@ -381,7 +381,7 @@
 }
 
 .review_carousel {
-    margin-top: var(--space-xxl);
+    margin-top: var(--space-s);
     overflow: hidden;
     width: 100%;
     mask-image: linear-gradient(
@@ -391,7 +391,6 @@
         var(--color-menu-bg) 90%,
         transparent
     ); 
-    border: solid 2px red;
 }
 
 .review_carousel_track{
