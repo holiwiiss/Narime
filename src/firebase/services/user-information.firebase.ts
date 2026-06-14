@@ -10,7 +10,7 @@ export async function addUserToFirestore(
   await setDoc(doc(db, "users", userID), {
     userID,
     avatar: `https://api.dicebear.com/7.x/adventurer/svg?seed=${userID}`,
-    description: "Este usuario ha empezado a usar Narime",
+    description: "This user has started using Narime",
     email,
     followersCount: 0,
     followingCount: 0,

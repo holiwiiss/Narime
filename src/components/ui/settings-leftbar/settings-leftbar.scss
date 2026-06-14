@@ -3,7 +3,7 @@
     inset: 0 auto 0 0;
     display: flex;
     flex-direction: column;
-    padding: var(--space-xxl) var(--space-xxl);
+    padding: var(--space-xxl) var(--space-xl);
     gap: var(--space-xl);
     background-color: var(--color-white-10);
     border-right: 2px solid var(--color-white-10);
@@ -12,5 +12,21 @@
 .settings-nav__section{
     display: flex;
     flex-direction: column;
-    gap: var(--space-m)
+    gap: var(--space-xs)
+}
+
+.settings-nav--item {
+    padding: var(--space-xs)  var(--space-s);
+    border-radius: var(--border-radius-s);
+    &-active{
+        border: solid 2px var(--color-white-20);
+    }
+}
+
+.settings-nav--item:hover {
+    background-color: var(--color-white-20);
+}
+
+.settings-nav--back:hover {
+    color: var(--color-white);
 }

@@ -10,7 +10,7 @@ const Footer = () => {
         </div>
         <div className="footer__info"> 
           <nav aria-label="Footer" className="footer-nav">
-            <Link to="/directory" className="text-p footer-nav__item">Home</Link>
+            <Link to="/directory" className="text-p footer-nav__item">Explore</Link>
             <Link to="/discover" className="text-p footer-nav__item">Discover</Link>
             <Link to="" className="text-p footer-nav__item">Contact</Link>
             <Link to="/terms" className="text-p footer-nav__item">Terms</Link>

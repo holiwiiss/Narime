@@ -34,7 +34,7 @@ const Topbar = () => {
 
           <NavLink to='/discover' className={({ isActive }) => `action-item nav--option ${isActive ? "nav--option--active" : ""}`}>
             <IconDiscover className="size-6 action-item__icon"/>
-            <span className="text-p text-color--75 action-item__text">Filter</span>
+            <span className="text-p text-color--75 action-item__text">Discover</span>
           </NavLink>
 
           {user && 

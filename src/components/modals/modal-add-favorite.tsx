@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import { useDebounce } from "../../hooks/use-debounce";
 import { useAnimeSearch } from "../../hooks/use-anime-search";
+import ErrorComponent from "../error-component/error-component";
 
 type PropsModal = {
   listFavoriteId: number[],
@@ -15,7 +16,7 @@ type PropsModal = {
 }
 
 export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal) => {
-  const [inputValue, setInputValue] = useState("A");
+  const [inputValue, setInputValue] = useState("");
   const queryClient = useQueryClient()
   const debounceInput = useDebounce(inputValue, 300)
   const { isLoading, isError, searchList } = useAnimeSearch(debounceInput)
@@ -54,11 +55,11 @@ export const ModalAddFavorites = ({onClose, listFavoriteId, userId}: PropsModal)
           {isLoading ? (
             <LoadingComponent size="small"/>
           ) : isError ? (
-            <p className="text-h2 text-color--75" role="alert">Something went wrong</p>
+            <ErrorComponent text="Something went wrong"/>
           ) : inputValue==="" && searchList.length === 0 ? (
-            <p className="text-p text-color--75">Start searching</p>
+            <ErrorComponent text="Search something"/>
           ) : searchList.length === 0 ? (
-            <p className="text-p text-color--75" role="alert">Not found anime</p>
+            <ErrorComponent text="Not anime found"/>
           ) : (
             <ul>
               {searchList.map((anime: AnimeCardType) => (

@@ -113,7 +113,7 @@ const ForYou = () => {
         </>
       ) : (
         <>
-          <h1>No recommendations found</h1>
+          <ErrorComponent text="No anime recomendations found" />
         </>
       )}
         {modalAddEdit.isOpen && modalAddEdit.animeId &&(

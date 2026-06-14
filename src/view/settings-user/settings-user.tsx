@@ -92,10 +92,13 @@ const SettingsUSer = () => {
                   <div className="user-setting-personal-info">
                     <div className="user-setting-personal-info--header">
                       <p className="text-p">Language</p>
+
+                      
                     </div>
                   </div>
                 </div>
               </div>
+
             </>
           )}
           

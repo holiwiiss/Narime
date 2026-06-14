@@ -379,3 +379,24 @@
         }
     }
 }
+
+.review_carousel {
+    margin-top: var(--space-xxl);
+    overflow: hidden;
+    width: 100%;
+    mask-image: linear-gradient(
+        to right,
+        transparent,
+        var(--color-menu-bg) 10%,
+        var(--color-menu-bg) 90%,
+        transparent
+    ); 
+    border: solid 2px red;
+}
+
+.review_carousel_track{
+    display: flex;
+    gap: var(--space-m);
+    animation: scroll 30s linear infinite;
+    
+}

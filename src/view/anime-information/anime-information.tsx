@@ -163,7 +163,7 @@ const AnimePage = () => {
                 )}
               </div>
 
-              <div>
+              {/*<div>
                 <h2 className="text-h2">Tags</h2>
                 <div className="anime-page__tags-list">
                   <div className="anime-page__tag"><p className="text-p text-color--75"># {animeInfo.season} {animeInfo.year ?? "N/A"}</p></div>
@@ -173,6 +173,15 @@ const AnimePage = () => {
                   {animeInfo.studios.map((s)=> (
                     <div key={s} className="anime-page__tag"><p className="text-p text-color--75"># {s}</p></div>
                   ))}
+                </div>
+              </div>*/}
+
+              <div>
+                <h2 className="text-h2">Highligth reviews</h2>
+                <div className="review_carousel">
+                  <div className="review_carousel_track">
+
+                  </div>
                 </div>
               </div>
               
