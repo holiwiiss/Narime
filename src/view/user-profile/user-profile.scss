@@ -23,6 +23,12 @@
     background-position: center;
     background-size: cover;
     position: relative;
+    @include md {
+        height: 175px;
+    }
+    @include sm {
+        height: 125px;
+    }
 }
 
 .user-page__avatar {
@@ -37,6 +43,11 @@
     @include md {
         height: 150px;
         width: 150px;
+        inset: auto auto -40% var(--space-xl);
+    }
+    @include sm {
+        inset: auto auto -40% 50%;
+        transform: translateX(-50%);
     }
 }
 
@@ -49,9 +60,11 @@
     gap: var(--space-s);
     border-bottom: 2px solid var(--color-white-15);
     @include md {
+        margin-top: calc(75px + var(--space-m));
         padding: 0 var(--space-xl);
     }
     @include sm {
+        margin-top: calc(75px);
         padding: 0 var(--space-m);
     }
     @include xs {
@@ -67,6 +80,9 @@
 
 .user-page__biography {
     width: 50%;
+    @include sm {
+        width:100%;
+    }
 }
 
 .user-page__social-stats {
@@ -80,6 +96,9 @@
         gap: var(--space-s);
         border-radius: var(--border-radius-s);
     }
+    @include sm {
+       justify-content: center;
+    }
 }
 
 .user-page__social-stats-item {
@@ -90,10 +109,28 @@
 
 .user-page__tab {
     padding: 0 var(--space-5xl);
+    @include md {
+        padding: 0 var(--space-xl);
+    }
+    @include sm {
+        padding: 0 var(--space-m);
+    }
+    @include xs {
+        padding: 0 var(--space-s);
+    }
 }
 .user-page__content-area{
     padding: 0 var(--space-5xl);
     width: 100%;
+    @include md {
+        padding: 0 var(--space-xl);
+    }
+    @include sm {
+        padding: 0 var(--space-m);
+    }
+    @include xs {
+        padding: 0 var(--space-s);
+    }
 }
 
 .user-page__stats-grid {
@@ -121,6 +158,9 @@
     position: relative;
     overflow: hidden;
     padding:var(--space-xl);
+    @include md {
+        padding: var(--space-l);
+    }
 }
 
 .user-page__favorites {
