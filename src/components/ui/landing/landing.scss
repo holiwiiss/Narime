@@ -149,6 +149,13 @@
     }
 }
 
+.landing-screens__content {
+    @include sm{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+}
+
 
 .landing-screens--options {
     display: flex;
@@ -156,7 +163,6 @@
     width: calc(25% - var(--space-m) / 2);
     gap: var(--space-m);
     @include md{
-        flex-direction:row;
         width: 100%;
     }
 
@@ -175,6 +181,7 @@
         @include md{
             min-width: 25%;
         }
+
     }
 }
 .landing-screens--options--item:before{
@@ -198,6 +205,8 @@
     aspect-ratio: 16 / 9;
     border: solid 2px var(--color-white-20);
     border-radius: var(--border-radius-m);
+    object-fit: cover;
+    object-position: 0px 0px;
     @include md{
         width: 100%;
     }

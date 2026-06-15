@@ -68,7 +68,6 @@
 
 .anime-card:hover {
     transform: scale(1.05);
-    //box-shadow: 0 16px 40px rgba(229, 62, 62, 0.45);
 }
 
 .anime-card::before {
@@ -174,15 +173,23 @@
     overflow: hidden;
     opacity: 0;
     transition: width 0.2s ease, opacity 0.2s ease;
+    @include sm{
+        width: auto;
+        opacity: 1;
+    }
 }
 
 .anime-card:hover .anime-card__button {
     width: 80px; 
     opacity: 1;
+    @include sm{
+        width: auto;
+    }
 }
 .anime-card-fake:hover{
     transform: none;
 }
 .anime-card-fake {
     cursor: default;
+    min-width: 175px;
 }

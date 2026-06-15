@@ -43,8 +43,8 @@
     flex-direction: column;
     gap: var(--space-s);
     @include sm{
-       border: none;
-       align-items: center;
+        border: none;
+        align-items: center;
     }
 }
 

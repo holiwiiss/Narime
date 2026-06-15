@@ -8,7 +8,8 @@
         gap: var(--space-xs);
         overflow-x: auto;
         white-space: nowrap;  
-        scrollbar-width: none; 
+        scrollbar-width: none;
+        touch-action: pan-x;
         &::-webkit-scrollbar {
             display: none;
         }

@@ -62,7 +62,6 @@ const AnimeCard = ({anime, index =0, userData, onOpenModal, variant="default", f
             </div>
               
             {onOpenModal && (
-            
               <button className={`btn btn--small action-item anime-card__button ${userData ? "btn--secondary" : ""}`} onClick={(e) => {
               e.stopPropagation()
               onOpenModal(anime.id)

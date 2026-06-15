@@ -3,7 +3,6 @@
 .anime-page {
     padding: var(--space-xxl) var(--space-xxl);
     animation: page-in 0.5s ease both;
-    
     @include md{
         padding: var(--space-l) var(--space-xl);
     }
@@ -12,6 +11,14 @@
     }
 }
 
+.anime-page__btn {
+    position: fixed;
+    inset: auto var(--space-l) var(--space-l) auto;
+    opacity: 0.75;
+}
+.anime-page__btn:hover {
+    opacity: 1;
+}
 .anime-page__container {
     display: flex;
     @include sm {
@@ -119,7 +126,6 @@
     border-radius: var(--border-radius-m);
     display: flex;
     flex-direction: column;
-    position: relative;
     &-global {
         width: 100%;
         display: flex;
@@ -147,10 +153,6 @@
             padding: 0 var(--space-xs);
         }
     }
-}
-.anime-page__btn {
-    position: absolute;
-    inset: var(--space-s) var(--space-s) auto auto;
 }
 
 .anime-page__progress{
