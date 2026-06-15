@@ -1,6 +1,6 @@
 import "./anime-information.scss";
 import type { AnimeCharactersType, AnimeInformationType } from "../../services/anime-information/anime-information.type";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import ErrorComponent from "../../components/error-component/error-component";
 import LoadingComponent from "../../components/loading-component/loading-component";
 import { useMyListMap } from "../../hooks/use-my-list-map";
@@ -16,12 +16,18 @@ import ModalAddEditAnime from "../../components/modals/modal-add-edit";
 import Tabs from "../../components/ui/tabs/tabs";
 import { truncateWords } from "../../utils/truncate-word";
 import Review from "../../components/reviews/review";
+import { getRecomendationsAnimes } from "../../services/anime-recommendations/anime-recommendations";
 
-const ANIME_INFO_TABS: { value: "sinopsis" | "actors" | "trailer"; label: string }[] = [
+const ANIME_INFO_TABS: { value: "sinopsis" | "actors" | "trailer" | "similars"; label: string }[] = [
   { value: "sinopsis", label: "Synopsis" },
   { value: "actors", label: "Character roast" },
   { value: "trailer", label: "Trailer" },
+  { value: "similars" , label: "Similars"}
 ]
+const fecthAnimesRecommendations = async (animeId:number) => {
+  const data = await getRecomendationsAnimes(animeId)
+  return data
+}
 
 const AnimePage = () => {
 
@@ -31,7 +37,7 @@ const AnimePage = () => {
   const modalAddEdit = useAnimeModal()
   const { id } = useParams();
   const animeID = Number(id);
-  console.log(animeID + "aaa")
+  const navigate = useNavigate()
 
   const location = useLocation()
   const from = location.state?.from ?? "/directory"
@@ -44,7 +50,12 @@ const AnimePage = () => {
     queryKey:["animeInfo", animeID],
     queryFn:() => fetchAnimeInformation(animeID),
   })
-  
+
+  const {isLoading: isLoadingRecommendationsAnime, isError: isErrorRecommendationsAnime, data: recommendationsListAnime} = useQuery({
+    queryKey:["recommendationsList", animeID],
+    queryFn: () => fecthAnimesRecommendations(animeID),
+  })
+
   const animeInfo: AnimeInformationType | undefined = data?.info 
   const animeCharacters: AnimeCharactersType[] | undefined = data?.characters
 
@@ -64,7 +75,7 @@ const AnimePage = () => {
     {username: "Evoo", avatar: "https://i.pinimg.com/736x/2f/49/df/2f49dfa3f97e24eec56d24e9d704c43b.jpg" , review: "I really enjoyed this. The quality was good and it kept me interested from start to finish.", status: "completed", score:9},
     {username: "Holiwiis", avatar: "https://i.pinimg.com/1200x/92/41/92/924192b2cdbec6802e7fe4229e2e1bd9.jpg" , review: "A very enjoyable experience overall. I liked it and would recommend it to others.", status: "completed", score:10},
     {username: "Inoos", avatar: "https://i.pinimg.com/736x/27/ac/79/27ac796cfd2503506d53c20d93353448.jpg" , review: "This was better than I expected. It was interesting, well made, and worth checking out.", status: "watching", score:8},
-     {username: "Argüiñan0", avatar: "https://i.pinimg.com/736x/2d/e3/0d/2de30d1a61362c24cf88deda925d610e.jpg" , review: "I liked this a lot. Everything was easy to follow and enjoyable.", status: "completed", score:10},
+    {username: "Argüiñan0", avatar: "https://i.pinimg.com/736x/2d/e3/0d/2de30d1a61362c24cf88deda925d610e.jpg" , review: "I liked this a lot. Everything was easy to follow and enjoyable.", status: "completed", score:10},
   ]
 
   if (isLoading) return <LoadingComponent />
@@ -185,7 +196,7 @@ const AnimePage = () => {
               </div>*/}
 
               <div>
-                <h2 className="text-h2">Highligth reviews</h2>
+                <h2 className="text-h2">Highlighted reviews</h2>
                 <div className="review_carousel">
                   <div className="review_carousel_track">
                      {[...CARDS, ...CARDS].map((card, i) => (
@@ -257,9 +268,9 @@ const AnimePage = () => {
                     )}
 
                   </>
-                  ) : (
+                  ) : activeCategory === "trailer" ? (
                     <>
-                      {!animeInfo.trailer || animeInfo.trailer==="" ? (
+                    {!animeInfo.trailer || animeInfo.trailer==="" ? (
                         <ErrorComponent text="No trailer found"/>
                       ):(
                         <iframe 
@@ -270,6 +281,30 @@ const AnimePage = () => {
                           allowFullScreen
                           sandbox="allow-scripts allow-same-origin allow-presentation" 
                         />
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      {isLoadingRecommendationsAnime ? (
+                        <LoadingComponent/>
+                      ): !isLoadingRecommendationsAnime && isErrorRecommendationsAnime ? (
+                        <ErrorComponent text="Something went wrong"/>
+                      ): (
+                        <ul className="anime-page__characters">
+                        {recommendationsListAnime?.slice(0, 15).map((anime) => {
+                          return(
+                            <li key={anime.id} className="character-card anime-page-recomendations" onClick={()=> navigate(`/anime/${anime.id}`)}>
+                              <img className="character-card__img" src={anime.image} alt={anime.title}/>
+                              <div></div>
+                              <div className="character-card__footer">
+                                <div className="character-card__footer-text">
+                                  <p className="text-card--small character-card__name">{anime.title}</p>
+                                </div>
+                              </div>
+                            </li>
+                          )
+                        })}
+                        </ul>
                       )}
                     </>
                   )}   

@@ -399,3 +399,11 @@
     animation: scroll 30s linear infinite;
     
 }
+
+.review_carousel:hover .review_carousel_track {
+    animation-play-state: paused;
+}
+
+.anime-page-recomendations {
+    cursor: pointer;
+}

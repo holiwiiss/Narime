@@ -76,6 +76,7 @@
 }
 .tab-option__selected .tab-option__count{
     background-color: var(--color-red-primary);
+    color: var(--color-menu-bg);
 }
 
 .tab-option:hover::after {

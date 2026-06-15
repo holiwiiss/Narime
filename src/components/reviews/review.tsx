@@ -11,7 +11,6 @@ type Props = {
 const Review = ({username, avatar, review, status, score}:Props) => {
   return(
     <div className="review-card">
-      
       <div className="review-card-header">
         <div className="review-card-user">
           <img src={avatar} alt="user-avatar" className="icon-size-xl review-card-user-img"/>
@@ -20,9 +19,9 @@ const Review = ({username, avatar, review, status, score}:Props) => {
 
         <div className="review-card-user-valoration">
           <p className="text-details"> {score} / 10</p>
-          
         </div>
       </div>
+      
       <div>
         <span className="text-details badge" data-status={status}>{status}</span>
       </div>
