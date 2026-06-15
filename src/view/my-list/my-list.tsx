@@ -82,7 +82,7 @@ return(
           onChange={setSelectedFilter}
           onReset={() => setSelectedFilter("")}
           firstValue="Order by"
-          containerWidth="225px"
+          containerWidth="210px"
         />
 
         <div className="action-item input">

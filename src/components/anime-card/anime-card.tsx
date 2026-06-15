@@ -15,7 +15,7 @@ type PropsAnimeCard = {
   index?: number
   userData?: UserAnimeListFirestoreType;
   onOpenModal?: (animeId: number) => void;
-  variant?: "default" | "minimal" | "directory" | "upcoming" | "mylist" | "recomendations";
+  variant?: "default" | "minimal" | "directory" | "upcoming" | "mylist" | "recomendations" | "discover";
   fromState?: { from: string; label: string }; 
 }
 
@@ -26,12 +26,11 @@ const AnimeCard = ({anime, index =0, userData, onOpenModal, variant="default", f
   const isUpcoming = variant === "upcoming"
   const isMyList = variant === "mylist"
   const isRecommendations = variant ==="recomendations"
+  const isDiscover = variant ==="discover"
 
   const showScore = !isRecommendations && !isMinimal
   const showMeta = !isMinimal && !isRecommendations 
-  const showProgressBar = !isMinimal && !isDirectory && !isUpcoming && !isRecommendations
-
-
+  const showProgressBar = !isMinimal && !isDirectory && !isUpcoming && !isRecommendations && !isDiscover
   const navigate = useNavigate()
 
   return(

@@ -132,6 +132,7 @@ const DiscoverPage = () => {
         hasNextPage={hasNextPage}
         fetchNextPage={fetchNextPage}
         fromState={{from:'/discover', label:'Discover'}}
+        variant="discover"
       />
 
     </section>

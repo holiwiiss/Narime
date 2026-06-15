@@ -14,7 +14,7 @@ type Props = {
   hasNextPage?: boolean
   fetchNextPage?: () => void
   fromState: { from: string; label: string }
-  variant?: "default" | "minimal" | "directory" | "upcoming" | "mylist" | "recomendations";
+  variant?: "default" | "minimal" | "directory" | "upcoming" | "mylist" | "recomendations" | "discover";
   emptyState?: React.ReactNode
   emptyText?: string
 }
