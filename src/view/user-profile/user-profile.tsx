@@ -107,7 +107,7 @@ const UserPage = () => {
 
                   <div className="stats-card">
                     <p className="text-p text-color--75">Watched Anime Films</p>
-                    <p className="text-h1">15</p>
+                    <p className="text-h1">2</p>
                     <p className="text-details text-color--50">In {stats.total} animes</p>
                   </div>
                 </div>

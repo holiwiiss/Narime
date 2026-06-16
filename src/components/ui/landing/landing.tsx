@@ -90,7 +90,7 @@ const Landing = () => {
           <div className="landing-screens__content">
             <ul className="landing-screens--options">
               <li className={`landing-screens--options--item ${activeBtn === "directory" ? "landing--item-active" : ""}`} onClick={() => {setActiveBtn("directory") ; setCurrentImage(directoryImg)}}>
-                <h3 className="text-h3 landing-h3">Directory</h3>
+                <h3 className="text-h3 landing-h3">Explore</h3>
                 <p className={`text-p text-color--75 ${activeBtn !== "directory" ? "visually-hidden" : ""}`}>Find anime by genre, season, or popularity and add your favorites in seconds.</p>
               </li>
               <li className={`landing-screens--options--item ${activeBtn === "mylist" ? "landing--item-active" : ""}`} onClick={() => {setActiveBtn("mylist"); setCurrentImage(myListImg)}}>

@@ -8,7 +8,7 @@ import type { UserAnimeListFirestoreType } from "../../firebase/services/firesto
 import { useAnimeModal } from "../../hooks/use-anime-modal";
 import { useQuery } from "@tanstack/react-query";
 import { formatDate, formatNumber, formatSynopsis } from "../../utils/format";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchAnimeInformation } from "../../queries/anime-information-page.queries";
 import { calculateWidth } from "../../utils/calculate-width";
 import { formatStatus } from "../../utils/format-status";
@@ -31,7 +31,7 @@ const fecthAnimesRecommendations = async (animeId:number) => {
 
 const AnimePage = () => {
 
-  const [activeCategory, setActiveCategory] = useState <"sinopsis" | "actors" | "trailer">("sinopsis")
+  const [activeCategory, setActiveCategory] = useState <"sinopsis" | "actors" | "trailer" | "similars">("sinopsis")
   const [showAllCharacters, setShowAllCharacters] = useState(false)
   
   const modalAddEdit = useAnimeModal()
@@ -63,6 +63,10 @@ const AnimePage = () => {
       const userData = getUserListData(anime.id);
       modalAddEdit.openModal(anime.id, anime.episodes, anime.title, userData);
   };
+  
+  useEffect(() => {
+    setActiveCategory("sinopsis")
+  }, [id])
 
   let visibleCharacters
   if (showAllCharacters) {
@@ -201,7 +205,7 @@ const AnimePage = () => {
               <Tabs
                 options={ANIME_INFO_TABS}
                 activeValue={activeCategory}
-                onChange={(value) => setActiveCategory (value as "sinopsis" | "actors" | "trailer")}
+                onChange={(value) => setActiveCategory (value as "sinopsis" | "actors" | "trailer" | "similars")}
                 variant="small"
               />
             </div>

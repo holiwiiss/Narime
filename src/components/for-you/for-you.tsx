@@ -5,7 +5,7 @@ import type { AnimeCardType } from "../../services/anime-list/anime-list.type";
 import AnimeCard from "../anime-card/anime-card";
 import type { AnimeRecomendationCardType } from "../../services/anime-recommendations/anime-recommendations.type";
 import { getRecomendationsAnimes } from "../../services/anime-recommendations/anime-recommendations";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useRef } from "react";
 import { useMyListMap } from "../../hooks/use-my-list-map";
 import { useAnimeModal } from "../../hooks/use-anime-modal";
 import type { UserAnimeListFirestoreType } from "../../firebase/services/firestore-service.type";
@@ -49,7 +49,13 @@ const ForYou = () => {
     return myListWatching.map((a: UserAnimeListFirestoreType) => a.animeId)
   }, [myListWatching])
 
-  const randomId = useMemo(() => getRandomAnime(myList), [myList])
+  const randomId = useRef<{ id: number; title: string } | null>(null);
+
+if (!randomId.current && myList.length > 0) {
+  randomId.current = getRandomAnime(myList);
+}
+
+const currentRandomId = randomId.current ?? { id: 16498, title: "Unknown" }
   
   const {isLoading: isLoadingWatching, isError: isErrorWatching, data: myAnimeListWatching} = useQuery({
     queryKey:["myAnimeListWatching", watchingIds],
@@ -58,8 +64,8 @@ const ForYou = () => {
   })
 
   const {isLoading: isLoadingRecommendations, isError: isErrorRecommendations, data: recommendationsList} = useQuery({
-    queryKey:["recommendationsList", randomId.id],
-    queryFn: () => fecthAnimesRecommendations(randomId.id, getUserListData),
+    queryKey:["recommendationsList", currentRandomId.id],
+    queryFn: () => fecthAnimesRecommendations(currentRandomId.id, getUserListData),
     enabled: myList.length > 0
   })
 
@@ -100,7 +106,7 @@ const ForYou = () => {
         <ErrorComponent text="Something went wrong"></ErrorComponent>
       ) : recommendationsList && recommendationsList?.length ? (
         <>
-          {randomId.title !== "Unknown" ? (<h2 className="text-h2 para-ti__subtitle">Because you liked {randomId.title}</h2>): (<h2 className="text-h2 para-ti__subtitle">Recommendations to get started</h2>)}
+          {currentRandomId.title !== "Unknown" ? (<h2 className="text-h2 para-ti__subtitle">Because you liked {currentRandomId.title}</h2>): (<h2 className="text-h2 para-ti__subtitle">Recommendations to get started</h2>)}
           <section className="cards__grid">
             {recommendationsList.map((anime: AnimeRecomendationCardType) => (
               <AnimeCard
