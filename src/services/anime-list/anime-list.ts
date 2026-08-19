@@ -65,7 +65,7 @@ export async function getSeasonalAnimes(numPage:number): Promise<AnimeListRespon
   const { data } = await jikanApiUrl.get<{ data: JikanAnimeListType[], pagination: JikanPaginationType}>("/seasons/now", {
     params: {
       page: numPage,
-      sfw: true,
+      sfw:true
     },
   });
 
@@ -100,7 +100,7 @@ export async function getTrendingAnimes(numPage:number): Promise<AnimeListRespon
     params: {
       filter: "bypopularity",
       page: numPage,
-      sfw: true,
+      sfw:true
     },
   });
 

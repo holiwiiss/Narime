@@ -31,7 +31,7 @@ export async function searchAnime(animeName:string, page:number, animeLimit: num
       page: page,
       order_by: "popularity",
       limit: animeLimit,
-      sfw: true,
+      /*sfw:true*/
     },
     signal
   })
@@ -68,7 +68,7 @@ export async function discoverAnime(
       ...(finalSort && { sort: finalSort }),
       ...(finalOrder && {order_by: finalOrder}),
       page,
-      sfw: true,
+      sfw:true
     }
   })
 
